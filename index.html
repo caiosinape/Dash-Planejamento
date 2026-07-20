@@ -1380,10 +1380,10 @@ svg {
     function criticalScore(row) {
       let score = row["Situação do Contrato"] < 0 ? 6 : row["Situação do Contrato"] === 0 ? 3 : 0;
       if (numeric(row["%OEE"]) && row["%OEE"] < 0.40) score += 3;
-      if (numeric(row["%Planejado x Executado"]) && row["%Planejado x Executado"] < 0.95) score += 3;
+      if (numeric(row["%Planejado x Executado"]) && row["%Planejado x Executado"] < 0.90) score += 3;
       if (numeric(row["%Horas Extras"]) && row["%Horas Extras"] >= 0.20) score += 2;
       if (numeric(row["%Retrabalho"]) && row["%Retrabalho"] >= 0.10) score += 2;
-      if (numeric(row["%Ociosidade"]) && Math.abs(row["%Ociosidade"]) >= 0.05) score += 2;
+      if (numeric(row["%Ociosidade"]) && Math.abs(row["%Ociosidade"]) >= 0.10) score += 2;
       return score;
     }
 
@@ -1469,9 +1469,9 @@ svg {
       const issues = [];
       if (row["Situação do Contrato"] < 0) issues.push({ severity: 6, text: "Situação contratual crítica" });
       if (numeric(row["%OEE"]) && row["%OEE"] < 0.40) issues.push({ severity: 0.40 - row["%OEE"], text: `OEE em ${formatValue(row["%OEE"], "percent")}` });
-      if (numeric(row["%Planejado x Executado"]) && row["%Planejado x Executado"] < 0.95) issues.push({ severity: 0.95 - row["%Planejado x Executado"], text: `Planejado × Executado em ${formatValue(row["%Planejado x Executado"], "percent")}` });
+      if (numeric(row["%Planejado x Executado"]) && row["%Planejado x Executado"] < 0.90) issues.push({ severity: 0.90 - row["%Planejado x Executado"], text: `Planejado × Executado em ${formatValue(row["%Planejado x Executado"], "percent")}` });
       if (numeric(row["%Horas Extras"]) && row["%Horas Extras"] >= 0.20) issues.push({ severity: row["%Horas Extras"], text: `Horas extras em ${formatValue(row["%Horas Extras"], "percent")}` });
-      if (numeric(row["%Ociosidade"]) && Math.abs(row["%Ociosidade"]) >= 0.05) issues.push({ severity: Math.abs(row["%Ociosidade"]), text: `Ociosidade em ${formatValue(row["%Ociosidade"], "percent")}` });
+      if (numeric(row["%Ociosidade"]) && Math.abs(row["%Ociosidade"]) >= 0.10) issues.push({ severity: Math.abs(row["%Ociosidade"]), text: `Ociosidade em ${formatValue(row["%Ociosidade"], "percent")}` });
       issues.sort((a, b) => b.severity - a.severity);
       return issues.length ? issues[0].text : "Acompanhar indicadores do período";
     }
