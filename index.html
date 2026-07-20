@@ -31,11 +31,13 @@
     #sinape-contract-dashboard .road-art {
       position: absolute;
       z-index: 0;
-      inset: 0 0 0 auto;
-      width: min(68%, 980px);
-      height: 100%;
+      top: 0;
+      right: 18%;
+      left: 44%;
+      width: auto;
+      height: 112px;
       pointer-events: none;
-      opacity: .34;
+      opacity: .72;
     }
     #sinape-contract-dashboard .dash-header {
       position: relative;
@@ -166,7 +168,7 @@
     #sinape-contract-dashboard .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin: 20px 0 10px; }
     #sinape-contract-dashboard .section-heading h2 { color: var(--sinape-dark); font-size: 19px; font-weight: 500; margin: 0; }
     #sinape-contract-dashboard .section-heading p { color: var(--sinape-muted); font-size: 11px; margin: 0; }
-    #sinape-contract-dashboard .executive-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+    #sinape-contract-dashboard .executive-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
     #sinape-contract-dashboard .exec-card { min-height: 150px; padding: 15px; border: 1px solid #e5eef0; border-radius: 16px; background: #fff; box-shadow: 0 10px 26px rgba(0,81,114,.08); overflow: hidden; }
     #sinape-contract-dashboard .exec-card.health-card { background: linear-gradient(145deg, #eaf7f7, #fff); border-color: #c8e5e6; }
     #sinape-contract-dashboard .exec-label { color: var(--sinape-muted); font-size: 11px; min-height: 29px; }
@@ -218,13 +220,13 @@
     #sinape-contract-dashboard summary { color: var(--sinape-dark); font-size: 13px; font-weight: 500; cursor: pointer; }
     #sinape-contract-dashboard details .metrics { margin-top: 13px; }
     @media (max-width: 1100px) {
+      #sinape-contract-dashboard .road-art { display: none; }
       #sinape-contract-dashboard .executive-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       #sinape-contract-dashboard .charts-grid, #sinape-contract-dashboard .decision-grid { grid-template-columns: 1fr; }
       #sinape-contract-dashboard .metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
     @media (max-width: 760px) {
       #sinape-contract-dashboard { padding: 12px; }
-      #sinape-contract-dashboard .road-art { width: 100%; opacity: .2; }
       #sinape-contract-dashboard .dash-header { align-items: flex-start; }
       #sinape-contract-dashboard .brand img { width: 74px; height: 54px; }
       #sinape-contract-dashboard .source-stamp { display: none; }
@@ -250,30 +252,31 @@
   </style>
   <main class="dash-shell">
     <section class="hero-band" aria-label="Cabeçalho e filtros">
-      <svg class="road-art" viewBox="0 0 980 210" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <svg class="road-art" viewBox="0 0 600 112" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
         <defs>
           <linearGradient id="sinape-road" x1="0" y1="1" x2="1" y2="0">
-            <stop offset="0" stop-color="#002f43" stop-opacity=".28"/>
-            <stop offset="1" stop-color="#001f2d" stop-opacity=".72"/>
+            <stop offset="0" stop-color="#00384e" stop-opacity=".78"/>
+            <stop offset="1" stop-color="#002334" stop-opacity=".92"/>
           </linearGradient>
-          <linearGradient id="sinape-horizon" x1="0" x2="1">
-            <stop offset="0" stop-color="#63c1c4" stop-opacity="0"/>
-            <stop offset=".58" stop-color="#63c1c4" stop-opacity=".65"/>
-            <stop offset="1" stop-color="#63c1c4" stop-opacity=".08"/>
+          <linearGradient id="sinape-road-glow" x1="0" x2="1">
+            <stop offset="0" stop-color="#63c1c4" stop-opacity=".12"/>
+            <stop offset=".55" stop-color="#9fe0e2" stop-opacity=".88"/>
+            <stop offset="1" stop-color="#63c1c4" stop-opacity=".2"/>
           </linearGradient>
         </defs>
-        <path d="M240 230 C390 170 520 143 980 104 L980 230 Z" fill="url(#sinape-road)"/>
-        <path d="M240 230 C390 170 520 143 980 104" fill="none" stroke="#63c1c4" stroke-width="5" stroke-opacity=".88"/>
-        <path d="M410 230 C520 179 660 148 980 117" fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="28 24" stroke-opacity=".74"/>
-        <path d="M0 116 C220 88 360 91 545 111 C690 127 816 119 980 82" fill="none" stroke="url(#sinape-horizon)" stroke-width="2"/>
-        <g transform="translate(720 36)" stroke="#9fe0e2" fill="none" stroke-opacity=".8">
-          <path d="M0 72 V12 M82 72 V12 M-8 14 H90" stroke-width="4"/>
-          <rect x="5" y="0" width="70" height="30" rx="5" fill="#63c1c4" fill-opacity=".18" stroke-width="2"/>
-          <path d="M24 10 H57 M24 19 H48" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+        <path d="M18 112 C122 87 213 82 296 82 C393 82 454 63 586 24 L600 112 Z" fill="url(#sinape-road)"/>
+        <path d="M18 111 C126 85 213 78 296 78 C393 78 452 59 586 19" fill="none" stroke="url(#sinape-road-glow)" stroke-width="3.5"/>
+        <path d="M84 112 C171 91 239 87 304 87 C400 87 467 66 600 27" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-dasharray="20 16" stroke-opacity=".9"/>
+        <path d="M178 112 C237 97 279 95 322 95 C416 95 487 72 600 38" fill="none" stroke="#63c1c4" stroke-width="2.5" stroke-opacity=".94"/>
+        <path d="M7 101 C108 76 213 71 299 71 C387 71 446 55 579 14" fill="none" stroke="#9fe0e2" stroke-width="1.8" stroke-opacity=".78"/>
+        <g transform="translate(382 4)" stroke="#9fe0e2" fill="none" stroke-opacity=".96">
+          <path d="M0 60 V15 M96 60 V15 M-7 16 H103" stroke-width="2.5"/>
+          <path d="M3 15 l8 -8 m4 8 l8 -8 m4 8 l8 -8 m4 8 l8 -8 m4 8 l8 -8 m4 8 l8 -8 m4 8 l8 -8" stroke-width="1"/>
+          <rect x="24" y="1" width="55" height="24" rx="4" fill="#63c1c4" fill-opacity=".35" stroke-width="1.6"/>
+          <path d="M38 9 v8 m0 0 -4 -4 m4 4 4 -4 M53 9 v8 m0 0 -4 -4 m4 4 4 -4 M68 9 v8 m0 0 -4 -4 m4 4 4 -4" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </g>
-        <g transform="translate(580 132)" stroke="#63c1c4" stroke-opacity=".82">
-          <path d="M0 52 V8" stroke-width="3"/>
-          <path d="M0 8 L18 16 L0 24 Z" fill="#63c1c4" fill-opacity=".45" stroke-width="2"/>
+        <g fill="#9fe0e2" stroke="#ffffff" stroke-width=".8" stroke-opacity=".82">
+          <path d="M505 72 l6 -19 6 19 z"/><path d="M535 82 l7 -22 7 22 z"/><path d="M560 91 l8 -26 8 26 z"/>
         </g>
       </svg>
     <header class="dash-header">
@@ -637,7 +640,6 @@
       executiveCards.replaceChildren();
       const previous = previousRows();
       const oee = averageKey(rows, "%OEE");
-      const planned = averageKey(rows, "%Planejado x Executado");
       const revenue = averageKey(rows, "Receita Executada RDO");
       const revenueMeta = averageKey(rows, "Receita Meta");
       const adherencePlanned = averageKey(rows, "%Aderência ao Planejado");
@@ -647,7 +649,6 @@
       const status = consolidatedStatus(rows);
       createExecutiveCard("Situação consolidada", "", status.label, status.css, status.css, null);
       createExecutiveCard("% OEE", formatValue(oee, "percent"), `Meta 60% · ${executiveComparison(oee, averageKey(previous, "%OEE"))}`, semanticClass("oee", oee), null, "%OEE");
-      createExecutiveCard("% Planejado × Executado", formatValue(planned, "percent"), `Meta 100% · ${executiveComparison(planned, averageKey(previous, "%Planejado x Executado"))}`, semanticClass("adherence", planned), null, "%Planejado x Executado");
       createExecutiveCard("Receita Executada RDO", formatValue(revenue, "currency"), revenueContext, numeric(revenueGap) ? (revenueGap >= 0 ? "green" : revenueGap >= -0.05 ? "yellow" : "red") : "", null, "Receita Executada RDO");
       createExecutiveCard("% Aderência ao Planejado", formatValue(adherencePlanned, "percent"), `Meta 100% · ${executiveComparison(adherencePlanned, averageKey(previous, "%Aderência ao Planejado"))}`, semanticClass("adherence", adherencePlanned), null, "%Aderência ao Planejado");
       createExecutiveCard("% Aderência à Meta", formatValue(adherenceMeta, "percent"), `Meta 100% · ${executiveComparison(adherenceMeta, averageKey(previous, "%Aderência a Meta"))}`, semanticClass("adherence", adherenceMeta), null, "%Aderência a Meta");
