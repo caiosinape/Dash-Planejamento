@@ -216,6 +216,21 @@
     #sinape-contract-dashboard .panel-title { color: var(--sinape-dark); font-size: 15px; font-weight: 500; margin: 0 0 16px; }
     #sinape-contract-dashboard .progress-labels { display: flex; justify-content: space-between; align-items: baseline; color: var(--sinape-muted); font-size: 12px; margin-bottom: 8px; }
     #sinape-contract-dashboard .progress-current { color: var(--sinape-dark); font-size: 22px; font-weight: 500; }
+    #sinape-contract-dashboard .contract-finished {
+      display: inline-flex;
+      align-items: center;
+      margin-left: 9px;
+      padding: 4px 9px;
+      color: #FFFFFF;
+      background: var(--snp-green);
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      vertical-align: middle;
+      box-shadow: 0 1px 3px rgba(13,27,42,.14);
+    }
+    #sinape-contract-dashboard .contract-finished[hidden] { display: none; }
     #sinape-contract-dashboard .progress-track { width: 100%; height: 24px; border-radius: 999px; background: var(--snp-track); overflow: hidden; position: relative; }
     #sinape-contract-dashboard .progress-fill { height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--snp-petrol), var(--snp-cyan)); transition: width .35s ease; }
     #sinape-contract-dashboard .scale { display: flex; justify-content: space-between; color: var(--sinape-muted); font-size: 11px; margin-top: 6px; }
@@ -430,7 +445,7 @@
     <section class="bottom-grid">
       <article class="panel">
         <h3 class="panel-title">% Avanço Obra</h3>
-        <div class="progress-labels"><span>Avanço do filtro</span><strong class="progress-current" id="sinape-progress-value">—</strong></div>
+        <div class="progress-labels"><span>Avanço do filtro <strong class="contract-finished" id="sinape-contract-finished" hidden>CONTRATO FINALIZADO</strong></span><strong class="progress-current" id="sinape-progress-value">—</strong></div>
         <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="sinape-progress-track">
           <div class="progress-fill" id="sinape-progress-fill"></div>
         </div>
@@ -484,13 +499,14 @@
     const progressValue = root.querySelector("#sinape-progress-value");
     const progressFill = root.querySelector("#sinape-progress-fill");
     const progressTrack = root.querySelector("#sinape-progress-track");
+    const contractFinishedNode = root.querySelector("#sinape-contract-finished");
     const startDateNode = root.querySelector("#sinape-start-date");
     const endDateNode = root.querySelector("#sinape-end-date");
 
     const specs = [
       { key: "%OEE", label: "% OEE", format: "percent", rule: "oee", tooltip: "Eficiência produtiva em relação ao potencial de produção. Verde: valor maior ou igual a 60%. Amarelo: de 40% até abaixo de 60%. Vermelho: abaixo de 40%." },
       { key: "%Horas Extras", label: "% Horas Extras", format: "percent", rule: "hours", tooltip: "Percentual de horas extras em relação às horas trabalhadas. Verde: abaixo de 10%. Amarelo: de 10% até abaixo de 20%. Vermelho: 20% ou mais." },
-      { key: "%Retrabalho", label: "% Retrabalho", format: "percent2", rule: "rework", tooltip: "Percentual de serviços que precisaram ser refeitos ou corrigidos. Verde: valor menor ou igual a 0%. Amarelo: acima de 0% e abaixo de 10%. Vermelho: 10% ou mais." },
+      { key: "%Retrabalho", label: "% Retrabalho", format: "percent2", rule: "rework", tooltip: "Percentual de serviços que precisaram ser refeitos ou corrigidos. A cor considera o mesmo valor arredondado a duas casas exibido no card. Verde: 0,00% ou menos. Amarelo: acima de 0,00% e abaixo de 10,00%. Vermelho: 10,00% ou mais." },
       { key: "%Ociosidade", label: "% Ociosidade", format: "percent", rule: "deviation", tooltip: "Desvio de utilização da capacidade em relação ao planejado; o ideal é zero. Verde: exatamente 0%. Amarelo: entre -10% e 10%, sem incluir os extremos. Vermelho: menor ou igual a -10% ou maior ou igual a 10%." },
       { key: "%Consumo - Curva A", label: "% Consumo — Curva A", format: "percent", rule: "deviation", tooltip: "Desvio do consumo de materiais Curva A em relação ao planejado; o ideal é zero. Verde: exatamente 0%. Amarelo: entre -10% e 10%, sem incluir os extremos. Vermelho: menor ou igual a -10% ou maior ou igual a 10%." },
       { key: "%Planejado x Executado", label: "% Planejado x Executado", format: "percent", rule: "adherence", tooltip: "Compara o volume executado com o volume planejado. Verde: 100% ou mais. Amarelo: de 90% até abaixo de 100%. Vermelho: abaixo de 90%." },
@@ -616,13 +632,18 @@
 
     function semanticClass(rule, rawValue) {
       if (!rule || !numeric(rawValue)) return "";
-      const pct = rawValue * 100;
+      const decimals = rule === "rework" ? 2 : 1;
+      const factor = 10 ** decimals;
+      const pct = Math.round((rawValue * 100 + Number.EPSILON) * factor) / factor;
       if (rule === "hours") return pct < 10 ? "green" : pct < 20 ? "yellow" : "red";
       if (rule === "oee") return pct < 40 ? "red" : pct < 60 ? "yellow" : "green";
       if (rule === "rework") return pct <= 0 ? "green" : pct < 10 ? "yellow" : "red";
-      if (rule === "deviation") return Math.abs(pct) < 0.000001 ? "green" : Math.abs(pct) < 10 ? "yellow" : "red";
+      if (rule === "deviation") return pct === 0 ? "green" : Math.abs(pct) < 10 ? "yellow" : "red";
       if (rule === "adherence") return pct >= 100 ? "green" : pct >= 90 ? "yellow" : "red";
-      if (rule === "teams") return rawValue > 2 ? "red" : rawValue > 1 ? "yellow" : "green";
+      if (rule === "teams") {
+        const displayed = Math.round((rawValue + Number.EPSILON) * 10) / 10;
+        return displayed > 2 ? "red" : displayed > 1 ? "yellow" : "green";
+      }
       return "";
     }
 
@@ -1009,6 +1030,7 @@
       progressFill.style.width = `${bounded}%`;
       progressTrack.setAttribute("aria-valuenow", String(Math.round(bounded)));
       progressTrack.setAttribute("aria-valuetext", progressValue.textContent);
+      contractFinishedNode.hidden = !(numeric(rawValue) && bounded >= 100);
       renderSchedule(rows);
     }
 
