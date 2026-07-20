@@ -144,6 +144,7 @@
     #sinape-contract-dashboard .metric-label { color: var(--sinape-muted); font-size: 12px; line-height: 1.25; }
     #sinape-contract-dashboard .metric-label-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
     #sinape-contract-dashboard .metric-info {
+      position: relative;
       width: 18px;
       height: 18px;
       flex: 0 0 18px;
@@ -156,9 +157,56 @@
       font-size: 11px;
       font-weight: 600;
       line-height: 1;
-      cursor: help;
+      cursor: pointer;
     }
     #sinape-contract-dashboard .metric-info:focus-visible { outline: 2px solid var(--sinape-primary); outline-offset: 2px; }
+    #sinape-contract-dashboard .metric-info::before {
+      content: "";
+      position: absolute;
+      z-index: 81;
+      top: 23px;
+      right: 4px;
+      border: 6px solid transparent;
+      border-bottom-color: var(--snp-navy);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-4px);
+      transition: opacity .16s ease, transform .16s ease, visibility .16s ease;
+    }
+    #sinape-contract-dashboard .metric-info::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      z-index: 80;
+      top: 34px;
+      right: -4px;
+      width: min(310px, calc(100vw - 54px));
+      padding: 11px 13px;
+      color: #FFFFFF;
+      background: var(--snp-navy);
+      border: 1px solid rgba(102,199,221,.42);
+      border-radius: 10px;
+      box-shadow: 0 10px 26px rgba(13,27,42,.24);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.45;
+      text-align: left;
+      white-space: normal;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-4px);
+      transition: opacity .16s ease, transform .16s ease, visibility .16s ease;
+    }
+    #sinape-contract-dashboard .metric-info:hover::before,
+    #sinape-contract-dashboard .metric-info:hover::after,
+    #sinape-contract-dashboard .metric-info:focus::before,
+    #sinape-contract-dashboard .metric-info:focus::after,
+    #sinape-contract-dashboard .metric-info.tooltip-open::before,
+    #sinape-contract-dashboard .metric-info.tooltip-open::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
     #sinape-contract-dashboard .metric-value { color: var(--sinape-primary); font-size: clamp(22px, 2vw, 30px); font-weight: 500; line-height: 1; overflow-wrap: anywhere; }
     #sinape-contract-dashboard .metric-value.green { color: var(--sinape-green); }
     #sinape-contract-dashboard .metric-value.yellow { color: var(--sinape-yellow); }
@@ -896,8 +944,9 @@
         info.className = "metric-info";
         info.textContent = "i";
         info.tabIndex = 0;
-        info.setAttribute("role", "img");
+        info.setAttribute("role", "button");
         info.setAttribute("aria-label", `Explicação e meta de ${spec.label}`);
+        info.setAttribute("aria-expanded", "false");
         info.setAttribute("data-tooltip", spec.tooltip);
         labelRow.append(label, info);
         const value = document.createElement("div");
@@ -948,6 +997,30 @@
     contractFilter.addEventListener("change", render);
     periodFilter.addEventListener("change", render);
     trendMetric.addEventListener("change", renderTrendChart);
+    const closeMetricTooltips = except => {
+      metricsNode.querySelectorAll(".metric-info.tooltip-open").forEach(node => {
+        if (node === except) return;
+        node.classList.remove("tooltip-open");
+        node.setAttribute("aria-expanded", "false");
+      });
+    };
+    metricsNode.addEventListener("click", event => {
+      const info = event.target.closest(".metric-info");
+      if (!info) return;
+      const shouldOpen = !info.classList.contains("tooltip-open");
+      closeMetricTooltips(info);
+      info.classList.toggle("tooltip-open", shouldOpen);
+      info.setAttribute("aria-expanded", String(shouldOpen));
+    });
+    metricsNode.addEventListener("keydown", event => {
+      const info = event.target.closest(".metric-info");
+      if (!info || !["Enter", " "].includes(event.key)) return;
+      event.preventDefault();
+      info.click();
+    });
+    root.addEventListener("click", event => {
+      if (!event.target.closest(".metric-info")) closeMetricTooltips();
+    });
     resetFilters.addEventListener("click", () => {
       viewFilter.value = "general";
       contractFilter.value = "all";
