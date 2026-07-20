@@ -290,6 +290,26 @@
     #sinape-contract-dashboard details { margin-top: 14px; border: 1px solid var(--sinape-line); border-radius: 14px; padding: 13px 15px; background: var(--sinape-soft); }
     #sinape-contract-dashboard summary { color: var(--sinape-dark); font-size: 13px; font-weight: 500; cursor: pointer; }
     #sinape-contract-dashboard details .metrics { margin-top: 13px; }
+    #sinape-contract-dashboard .dash-footer { display: flex; justify-content: flex-end; margin-top: 18px; padding: 12px 2px 2px; }
+    #sinape-contract-dashboard .bi-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 42px;
+      padding: 9px 14px;
+      color: #FFFFFF;
+      background: var(--snp-navy);
+      border: 1px solid var(--snp-petrol);
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(13,27,42,.14);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform .16s ease, background .16s ease, box-shadow .16s ease;
+    }
+    #sinape-contract-dashboard .bi-link:hover { background: var(--snp-petrol-dark); box-shadow: 0 6px 16px rgba(13,27,42,.18); transform: translateY(-1px); }
+    #sinape-contract-dashboard .bi-link:focus-visible { outline: 3px solid rgba(102,199,221,.48); outline-offset: 2px; }
+    #sinape-contract-dashboard .bi-link svg { width: 23px; height: 23px; flex: 0 0 23px; }
     @media (max-width: 1100px) {
       #sinape-contract-dashboard .road-art { display: none; }
       #sinape-contract-dashboard .executive-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -425,6 +445,16 @@
       <summary>Ver todos os indicadores do filtro</summary>
       <section class="metrics" id="sinape-metrics" aria-label="Todos os indicadores"></section>
     </details>
+    <footer class="dash-footer">
+      <a class="bi-link" href="https://app.powerbi.com/view?r=eyJrIjoiNDljYWI3NWYtN2IwNy00NzIwLWE1YzAtMDc5YmYyNWI1NzY2IiwidCI6Ijk2OWM4Yjg2LWM2NTctNDI2ZS1hZTNmLWI1MGE1NzYzYmJkNCJ9" target="_blank" rel="noopener noreferrer" aria-label="Abrir relatório no Power BI em uma nova aba">
+        <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+          <rect x="3" y="11" width="4" height="9" rx="1" fill="#E8A200"></rect>
+          <rect x="9" y="7" width="4" height="13" rx="1" fill="#E8A200" fill-opacity=".82"></rect>
+          <rect x="15" y="3" width="4" height="17" rx="1" fill="#66C7DD"></rect>
+        </svg>
+        <span>Abrir Power BI</span>
+      </a>
+    </footer>
   </main>
 
   <script>
@@ -459,7 +489,7 @@
     const specs = [
       { key: "%OEE", label: "% OEE", format: "percent", rule: "oee", tooltip: "Eficiência produtiva em relação ao potencial de produção. Verde: valor maior ou igual a 60%. Amarelo: de 40% até abaixo de 60%. Vermelho: abaixo de 40%." },
       { key: "%Horas Extras", label: "% Horas Extras", format: "percent", rule: "hours", tooltip: "Percentual de horas extras em relação às horas trabalhadas. Verde: abaixo de 10%. Amarelo: de 10% até abaixo de 20%. Vermelho: 20% ou mais." },
-      { key: "%Retrabalho", label: "% Retrabalho", format: "percent", rule: "rework", tooltip: "Percentual de serviços que precisaram ser refeitos ou corrigidos. Verde: valor menor ou igual a 0%. Amarelo: acima de 0% e abaixo de 10%. Vermelho: 10% ou mais." },
+      { key: "%Retrabalho", label: "% Retrabalho", format: "percent2", rule: "rework", tooltip: "Percentual de serviços que precisaram ser refeitos ou corrigidos. Verde: valor menor ou igual a 0%. Amarelo: acima de 0% e abaixo de 10%. Vermelho: 10% ou mais." },
       { key: "%Ociosidade", label: "% Ociosidade", format: "percent", rule: "deviation", tooltip: "Desvio de utilização da capacidade em relação ao planejado; o ideal é zero. Verde: exatamente 0%. Amarelo: entre -10% e 10%, sem incluir os extremos. Vermelho: menor ou igual a -10% ou maior ou igual a 10%." },
       { key: "%Consumo - Curva A", label: "% Consumo — Curva A", format: "percent", rule: "deviation", tooltip: "Desvio do consumo de materiais Curva A em relação ao planejado; o ideal é zero. Verde: exatamente 0%. Amarelo: entre -10% e 10%, sem incluir os extremos. Vermelho: menor ou igual a -10% ou maior ou igual a 10%." },
       { key: "%Planejado x Executado", label: "% Planejado x Executado", format: "percent", rule: "adherence", tooltip: "Compara o volume executado com o volume planejado. Verde: 100% ou mais. Amarelo: de 90% até abaixo de 100%. Vermelho: abaixo de 90%." },
@@ -578,6 +608,7 @@
     function formatValue(value, format) {
       if (!numeric(value)) return "—";
       if (format === "percent") return new Intl.NumberFormat("pt-BR", { style: "percent", maximumFractionDigits: 1 }).format(value);
+      if (format === "percent2") return new Intl.NumberFormat("pt-BR", { style: "percent", minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
       if (format === "currency") return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", notation: "compact", maximumFractionDigits: 1 }).format(value);
       return new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 }).format(value);
     }
