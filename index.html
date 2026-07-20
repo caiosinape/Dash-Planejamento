@@ -279,10 +279,11 @@
     #sinape-contract-dashboard .heatmap-wrap { overflow-x: auto; }
     #sinape-contract-dashboard .heatmap { min-width: 690px; }
     #sinape-contract-dashboard .heatmap th:not(:first-child), #sinape-contract-dashboard .heatmap td:not(:first-child) { text-align: center; }
-    #sinape-contract-dashboard .heat-cell { width: 25px; height: 25px; border-radius: 6px; display: inline-block; box-shadow: inset 0 0 0 1px rgba(0,0,0,.04); }
-    #sinape-contract-dashboard .heat-cell.green { background: rgba(46,158,68,.34); }
-    #sinape-contract-dashboard .heat-cell.yellow { background: rgba(232,162,0,.38); }
-    #sinape-contract-dashboard .heat-cell.red { background: rgba(214,69,65,.34); }
+    #sinape-contract-dashboard .heat-cell { width: 27px; height: 27px; border-radius: 7px; display: inline-block; border: 1px solid rgba(13,27,42,.12); box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 2px 5px rgba(13,27,42,.12); }
+    #sinape-contract-dashboard .heat-cell.green { background: var(--snp-green); }
+    #sinape-contract-dashboard .heat-cell.yellow { background: var(--snp-amber); }
+    #sinape-contract-dashboard .heat-cell.red { background: var(--snp-red); }
+    #sinape-contract-dashboard .rank-position { color: var(--snp-petrol); font-weight: 700; width: 44px; }
     #sinape-contract-dashboard .mini-progress { display: grid; grid-template-columns: 58px 34px; align-items: center; gap: 6px; }
     #sinape-contract-dashboard .mini-track { height: 7px; border-radius: 99px; background: var(--snp-track); overflow: hidden; }
     #sinape-contract-dashboard .mini-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--snp-petrol), var(--snp-cyan)); }
@@ -416,7 +417,7 @@
       <article class="panel">
         <h3 class="panel-title">Ranking das obras</h3>
         <div class="table-wrap">
-          <table><thead><tr><th>Obra</th><th>Sit.</th><th>OEE</th><th>Plan. × Exec.</th><th>Avanço</th><th>Receita Exec.</th></tr></thead><tbody id="sinape-ranking"></tbody></table>
+          <table><thead><tr><th>Pos.</th><th>Obra</th><th>Sit.</th><th>OEE</th><th>Plan. × Exec.</th><th>Avanço</th><th>Receita Exec.</th></tr></thead><tbody id="sinape-ranking"></tbody></table>
         </div>
       </article>
       <article class="panel">
@@ -876,10 +877,11 @@
 
     function renderRanking() {
       rankingNode.replaceChildren();
-      rankingRows().slice(0, 8).forEach(item => {
+      rankingRows().slice(0, 8).forEach((item, rankIndex) => {
         const row = item.row;
         const tr = document.createElement("tr");
         const values = [
+          `${rankIndex + 1}º`,
           row["Contratos (Obras)"],
           null,
           formatValue(row["%OEE"], "percent"),
@@ -889,12 +891,15 @@
         ];
         values.forEach((value, index) => {
           const td = document.createElement("td");
-          if (index === 1) {
+          if (index === 0) {
+            td.className = "rank-position";
+            td.textContent = value;
+          } else if (index === 2) {
             const dot = document.createElement("span");
             dot.className = `status-dot table-dot ${rowStatus(row)}`;
             dot.setAttribute("aria-label", rowStatus(row));
             td.appendChild(dot);
-          } else if (index === 4) {
+          } else if (index === 5) {
             const rawProgress = progressByContract[row["Contratos (Obras)"]];
             const mini = document.createElement("div");
             mini.className = "mini-progress";
