@@ -788,6 +788,23 @@ svg {
       gap: 8px;
     }
     #sinape-contract-dashboard .metric-label { color: var(--sinape-muted); font-size: 12px; line-height: 1.25; }
+    #sinape-contract-dashboard .metric-label-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+    #sinape-contract-dashboard .metric-info {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 18px;
+      display: inline-grid;
+      place-items: center;
+      border: 1px solid #bcd3d6;
+      border-radius: 50%;
+      color: var(--sinape-dark);
+      background: #f3f8f8;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1;
+      cursor: help;
+    }
+    #sinape-contract-dashboard .metric-info:focus-visible { outline: 2px solid var(--sinape-primary); outline-offset: 2px; }
     #sinape-contract-dashboard .metric-value { color: var(--sinape-primary); font-size: clamp(22px, 2vw, 30px); font-weight: 500; line-height: 1; overflow-wrap: anywhere; }
     #sinape-contract-dashboard .metric-value.green { color: var(--sinape-green); }
     #sinape-contract-dashboard .metric-value.yellow { color: var(--sinape-yellow); }
@@ -1033,20 +1050,20 @@ svg {
     const endDateNode = root.querySelector("#sinape-end-date");
 
     const specs = [
-      { key: "%OEE", label: "% OEE", format: "percent", rule: "oee" },
-      { key: "%Horas Extras", label: "% Horas Extras", format: "percent", rule: "hours" },
-      { key: "%Retrabalho", label: "% Retrabalho", format: "percent", rule: "rework" },
-      { key: "%Ociosidade", label: "% Ociosidade", format: "percent", rule: "deviation" },
-      { key: "%Consumo - Curva A", label: "% Consumo — Curva A", format: "percent", rule: "deviation" },
-      { key: "%Planejado x Executado", label: "% Planejado x Executado", format: "percent", rule: "adherence" },
-      { key: "Receita Planejada", label: "Receita Planejada", format: "currency", rule: null },
-      { key: "Receita Meta", label: "Receita Meta", format: "currency", rule: null },
-      { key: "Receita Executada RDO", label: "Receita Executada RDO", format: "currency", rule: null },
-      { key: "%Aderência ao Planejado", label: "% Aderência ao Planejado", format: "percent", rule: "adherence" },
-      { key: "%Aderência a Meta", label: "% Aderência à Meta", format: "percent", rule: "adherence" },
-      { key: "Número de Equipes Existentes", label: "Equipes Existentes", format: "number", rule: null },
-      { key: "Número de Equipes Necessárias", label: "Equipes Necessárias", format: "number", rule: null },
-      { key: "Desvio Número de Equipes", label: "Desvio de Equipes", format: "number", rule: "teams" }
+      { key: "%OEE", label: "% OEE", format: "percent", rule: "oee", tooltip: "Eficiência produtiva em relação ao potencial de produção. Verde: valor maior ou igual a 60%. Amarelo: de 40% até abaixo de 60%. Vermelho: abaixo de 40%." },
+      { key: "%Horas Extras", label: "% Horas Extras", format: "percent", rule: "hours", tooltip: "Percentual de horas extras em relação às horas trabalhadas. Verde: abaixo de 10%. Amarelo: de 10% até abaixo de 20%. Vermelho: 20% ou mais." },
+      { key: "%Retrabalho", label: "% Retrabalho", format: "percent", rule: "rework", tooltip: "Percentual de serviços que precisaram ser refeitos ou corrigidos. Verde: valor menor ou igual a 0%. Amarelo: acima de 0% e abaixo de 10%. Vermelho: 10% ou mais." },
+      { key: "%Ociosidade", label: "% Ociosidade", format: "percent", rule: "deviation", tooltip: "Desvio de utilização da capacidade em relação ao planejado; o ideal é zero. Verde: exatamente 0%. Amarelo: entre -10% e 10%, sem incluir os extremos. Vermelho: menor ou igual a -10% ou maior ou igual a 10%." },
+      { key: "%Consumo - Curva A", label: "% Consumo — Curva A", format: "percent", rule: "deviation", tooltip: "Desvio do consumo de materiais Curva A em relação ao planejado; o ideal é zero. Verde: exatamente 0%. Amarelo: entre -10% e 10%, sem incluir os extremos. Vermelho: menor ou igual a -10% ou maior ou igual a 10%." },
+      { key: "%Planejado x Executado", label: "% Planejado x Executado", format: "percent", rule: "adherence", tooltip: "Compara o volume executado com o volume planejado. Verde: 100% ou mais. Amarelo: de 90% até abaixo de 100%. Vermelho: abaixo de 90%." },
+      { key: "Receita Planejada", label: "Receita Planejada", format: "currency", rule: null, tooltip: "Receita prevista no planejamento para o filtro selecionado. Card informativo, sem regra semafórica própria." },
+      { key: "Receita Meta", label: "Receita Meta", format: "currency", rule: null, tooltip: "Meta financeira definida para o filtro selecionado. Card informativo, sem regra semafórica própria." },
+      { key: "Receita Executada RDO", label: "Receita Executada RDO", format: "currency", rule: null, tooltip: "Receita registrada como executada nos RDOs. Meta: atingir a Receita Meta. Neste detalhamento o card é informativo; no card executivo, verde indica meta atingida, amarelo até 5% abaixo e vermelho mais de 5% abaixo." },
+      { key: "%Aderência ao Planejado", label: "% Aderência ao Planejado", format: "percent", rule: "adherence", tooltip: "Percentual da receita executada em relação à Receita Planejada. Verde: 100% ou mais. Amarelo: de 90% até abaixo de 100%. Vermelho: abaixo de 90%." },
+      { key: "%Aderência a Meta", label: "% Aderência à Meta", format: "percent", rule: "adherence", tooltip: "Percentual da receita executada em relação à Receita Meta. Verde: 100% ou mais. Amarelo: de 90% até abaixo de 100%. Vermelho: abaixo de 90%." },
+      { key: "Número de Equipes Existentes", label: "Equipes Existentes", format: "number", rule: null, tooltip: "Quantidade média de equipes atualmente disponíveis no filtro. Card informativo, sem regra semafórica própria." },
+      { key: "Número de Equipes Necessárias", label: "Equipes Necessárias", format: "number", rule: null, tooltip: "Quantidade média de equipes calculada como necessária para cumprir o planejamento. Card informativo, sem regra semafórica própria." },
+      { key: "Desvio Número de Equipes", label: "Desvio de Equipes", format: "number", rule: "teams", tooltip: "Diferença entre equipes existentes e equipes necessárias. Verde: valor menor ou igual a 1. Amarelo: acima de 1 e até 2. Vermelho: acima de 2." }
     ];
 
     const trendSpecs = [
@@ -1513,13 +1530,23 @@ svg {
         const rawValue = valueFor(spec, rows);
         const card = document.createElement("article");
         card.className = "metric-card";
+        const labelRow = document.createElement("div");
+        labelRow.className = "metric-label-row";
         const label = document.createElement("div");
         label.className = "metric-label";
         label.textContent = spec.label;
+        const info = document.createElement("span");
+        info.className = "metric-info";
+        info.textContent = "i";
+        info.tabIndex = 0;
+        info.setAttribute("role", "img");
+        info.setAttribute("aria-label", `Explicação e meta de ${spec.label}`);
+        info.setAttribute("data-tooltip", spec.tooltip);
+        labelRow.append(label, info);
         const value = document.createElement("div");
         value.className = `metric-value ${semanticClass(spec.rule, rawValue)}`.trim();
         value.textContent = formatValue(rawValue, spec.format);
-        card.append(label, value);
+        card.append(labelRow, value);
         metricsNode.appendChild(card);
       });
     }
