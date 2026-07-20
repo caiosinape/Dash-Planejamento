@@ -1164,8 +1164,8 @@ svg {
       if (rule === "hours") return pct < 10 ? "green" : pct < 20 ? "yellow" : "red";
       if (rule === "oee") return pct < 40 ? "red" : pct < 60 ? "yellow" : "green";
       if (rule === "rework") return pct <= 0 ? "green" : pct < 10 ? "yellow" : "red";
-      if (rule === "deviation") return Math.abs(pct) < 0.000001 ? "green" : Math.abs(pct) < 5 ? "yellow" : "red";
-      if (rule === "adherence") return pct >= 100 ? "green" : pct >= 95 ? "yellow" : "red";
+      if (rule === "deviation") return Math.abs(pct) < 0.000001 ? "green" : Math.abs(pct) < 10 ? "yellow" : "red";
+      if (rule === "adherence") return pct >= 100 ? "green" : pct >= 90 ? "yellow" : "red";
       if (rule === "teams") return rawValue > 2 ? "red" : rawValue > 1 ? "yellow" : "green";
       return "";
     }
