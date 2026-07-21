@@ -608,7 +608,12 @@
       });
       const contractValues = [...groups.values()].map(group => aggregateContract(spec, group)).filter(numeric);
       if (!contractValues.length) return null;
-      return contractFilter.value === "all" ? contractValues.reduce((sum, value) => sum + value, 0) / contractValues.length : contractValues[0];
+      if (contractFilter.value === "all") {
+        const total = contractValues.reduce((sum, value) => sum + value, 0);
+        if (spec.format === "currency" && viewFilter.value === "general") return total;
+        return total / contractValues.length;
+      }
+      return contractValues[0];
     }
 
     function formatDate(value) {
