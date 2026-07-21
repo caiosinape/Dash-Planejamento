@@ -302,6 +302,9 @@
     #sinape-contract-dashboard .contract-status { display: inline-flex; align-items: center; padding: 4px 8px; border-radius: 999px; font-size: 9px; font-weight: 700; white-space: nowrap; }
     #sinape-contract-dashboard .contract-status.finished { color: #FFFFFF; background: var(--snp-green); }
     #sinape-contract-dashboard .contract-status.in-progress { color: var(--snp-petrol-dark); background: rgba(102,199,221,.24); border: 1px solid rgba(31,95,123,.18); }
+    #sinape-contract-dashboard .priority-reasons { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; min-width: 190px; max-width: 300px; white-space: normal; }
+    #sinape-contract-dashboard .priority-score { display: inline-flex; align-items: center; justify-content: center; min-width: 42px; padding: 3px 6px; border-radius: 999px; color: #FFFFFF; background: var(--snp-petrol); font-size: 9px; font-weight: 700; white-space: nowrap; }
+    #sinape-contract-dashboard .priority-reason { display: inline-flex; align-items: center; padding: 3px 6px; border-radius: 999px; color: var(--snp-red); background: rgba(214,69,65,.10); border: 1px solid rgba(214,69,65,.22); font-size: 9px; font-weight: 600; white-space: nowrap; }
     #sinape-contract-dashboard .mini-progress { display: grid; grid-template-columns: 58px 34px; align-items: center; gap: 6px; }
     #sinape-contract-dashboard .mini-track { height: 7px; border-radius: 99px; background: var(--snp-track); overflow: hidden; }
     #sinape-contract-dashboard .mini-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--snp-petrol), var(--snp-cyan)); }
@@ -435,7 +438,7 @@
       <article class="panel">
         <h3 class="panel-title">Ranking das obras</h3>
         <div class="table-wrap">
-          <table><thead><tr><th>Pos.</th><th>Obra</th><th>Sit.</th><th>OEE</th><th>Plan. × Exec.</th><th>Avanço</th><th>Status</th><th>Receita Exec.</th></tr></thead><tbody id="sinape-ranking"></tbody></table>
+          <table><thead><tr><th>Pos.</th><th>Obra</th><th>Sit.</th><th>OEE</th><th>Plan. × Exec.</th><th>Avanço</th><th>Status</th><th>Motivo da prioridade</th><th>Receita Exec.</th></tr></thead><tbody id="sinape-ranking"></tbody></table>
         </div>
       </article>
       <article class="panel">
@@ -909,6 +912,18 @@
       });
     }
 
+    function priorityReasons(row) {
+      const reasons = [];
+      if (row["Situação do Contrato"] < 0) reasons.push({ label: "Situação +6", detail: "Situação contratual crítica: +6 pontos" });
+      else if (row["Situação do Contrato"] === 0) reasons.push({ label: "Situação +3", detail: "Situação contratual em atenção: +3 pontos" });
+      if (numeric(row["%OEE"]) && row["%OEE"] < 0.40) reasons.push({ label: "OEE +3", detail: `OEE abaixo de 40% (${formatValue(row["%OEE"], "percent")}): +3 pontos` });
+      if (numeric(row["%Planejado x Executado"]) && row["%Planejado x Executado"] < 0.90) reasons.push({ label: "Plan. +3", detail: `Planejado × Executado abaixo de 90% (${formatValue(row["%Planejado x Executado"], "percent")}): +3 pontos` });
+      if (numeric(row["%Horas Extras"]) && row["%Horas Extras"] >= 0.20) reasons.push({ label: "H. extras +2", detail: `Horas Extras em 20% ou mais (${formatValue(row["%Horas Extras"], "percent")}): +2 pontos` });
+      if (numeric(row["%Retrabalho"]) && row["%Retrabalho"] >= 0.10) reasons.push({ label: "Retrabalho +2", detail: `Retrabalho em 10% ou mais (${formatValue(row["%Retrabalho"], "percent2")}): +2 pontos` });
+      if (numeric(row["%Ociosidade"]) && Math.abs(row["%Ociosidade"]) >= 0.10) reasons.push({ label: "Ociosidade +2", detail: `Ociosidade fora da faixa de -10% a 10% (${formatValue(row["%Ociosidade"], "percent")}): +2 pontos` });
+      return reasons;
+    }
+
     function renderRanking() {
       rankingNode.replaceChildren();
       rankingRows().filter(item => {
@@ -924,6 +939,7 @@
           formatValue(row["%OEE"], "percent"),
           formatValue(row["%Planejado x Executado"], "percent"),
           formatValue(progressByContract[row["Contratos (Obras)"]], "percent"),
+          null,
           null,
           formatValue(row["Receita Executada RDO"], "currency")
         ];
@@ -959,6 +975,23 @@
             status.className = `contract-status ${finished ? "finished" : "in-progress"}`;
             status.textContent = finished ? "Finalizado" : "Em andamento";
             td.appendChild(status);
+          } else if (index === 7) {
+            const reasons = priorityReasons(row);
+            const wrap = document.createElement("div");
+            wrap.className = "priority-reasons";
+            const score = document.createElement("span");
+            score.className = "priority-score";
+            score.textContent = `${item.score} pts`;
+            score.title = "Pontuação total de criticidade";
+            wrap.appendChild(score);
+            reasons.forEach(reason => {
+              const badge = document.createElement("span");
+              badge.className = "priority-reason";
+              badge.textContent = reason.label;
+              badge.title = reason.detail;
+              wrap.appendChild(badge);
+            });
+            td.appendChild(wrap);
           } else {
             td.textContent = value;
           }
