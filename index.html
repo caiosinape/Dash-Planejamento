@@ -901,7 +901,10 @@
 
     function renderRanking() {
       rankingNode.replaceChildren();
-      rankingRows().slice(0, 8).forEach((item, rankIndex) => {
+      rankingRows().filter(item => {
+        const progress = progressByContract[item.row["Contratos (Obras)"]];
+        return !(numeric(progress) && progress >= 1);
+      }).slice(0, 8).forEach((item, rankIndex) => {
         const row = item.row;
         const tr = document.createElement("tr");
         const values = [
