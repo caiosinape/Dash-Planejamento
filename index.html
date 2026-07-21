@@ -510,9 +510,9 @@
 
     const specs = [
       { key: "%OEE", label: "% OEE", format: "percent", rule: "oee", tooltip: "Eficiência produtiva em relação ao potencial de produção. Verde: valor maior ou igual a 60%. Amarelo: de 40% até abaixo de 60%. Vermelho: abaixo de 40%." },
-      { key: "%Horas Extras", label: "% Horas Extras", format: "percent2", rule: "hours", tooltip: "Percentual de horas extras em relação às horas trabalhadas. Cada registro de contrato e mês entra na média com sua precisão completa, sem arredondamento intermediário; somente o resultado exibido é formatado com duas casas decimais. A média considera somente registros diferentes de 0%. Verde: abaixo de 10%. Amarelo: de 10% até abaixo de 20%. Vermelho: 20% ou mais." },
+      { key: "%Horas Extras", label: "% Horas Extras", format: "percent2", rule: "hours", tooltip: "Percentual de horas extras em relação às horas trabalhadas. Cada registro de contrato e mês, inclusive os iguais a 0%, entra na média com sua precisão completa, sem arredondamento intermediário; somente o resultado exibido é formatado com duas casas decimais. Verde: abaixo de 10%. Amarelo: de 10% até abaixo de 20%. Vermelho: 20% ou mais." },
       { key: "%Retrabalho", label: "% Retrabalho", format: "percent2", rule: "rework", tooltip: "Percentual de serviços que precisaram ser refeitos ou corrigidos. A média considera somente registros diferentes de 0%. A cor considera o mesmo valor arredondado a duas casas exibido no card. Verde: 0,00% ou menos. Amarelo: acima de 0,00% e abaixo de 10,00%. Vermelho: 10,00% ou mais." },
-      { key: "%Ociosidade", label: "% Ociosidade", format: "percent2", rule: "deviation", tooltip: "Desvio de utilização da capacidade em relação ao planejado; o ideal é zero. Cada registro de contrato e mês entra na média com sua precisão completa, sem arredondamento intermediário; somente o resultado exibido é formatado com duas casas decimais. A média considera somente registros diferentes de 0%. Verde: exatamente 0%. Amarelo: entre -10% e 10%, sem incluir os extremos. Vermelho: menor ou igual a -10% ou maior ou igual a 10%." },
+      { key: "%Ociosidade", label: "% Ociosidade", format: "percent2", rule: "deviation", tooltip: "Desvio de utilização da capacidade em relação ao planejado; o ideal é zero. Cada registro de contrato e mês, inclusive os iguais a 0%, entra na média com sua precisão completa, sem arredondamento intermediário; somente o resultado exibido é formatado com duas casas decimais. Verde: exatamente 0%. Amarelo: entre -10% e 10%, sem incluir os extremos. Vermelho: menor ou igual a -10% ou maior ou igual a 10%." },
       { key: "%Consumo - Curva A", label: "% Consumo — Curva A", format: "percent", rule: "deviation", tooltip: "Desvio do consumo de materiais Curva A em relação ao planejado; o ideal é zero. A média considera somente registros diferentes de 0%. Verde: exatamente 0%. Amarelo: entre -10% e 10%, sem incluir os extremos. Vermelho: menor ou igual a -10% ou maior ou igual a 10%." },
       { key: "%Planejado x Executado", label: "% Planejado x Executado", format: "percent", rule: "adherence", tooltip: "Compara o volume executado com o volume planejado. Verde: 100% ou mais. Amarelo: de 90% até abaixo de 100%. Vermelho: abaixo de 90%." },
       { key: "Receita Planejada", label: "Receita Planejada", format: "currency", rule: null, tooltip: "Receita prevista no planejamento para o filtro selecionado. Card informativo, sem regra semafórica própria." },
@@ -597,7 +597,7 @@
 
     function valueFor(spec, rows) {
       if (!rows.length) return null;
-      const nonZeroAverageKeys = new Set(["%Horas Extras", "%Retrabalho", "%Ociosidade", "%Consumo - Curva A"]);
+      const nonZeroAverageKeys = new Set(["%Retrabalho", "%Consumo - Curva A"]);
       if (nonZeroAverageKeys.has(spec.key)) {
         const values = rows.map(row => row[spec.key]).filter(value => numeric(value) && value !== 0);
         return values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : 0;
