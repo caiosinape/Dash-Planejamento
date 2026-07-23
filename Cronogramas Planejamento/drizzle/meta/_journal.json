@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1784815726889,
+      "tag": "0000_nosy_red_hulk",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1784826767823,
+      "tag": "0001_many_bloodstorm",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1784827480749,
+      "tag": "0002_square_scorpion",
+      "breakpoints": true
+    }
+  ]
+}
