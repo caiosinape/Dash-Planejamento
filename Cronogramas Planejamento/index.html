@@ -312,12 +312,17 @@
     document.getElementById("statusFilter").onchange=function(){statusFilter=this.value;render()};
     document.getElementById("advancedButton").onclick=function(){document.getElementById("advancedFilters").classList.toggle("open")};
     document.getElementById("clearFilters").onclick=function(){month=6;os="Todas";selectedWeeks=[];statusFilter="Todos";mf.value=6;document.getElementById("osFilter").value="Todas";document.getElementById("statusFilter").value="Todos";buildWeekMenu();render()};
-    document.getElementById("weekButton").onclick=function(e){e.stopPropagation();document.getElementById("weekMenu").classList.toggle("open")};
-    document.addEventListener("click",function(e){if(!e.target.closest(".field"))document.getElementById("weekMenu").classList.remove("open")});
+    function setWeekMenu(open){
+      var menu=document.getElementById("weekMenu"),shell=document.querySelector(".filter-shell");
+      menu.classList.toggle("open",open);
+      shell.style.marginBottom=open?(menu.offsetHeight+20)+"px":"";
+    }
+    document.getElementById("weekButton").onclick=function(e){e.stopPropagation();var menu=document.getElementById("weekMenu");setWeekMenu(!menu.classList.contains("open"))};
+    document.addEventListener("click",function(e){if(!e.target.closest(".field"))setWeekMenu(false)});
     document.getElementById("drawerClose").onclick=function(){document.getElementById("drawerBackdrop").classList.remove("open")};
     document.getElementById("drawerBackdrop").onclick=function(e){if(e.target===this)this.classList.remove("open")};
     document.addEventListener("keydown",function(e){if(e.key==="Escape")document.getElementById("drawerBackdrop").classList.remove("open")});
-    addEventListener("resize",renderGantt);buildWeekMenu();render()
+    addEventListener("resize",function(){renderGantt();var menu=document.getElementById("weekMenu");if(menu.classList.contains("open"))setWeekMenu(true)});buildWeekMenu();render()
   })();
   </script>
 </body>
