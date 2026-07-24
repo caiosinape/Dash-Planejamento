@@ -1,0 +1,110 @@
+const $ = id => document.getElementById(id);
+const E = { contract:$('contract'), road:$('road'), service:$('service'), period:$('period'), sort:$('sort'), search:$('search') };
+let page = 1;
+const PAGE_SIZE = 10;
+const uniq = arr => [...new Set(arr)];
+const fmt = (n, max=2) => Number(n||0).toLocaleString('pt-BR', {minimumFractionDigits:0, maximumFractionDigits:max});
+const esc = s => String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+function mergeIntervals(intervals) {
+  const xs = intervals.map(v => [Math.min(v[0], v[1]), Math.max(v[0], v[1])]).filter(v => isFinite(v[0]) && isFinite(v[1]) && v[1] >= v[0]).sort((a,b)=>a[0]-b[0]);
+  const out = [];
+  for (const it of xs) {
+    if (!out.length || it[0] > out[out.length-1][1] + 0.0001) out.push([...it]);
+    else out[out.length-1][1] = Math.max(out[out.length-1][1], it[1]);
+  }
+  return out;
+}
+function totalLen(intervals) { return mergeIntervals(intervals).reduce((s,[a,b]) => s + (b-a), 0); }
+function groupMalha(rows) {
+  const mp = new Map();
+  for (const r of rows) {
+    const k = r.contrato + '|' + r.rodovia;
+    if (!mp.has(k)) mp.set(k, { contrato:r.contrato, rodovia:r.rodovia, parts:[] });
+    mp.get(k).parts.push([r.kmi, r.kmf]);
+  }
+  return [...mp.values()].map(v => {
+    v.parts = mergeIntervals(v.parts);
+    v.kmi = Math.min(...v.parts.map(p => p[0]));
+    v.kmf = Math.max(...v.parts.map(p => p[1]));
+    v.ext = totalLen(v.parts);
+    return v;
+  });
+}
+function execFor(group, filters) {
+  const det = DETAIL.filter(d => d.contrato === group.contrato && d.rodovia === group.rodovia && (filters.service === 'Todos' || d.servico === filters.service) && (filters.period === 'Todos' || d.periodo === filters.period));
+  const intervals = mergeIntervals(det.filter(d => d.tipo === 'intervalo').map(d => [Math.max(group.kmi, d.kmi), Math.min(group.kmf, d.kmf)]).filter(v => v[1] > v[0]));
+  const rawAllPoints = det.filter(d => d.tipo === 'ponto').map(d => d.kmi).filter(v => isFinite(v) && v >= group.kmi && v <= group.kmf).sort((a,b)=>a-b);
+  const points = [];
+  for (const p of rawAllPoints) if (!points.length || Math.abs(points[points.length-1]-p) > 0.0001) points.push(p);
+
+  const serviceNames = uniq(det.map(d => d.servico)).sort((a,b)=>a.localeCompare(b,'pt-BR'));
+  const services = serviceNames.map(service => {
+    const rows = det.filter(d => d.servico === service);
+    const serviceIntervals = mergeIntervals(rows.filter(d => d.tipo === 'intervalo').map(d => [Math.max(group.kmi, d.kmi), Math.min(group.kmf, d.kmf)]).filter(v => v[1] > v[0]));
+    const rawPoints = rows.filter(d => d.tipo === 'ponto').map(d => d.kmi).filter(v => isFinite(v) && v >= group.kmi && v <= group.kmf).sort((a,b)=>a-b);
+    const servicePoints = [];
+    for (const pt of rawPoints) if (!servicePoints.length || Math.abs(servicePoints[servicePoints.length-1]-pt) > 0.0001) servicePoints.push(pt);
+    const quantity = QTY.filter(q => q.contrato === group.contrato && q.servico === service && (filters.period === 'Todos' || q.periodo === filters.period) && q.rodovias.includes(group.rodovia)).reduce((sum,q)=>sum+(Number(q.quantidade)||0),0);
+    return { service, intervals:serviceIntervals, points:servicePoints, quantity };
+  });
+  return { intervals, points, services };
+}
+function barIntervals(group, intervals) {
+  const span = Math.max(group.kmf - group.kmi, 0.0001);
+  return intervals.map(([a,b]) => `<i class="done" title="Km ${fmt(a,3)} a ${fmt(b,3)}" style="left:${((a-group.kmi)/span)*100}%;width:${Math.max(((b-a)/span)*100, 0.3)}%"></i>`).join('');
+}
+function barPoints(group, points) {
+  const span = Math.max(group.kmf - group.kmi, 0.0001);
+  return points.map(p => `<i class="point" title="Km ${fmt(p,3)}" style="left:${((p-group.kmi)/span)*100}%"></i>`).join('');
+}
+function locationText(intervals, points) {
+  const parts = [];
+  for (const [a,b] of intervals) parts.push(`Km ${fmt(a,3)} a ${fmt(b,3)}`);
+  for (const p of points) parts.push(`Km ${fmt(p,3)}`);
+  return parts.join(' • ');
+}
+function getFilters() {
+  return {
+    contract: E.contract.value || 'Todos',
+    road: E.road.value || 'Todas',
+    service: E.service.value || 'Todos',
+    period: E.period.value || 'Todos',
+    sort: E.sort.value || 'road',
+    text: E.search.value.trim().toLowerCase()
+  };
+}
+function setOptions(sel, vals, allValue, allLabel, keep) {
+  sel.innerHTML = `<option value="${allValue}">${allLabel}</option>` + vals.map(v => `<option>${esc(v)}</option>`).join('');
+  sel.value = vals.includes(keep) ? keep : allValue;
+}
+function updateFacets() {
+  const f0 = getFilters();
+  const keepC=E.contract.value, keepR=E.road.value, keepS=E.service.value, keepP=E.period.value;
+  setOptions(E.contract, uniq(MALHA.filter(m=>f0.road==='Todas'||m.rodovia===f0.road).map(r=>r.contrato)).sort(), 'Todos', 'Todos os contratos', keepC);
+  const f1=getFilters();
+  setOptions(E.road, uniq(MALHA.filter(m=>f1.contract==='Todos'||m.contrato===f1.contract).map(r=>r.rodovia)).sort((a,b)=>a.localeCompare(b,'pt-BR',{numeric:true})), 'Todas', 'Todas as rodovias', keepR);
+  const f2=getFilters();
+  setOptions(E.service, uniq(QTY.filter(q=>(f2.contract==='Todos'||q.contrato===f2.contract)&&(f2.road==='Todas'||q.rodovias.includes(f2.road))).map(q=>q.servico)).sort(), 'Todos', 'Todas as famílias', keepS);
+  const f3=getFilters();
+  setOptions(E.period, uniq(QTY.filter(q=>(f3.contract==='Todos'||q.contrato===f3.contract)&&(f3.road==='Todas'||q.rodovias.includes(f3.road))&&(f3.service==='Todos'||q.servico===f3.service)).map(q=>q.periodo)).sort().reverse(), 'Todos', 'Todos os períodos', keepP);
+}
+function quantityFor(contract, road, service, period) {
+  return QTY.filter(q=>q.contrato===contract&&(road==='Todas'||q.rodovias.includes(road))&&(service==='Todos'||q.servico===service)&&(period==='Todos'||q.periodo===period)).reduce((s,q)=>s+(Number(q.quantidade)||0),0);
+}
+function render() {
+  const f=getFilters();
+  let groups=groupMalha(MALHA.filter(m=>(f.contract==='Todos'||m.contrato===f.contract)&&(f.road==='Todas'||m.rodovia===f.road)&&(!f.text||m.rodovia.toLowerCase().includes(f.text)||String(m.contrato).includes(f.text)))).map(g=>({...g,ex:execFor(g,f),qty:quantityFor(g.contrato,g.rodovia,f.service,f.period)}));
+  if(f.sort==='extDesc')groups.sort((a,b)=>b.ext-a.ext);else if(f.sort==='extAsc')groups.sort((a,b)=>a.ext-b.ext);else groups.sort((a,b)=>a.rodovia.localeCompare(b.rodovia,'pt-BR',{numeric:true})||String(a.contrato).localeCompare(String(b.contrato),'pt-BR',{numeric:true}));
+
+  const totalExt=groups.reduce((s,g)=>s+g.ext,0),doneKm=groups.reduce((s,g)=>s+totalLen(g.ex.intervals),0),totalPts=groups.reduce((s,g)=>s+g.ex.points.length,0),totalQty=groups.reduce((s,g)=>s+(g.qty||0),0),pct=totalExt?doneKm/totalExt*100:0;
+  $('kExt').textContent=fmt(totalExt)+' km';$('kDone').textContent=fmt(doneKm)+' km';$('kPts').textContent=fmt(totalPts,0);$('kQty').textContent=fmt(totalQty);$('pct').textContent=fmt(pct)+'%';$('donut').style.setProperty('--p',pct);$('sExt').textContent=fmt(totalExt)+' km';$('sDone').textContent=fmt(doneKm)+' km';$('sBal').textContent=fmt(Math.max(0,totalExt-doneKm))+' km';$('sPts').textContent=fmt(totalPts,0);$('sQty').textContent=fmt(totalQty);$('sRoads').textContent=groups.length;$('sub').textContent=`${groups.length} rodovia(s) na seleção • família, quantidade e local executado`;
+
+  const totalPages=Math.max(1,Math.ceil(groups.length/PAGE_SIZE));page=Math.min(page,totalPages);const showing=groups.slice((page-1)*PAGE_SIZE,page*PAGE_SIZE);
+  $('list').innerHTML=showing.length?showing.map(g=>{
+    const kmExec=totalLen(g.ex.intervals),subtitle=(kmExec>0||g.ex.points.length>0)?`${fmt(kmExec)} km executado • ${fmt(g.ex.points.length,0)} ponto(s)`:'Sem execução localizada';
+    return `<article class="road"><div class="rtop"><div class="rid"><div class="shield">${esc(g.rodovia).replace('-','<br/>')}</div><div><div class="rname">${esc(g.rodovia)}</div><div class="tags"><span class="tag">Contrato ${esc(g.contrato)}</span></div></div></div><div class="ext">${fmt(g.ext)} km<small>${subtitle}</small></div></div><div class="scale"><span class="km">Km ${fmt(g.kmi,3)}</span><div class="track">${barIntervals(g,g.ex.intervals)}${barPoints(g,g.ex.points)}</div><span class="km end">Km ${fmt(g.kmf,3)}</span></div><div class="lanes">${g.ex.services.length?g.ex.services.map(svc=>{const loc=locationText(svc.intervals,svc.points);return `<div class="lane"><div class="lname" title="${esc(svc.service)}">${esc(svc.service)}</div><div class="track" title="${esc(loc)}">${barIntervals(g,svc.intervals)}${barPoints(g,svc.points)}</div><div class="qty" title="${esc(loc)}"><b>${svc.quantity>0?'Qtd. '+fmt(svc.quantity):'-'}</b><small>${esc(loc)}</small></div></div>`}).join(''):'<div class="noexec">Sem família/serviço com localização executada para os filtros atuais.</div>'}</div></article>`}).join(''):'<div class="empty">Nenhuma rodovia encontrada para os filtros aplicados.</div>';
+  $('pageInfo').textContent=`${groups.length} rodovia(s) • página ${page} de ${totalPages}`;$('pages').innerHTML=Array.from({length:totalPages},(_,i)=>`<button class="${i+1===page?'active':''}" data-p="${i+1}">${i+1}</button>`).join('');$('pages').querySelectorAll('button').forEach(b=>b.onclick=()=>{page=Number(b.dataset.p);render();window.scrollTo({top:0,behavior:'smooth'})});
+}
+function init(){setOptions(E.contract,uniq(MALHA.map(r=>r.contrato)).sort(),'Todos','Todos os contratos','Todos');setOptions(E.road,uniq(MALHA.map(r=>r.rodovia)).sort((a,b)=>a.localeCompare(b,'pt-BR',{numeric:true})),'Todas','Todas as rodovias','Todas');setOptions(E.service,uniq(QTY.map(q=>q.servico)).sort(),'Todos','Todas as famílias','Todos');setOptions(E.period,uniq(QTY.map(q=>q.periodo)).sort().reverse(),'Todos','Todos os períodos','Todos');render()}
+[E.contract,E.road,E.service,E.period].forEach(el=>el.onchange=()=>{updateFacets();page=1;render()});E.sort.onchange=()=>{page=1;render()};E.search.oninput=()=>{page=1;render()};$('clear').onclick=()=>{E.contract.value='Todos';E.road.value='Todas';E.service.value='Todos';E.period.value='Todos';E.sort.value='road';E.search.value='';updateFacets();page=1;render()};init();
