@@ -26,9 +26,8 @@
       <circle cx="660" cy="120" r="4" fill="#dff7ff"/><circle cx="710" cy="110" r="4" fill="#dff7ff"/>
     </svg>
   </div>
-  <div class="hero-meta">Fonte: Base BI Executado e Malha Viária<br>Atualização: 24/07/2026<br>Base integrada ao Estudo Geral.xlsx</div>
+  <div class="hero-meta">Fonte: Base BI Executado e Malha Viária<br>Atualização: 24/07/2026<br>Base estática extraída do Estudo Geral.xlsx</div>
 </header>
-
 <section class="card filters">
   <div class="field"><label>Visão</label><div class="control"><svg viewBox="0 0 24 24"><path d="M3 12h18M12 3v18"/></svg><select><option>Visão geral da malha</option></select></div></div>
   <div class="field"><label>Contrato</label><div class="control"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M15 3v4h4M9 12h6M9 16h6"/></svg><select id="contract"></select></div></div>
@@ -39,7 +38,6 @@
   <div class="field"><label>Busca</label><div class="control"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="search" placeholder="Ex.: SP-127 ou 2476"></div></div>
   <button class="clear" id="clear">Limpar</button>
 </section>
-
 <section class="kpis">
   <div class="card kpi"><div class="icon"><svg viewBox="0 0 24 24"><path d="M4 20 9 4h6l5 16M8 12h8M7 16h10"/></svg></div><div class="kpi-copy"><div class="kpi-label">Extensão contratual</div><div class="kpi-value" id="kpiKm">-</div><div class="kpi-note">Total selecionado</div></div></div>
   <div class="card kpi"><div class="icon green"><svg viewBox="0 0 24 24"><path d="M12 21s7-4.7 7-11a7 7 0 1 0-14 0c0 6.3 7 11 7 11Z"/><circle cx="12" cy="10" r="2.3"/></svg></div><div class="kpi-copy"><div class="kpi-label">Rodovias com execução</div><div class="kpi-value" id="kpiRoads">-</div><div class="kpi-note">Na seleção atual</div></div></div>
@@ -47,7 +45,6 @@
   <div class="card kpi dynamic" id="topKpi2"></div>
   <div class="card kpi dynamic" id="topKpi3"></div>
 </section>
-
 <section class="content">
   <div class="card road-panel">
     <div class="panel-head">
@@ -69,10 +66,10 @@
   </aside>
 </section>
 </div>
-<script src="./dados-20260724/base.js?v=20260724-1"></script>
-<script src="./dados-20260724/q.js?v=20260724-1"></script>
-<script src="./dados-20260724/dz1.js?v=20260724-1"></script>
-<script src="./dados-20260724/dz2.js?v=20260724-1"></script>
-<script src="./dados-20260724/init.js?v=20260724-1"></script>
+<script src="./dados-sharepoint-20260724-v2/base.js?v=20260724-2"></script>
+<script src="./dados-sharepoint-20260724-v2/q01.js?v=20260724-2"></script>
+<script src="./dados-sharepoint-20260724-v2/dz1.js?v=20260724-2"></script>
+<script src="./dados-sharepoint-20260724-v2/dz2.js?v=20260724-2"></script>
+<script src="./dados-sharepoint-20260724-v2/init.js?v=20260724-2"></script>
 </body>
 </html>
