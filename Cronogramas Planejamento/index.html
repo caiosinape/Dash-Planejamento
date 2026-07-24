@@ -207,7 +207,7 @@
     function plannedItems(){var m=activeMonth();return filtered(true).filter(function(i){return Number(i.plan[m]||0)>0})}
     function confirmedThrough(item,endMonth){var total=0;for(var m=0;m<=endMonth;m++)total+=executedQty(item,m);return total}
     function balanceUpdated(item,startMonth){
-      var baseline=item.contractual-confirmedThrough(item,startMonth-1),usage=0;
+      var baseline=item.contractual-Math.max(0,Number(item.base||0))-confirmedThrough(item,startMonth-1),usage=0;
       for(var m=startMonth;m<Math.min(startMonth+3,12);m++)usage+=isClosed(m)?executedQty(item,m):Number(item.plan[m]||0);
       return baseline-usage
     }
