@@ -130,7 +130,7 @@
 
     <section class="section-block" id="operacao">
       <div class="section-title"><div><span class="section-number">03</span><div><div class="kicker">Visão operacional</div><h2>Ordens de Serviço do período</h2><p>Itens, quantidades e orientação escrita para Operações</p></div></div><span class="period-view" id="operationPeriod"></span></div>
-      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Ordens de Serviço</div><h3 id="osTitle"></h3></div><div class="panel-actions"><span class="hint">OS numeradas automaticamente</span><button class="secondary-btn" type="button" onclick="window.print()">↓ Download PDF</button></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Nº da OS</th><th>Item do serviço</th><th>Quantidade planejada</th><th>Quantidade executada</th><th>Status da OS</th><th>Ordem de Serviço escrita</th></tr></thead><tbody id="osRows"></tbody></table></div></div></article>
+      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Ordens de Serviço</div><h3 id="osTitle"></h3></div><div class="panel-actions"><span class="hint">OS numeradas automaticamente</span><button class="secondary-btn" type="button" onclick="printOS()">↓ Download PDF</button></div></div><div class="table-wrap"><table class="data-table" id="osTable"><thead><tr><th>Nº da OS</th><th>Item do serviço</th><th>Quantidade planejada</th><th>Quantidade executada</th><th>Status da OS</th><th>Ordem de Serviço escrita</th></tr></thead><tbody id="osRows"></tbody></table></div></div></article>
     </section>
 
     <section class="section-block" id="rdo">
@@ -224,7 +224,7 @@
     function periodLabel(){return month<0?"Todos os meses de 2026":fullMonths[month]+"/2026"+(selectedWeeks.length?" · Semanas "+selectedWeeks.join(", "):" · Mês completo")}
     function moneyShort(v){if(Math.abs(v)>=1000000)return "R$ "+num.format(v/1000000)+" mi";if(Math.abs(v)>=1000)return "R$ "+num.format(v/1000)+" mil";return money.format(v)}
     function plannedItems(){var m=activeMonth();return filtered(true).filter(function(i){return Number(i.plan[m]||0)>0})}
-    function confirmedThrough(item,endMonth){var total=Number(item.base||0);for(var m=6;m<=endMonth;m++)total+=executedQty(item,m);return total}
+    function confirmedThrough(item,endMonth){var total=0;for(var m=0;m<=endMonth;m++)total+=executedQty(item,m);return total}
     function balanceUpdated(item,startMonth){
       var baseline=item.contractual-confirmedThrough(item,startMonth-1),usage=0;
       for(var m=startMonth;m<Math.min(startMonth+3,12);m++)usage+=isClosed(m)?executedQty(item,m):Number(item.plan[m]||0);
@@ -278,7 +278,7 @@
         '<button type="button" class="critical-cell" data-critical="consumed"><span>Itens já consumidos ≥ 100%<i class="signal '+(over?"red":"")+'"></i></span><strong>'+over+' itens</strong><small>Contrato completo · independente do mês selecionado</small></button>';
       document.querySelectorAll("[data-critical]").forEach(function(button){button.onclick=function(){openCriticalDrawer(button.dataset.critical,{planned:p,executed:e,adherence:ad,overItems:overItems})}})
     }
-    function contractExecuted(item){return Number(item.base||0)+item.exec.reduce(function(s,v){return s+Number(v||0)},0)}
+    function contractExecuted(item){return item.exec.reduce(function(s,v){return s+Number(v||0)},0)}
     function openCriticalDrawer(key,data){
       var title=document.getElementById("drawerTitle"),subtitle=document.getElementById("drawerSubtitle"),value=document.getElementById("drawerValue"),list=document.getElementById("drawerList"),note=document.getElementById("drawerNote"),itemBox=document.getElementById("drawerItems");
       if(key==="adherence"){
@@ -300,16 +300,16 @@
     }
     function renderContractProgress(){
       var m=activeMonth(),windowMonths=[m,m+1,m+2].filter(function(x){return x<12});
-      var positive=filtered(false).filter(function(i){return i.contractual>0});
+      var positive=items.filter(function(i){return i.contractual>0});
       var contract=positive.reduce(function(s,i){return s+i.contractual*i.price},0);
-      var executed=positive.reduce(function(s,i){return s+Math.max(0,Math.min(confirmedThrough(i,currentMonth),i.contractual))*i.price},0);
-      var future=positive.reduce(function(s,i){return s+windowMonths.reduce(function(a,x){return a+Math.max(0,Number(i.plan[x]||0))*i.price},0)},0);
+      var executed=items.reduce(function(s,i){return s+contractExecuted(i)*i.price},0);
+      var future=windowMonths.reduce(function(s,x){return s+items.reduce(function(a,i){return a+Math.max(0,Number(i.plan[x]||0))*i.price},0)},0);
       var ep=contract?executed/contract*100:0,fp=contract?future/contract*100:0,free=Math.max(0,100-ep-fp);
       var available=positive.filter(function(i){return balanceUpdated(i,m)>0}).map(function(i){return i.name});
       document.getElementById("contractProgress").innerHTML=
         '<div class="contract-track"><i class="executed" style="width:'+Math.min(ep,100)+'%"></i><i class="future" style="width:'+Math.min(fp,Math.max(0,100-ep))+'%"></i><i class="free" style="width:'+free+'%"></i></div>'+
         '<div class="contract-legend"><div><span>Executado</span><b>'+num.format(ep)+'%</b></div><div><span>Planejado futuro</span><b>'+num.format(fp)+'%</b></div><div><span>Saldo livre</span><b>'+num.format(free)+'%</b></div></div>'+
-        '<div class="reading-box"><b>Leitura do contrato</b><ul><li><b>Executado:</b> '+moneyShort(executed)+' acumulados na base histórica e na nova fonte de execução.</li><li><b>Planejado futuro:</b> '+moneyShort(future)+' para '+windowMonths.map(function(x){return fullMonths[x]+"/2026"}).join(", ")+'.</li><li><b>Frente disponível:</b> '+(available.length?available.map(esc).join("; "):"nenhum item com saldo positivo na janela analisada")+'.</li></ul></div>'
+        '<div class="reading-box"><b>Leitura do contrato</b><ul><li><b>Executado:</b> '+moneyShort(executed)+' provenientes exclusivamente da nova planilha de execução.</li><li><b>Planejado futuro:</b> '+moneyShort(future)+' considerando todos os itens programados em '+windowMonths.map(function(x){return fullMonths[x]+"/2026"}).join(", ")+'.</li><li><b>Frente disponível:</b> '+(available.length?available.map(esc).join("; "):"nenhum item com saldo positivo na janela analisada")+'.</li></ul></div>'
     }
     function renderActions(){
       var el=document.getElementById("actionsGrid");
@@ -338,6 +338,13 @@
       document.getElementById("osTitle").textContent=month<0?"Ordens de Serviço planejadas em 2026":"O que deve ser executado em "+fullMonths[m]+"/2026";
       document.getElementById("osRows").innerHTML=rows.length?rows.map(function(i){var p=month<0?i.plan.reduce(function(s,v){return s+Number(v||0)},0):Number(i.plan[m]||0),e=month<0?i.exec.reduce(function(s,v){return s+Number(v||0)},0):executedQty(i,m),s=osStatus(i,m);return '<tr><td><span class="os-code">OS-01</span></td><td><strong>'+esc(i.name)+'</strong><small>Pórticos e semipórticos</small></td><td><strong>'+num.format(p)+'</strong> '+esc(i.unit)+'</td><td><strong>'+num.format(e)+'</strong> '+esc(i.unit)+'</td><td><span class="status-pill '+statusClass(s)+'"><i></i>'+s+'</span></td><td>'+esc(i.orders[m]||orderText)+'</td></tr>'}).join(""):'<tr><td colspan="6" style="text-align:center;color:#687986;padding:24px">Nenhuma Ordem de Serviço prevista neste recorte.</td></tr>'
     }
+    function printOS(){
+      var title=esc(document.getElementById("osTitle").textContent),table=document.getElementById("osTable").outerHTML,popup=window.open("","_blank","width=1200,height=800");
+      if(!popup){alert("Autorize a abertura da janela para gerar o PDF da tabela de OS.");return}
+      popup.document.write('<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Ordens de Serviço · Contrato 2456</title><style>@page{size:A4 landscape;margin:12mm}body{font:11px Arial,sans-serif;color:#17212b;margin:0}header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid #0b2f47;padding-bottom:10px;margin-bottom:14px}h1{font-size:20px;color:#0b2f47;margin:0 0 4px}p{margin:0;color:#687986}table{width:100%;border-collapse:collapse}th{background:#0b2f47;color:#fff;text-align:left;padding:8px;font-size:9px;text-transform:uppercase}td{border-bottom:1px solid #dce5ea;padding:8px;vertical-align:middle}small{display:block;color:#687986;margin-top:3px}.os-code{background:#0b2f47;color:#fff;border-radius:4px;padding:4px 7px;font-weight:bold}.status-pill{font-weight:bold}.status-pill i{display:none}footer{margin-top:12px;color:#687986;font-size:8px;text-align:right}</style></head><body><header><div><h1>'+title+'</h1><p>Contrato 2456 · Pórticos e semipórticos</p></div><b>SINAPE · Planejamento e Gestão Técnica</b></header>'+table+'<footer>Gerado em '+new Date().toLocaleString("pt-BR")+'</footer><script>window.onload=function(){setTimeout(function(){window.print()},250)}<\\/script></body></html>');
+      popup.document.close()
+    }
+    window.printOS=printOS;
     function renderRDO(){
       var w=currentWeek(),r=ranges(currentMonth).filter(function(x){return x.week===w})[0];
       document.getElementById("rdoWeek").textContent="Semana "+w+" · "+r.start+"–"+r.end+"/"+String(currentMonth+1).padStart(2,"0");
