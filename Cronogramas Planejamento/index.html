@@ -67,7 +67,7 @@
     .contract-track .executed{background:linear-gradient(90deg,#12815e,#1b9a70);color:#fff}
     .contract-track .future{background:linear-gradient(90deg,#167fa7,#1597c4);color:#fff}
     .contract-track .free{background:linear-gradient(90deg,#d8e0e6,#cbd5dc);color:#485662;border-right:0}
-    .contract-summaries{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .contract-summaries{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
     .contract-summary{min-height:116px;border:1px solid var(--line);border-radius:11px;background:#fbfcfd;padding:13px}
     .contract-summary.executed{border-color:#bee3d4;background:#f4fbf8}.contract-summary.future{border-color:#c7e2ed;background:#f4fafd}.contract-summary.attention{border-color:#f0d29b;background:#fffaf1}
     .contract-summary-head{display:flex;align-items:center;gap:8px;margin-bottom:9px}.contract-summary-icon{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#e9eef2;color:#586875;font-size:15px;font-weight:900}
@@ -362,7 +362,6 @@
             '<span class="free" style="width:'+freeBar+'%" data-short="'+num.format(free)+'%">'+num.format(free)+'%</span>'+
           '</div>'+
           '<div class="contract-summaries">'+
-            '<div class="contract-summary executed"><div class="contract-summary-head"><span class="contract-summary-icon">◇</span><h4>Como foi calculado</h4></div><p><strong>Itens consumidos ≥ 100%</strong></p><p>Quantidade consumida × valor unitário.</p></div>'+
             '<div class="contract-summary future"><div class="contract-summary-head"><span class="contract-summary-icon">▣</span><h4>Período planejado</h4></div><p>Itens programados para execução.</p><div class="contract-month-tags">'+monthTags+'</div></div>'+
             '<div class="contract-summary attention"><div class="contract-summary-head"><span class="contract-summary-icon">!</span><h4>Atenção</h4></div><p><strong>'+noBalance.length+' itens sem saldo disponível</strong></p><button class="contract-items-btn" id="contractItemsButton" type="button">Ver itens</button></div>'+
           '</div>'+
