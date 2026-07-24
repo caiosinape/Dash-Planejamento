@@ -267,13 +267,17 @@
     }
     function renderCritical(){
       var m=activeMonth(),p=month<0?allPlanned():plannedValue(m),e=month<0?allExecuted():executedValue(m),ad=p?e/p*100:0;
-      var overItems=items.filter(function(i){return i.contractual>0&&contractExecuted(i)>=i.contractual}),over=overItems.length;
+      var overItems=items.filter(function(i){return isFullyConsumed(i)}),over=overItems.length;
       document.getElementById("criticalMap").innerHTML=
         '<button type="button" class="critical-cell" data-critical="adherence"><span>Aderência<i class="signal '+(ad>=100?"":ad>=90?"amber":"red")+'"></i></span><strong>'+num.format(ad)+'%</strong><small>Executado ÷ planejado do recorte</small></button>'+
         '<button type="button" class="critical-cell" data-critical="consumed"><span>Itens já consumidos ≥ 100%<i class="signal '+(over?"red":"")+'"></i></span><strong>'+over+' itens</strong><small>Contrato completo · independente do mês selecionado</small></button>';
       document.querySelectorAll("[data-critical]").forEach(function(button){button.onclick=function(){openCriticalDrawer(button.dataset.critical,{planned:p,executed:e,adherence:ad,overItems:overItems})}})
     }
-    function contractExecuted(item){return item.exec.reduce(function(s,v){return s+Number(v||0)},0)}
+    function newExecutedTotal(item){return item.exec.reduce(function(s,v){return s+Number(v||0)},0)}
+    function consumedQuantity(item){return Math.max(0,Number(item.base||0))+newExecutedTotal(item)}
+    function remainingBalance(item){return Number(item.contractual||0)-newExecutedTotal(item)}
+    function isFullyConsumed(item){return consumedQuantity(item)>0&&remainingBalance(item)<=0}
+    function contractExecuted(item){return isFullyConsumed(item)?consumedQuantity(item):0}
     function openCriticalDrawer(key,data){
       var title=document.getElementById("drawerTitle"),subtitle=document.getElementById("drawerSubtitle"),value=document.getElementById("drawerValue"),list=document.getElementById("drawerList"),note=document.getElementById("drawerNote"),itemBox=document.getElementById("drawerItems"),progress=document.getElementById("drawerProgress");
       if(key==="adherence"){
@@ -293,9 +297,9 @@
         subtitle.textContent="Leitura acumulada do contrato completo, sem alteração quando outro mês é selecionado.";
         value.textContent=data.overItems.length+" itens";
         progress.hidden=true;
-        list.innerHTML="<div><dt>Itens do contrato</dt><dd>"+items.length+"</dd></div><div><dt>Critério</dt><dd>Executado acumulado ≥ quantidade contratual</dd></div><div><dt>Referência</dt><dd>Contrato 2456 completo</dd></div>";
-        note.textContent="O indicador considera o executado histórico e todos os meses disponíveis na nova fonte de execução.";
-        itemBox.innerHTML=data.overItems.length?data.overItems.map(function(item){var total=contractExecuted(item),pct=item.contractual>0?total/item.contractual*100:0;return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><small>Contratual: '+num.format(item.contractual)+' '+esc(item.unit)+' · Executado: '+num.format(total)+' '+esc(item.unit)+' · Consumo: '+num.format(pct)+'%</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item atingiu 100% do consumo contratual.</div>'
+        list.innerHTML="<div><dt>Itens do contrato</dt><dd>"+items.length+"</dd></div><div><dt>Critério</dt><dd>Saldo zerado ou negativo (consumo ≥ 100%)</dd></div><div><dt>Referência</dt><dd>Contrato 2456 completo</dd></div>";
+        note.textContent="Cada item consumido é valorizado por quantidade consumida acumulada × valor unitário.";
+        itemBox.innerHTML=data.overItems.length?data.overItems.map(function(item){var total=contractExecuted(item);return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><small>Quantidade consumida: '+num.format(total)+' '+esc(item.unit)+' · Valor unitário: '+money.format(item.price)+' · Executado: '+money.format(total*item.price)+'</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item atingiu 100% do consumo contratual.</div>'
       }
       document.getElementById("drawerBackdrop").classList.add("open")
     }
@@ -310,7 +314,7 @@
       document.getElementById("contractProgress").innerHTML=
         '<div class="contract-track"><i class="executed" style="width:'+Math.min(ep,100)+'%"></i><i class="future" style="width:'+Math.min(fp,Math.max(0,100-ep))+'%"></i><i class="free" style="width:'+free+'%"></i></div>'+
         '<div class="contract-legend"><div><span>Executado</span><b>'+num.format(ep)+'%</b></div><div><span>Planejado futuro</span><b>'+num.format(fp)+'%</b></div><div><span>Saldo livre</span><b>'+num.format(free)+'%</b></div></div>'+
-        '<div class="reading-box"><b>Leitura do contrato</b><ul><li><b>Executado:</b> '+moneyShort(executed)+' provenientes exclusivamente da nova planilha de execução.</li><li><b>Planejado futuro:</b> '+moneyShort(future)+' considerando todos os itens programados em '+windowMonths.map(function(x){return fullMonths[x]+"/2026"}).join(", ")+'.</li><li><b>Frente disponível:</b> '+(available.length?available.map(esc).join("; "):"nenhum item com saldo positivo na janela analisada")+'.</li></ul></div>'
+        '<div class="reading-box"><b>Leitura do contrato</b><ul><li><b>Executado:</b> '+moneyShort(executed)+' calculados nos itens com consumo igual ou superior a 100% (quantidade consumida × valor unitário).</li><li><b>Planejado futuro:</b> '+moneyShort(future)+' considerando todos os itens programados em '+windowMonths.map(function(x){return fullMonths[x]+"/2026"}).join(", ")+'.</li><li><b>Frente disponível:</b> '+(available.length?available.map(esc).join("; "):"nenhum item com saldo positivo na janela analisada")+'.</li></ul></div>'
     }
     function renderActions(){
       var el=document.getElementById("actionsGrid");
