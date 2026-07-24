@@ -106,7 +106,7 @@
         <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Acompanhamento semanal</div><h3 id="weeklyTitle"></h3></div><div class="legend"><i class="p"></i>Planejado <i class="e"></i>Executado</div></div><div class="weekly-grid" id="weeklyChart"></div></div></article>
       </div>
 
-      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Leitura operacional</div><h3 id="operationalReadingTitle">Itens que não foram executados no mês Julho/2026 — prazo de execução finalizado</h3></div><span class="hint">A criticidade aumenta conforme o mês avança sem execução suficiente</span></div><div class="ops-reading"><div class="ops-total"><span>Itens planejados do contrato</span><strong id="plannedItemsCount">0</strong><small id="opsSummary"></small></div><div class="ops-list" id="opsList"></div></div></div></article>
+      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Leitura operacional</div><h3 id="operationalReadingTitle">Itens que ainda precisam ser executados no mês Julho/2026</h3></div><span class="hint">A criticidade aumenta conforme o mês avança sem execução suficiente</span></div><div class="ops-reading"><div class="ops-total"><span>Itens planejados do contrato</span><strong id="plannedItemsCount">0</strong><small id="opsSummary"></small></div><div class="ops-list" id="opsList"></div></div></div></article>
 
       <div class="executive-lower">
         <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Mapa de criticidade</div><h3>Alertas acionáveis do contrato</h3></div></div><div class="critical-map" id="criticalMap"></div></div></article>
@@ -253,7 +253,7 @@
     }
     function renderOperationalReading(){
       var m=activeMonth(),rows=plannedItems(),urgent=rows.filter(function(i){return osStatus(i,m)==="Urgente"}).length,attention=rows.filter(function(i){return osStatus(i,m)==="Atenção"}).length;
-      document.getElementById("operationalReadingTitle").textContent=month<0?"Itens que não foram executados nos meses de 2026 — prazo de execução finalizado":"Itens que não foram executados no mês "+fullMonths[m]+"/2026 — prazo de execução finalizado";
+      document.getElementById("operationalReadingTitle").textContent=month<0?"Itens que ainda precisam ser executados nos meses de 2026":"Itens que ainda precisam ser executados no mês "+fullMonths[m]+"/2026";
       document.getElementById("plannedItemsCount").textContent=rows.length;
       document.getElementById("opsSummary").textContent=urgent?urgent+" itens exigem ação urgente nesta semana.":attention?attention+" itens precisam de atenção ao ritmo de execução.":"Nenhum desvio crítico identificado para o recorte.";
       document.getElementById("opsList").innerHTML=rows.length?rows.map(function(item){var p=Number(item.plan[m]||0),e=executedQty(item,m),s=osStatus(item,m),expected=p*elapsedShare(m),text;
