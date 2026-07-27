@@ -5,25 +5,35 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Controle da Malha Viária - Base Atualizada</title>
 <link rel="stylesheet" href="./visual-branco-20260724.css?v=20260727-v7">
+<link rel="stylesheet" href="./visual-malha-v8.css?v=20260727-v8">
 </head>
 <body>
 <div class="main">
+<div class="dashboard-header">
 <header class="hero">
   <div class="hero-left">
-    <div class="logo-card"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 120'%3E%3Cpath d='M22 28C62 0 127 3 177 25c-40-5-84 2-124 28C42 44 31 35 22 28Z' fill='%2362c4c8'/%3E%3Cpath d='M25 59c46-21 96-14 151 10-42-1-83 2-123 21-11-11-20-22-28-31Z' fill='%2362c4c8'/%3E%3Cpath d='M24 91c46-22 99-15 154 10-42-4-85 1-125 20-12-11-21-21-29-30Z' fill='%2362c4c8'/%3E%3Ctext x='92' y='72' font-family='Arial' font-size='28' font-weight='700' fill='%2307395b'%3ESINAPE%3C/text%3E%3C/svg%3E" alt="SINAPE"></div>
+    <div class="logo-card"><img src="data:image/webp;base64,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" alt="SINAPE"></div>
     <div class="hero-copy"><h1>Controle de Execução da Malha Viária</h1><p>Acompanhamento da execução contratual de rodovias</p></div>
   </div>
   <div class="hero-road" aria-hidden="true">
-    <svg viewBox="0 0 800 260" preserveAspectRatio="none">
-      <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b5d7d"/><stop offset="1" stop-color="#073a5d"/></linearGradient></defs>
-      <rect width="800" height="260" fill="url(#g)"/>
-      <path d="M-40 250 C170 180 360 135 830 110" fill="none" stroke="#b8dce9" stroke-width="7" opacity=".72"/>
-      <path d="M-40 270 C170 205 360 165 830 140" fill="none" stroke="#eff9fc" stroke-width="3" opacity=".9"/>
-      <path d="M-40 218 C150 155 345 112 830 87" fill="none" stroke="#79b9cf" stroke-width="2" opacity=".7"/>
-      <path d="M10 250 C220 190 405 150 790 130" fill="none" stroke="#ffffff" stroke-width="2" stroke-dasharray="18 14" opacity=".85"/>
-      <path d="M220 0V66M590 0V62" stroke="#86bfd1" stroke-width="3" opacity=".6"/>
-      <rect x="195" y="20" width="420" height="46" rx="6" fill="none" stroke="#83bbce" stroke-width="3" opacity=".55"/>
-      <circle cx="660" cy="120" r="4" fill="#dff7ff"/><circle cx="710" cy="110" r="4" fill="#dff7ff"/>
+    <svg viewBox="0 0 900 260" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#087291"/><stop offset="1" stop-color="#073d5f"/></linearGradient>
+        <linearGradient id="road" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e7792"/><stop offset="1" stop-color="#083b59"/></linearGradient>
+      </defs>
+      <rect width="900" height="260" fill="url(#sky)"/>
+      <path d="M80 260 C260 170 460 140 900 98 L900 260Z" fill="url(#road)"/>
+      <path d="M0 249 C230 170 470 137 900 102" fill="none" stroke="#b4e5ef" stroke-width="5" opacity=".8"/>
+      <path d="M0 260 C240 189 500 158 900 130" fill="none" stroke="#eefcff" stroke-width="3" opacity=".95"/>
+      <path d="M135 260 C330 193 530 163 900 140" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-dasharray="22 16" opacity=".9"/>
+      <path d="M300 260 C455 204 625 176 900 160" fill="none" stroke="#ffffff" stroke-width="2" stroke-dasharray="20 15" opacity=".8"/>
+      <path d="M35 214 C250 148 500 111 900 84" fill="none" stroke="#7fc6d7" stroke-width="2" opacity=".55"/>
+      <g opacity=".8" stroke="#8fd2df" fill="none" stroke-width="2">
+        <path d="M560 20V86M752 20V74"/><path d="M545 22H770V58H545Z"/><path d="M585 22V58M700 22V58"/>
+      </g>
+      <g fill="#e9fbff" opacity=".95"><circle cx="260" cy="138" r="3"/><circle cx="355" cy="121" r="3"/><circle cx="480" cy="104" r="3"/></g>
+      <g transform="translate(770 142)"><path d="M0 48 13 0l13 48z" fill="#f2fbff"/><path d="M5 29h16l3 10H2z" fill="#49c2d1"/></g>
+      <g transform="translate(835 126) scale(.8)"><path d="M0 48 13 0l13 48z" fill="#f2fbff"/><path d="M5 29h16l3 10H2z" fill="#49c2d1"/></g>
     </svg>
   </div>
   <div class="hero-meta">Fonte: Base BI Executado e Malha Viária<br>Atualização da planilha: 27/07/2026 10:17<br>Vínculo entre abas: número do contrato</div>
@@ -34,10 +44,12 @@
   <div class="field"><label>Rodovia</label><div class="control"><svg viewBox="0 0 24 24"><path d="M4 20 9 4h6l5 16M8 12h8"/></svg><select id="road"></select></div></div>
   <div class="field"><label>Família / serviço</label><div class="control"><svg viewBox="0 0 24 24"><path d="m4 17 6-6 4 4 6-7"/><path d="M4 21h16"/></svg><select id="service"></select></div></div>
   <div class="field"><label>Período</label><div class="control"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg><select id="period"></select></div></div>
+  <div class="field"><label>Status</label><div class="control"><svg viewBox="0 0 24 24"><path d="M5 12l4 4L19 6"/><circle cx="12" cy="12" r="9"/></svg><select id="status"><option value="Todos">Todos os status</option><option value="Executado">Executado</option><option value="Não executado">Não executado</option></select></div></div>
   <div class="field"><label>Ordenação</label><div class="control"><svg viewBox="0 0 24 24"><path d="M8 6h12M8 12h9M8 18h6"/><path d="m3 7 2-2 2 2M5 5v14"/></svg><select id="sort"><option value="road">Rodovia</option><option value="extDesc">Maior extensão</option><option value="extAsc">Menor extensão</option><option value="start">Km inicial</option></select></div></div>
   <div class="field"><label>Busca</label><div class="control"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="search" placeholder="Ex.: SP-253 ou 465"></div></div>
   <button class="clear" id="clear">Limpar</button>
 </section>
+</div>
 <section class="kpis">
   <div class="card kpi"><div class="icon"><svg viewBox="0 0 24 24"><path d="M4 20 9 4h6l5 16M8 12h8M7 16h10"/></svg></div><div class="kpi-copy"><div class="kpi-label">Extensão contratual</div><div class="kpi-value" id="kpiKm">-</div><div class="kpi-note">Total selecionado</div></div></div>
   <div class="card kpi"><div class="icon green"><svg viewBox="0 0 24 24"><path d="M12 21s7-4.7 7-11a7 7 0 1 0-14 0c0 6.3 7 11 7 11Z"/><circle cx="12" cy="10" r="2.3"/></svg></div><div class="kpi-copy"><div class="kpi-label">Rodovias com execução</div><div class="kpi-value" id="kpiRoads">-</div><div class="kpi-note">Na seleção atual</div></div></div>
@@ -49,5 +61,5 @@
 </section>
 </div>
 <script src="./dados-sharepoint-20260727-v7/data-packed.js?v=20260727-v7"></script>
-<script src="./dados-sharepoint-20260727-v7/init.js?v=20260727-v7"></script>
+<script src="./dados-sharepoint-20260727-v7/init-v8.js?v=20260727-v8"></script>
 </body></html>
