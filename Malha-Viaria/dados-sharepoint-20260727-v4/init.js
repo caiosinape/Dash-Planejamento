@@ -1,1 +1,28 @@
-(async()=>{try{const unzip=async b64=>{if(!b64)throw new Error('Base comprimida ausente');const bytes=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));return JSON.parse(await new Response(stream).text())};const base=await unzip(window.__BB64);const detail=await unzip(window.__DB64);globalThis.MALHA=base.malha||[];globalThis.QTY=base.qty||[];globalThis.DETAIL=detail||[];if(!MALHA.length)throw new Error('Malha vazia');delete window.__BB64;delete window.__DB64;const app=document.createElement('script');app.src='./original-app-v3.js?v=20260727-v4';app.onload=()=>console.info('Malha Viária carregada',MALHA.length,QTY.length,DETAIL.length);app.onerror=()=>{throw new Error('Falha ao carregar a aplicação')};document.body.appendChild(app)}catch(err){console.error('Erro ao inicializar Malha Viária:',err);const list=document.getElementById('list');if(list)list.innerHTML='<div class="empty">Não foi possível carregar os dados atualizados.</div>'}})();
+(async()=>{try{
+  const binary=atob(window.__PAYLOAD||'');
+  if(!binary) throw new Error('Payload vazio');
+  const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
+  const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+  const payload=JSON.parse(await new Response(stream).text());
+  if(!payload?.base||!payload?.q||!payload?.db64) throw new Error('Estrutura do payload incompleta');
+  const data=(new Function('window',payload.base+'\n'+payload.q+'\nreturn {C,P,R,S,M,Q:window.__Q};'))(window);
+  const {C,P,R,S,M,Q}=data;
+  const dbytes=Uint8Array.from(atob(payload.db64),c=>c.charCodeAt(0));
+  const dstream=new Blob([dbytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+  const D=JSON.parse(await new Response(dstream).text());
+  globalThis.MALHA=M.map(x=>({contrato:C[x[0]],rodovia:R[x[1]],kmi:x[2],kmf:x[3]}));
+  globalThis.QTY=(Q||[]).map(x=>({contrato:C[x[0]],periodo:P[x[1]],servico:S[x[2]],quantidade:x[3],rodovias:(x[4]||[]).map(i=>R[i])}));
+  globalThis.DETAIL=D.map(x=>({contrato:C[x[0]],periodo:P[x[1]],rodovia:R[x[2]],servico:S[x[3]],quantidade:x[4],observacao:x[5]||'',kmi:x[6],kmf:x[7],tipo:x[8]?'intervalo':'ponto'}));
+  if(MALHA.length!==165) throw new Error('Malha divergente: '+MALHA.length);
+  if(QTY.length!==2024) throw new Error('Quantidades divergentes: '+QTY.length);
+  if(DETAIL.length!==4006) throw new Error('Detalhes divergentes: '+DETAIL.length);
+  delete window.__PAYLOAD;
+  const script=document.createElement('script');
+  script.src='./original-app-v3.js?v=20260727-v4';
+  script.onerror=()=>{throw new Error('Falha ao carregar a aplicação')};
+  document.body.appendChild(script);
+}catch(err){
+  console.error('Diagnóstico da base:',err);
+  const list=document.getElementById('list');
+  if(list)list.innerHTML='<div class="empty"><strong>Não foi possível carregar a base.</strong><br>Diagnóstico: '+String(err.message||err).replace(/[<>]/g,'')+'</div>';
+}})();
