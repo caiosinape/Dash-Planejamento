@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Controle da Malha Viária</title>
 <link rel="stylesheet" href="./visual-branco-20260724.css?v=20260724-2">
-<link rel="stylesheet" href="./header-layout-v2.css">
+<link rel="stylesheet" href="./header-layout-v3.css?v=20260727-1">
 </head>
 <body>
 <div class="main">
@@ -17,31 +17,33 @@
     </div>
     <div class="header-road"><svg viewBox="0 0 720 210" preserveAspectRatio="none" aria-hidden="true">
 <defs>
-  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#076987"/><stop offset="1" stop-color="#084764"/></linearGradient>
-  <linearGradient id="asphalt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#124c66"/><stop offset="1" stop-color="#082f49"/></linearGradient>
-  <linearGradient id="glow" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7ed6e5" stop-opacity=".15"/><stop offset=".5" stop-color="#e5fbff" stop-opacity=".58"/><stop offset="1" stop-color="#7ed6e5" stop-opacity=".08"/></linearGradient>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b7896"/><stop offset=".52" stop-color="#08617f"/><stop offset="1" stop-color="#08445f"/></linearGradient>
+  <linearGradient id="asphalt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1a5a72"/><stop offset=".55" stop-color="#103f58"/><stop offset="1" stop-color="#072c43"/></linearGradient>
+  <linearGradient id="shoulder" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#80d6e4" stop-opacity=".2"/><stop offset=".52" stop-color="#eefeff" stop-opacity=".9"/><stop offset="1" stop-color="#7bcfdd" stop-opacity=".12"/></linearGradient>
+  <radialGradient id="haze" cx="58%" cy="20%" r="68%"><stop offset="0" stop-color="#a8edf3" stop-opacity=".28"/><stop offset="1" stop-color="#a8edf3" stop-opacity="0"/></radialGradient>
 </defs>
 <rect width="720" height="210" fill="url(#sky)"/>
-<path d="M0 182 C170 146 300 126 444 105 C548 90 628 65 720 32 L720 210 L0 210Z" fill="url(#asphalt)"/>
-<path d="M-20 185 C165 149 306 127 451 105 C552 90 633 64 735 27" fill="none" stroke="#7ec9d8" stroke-width="3" opacity=".65"/>
-<path d="M-18 203 C168 164 317 141 463 118 C570 101 650 73 742 38" fill="none" stroke="#d9f8ff" stroke-width="6" opacity=".92"/>
-<path d="M32 194 C204 160 333 140 472 118 C575 102 651 76 718 51" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-dasharray="22 17" opacity=".9"/>
-<path d="M230 161 C330 142 418 128 499 114 C568 102 624 84 681 62" fill="none" stroke="#d2f6fb" stroke-width="1.7" stroke-dasharray="13 12" opacity=".72"/>
-<path d="M0 177 C185 142 320 122 458 101 C558 86 638 61 720 30" fill="none" stroke="url(#glow)" stroke-width="14"/>
-<!-- gantry -->
+<rect width="720" height="210" fill="url(#haze)"/>
+<path d="M-22 210 C130 176 265 155 390 134 C515 113 620 83 744 28 L744 210Z" fill="url(#asphalt)"/>
+<path d="M-30 193 C135 159 276 137 407 116 C532 96 634 65 748 20" fill="none" stroke="#7cc7d6" stroke-width="3" opacity=".55"/>
+<path d="M-18 207 C150 170 292 148 424 126 C548 106 647 75 750 34" fill="none" stroke="#e2fbff" stroke-width="6" opacity=".95"/>
+<path d="M22 199 C178 168 306 147 435 126 C555 106 648 78 720 50" fill="none" stroke="#fff" stroke-width="2.4" stroke-dasharray="24 18" opacity=".92"/>
+<path d="M226 163 C330 145 421 130 502 116 C573 103 629 85 687 62" fill="none" stroke="#d8f8fb" stroke-width="1.8" stroke-dasharray="14 13" opacity=".76"/>
+<path d="M-6 186 C165 151 301 130 432 109 C553 90 648 60 730 27" fill="none" stroke="url(#shoulder)" stroke-width="13"/>
+<path d="M0 179 C170 144 309 124 438 104 C555 86 648 58 722 31" fill="none" stroke="#90d7e3" stroke-width="1.5" opacity=".55"/>
 <g stroke="#8fd2df" fill="none" stroke-width="2" opacity=".9">
-  <path d="M440 24V93M627 16V67M438 24H630"/>
-  <path d="M445 29H623M448 34H620" opacity=".55"/>
-  <path d="M441 24l8 8m12-8l8 8m12-8l8 8m12-8l8 8m12-8l8 8m12-8l8 8m12-8l8 8m12-8l8 8m12-8l8 8m12-8l8 8" opacity=".45"/>
+  <path d="M438 22V94M629 15V68M436 22H632"/>
+  <path d="M444 28H624M447 34H621" opacity=".55"/>
+  <path d="M441 23l8 8m13-8 8 8m13-8 8 8m13-8 8 8m13-8 8 8m13-8 8 8m13-8 8 8m13-8 8 8m13-8 8 8m13-8 8 8m13-8 8 8" opacity=".42"/>
 </g>
-<rect x="489" y="16" width="92" height="42" rx="5" fill="#0f5873" stroke="#81c9d8" stroke-width="2"/>
-<path d="M510 34v10m0 0-5-5m5 5 5-5M536 34v10m0 0-5-5m5 5 5-5M562 34v10m0 0-5-5m5 5 5-5" stroke="#c7f2f7" stroke-width="2" fill="none"/>
-<!-- cones -->
+<rect x="488" y="15" width="94" height="43" rx="6" fill="#0f5873" stroke="#8bd2df" stroke-width="2"/>
+<rect x="494" y="21" width="82" height="31" rx="4" fill="#0b4d67" opacity=".72"/>
+<path d="M510 33v11m0 0-5-5m5 5 5-5M536 33v11m0 0-5-5m5 5 5-5M562 33v11m0 0-5-5m5 5 5-5" stroke="#d6f7fb" stroke-width="2" fill="none"/>
 <g>
-  <g transform="translate(620 122)"><path d="M0 27L10 0l10 27Z" fill="#e9f8fb"/><path d="M5 13h10" stroke="#39bdd0" stroke-width="4"/><rect x="-4" y="27" width="28" height="5" rx="2" fill="#d9f4f8"/></g>
-  <g transform="translate(674 104) scale(.78)"><path d="M0 27L10 0l10 27Z" fill="#e9f8fb"/><path d="M5 13h10" stroke="#39bdd0" stroke-width="4"/><rect x="-4" y="27" width="28" height="5" rx="2" fill="#d9f4f8"/></g>
+  <g transform="translate(617 122)"><path d="M0 27L10 0l10 27Z" fill="#edf9fb"/><path d="M5 13h10" stroke="#40bfd0" stroke-width="4"/><rect x="-4" y="27" width="28" height="5" rx="2" fill="#d9f4f8"/></g>
+  <g transform="translate(674 104) scale(.78)"><path d="M0 27L10 0l10 27Z" fill="#edf9fb"/><path d="M5 13h10" stroke="#40bfd0" stroke-width="4"/><rect x="-4" y="27" width="28" height="5" rx="2" fill="#d9f4f8"/></g>
 </g>
-<circle cx="144" cy="156" r="2.5" fill="#e9fbff"/><circle cx="350" cy="127" r="2.5" fill="#e9fbff"/><circle cx="398" cy="116" r="2" fill="#e9fbff"/>
+<g fill="#e9fbff"><circle cx="145" cy="156" r="2.5"/><circle cx="349" cy="127" r="2.5"/><circle cx="398" cy="116" r="2"/><circle cx="460" cy="101" r="1.7"/></g>
 </svg></div>
     <div class="header-info">Fonte: Base BI Executado e Malha Viária<br>Atualização: 27/07/2026 10:45<br>Base oficial: Estudo Geral.xlsx</div>
   </div>
