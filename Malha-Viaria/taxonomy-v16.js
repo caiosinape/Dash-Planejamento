@@ -7,7 +7,7 @@
     },50);
   });
   try{
-    const css=document.createElement('link');css.rel='stylesheet';css.href='./taxonomy-v16.css?v=20260727-v16';document.head.appendChild(css);
+    const css=document.createElement('link');css.rel='stylesheet';css.href='./taxonomy-v16.css?v=20260727-v20';document.head.appendChild(css);
     await waitForData();
     globalThis.EXECV15=globalThis.EXECV15.filter(x=>String(x.servico)!=='Total Geral');
     const TAXONOMY=(window.__TAX16||[]).map(x=>({item:x[0],macro:x[1],sub:x[2],code:x[3]}));
@@ -36,46 +36,86 @@
     selections=function(){const s=baseSelections();s.material=els.material?.value||'Todos';return s;};
 
     const rowMatch=(q,s)=>(s.contract==='Todos'||String(q.contrato)===s.contract)&&(s.road==='Todas'||(q.rodovias||[]).map(String).includes(s.road))&&(s.service==='Todos'||String(q.macrogrupo)===s.service)&&(s.material==='Todos'||String(q.servico)===s.material)&&(s.period==='Todos'||String(q.periodo)===s.period);
+    const detailRowMatch=(d,s)=>(s.contract==='Todos'||String(d.contrato)===s.contract)&&(s.road==='Todas'||String(d.rodovia)===s.road)&&(s.service==='Todos'||String(d.macrogrupo)===s.service)&&(s.material==='Todos'||String(d.servico)===s.material)&&(s.period==='Todos'||String(d.periodo)===s.period);
     qtyMatches=function(q,s){return rowMatch(q,s)};
-    detailMatches=function(d,s){return(s.contract==='Todos'||String(d.contrato)===s.contract)&&(s.road==='Todas'||String(d.rodovia)===s.road)&&(s.service==='Todos'||String(d.macrogrupo)===s.service)&&(s.material==='Todos'||String(d.servico)===s.material)&&(s.period==='Todos'||String(d.periodo)===s.period)};
-    filteredQty=function(){const s=selections();return EXECV15.filter(q=>rowMatch(q,s))};
-    filteredDetail=function(){const s=selections();return DETAIL.filter(d=>detailMatches(d,s))};
+    detailMatches=function(d,s){return detailRowMatch(d,s)};
+    filteredQty=function(){const s=selections();return EXECV15.filter(q=>rowMatch(q,s));};
+    filteredDetail=function(){const s=selections();return DETAIL.filter(d=>detailRowMatch(d,s));};
 
-    const macroSort=(a,b)=>{const ai=MACRO_ORDER.indexOf(a),bi=MACRO_ORDER.indexOf(b);return(ai<0?999:ai)-(bi<0?999:bi)||a.localeCompare(b,'pt-BR')};
+    const macroSort=(a,b)=>{const ai=MACRO_ORDER.indexOf(a),bi=MACRO_ORDER.indexOf(b);return(ai<0?999:ai)-(bi<0?999:bi)||a.localeCompare(b,'pt-BR');};
     const itemSort=(a,b)=>(ITEM_ORDER.get(a)??9999)-(ITEM_ORDER.get(b)??9999)||a.localeCompare(b,'pt-BR');
+    const roadSort=(a,b)=>a.localeCompare(b,'pt-BR',{numeric:true});
+    const contractSort=(a,b)=>a.localeCompare(b,'pt-BR',{numeric:true});
+    const ALL={contract:'Todos',road:'Todas',service:'Todos',material:'Todos',period:'Todos',status:'Todos'};
 
-    refreshFacets=function(){
-      if(updating)return;updating=true;
-      const current=selections();
-      const contracts=uniq(MALHA.filter(m=>current.road==='Todas'||String(m.rodovia)===current.road).map(m=>String(m.contrato))).sort((a,b)=>a.localeCompare(b,'pt-BR',{numeric:true}));
-      setOptions(els.contract,contracts,'Todos','Todos os contratos',current.contract);
-      const c=els.contract.value||'Todos';
-      const roads=uniq(MALHA.filter(m=>c==='Todos'||String(m.contrato)===c).map(m=>String(m.rodovia))).sort((a,b)=>a.localeCompare(b,'pt-BR',{numeric:true}));
-      setOptions(els.road,roads,'Todas','Todas as rodovias',current.road);
-      const r=els.road.value||'Todas';
-      const base=EXECV15.filter(q=>(c==='Todos'||String(q.contrato)===c)&&(r==='Todas'||(q.rodovias||[]).map(String).includes(r))&&(current.period==='Todos'||String(q.periodo)===current.period));
-      const macros=uniq(base.map(q=>String(q.macrogrupo))).sort(macroSort);
-      setOptions(els.service,macros,'Todos','Todos os macrogrupos',current.service);
-      const macro=els.service.value||'Todos';
-      const items=uniq(base.filter(q=>macro==='Todos'||String(q.macrogrupo)===macro).map(q=>String(q.servico))).sort(itemSort);
-      setOptions(els.material,items,'Todos','Todos os materiais',current.material);
-      const mat=els.material.value||'Todos';
-      const periods=uniq(EXECV15.filter(q=>(c==='Todos'||String(q.contrato)===c)&&(r==='Todas'||(q.rodovias||[]).map(String).includes(r))&&(macro==='Todos'||String(q.macrogrupo)===macro)&&(mat==='Todos'||String(q.servico)===mat)).map(q=>String(q.periodo||'')).filter(Boolean)).sort().reverse();
-      setOptions(els.period,periods,'Todos','Todos os períodos',current.period);
-      updating=false;
+    const intersect=(base,other)=>{const out=[];for(const[a,b]of merge(base))for(const[c,d]of merge(other)){const s=Math.max(a,c),e=Math.min(b,d);if(e-s>.001)out.push([s,e]);}return merge(out);};
+    const groupsFor=s=>groupMalha(MALHA.filter(m=>(s.contract==='Todos'||String(m.contrato)===s.contract)&&(s.road==='Todas'||String(m.rodovia)===s.road)));
+    const detailsFor=s=>DETAIL.filter(d=>detailRowMatch(d,s));
+    const executionFiltered=s=>s.service!=='Todos'||s.material!=='Todos'||s.period!=='Todos';
+    const groupExecution=(g,details)=>intersect(g.intervals,merge(details.filter(d=>String(d.contrato)===g.contrato&&String(d.rodovia)===g.rodovia&&+d.kmf>+d.kmi).map(d=>[+d.kmi,+d.kmf])));
+    const groupHasPoint=(g,details)=>details.some(d=>String(d.contrato)===g.contrato&&String(d.rodovia)===g.rodovia&&+d.kmf===+d.kmi&&+d.kmi>=g.start&&+d.kmi<=g.end);
+    const groupHasMatchingExecution=(g,details)=>unionLen(groupExecution(g,details))>.001||groupHasPoint(g,details);
+    const groupHasPending=(g,details)=>unionLen(subtractIntervals(g.intervals,groupExecution(g,details)))>.001;
+    const resultGroups=s=>{
+      const groups=groupsFor(s),details=detailsFor(s);
+      if(s.status==='Executado')return groups.filter(g=>groupHasMatchingExecution(g,details));
+      if(s.status==='Não executado')return groups.filter(g=>groupHasPending(g,details));
+      if(executionFiltered(s))return groups.filter(g=>groupHasMatchingExecution(g,details));
+      return groups;
+    };
+    const hasResults=s=>resultGroups(s).length>0;
+    const stateWithout=(current,key)=>({...current,[key]:ALL[key]});
+    const availableValues=(key,candidates,current)=>{
+      const context=stateWithout(current,key);
+      return candidates.filter(value=>hasResults({...context,[key]:String(value)}));
     };
 
-    groupDetails=function(g,details,macro='__ALL__'){return details.filter(d=>String(d.contrato)===g.contrato&&String(d.rodovia)===g.rodovia&&(macro==='__ALL__'||String(d.macrogrupo)===macro))};
-    executionIntervals=function(g,details,macro='__ALL__'){return merge(groupDetails(g,details,macro).filter(d=>+d.kmf>+d.kmi).map(d=>[+d.kmi,+d.kmf]))};
-    serviceTotal=function(rows,macro){return rows.filter(r=>String(r.macrogrupo)===macro).reduce((t,r)=>t+Number(r.quantidade||0),0)};
-    topServices=function(rows,limit=3){const mp=new Map();for(const r of rows)mp.set(String(r.macrogrupo),(mp.get(String(r.macrogrupo))||0)+Number(r.quantidade||0));return[...mp.entries()].sort((a,b)=>b[1]-a[1]).slice(0,limit)};
-    relevantLanes=function(g,details,qtyRows){const s=selections();if(s.status==='Não executado')return[];if(s.service!=='Todos')return[s.service];return uniq(groupDetails(g,details).map(d=>String(d.macrogrupo))).sort((a,b)=>serviceTotal(qtyRows,b)-serviceTotal(qtyRows,a)).slice(0,4)};
-    serviceLocationText=function(g,macro,details){const ds=groupDetails(g,details,macro),ints=merge(ds.filter(d=>+d.kmf>+d.kmi).map(d=>[+d.kmi,+d.kmf])),pts=uniq(ds.filter(d=>+d.kmf===+d.kmi).map(d=>+d.kmi)).sort((a,b)=>a-b);return[...ints.map(([a,b])=>`Km ${fmt(a)}–${fmt(b)}`),...pts.map(p=>`Km ${fmt(p)}`)].join(' • ')};
+    const allContracts=uniq(MALHA.map(m=>String(m.contrato))).sort(contractSort);
+    const allRoads=uniq(MALHA.map(m=>String(m.rodovia))).sort(roadSort);
+    const allMacros=uniq(EXECV15.map(q=>String(q.macrogrupo))).sort(macroSort);
+    const allItems=uniq(EXECV15.map(q=>String(q.servico))).sort(itemSort);
+    const allPeriods=uniq(EXECV15.map(q=>String(q.periodo||'')).filter(Boolean)).sort().reverse();
+    const allStatuses=['Executado','Não executado'];
 
-    const intersect=(base,other)=>{const out=[];for(const[a,b]of merge(base))for(const[c,d]of merge(other)){const s=Math.max(a,c),e=Math.min(b,d);if(e-s>.001)out.push([s,e])}return merge(out)};
+    refreshFacets=function(){
+      if(updating)return;
+      updating=true;
+      try{
+        for(let pass=0;pass<3;pass++){
+          const current=selections();
+          const before=JSON.stringify(current);
+          setOptions(els.contract,availableValues('contract',allContracts,current),'Todos','Todos os contratos',current.contract);
+          const c1=selections();
+          setOptions(els.road,availableValues('road',allRoads,c1),'Todas','Todas as rodovias',c1.road);
+          const c2=selections();
+          setOptions(els.service,availableValues('service',allMacros,c2),'Todos','Todos os macrogrupos',c2.service);
+          const c3=selections();
+          setOptions(els.material,availableValues('material',allItems,c3),'Todos','Todos os materiais',c3.material);
+          const c4=selections();
+          setOptions(els.period,availableValues('period',allPeriods,c4),'Todos','Todos os períodos',c4.period);
+          const c5=selections();
+          setOptions(els.status,availableValues('status',allStatuses,c5),'Todos','Todos os status',c5.status);
+          if(JSON.stringify(selections())===before)break;
+        }
+      }finally{updating=false;}
+    };
+
+    filteredMalha=function(){
+      const s=selections();
+      const term=(els.search.value||'').trim().toLowerCase();
+      const keys=new Set(resultGroups(s).map(g=>g.contrato+'|'+g.rodovia));
+      return MALHA.filter(m=>keys.has(String(m.contrato)+'|'+String(m.rodovia))&&(!term||String(m.rodovia).toLowerCase().includes(term)||String(m.contrato).includes(term)));
+    };
+
+    groupDetails=function(g,details,macro='__ALL__'){return details.filter(d=>String(d.contrato)===g.contrato&&String(d.rodovia)===g.rodovia&&(macro==='__ALL__'||String(d.macrogrupo)===macro));};
+    executionIntervals=function(g,details,macro='__ALL__'){return merge(groupDetails(g,details,macro).filter(d=>+d.kmf>+d.kmi).map(d=>[+d.kmi,+d.kmf]));};
+    serviceTotal=function(rows,macro){return rows.filter(r=>String(r.macrogrupo)===macro).reduce((t,r)=>t+Number(r.quantidade||0),0);};
+    topServices=function(rows,limit=3){const mp=new Map();for(const r of rows)mp.set(String(r.macrogrupo),(mp.get(String(r.macrogrupo))||0)+Number(r.quantidade||0));return[...mp.entries()].sort((a,b)=>b[1]-a[1]).slice(0,limit);};
+    relevantLanes=function(g,details,qtyRows){const s=selections();if(s.status==='Não executado')return[];if(s.service!=='Todos')return[s.service];return uniq(groupDetails(g,details).map(d=>String(d.macrogrupo))).sort((a,b)=>serviceTotal(qtyRows,b)-serviceTotal(qtyRows,a)).slice(0,4);};
+    serviceLocationText=function(g,macro,details){const ds=groupDetails(g,details,macro),ints=merge(ds.filter(d=>+d.kmf>+d.kmi).map(d=>[+d.kmi,+d.kmf])),pts=uniq(ds.filter(d=>+d.kmf===+d.kmi).map(d=>+d.kmi)).sort((a,b)=>a-b);return[...ints.map(([a,b])=>`Km ${fmt(a)}–${fmt(b)}`),...pts.map(p=>`Km ${fmt(p)}`)].join(' • ');};
+
     const exec=(g,details,macro='__ALL__')=>intersect(g.intervals,executionIntervals(g,details,macro));
-    const pending=(g,details,macro='__ALL__')=>subtractIntervals(g.intervals,exec(g,details,macro));
-    coverageFor=function(g,details){const s=selections();return unionLen(exec(g,details,s.service==='Todos'?'__ALL__':s.service))};
+    coverageFor=function(g,details){const s=selections();return unionLen(exec(g,details,s.service==='Todos'?'__ALL__':s.service));};
 
     const oldRenderRoad=renderRoad;
     renderRoad=function(g,details,qtyRows){
@@ -83,8 +123,9 @@
       return html.replace(/<div class="lane-name" title="([^"]*)">([^<]*)<\/div>/g,(m,title,label)=>`<div class="lane-name macro-lane" title="${title}">${label}${selections().material!=='Todos'?`<span class="material-hint">${esc(selections().material)}</span>`:''}</div>`);
     };
 
-    els.material.addEventListener('change',()=>{refreshFacets();page=1;render()});
-    document.getElementById('clear').onclick=()=>{els.contract.value=DEFAULT_CONTRACT;els.road.value='Todas';els.service.value='Todos';els.material.value='Todos';els.period.value='Todos';els.status.value='Todos';els.sort.value='road';els.search.value='';refreshFacets();page=1;render()};
+    els.material.addEventListener('change',()=>{refreshFacets();page=1;render();});
+    document.getElementById('clear').onclick=()=>{els.contract.value=DEFAULT_CONTRACT;els.road.value='Todas';els.service.value='Todos';els.material.value='Todos';els.period.value='Todos';els.status.value='Todos';els.sort.value='road';els.search.value='';refreshFacets();page=1;render();};
     refreshFacets();page=1;render();
-  }catch(err){console.error('Erro taxonomia v16:',err);}
+    console.info('Taxonomia v20 aplicada com filtros encadeados');
+  }catch(err){console.error('Erro taxonomia v20:',err);}
 })();
