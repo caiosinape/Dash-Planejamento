@@ -1,0 +1,1 @@
+(()=>{const hero=document.querySelector('.hero-road');if(!hero)return;fetch('./rodovia-neon-v22.svg?v=20260727-v22').then(r=>{if(!r.ok)throw new Error('Falha ao carregar SVG');return r.text()}).then(svg=>{hero.innerHTML=svg}).catch(err=>console.error('Erro na arte da rodovia v22:',err));})();
