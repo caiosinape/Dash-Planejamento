@@ -1,0 +1,1 @@
+(()=>{const run=()=>{const s=document.createElement('script');s.src='./road-art-v34.js?force='+Date.now();document.body.appendChild(s)};run();setTimeout(run,400);setTimeout(run,1200);setTimeout(run,2500);setTimeout(run,5000);console.info('Reaplicação do cabeçalho v35 programada')})();
