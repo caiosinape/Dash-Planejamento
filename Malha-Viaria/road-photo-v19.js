@@ -1,0 +1,1 @@
+(()=>{const h=document.querySelector('.hero-road');if(!h||!window.__ROAD_IMG_V19)return;h.innerHTML='<img alt="Rodovia" src="data:image/webp;base64,'+window.__ROAD_IMG_V19+'" style="display:block;width:100%;height:100%;object-fit:cover;object-position:center 58%;">';h.style.overflow='hidden';h.style.background='#063451';})();
