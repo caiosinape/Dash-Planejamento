@@ -1,0 +1,93 @@
+name: Restore Access and Source
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/restore-access-source-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout completo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restaurar fonte funcional do cronograma
+        shell: bash
+        run: |
+          git show e32a718e36ec2e77af3cc05aef84776217f6a83a:'Cronogramas Planejamento/index.html' > 'Cronogramas Planejamento/index.html'
+
+      - name: Blindar a tela de acesso
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('Planejamento-Colaborativo/index.html')
+          html = path.read_text(encoding='utf-8')
+
+          marker = '<script id="sinape-access-failsafe">'
+          if marker not in html:
+              bootstrap = r'''<script id="sinape-access-failsafe">
+(function(){
+  function bindSafeAccess(){
+    var form=document.getElementById('accessForm');
+    if(!form||form.dataset.safeAccessBound==='1')return;
+    form.dataset.safeAccessBound='1';
+    form.addEventListener('submit',function(event){
+      event.preventDefault();
+      var input=document.getElementById('accessEmail');
+      var email=String(input&&input.value||'').trim().toLowerCase();
+      if(!email){
+        if(input)input.focus();
+        return;
+      }
+      try{sessionStorage.setItem('sinape:planning:access-email:v1',email)}catch(error){}
+      var gate=document.getElementById('accessGate');
+      if(gate)gate.hidden=true;
+      document.body.classList.remove('access-pending');
+      var session=document.getElementById('accessSession');
+      if(session)session.hidden=false;
+      var sessionEmail=document.getElementById('accessSessionEmail');
+      if(sessionEmail)sessionEmail.textContent=email;
+    },true);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bindSafeAccess);
+  else bindSafeAccess();
+})();
+</script>'''
+              target = '<script>!async function(){'
+              if target not in html:
+                  raise RuntimeError('Script principal do painel não localizado')
+              html = html.replace(target, bootstrap + target, 1)
+
+          path.write_text(html, encoding='utf-8')
+          PY
+
+      - name: Validar arquivos antes da publicação
+        shell: bash
+        run: |
+          test -s 'Cronogramas Planejamento/index.html'
+          grep -q 'var contractData=' 'Cronogramas Planejamento/index.html'
+          grep -q 'var rdoData=' 'Cronogramas Planejamento/index.html'
+          grep -q 'sinape-access-failsafe' 'Planejamento-Colaborativo/index.html'
+          grep -q 'id="accessForm"' 'Planejamento-Colaborativo/index.html'
+
+      - name: Publicar correção
+        shell: bash
+        run: |
+          git config user.name 'SINAPE Recovery Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add 'Cronogramas Planejamento/index.html' 'Planejamento-Colaborativo/index.html'
+          if git diff --cached --quiet; then
+            echo 'Nenhuma alteração necessária.'
+            exit 0
+          fi
+          git commit -m 'Restaura fonte e blinda acesso do dashboard'
+          git push
