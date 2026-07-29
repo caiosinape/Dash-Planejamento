@@ -83,19 +83,23 @@ layout: null
 </script>{% endcapture %}
 {% assign page_html = original | replace_first: '<head>', injected_head %}
 {% assign page_html = page_html | replace: 'b=sessionStorage.getItem(f)||""', 'b=""' %}
-{% assign page_html = page_html | replace: 'function Y(e,t){return Number((e.execValue||[0,0,0,0,0,0,0,0,0,0,0,0])[t]||0)}', 'function Y(e,t){var n=Number((e.execValue||[])[t]||0),a=Number(e.exec[t]||0)*Number(e.price||0);return n||a}' %}
-{% assign page_html = page_html | replace: 'function Z(e){return oe(!0).reduce(function(t,n){return t+Number(n.plan[e]||0)*n.price},0)}', 'function Z(e){return oe(!0).reduce(function(t,n){var a=Number((n.planValue||[])[e]||0),r=Number(n.plan[e]||0)*Number(n.price||0);return t+(a||r)},0)}' %}
-{% assign page_html = page_html | replace: 'A.format(n*e.price)', 'A.format(Number((e.planValue||[])[t]||n*e.price))' %}
-{% assign page_html = page_html | replace: 'Math.max(0,Number(n.plan[t]||0))*n.price', 'Math.max(0,Number((n.planValue||[])[t]||0)||Math.max(0,Number(n.plan[t]||0))*Number(n.price||0))' %}
+{% assign page_html = page_html | replace: 'd=2026===i.getFullYear()?i.getMonth():6,c=2026===i.getFullYear()?i.getMonth():6', 'd=2026===i.getFullYear()?i.getMonth():6,c=5' %}
+{% assign page_html = page_html | replace: 'function Y(e,t){return Number((e.execValue||[0,0,0,0,0,0,0,0,0,0,0,0])[t]||0)}', 'function Y(e,t){return Number((e.execValue||[])[t]||0)}' %}
+{% assign page_html = page_html | replace: 'function Z(e){return oe(!0).reduce(function(t,n){return t+Number(n.plan[e]||0)*n.price},0)}', 'function Z(e){return oe(!0).reduce(function(t,n){return t+Number((n.planValue||[])[e]||0)},0)}' %}
+{% assign page_html = page_html | replace: 'A.format(n*e.price)', 'A.format(Number((e.planValue||[])[t]||0))' %}
+{% assign page_html = page_html | replace: 'Math.max(0,Number(n.plan[t]||0))*n.price', 'Math.max(0,Number((n.planValue||[])[t]||0))' %}
 {% assign page_html = page_html | replace: 'e.plan[t]=n,e.orders[t]=a,o&&(o.plan[t]=n,o.orders[t]=a)', 'e.plan[t]=n,e.planValue||(e.planValue=Array(12).fill(0)),e.planValue[t]=n*Number(e.price||0),e.orders[t]=a,o&&(o.plan[t]=n,o.planValue||(o.planValue=Array(12).fill(0)),o.planValue[t]=n*Number(o.price||0),o.orders[t]=a)' %}
 {% assign page_html = page_html | replace: 'document.getElementById("clearFilters").onclick=function(){c=d,s="Todas",m="",l=[],u="",Be.value=String(d),document.getElementById("osFilter").value="Todas",document.getElementById("statusFilter").value="",Ee(),we(),xe()}', 'document.getElementById("clearFilters").onclick=function(){L=C,q=T(L),c=-1,s="Todas",m="",l=[],u="",Ie.value=C,Be.value="-1",document.getElementById("itemFilter").value="",document.getElementById("osFilter").value="Todas",document.getElementById("statusFilter").value="",document.getElementById("advancedFilters").classList.remove("open"),ke(!1),Ee(),we(),xe()}' %}
+{% assign page_html = page_html | replace: 'Quantidade planejada × preço unitário do recorte', 'Fonte: coluna R$ Realista da Modelo Cronograma Base de Dados v2' %}
+{% assign page_html = page_html | replace: '<small>Fonte: Base BI Executado (2)</small>', '<small>Fonte: coluna R$ Executado da Modelo Cronograma Base de Dados v2</small>' %}
+{% assign page_html = page_html | replace: 'Qtd. executada × (preço MO + preço material)', 'Soma direta da coluna R$ Executado' %}
+{% assign page_html = page_html | replace: 'em itens programados', 'pela coluna R$ Realista' %}
 {% assign page_html = page_html | replace: 'Fonte: Modelo Cronograma + Base BI Executado (2)', 'Planejado e Executado: Modelo Cronograma Base de Dados v2 · RDO: Base BI Executado (2)' %}
 {% assign page_html = page_html | replace: 'Planejamento: base atual · Executado/RDO: <b>Base BI Executado (2) atualizada</b>', 'Planejado, Executado e OS: <b>Modelo Cronograma Base de Dados v2</b> · RDO: Base BI Executado (2)' %}
-{% assign page_html = page_html | replace: 'Fonte: Base BI Executado (2)', 'Fonte: Modelo Cronograma Base de Dados v2' %}
 {% assign page_html = page_html | replace: 'Planejamento: Modelo Cronograma Base de Dados · Planilha1', 'Planejamento, Executado e OS: Modelo Cronograma Base de Dados v2 · base interna' %}
 {% assign page_html = page_html | replace: 'Executado e RDO: Estudo Geral · Base BI Executado (2)', 'RDO: Estudo Geral · Base BI Executado (2) · somente quantidade' %}
 {% assign page_html = page_html | replace: 'Quantitativos e valores executados provenientes da Base BI Executado (2)', 'Registros operacionais provenientes da Base BI Executado (2), sem exibição do valor financeiro' %}
 {% assign page_html = page_html | replace: '<th>Contrato</th><th>Período</th><th>Observação do RDO</th><th>Serviço executado</th><th>Quantidade</th><th>Valor executado</th>', '<th>Contrato</th><th>Período</th><th>Observação do RDO</th><th>Serviço executado</th><th>Quantidade executada</th>' %}
 {% assign page_html = page_html | replace: '+P.format(e.quantity)+" "+D(e.unit)+"</td><td><strong>"+A.format(e.value)+"</strong></td></tr>"', '+P.format(e.quantity)+" "+D(e.unit)+"</td></tr>"' %}
 {{ page_html }}
-<!-- Valores planejado e executado corrigidos com fallback validado em 29/07/2026 19:23 BRT -->
+<!-- Valores oficiais importados diretamente de R$ Realista e R$ Executado em 29/07/2026 19:40 BRT -->
