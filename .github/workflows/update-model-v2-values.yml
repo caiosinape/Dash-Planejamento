@@ -3,17 +3,16 @@ name: Update Modelo Cronograma V2 Values
 on:
   push:
     branches: [main]
-    paths:
-      - '.github/model-v2-values-trigger.txt'
 
 permissions:
   contents: write
 
 env:
-  MODEL_URL: 'https://sdmntprbrazilsouth.oaiusercontent.com/files/00000000-cda0-820e-abb2-f3626356e692/raw?se=2026-07-29T22:50:15Z&sp=r&sv=2026-02-06&sr=b&scid=65b5df39-7c57-55e3-9985-bb98adb2b001&skoid=a6356955-0ca0-4033-9150-c0c162458498&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-07-29T12:48:30Z&ske=2026-07-31T12:48:30Z&sks=b&skv=2026-02-06&sig=7Nrr27ok3hIWocaldQlR/ddhNO3Hvjs0yfaQy8SpdlE%3D'
+  MODEL_URL: 'https://sdmntprbrazilsouth.oaiusercontent.com/files/00000000-c318-820e-aa0d-3dca13fbe72d/raw?se=2026-07-29T22:55:39Z&sp=r&sv=2026-02-06&sr=b&scid=49bfb3ad-bbfd-5b92-b80b-6ce745e43a6b&skoid=a6356955-0ca0-4033-9150-c0c162458498&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-07-29T12:10:20Z&ske=2026-07-31T12:10:20Z&sks=b&skv=2026-02-06&sig=SwMdo4%2BbVGrIaQBVQ6uGczGfTHYvc1F8aRLKK7g8gLk%3D'
 
 jobs:
   update-values:
+    if: github.event.head_commit.message != 'Atualiza valores e saldo pela Modelo Cronograma v2'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -39,8 +38,7 @@ jobs:
           from pathlib import Path
           import json, gzip, base64, math
 
-          src=Path('/tmp/model-v2.xlsx')
-          wb=load_workbook(src, data_only=True, read_only=False)
+          wb=load_workbook('/tmp/model-v2.xlsx', data_only=True, read_only=False)
           ws=wb['Planilha1']
           monthly=[(15,16,17,18,19),(20,21,22,23,24),(25,26,27,28,29),(30,31,32,33,34),(35,36,37,38,39),(40,41,42,43,44)]
           os_cols={x[4] for x in monthly}
@@ -107,14 +105,7 @@ jobs:
           item_count=sum(len(items) for items in data.values())
           if len(data)!=15 or item_count!=650:
               raise RuntimeError(f'Importacao divergente: {len(data)} contratos e {item_count} itens')
-          metadata={
-              'source':'Modelo Cronograma Base de Dados  v2.xlsx',
-              'balanceColumn':'Quant. Total JULHO 2026',
-              'unitPriceColumn':'Preco Unit',
-              'historicalPlanValue':'R$ Realista',
-              'historicalExecValue':'R$ Executado',
-              'contracts':len(data),'items':item_count
-          }
+          metadata={'source':'Modelo Cronograma Base de Dados  v2.xlsx','balanceColumn':'Quant. Total JULHO 2026','unitPriceColumn':'Preco Unit','historicalPlanValue':'R$ Realista','historicalExecValue':'R$ Executado','contracts':len(data),'items':item_count}
           script='var contractData='+json.dumps(data,ensure_ascii=False,separators=(',',':'))+';\n'
           script+='var modelV2Metadata='+json.dumps(metadata,ensure_ascii=False,separators=(',',':'))+';\n'
           packed=base64.b64encode(gzip.compress(script.encode('utf-8'),compresslevel=9,mtime=0)).decode('ascii')
@@ -139,8 +130,7 @@ jobs:
 
           old='d=2026===i.getFullYear()?i.getMonth():6,c=5,l=[]'
           new='d=2026===i.getFullYear()?i.getMonth():6,c=2026===i.getFullYear()?i.getMonth():6,l=[]'
-          if old not in html: raise RuntimeError('Mes padrao nao localizado')
-          html=html.replace(old,new,1)
+          if old in html: html=html.replace(old,new,1)
 
           old='Number.isFinite(Number(r.quantity))&&(t.plan[n]=Number(r.quantity)),"string"==typeof r.order&&(t.orders[n]=r.order)'
           new='Number.isFinite(Number(r.quantity))&&(t.plan[n]=Number(r.quantity),t.planValue||(t.planValue=Array(12).fill(0)),t.planValue[n]=Number(r.quantity)*Number(t.price||0)),"string"==typeof r.order&&(t.orders[n]=r.order)'
