@@ -1,0 +1,90 @@
+name: Fix Access Planejamento Colaborativo
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/fix-access-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  fix-access:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Corrigir posição do script visual
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('Planejamento-Colaborativo/index.html')
+          html = path.read_text(encoding='utf-8')
+
+          start = '<!-- SINAPE_LAYOUT_V3_START -->'
+          end = '<!-- SINAPE_LAYOUT_V3_END -->'
+          html = re.sub(re.escape(start) + r'.*?' + re.escape(end), '', html, flags=re.S)
+
+          layout = r'''
+          <!-- SINAPE_LAYOUT_V3_START -->
+          <script id="sinape-layout-v3">
+          (function(){
+            function applyLayoutV3(){
+              var lower=document.querySelector('#executivo .executive-lower');
+              if(!lower)return;
+              var panels=Array.from(document.querySelectorAll('#executivo > article.panel'));
+              var actions=panels.find(function(p){
+                var h=p.querySelector('h3');
+                return h && /Causas e Planos de Ação/i.test(h.textContent||'');
+              });
+              if(actions && actions.parentElement!==lower){
+                actions.classList.add('actions-panel-v3');
+                lower.appendChild(actions);
+              }
+            }
+            if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',applyLayoutV3);
+            else applyLayoutV3();
+            setTimeout(applyLayoutV3,300);
+          })();
+          </script>
+          <!-- SINAPE_LAYOUT_V3_END -->
+          '''
+
+          parts = html.rsplit('</body>', 1)
+          if len(parts) != 2:
+              raise RuntimeError('Fechamento real do body não encontrado')
+          html = parts[0] + layout + '</body>' + parts[1]
+          path.write_text(html, encoding='utf-8')
+          PY
+
+      - name: Validar sintaxe do JavaScript principal
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html=Path('Planejamento-Colaborativo/index.html').read_text(encoding='utf-8')
+          scripts=re.findall(r'<script(?:\s[^>]*)?>([\s\S]*?)</script>',html)
+          for i,s in enumerate(scripts):
+              Path(f'/tmp/script-{i}.js').write_text(s,encoding='utf-8')
+          print('Scripts extraídos:',len(scripts))
+          PY
+          for f in /tmp/script-*.js; do node --check "$f"; done
+
+      - name: Publicar correção
+        shell: bash
+        run: |
+          git config user.name "SINAPE Fix Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add Planejamento-Colaborativo/index.html
+          if git diff --cached --quiet; then
+            echo "Nenhuma alteração necessária."
+            exit 0
+          fi
+          git commit -m "Corrige acesso após atualização visual"
+          git push
