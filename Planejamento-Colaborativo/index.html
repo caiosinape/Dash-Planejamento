@@ -1,144 +1,57 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0b2f47" />
-    <title>Planejamento Colaborativo | SINAPE</title>
-    <style>
-      :root {
-        color-scheme: light;
-        font-family: Inter, "Segoe UI", Arial, sans-serif;
-        background: #eef3f6;
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b2f47">
+  <title>Planejamento Colaborativo | SINAPE</title>
+  <style>
+    :root{font-family:Inter,"Segoe UI",Arial,sans-serif;color:#fff;background:#0b2f47}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;display:grid;place-items:center;background:linear-gradient(145deg,#08283e,#18566f)}
+    .loader{display:grid;justify-items:center;gap:14px;padding:28px;text-align:center}
+    .loader i{width:42px;height:42px;border:5px solid #ffffff3d;border-top-color:#66c7dd;border-radius:50%;animation:spin .8s linear infinite}
+    .loader strong{font-size:16px}
+    .loader span{max-width:430px;color:#d5e7ef;font-size:11px;line-height:1.55}
+    .loader a{display:inline-flex;min-height:38px;align-items:center;border:1px solid #ffffff4a;border-radius:8px;padding:0 14px;background:#fff;color:#0b2f47;font-size:11px;font-weight:900;text-decoration:none}
+    @keyframes spin{to{transform:rotate(360deg)}}
+  </style>
+</head>
+<body>
+  <div class="loader" id="loader" role="status" aria-live="polite">
+    <i aria-hidden="true"></i>
+    <strong>Carregando o dashboard de planejamento</strong>
+    <span>A versão completa será exibida com os mesmos dados, filtros e identidade visual do painel aprovado.</span>
+  </div>
+
+  <script>
+    (async function loadHybridDashboard(){
+      const sourceUrl="../Cronogramas%20Planejamento/index.html";
+      const privateEditorUrl="https://dashboard-cronograma-2456.sinape-sinal-4663.chatgpt.site";
+      const buttonCss=[
+        ".hybrid-edit-button{position:fixed;right:20px;bottom:20px;z-index:65;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;border:1px solid #ffffff52;border-radius:10px;background:#0b2f47;color:#fff;padding:0 15px;box-shadow:0 10px 28px #06192555;font:900 10px Inter,'Segoe UI',Arial,sans-serif;text-decoration:none;transition:transform .16s ease,box-shadow .16s ease,background .16s ease}",
+        ".hybrid-edit-button:hover{background:#18566f;box-shadow:0 13px 32px #06192566;transform:translateY(-2px)}",
+        ".hybrid-edit-button:focus-visible{outline:3px solid #66c7dd;outline-offset:3px}",
+        ".hybrid-edit-button i{font-style:normal;font-size:14px}",
+        "@media(max-width:720px){.hybrid-edit-button{right:12px;bottom:12px;min-height:40px;padding:0 12px}}",
+        "@media print{.hybrid-edit-button{display:none!important}}"
+      ].join("");
+      const buttonHtml='<a class="hybrid-edit-button" href="'+privateEditorUrl+'" target="_blank" rel="noopener noreferrer" aria-label="Abrir área privada para editar o planejamento"><i aria-hidden="true">✎</i>Editar planejamento</a>';
+
+      try{
+        const response=await fetch(sourceUrl,{cache:"no-store"});
+        if(!response.ok)throw new Error("Falha ao carregar o painel-base");
+        let html=await response.text();
+        html=html.replace("</style>",buttonCss+"</style>");
+        html=html.replace("<body>","<body>"+buttonHtml);
+        document.open();
+        document.write(html);
+        document.close();
+      }catch(error){
+        const loader=document.getElementById("loader");
+        loader.innerHTML='<strong>Não foi possível carregar o painel agora.</strong><span>Abra o dashboard original e tente novamente em alguns instantes.</span><a href="'+sourceUrl+'">Abrir dashboard original</a>';
       }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        overflow: hidden;
-      }
-
-      body {
-        background: #eef3f6;
-      }
-
-      .loading {
-        position: fixed;
-        inset: 0;
-        z-index: 2;
-        display: grid;
-        place-items: center;
-        background:
-          radial-gradient(circle at 50% 30%, #ffffff 0, #eef3f6 54%, #dce7ed 100%);
-        color: #0b2f47;
-        transition: opacity 220ms ease, visibility 220ms ease;
-      }
-
-      .loading[hidden] {
-        opacity: 0;
-        visibility: hidden;
-      }
-
-      .loading__content {
-        display: grid;
-        justify-items: center;
-        gap: 14px;
-        padding: 24px;
-        text-align: center;
-      }
-
-      .loading__mark {
-        width: 42px;
-        height: 42px;
-        border: 5px solid #c9dce5;
-        border-top-color: #20a3c2;
-        border-radius: 50%;
-        animation: spin 800ms linear infinite;
-      }
-
-      .loading strong {
-        font-size: 16px;
-      }
-
-      .loading span {
-        max-width: 380px;
-        color: #5f7481;
-        font-size: 12px;
-        line-height: 1.5;
-      }
-
-      .open-direct {
-        display: inline-flex;
-        min-height: 38px;
-        align-items: center;
-        justify-content: center;
-        border-radius: 8px;
-        padding: 0 14px;
-        background: #0b2f47;
-        color: #ffffff;
-        font-size: 12px;
-        font-weight: 700;
-        text-decoration: none;
-      }
-
-      iframe {
-        display: block;
-        width: 100%;
-        height: 100%;
-        border: 0;
-        background: #eef3f6;
-      }
-
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="loading" id="loading">
-      <div class="loading__content">
-        <div class="loading__mark" aria-hidden="true"></div>
-        <strong>Abrindo o Planejamento Colaborativo</strong>
-        <span>
-          O painel mantém os dados e as permissões protegidos. Caso ele não
-          apareça abaixo, abra a versão segura diretamente.
-        </span>
-        <a
-          class="open-direct"
-          href="https://dashboard-cronograma-2456.sinape-sinal-4663.chatgpt.site"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Abrir diretamente
-        </a>
-      </div>
-    </div>
-
-    <iframe
-      id="dashboard"
-      title="Dashboard de Planejamento Colaborativo da SINAPE"
-      src="https://dashboard-cronograma-2456.sinape-sinal-4663.chatgpt.site"
-      allow="clipboard-read; clipboard-write"
-      referrerpolicy="no-referrer"
-    ></iframe>
-
-    <script>
-      const frame = document.getElementById("dashboard");
-      const loading = document.getElementById("loading");
-
-      frame.addEventListener("load", () => {
-        window.setTimeout(() => {
-          loading.hidden = true;
-        }, 250);
-      });
-    </script>
-  </body>
+    })();
+  </script>
+</body>
 </html>
