@@ -11,7 +11,7 @@ permissions:
 
 concurrency:
   group: publish-model-v2-data
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 env:
   MODEL_URL: 'https://sdmntprbrazilsouth.oaiusercontent.com/files/00000000-c318-820e-aa0d-3dca13fbe72d/raw?se=2026-07-29T22:55:39Z&sp=r&sv=2026-02-06&sr=b&scid=49bfb3ad-bbfd-5b92-b80b-6ce745e43a6b&skoid=a6356955-0ca0-4033-9150-c0c162458498&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-07-29T12:10:20Z&ske=2026-07-31T12:10:20Z&sks=b&skv=2026-02-06&sig=SwMdo4%2BbVGrIaQBVQ6uGczGfTHYvc1F8aRLKK7g8gLk%3D'
@@ -26,25 +26,20 @@ jobs:
       - name: Install workbook reader
         run: python -m pip install --quiet openpyxl
 
-      - name: Download and validate workbook
+      - name: Download workbook
         shell: bash
         run: |
           python - <<'PY'
-          import os
-          import urllib.request
-          import zipfile
+          import os, urllib.request, zipfile
           from pathlib import Path
-
-          target = Path('/tmp/model-v2.xlsx')
+          target=Path('/tmp/model-v2.xlsx')
           urllib.request.urlretrieve(os.environ['MODEL_URL'], target)
-          if not target.exists() or target.stat().st_size < 10000:
-              raise RuntimeError('Arquivo da planilha nao foi baixado corretamente')
-          if not zipfile.is_zipfile(target):
-              raise RuntimeError('O arquivo baixado nao e um XLSX valido')
-          print('Planilha validada:', target.stat().st_size, 'bytes')
+          if not target.exists() or target.stat().st_size < 10000 or not zipfile.is_zipfile(target):
+              raise RuntimeError('Falha ao baixar um XLSX valido')
+          print('Workbook OK:', target.stat().st_size)
           PY
 
-      - name: Build validated internal data
+      - name: Build validated data files
         shell: bash
         run: |
           python - <<'PY'
@@ -52,206 +47,158 @@ jobs:
           from openpyxl.utils.cell import range_boundaries
           from collections import defaultdict, Counter
           from pathlib import Path
-          import base64
-          import gzip
-          import json
-          import math
+          import base64, gzip, json, math
 
-          workbook = Path('/tmp/model-v2.xlsx')
-          wb = load_workbook(workbook, data_only=True, read_only=False)
-          if 'Planilha1' not in wb.sheetnames:
-              raise RuntimeError('A aba Planilha1 nao foi localizada')
-          ws = wb['Planilha1']
-
-          monthly = [
-              (15,16,17,18,19),
-              (20,21,22,23,24),
-              (25,26,27,28,29),
-              (30,31,32,33,34),
-              (35,36,37,38,39),
-              (40,41,42,43,44),
-          ]
-          os_columns = {entry[4] for entry in monthly}
-          merged_orders = {}
+          wb=load_workbook('/tmp/model-v2.xlsx', data_only=True, read_only=False)
+          ws=wb['Planilha1']
+          monthly=[(15,16,17,18,19),(20,21,22,23,24),(25,26,27,28,29),(30,31,32,33,34),(35,36,37,38,39),(40,41,42,43,44)]
+          os_columns={entry[4] for entry in monthly}
+          merged_orders={}
           for merged_range in ws.merged_cells.ranges:
-              min_col, min_row, max_col, max_row = range_boundaries(str(merged_range))
-              if min_col == max_col and min_col in os_columns:
-                  value = ws.cell(min_row, min_col).value
-                  for row in range(min_row, max_row + 1):
-                      merged_orders[(row, min_col)] = value
+              min_col,min_row,max_col,max_row=range_boundaries(str(merged_range))
+              if min_col==max_col and min_col in os_columns:
+                  value=ws.cell(min_row,min_col).value
+                  for row in range(min_row,max_row+1):
+                      merged_orders[(row,min_col)]=value
 
           def number(value):
-              if value is None or value == '':
-                  return 0.0
-              if isinstance(value, (int, float)):
-                  value = float(value)
+              if value is None or value=='': return 0.0
+              if isinstance(value,(int,float)):
+                  value=float(value)
                   return value if math.isfinite(value) else 0.0
               try:
-                  raw = str(value).strip()
-                  if ',' in raw:
-                      raw = raw.replace('.', '').replace(',', '.')
-                  value = float(raw)
+                  raw=str(value).strip()
+                  if ',' in raw: raw=raw.replace('.','').replace(',','.')
+                  value=float(raw)
                   return value if math.isfinite(value) else 0.0
               except Exception:
                   return 0.0
 
           def clean_number(value):
-              value = round(number(value), 10)
-              if abs(value) < 1e-12:
-                  return 0
-              if abs(value - round(value)) < 1e-10:
-                  return int(round(value))
+              value=round(number(value),10)
+              if abs(value)<1e-12: return 0
+              if abs(value-round(value))<1e-10: return int(round(value))
               return value
 
-          def clean_text(value, default=''):
-              value = '' if value is None else str(value).strip()
+          def clean_text(value,default=''):
+              value='' if value is None else str(value).strip()
               return value or default
 
-          data = defaultdict(list)
-          occurrences = defaultdict(Counter)
-          for row in range(4, ws.max_row + 1):
-              contract = clean_text(ws.cell(row, 2).value)
-              item = clean_text(ws.cell(row, 3).value)
-              price_raw = ws.cell(row, 5).value
-              if not contract or not item:
+          data=defaultdict(list)
+          occurrences=defaultdict(Counter)
+          for row in range(4,ws.max_row+1):
+              contract=clean_text(ws.cell(row,2).value)
+              item=clean_text(ws.cell(row,3).value)
+              price_raw=ws.cell(row,5).value
+              if not contract or not item or not isinstance(price_raw,(int,float)) or abs(float(price_raw))<1e-12:
                   continue
-              if not isinstance(price_raw, (int, float)) or abs(float(price_raw)) < 1e-12:
-                  continue
-
-              occurrences[contract][item] += 1
-              occurrence = occurrences[contract][item]
-              source_id = item if occurrence == 1 else item + ' #' + str(occurrence)
-
-              plan = [0] * 12
-              plan_value = [0] * 12
-              executed = [0] * 12
-              exec_value = [0] * 12
-              orders = ['Sem servicos'] * 12
-
-              for month, (plan_col, plan_value_col, exec_col, exec_value_col, order_col) in enumerate(monthly):
-                  plan[month] = clean_number(ws.cell(row, plan_col).value)
-                  plan_value[month] = clean_number(ws.cell(row, plan_value_col).value)
-                  executed[month] = clean_number(ws.cell(row, exec_col).value)
-                  exec_value[month] = clean_number(ws.cell(row, exec_value_col).value)
-                  orders[month] = clean_text(
-                      merged_orders.get((row, order_col), ws.cell(row, order_col).value),
-                      'Sem servicos'
-                  )
-
+              occurrences[contract][item]+=1
+              occurrence=occurrences[contract][item]
+              source_id=item if occurrence==1 else item+' #'+str(occurrence)
+              plan=[0]*12
+              plan_value=[0]*12
+              executed=[0]*12
+              exec_value=[0]*12
+              orders=['Sem servicos']*12
+              for month,(plan_col,plan_value_col,exec_col,exec_value_col,order_col) in enumerate(monthly):
+                  plan[month]=clean_number(ws.cell(row,plan_col).value)
+                  plan_value[month]=clean_number(ws.cell(row,plan_value_col).value)
+                  executed[month]=clean_number(ws.cell(row,exec_col).value)
+                  exec_value[month]=clean_number(ws.cell(row,exec_value_col).value)
+                  orders[month]=clean_text(merged_orders.get((row,order_col),ws.cell(row,order_col).value),'Sem servicos')
               data[contract].append({
-                  'sourceId': source_id,
-                  'name': item,
-                  'unit': clean_text(ws.cell(row, 4).value, '-'),
-                  'price': clean_number(price_raw),
-                  'contractual': clean_number(ws.cell(row, 8).value),
-                  'base': clean_number(ws.cell(row, 12).value),
-                  'balance': clean_number(ws.cell(row, 10).value),
-                  'plan': plan,
-                  'planValue': plan_value,
-                  'exec': executed,
-                  'execValue': exec_value,
-                  'orders': orders,
+                  'sourceId':source_id,
+                  'name':item,
+                  'unit':clean_text(ws.cell(row,4).value,'-'),
+                  'price':clean_number(price_raw),
+                  'contractual':clean_number(ws.cell(row,8).value),
+                  'base':clean_number(ws.cell(row,12).value),
+                  'balance':clean_number(ws.cell(row,10).value),
+                  'plan':plan,
+                  'planValue':plan_value,
+                  'exec':executed,
+                  'execValue':exec_value,
+                  'orders':orders
               })
 
-          data = dict(data)
-          contract_count = len(data)
-          item_count = sum(len(items) for items in data.values())
-          if contract_count != 15 or item_count != 650:
-              raise RuntimeError(
-                  'Importacao divergente: ' + str(contract_count) + ' contratos e ' + str(item_count) + ' itens'
-              )
+          data=dict(data)
+          contract_count=len(data)
+          item_count=sum(len(items) for items in data.values())
+          if contract_count!=15 or item_count!=650:
+              raise RuntimeError(f'Importacao divergente: {contract_count} contratos e {item_count} itens')
 
-          metadata = {
-              'source': 'Modelo Cronograma Base de Dados v2.xlsx',
-              'sheet': 'Planilha1',
-              'balanceColumn': 'Quant. Total JULHO 2026',
-              'unitPriceColumn': 'Preco Unit',
-              'historicalPlanQuantity': 'Qnt Realis.',
-              'historicalPlanValue': 'R$ Realista',
-              'historicalExecQuantity': 'Qtd. Executada',
-              'historicalExecValue': 'R$ Executado',
-              'futurePlanValueRule': 'quantidade inserida no HTML x Preco Unit',
-              'contracts': contract_count,
-              'items': item_count,
+          metadata={
+              'source':'Modelo Cronograma Base de Dados v2.xlsx',
+              'sheet':'Planilha1',
+              'balanceColumn':'Quant. Total JULHO 2026',
+              'unitPriceColumn':'Preco Unit',
+              'historicalPlanQuantity':'Qnt Realis.',
+              'historicalPlanValue':'R$ Realista',
+              'historicalExecQuantity':'Qtd. Executada',
+              'historicalExecValue':'R$ Executado',
+              'futurePlanValueRule':'quantidade inserida no HTML x Preco Unit',
+              'contracts':contract_count,
+              'items':item_count
           }
-
-          script = 'var contractData=' + json.dumps(data, ensure_ascii=False, separators=(',', ':')) + ';\n'
-          script += 'var modelV2Metadata=' + json.dumps(metadata, ensure_ascii=False, separators=(',', ':')) + ';\n'
-          packed = base64.b64encode(
-              gzip.compress(script.encode('utf-8'), compresslevel=9, mtime=0)
-          ).decode('ascii')
-
-          part_size = (len(packed) + 4) // 5
-          output = Path('Planejamento-Colaborativo/data')
-          output.mkdir(parents=True, exist_ok=True)
+          script='var contractData='+json.dumps(data,ensure_ascii=False,separators=(',',':'))+';\n'
+          script+='var modelV2Metadata='+json.dumps(metadata,ensure_ascii=False,separators=(',',':'))+';\n'
+          packed=base64.b64encode(gzip.compress(script.encode('utf-8'),compresslevel=9,mtime=0)).decode('ascii')
+          part_size=(len(packed)+4)//5
+          output=Path('Planejamento-Colaborativo/data')
+          output.mkdir(parents=True,exist_ok=True)
           for index in range(5):
-              part = packed[index * part_size:(index + 1) * part_size]
-              (output / ('model-v2.part' + str(index))).write_text(part, encoding='ascii')
-
-          joined = ''.join(
-              (output / ('model-v2.part' + str(index))).read_text(encoding='ascii')
-              for index in range(5)
-          )
-          round_trip = gzip.decompress(base64.b64decode(joined)).decode('utf-8')
-          if round_trip != script:
-              raise RuntimeError('Falha na validacao do pacote interno')
-
-          monthly_totals = []
+              (output/f'model-v2.part{index}').write_text(packed[index*part_size:(index+1)*part_size],encoding='ascii')
+          joined=''.join((output/f'model-v2.part{i}').read_text(encoding='ascii') for i in range(5))
+          if gzip.decompress(base64.b64decode(joined)).decode('utf-8')!=script:
+              raise RuntimeError('Pacote interno invalido')
+          totals=[]
           for month in range(6):
-              monthly_totals.append({
-                  'month': month + 1,
-                  'planned': round(sum(float(item['planValue'][month] or 0) for items in data.values() for item in items), 2),
-                  'executed': round(sum(float(item['execValue'][month] or 0) for items in data.values() for item in items), 2),
+              totals.append({
+                  'month':month+1,
+                  'planned':round(sum(float(item['planValue'][month] or 0) for items in data.values() for item in items),2),
+                  'executed':round(sum(float(item['execValue'][month] or 0) for items in data.values() for item in items),2)
               })
-          print(json.dumps({'metadata': metadata, 'monthlyTotals': monthly_totals}, ensure_ascii=False))
+          print(json.dumps({'metadata':metadata,'monthlyTotals':totals},ensure_ascii=False))
           PY
 
-      - name: Refresh cache token without changing access or links
+      - name: Apply safe HTML rules
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
-          import os
-          import re
+          import os,re
+          path=Path('Planejamento-Colaborativo/index.html')
+          html=path.read_text(encoding='utf-8')
+          token='modelv2-'+os.environ.get('GITHUB_SHA','manual')[:8]
+          html=re.sub(r"data/model-v2\.part'\+i\+'\?v=[^']*'","data/model-v2.part'+i+'?v="+token+"'",html,count=1)
 
-          path = Path('Planejamento-Colaborativo/index.html')
-          html = path.read_text(encoding='utf-8')
-          original = html
-          token = 'modelv2-' + os.environ.get('GITHUB_SHA', 'manual')[:8]
-          html, replacements = re.subn(
-              r"data/model-v2\.part'\+i\+'\?v=[^']*'",
-              "data/model-v2.part'+i+'?v=" + token + "'",
-              html,
-              count=1,
-          )
-          if replacements == 0:
-              print('Aviso: token de cache nao localizado; os dados continuam com cache no-store.')
+          balance_function='function le(e,t){if(t<6)return Number(e.balance||0);for(var n=Number(e.balance||0)-function(e,t){for(var n=0,a=6;a<=t;a++)n+=W(e,a);return n}(e,t-1),a=0,r=t;r<Math.min(t+3,12);r++)a+=J(r,e)?W(e,r):Number(e.plan[r]||0);return n-a}function se(e){'
+          html,count=re.subn(r'function le\(e,t\)\{.*?\}function se\(e\)\{',balance_function,html,count=1)
+          if count!=1:
+              raise RuntimeError('Funcao de saldo nao localizada')
 
-          required = [
-              'id="accessForm"',
-              'sinape-access-failsafe',
-              'planValue',
-              'e.balance',
-          ]
+          old='Number.isFinite(Number(r.quantity))&&(t.plan[n]=Number(r.quantity)),"string"==typeof r.order&&(t.orders[n]=r.order)'
+          new='Number.isFinite(Number(r.quantity))&&(t.plan[n]=Number(r.quantity),t.planValue||(t.planValue=Array(12).fill(0)),t.planValue[n]=Number(r.quantity)*Number(t.price||0)),"string"==typeof r.order&&(t.orders[n]=r.order)'
+          if old in html:
+              html=html.replace(old,new,1)
+
+          html=html.replace('Saldo anterior − consumo da janela de 3 meses','Saldo Quant. Total JULHO 2026 − consumo futuro')
+          html=html.replace('Atualização: 28/07/2026 14:12','Atualização: 29/07/2026 20:55')
+
+          required=['id="accessForm"','sinape-access-failsafe','planValue','Number(e.balance||0)','Quant. Total JULHO 2026']
           for marker in required:
               if marker not in html:
-                  raise RuntimeError('Marcador obrigatorio ausente no HTML: ' + marker)
-
-          if html != original:
-              path.write_text(html, encoding='utf-8')
+                  raise RuntimeError('Marcador obrigatorio ausente: '+marker)
+          path.write_text(html,encoding='utf-8')
           PY
 
       - name: Final validation
         shell: bash
         run: |
           test -s Planejamento-Colaborativo/index.html
-          test -s Planejamento-Colaborativo/data/model-v2.part0
-          test -s Planejamento-Colaborativo/data/model-v2.part1
-          test -s Planejamento-Colaborativo/data/model-v2.part2
-          test -s Planejamento-Colaborativo/data/model-v2.part3
-          test -s Planejamento-Colaborativo/data/model-v2.part4
+          for i in 0 1 2 3 4; do test -s "Planejamento-Colaborativo/data/model-v2.part$i"; done
           grep -q 'id="accessForm"' Planejamento-Colaborativo/index.html
-          grep -q 'sinape-access-failsafe' Planejamento-Colaborativo/index.html
+          grep -q 'Number(e.balance||0)' Planejamento-Colaborativo/index.html
 
       - name: Publish data
         shell: bash
@@ -263,5 +210,5 @@ jobs:
             echo 'Nenhuma alteracao necessaria.'
             exit 0
           fi
-          git commit -m 'Atualiza dados da Modelo Cronograma v2 sem alterar acesso'
+          git commit -m 'Publica Modelo Cronograma v2 com saldo de julho'
           git push
