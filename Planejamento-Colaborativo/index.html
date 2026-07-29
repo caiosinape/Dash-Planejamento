@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b2f47" />
+    <title>Planejamento Colaborativo | SINAPE</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, "Segoe UI", Arial, sans-serif;
+        background: #eef3f6;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+      }
+
+      body {
+        background: #eef3f6;
+      }
+
+      .loading {
+        position: fixed;
+        inset: 0;
+        z-index: 2;
+        display: grid;
+        place-items: center;
+        background:
+          radial-gradient(circle at 50% 30%, #ffffff 0, #eef3f6 54%, #dce7ed 100%);
+        color: #0b2f47;
+        transition: opacity 220ms ease, visibility 220ms ease;
+      }
+
+      .loading[hidden] {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .loading__content {
+        display: grid;
+        justify-items: center;
+        gap: 14px;
+        padding: 24px;
+        text-align: center;
+      }
+
+      .loading__mark {
+        width: 42px;
+        height: 42px;
+        border: 5px solid #c9dce5;
+        border-top-color: #20a3c2;
+        border-radius: 50%;
+        animation: spin 800ms linear infinite;
+      }
+
+      .loading strong {
+        font-size: 16px;
+      }
+
+      .loading span {
+        max-width: 380px;
+        color: #5f7481;
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .open-direct {
+        display: inline-flex;
+        min-height: 38px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        padding: 0 14px;
+        background: #0b2f47;
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        background: #eef3f6;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading" id="loading">
+      <div class="loading__content">
+        <div class="loading__mark" aria-hidden="true"></div>
+        <strong>Abrindo o Planejamento Colaborativo</strong>
+        <span>
+          O painel mantém os dados e as permissões protegidos. Caso ele não
+          apareça abaixo, abra a versão segura diretamente.
+        </span>
+        <a
+          class="open-direct"
+          href="https://dashboard-cronograma-2456.sinape-sinal-4663.chatgpt.site"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Abrir diretamente
+        </a>
+      </div>
+    </div>
+
+    <iframe
+      id="dashboard"
+      title="Dashboard de Planejamento Colaborativo da SINAPE"
+      src="https://dashboard-cronograma-2456.sinape-sinal-4663.chatgpt.site"
+      allow="clipboard-read; clipboard-write"
+      referrerpolicy="no-referrer"
+    ></iframe>
+
+    <script>
+      const frame = document.getElementById("dashboard");
+      const loading = document.getElementById("loading");
+
+      frame.addEventListener("load", () => {
+        window.setTimeout(() => {
+          loading.hidden = true;
+        }, 250);
+      });
+    </script>
+  </body>
+</html>
