@@ -16,16 +16,16 @@ layout: null
     var logo=document.getElementById('accessLogo');
     if(logo){
       logo.addEventListener('error',fallbackLogo,{once:true});
-      if(!logo.getAttribute('src'))fallbackLogo();
+      if(!logo.getAttribute('src')||logo.complete&&logo.naturalWidth===0)fallbackLogo();
     }
     var form=document.getElementById('accessForm');
     if(!form||form.dataset.safeAccessBound==='1')return;
     form.dataset.safeAccessBound='1';
     form.addEventListener('submit',function(event){
+      event.preventDefault();
       var input=document.getElementById('accessEmail');
       var email=String(input&&input.value||'').trim().toLowerCase();
       if(!email){
-        event.preventDefault();
         if(input)input.focus();
         return;
       }
@@ -97,4 +97,4 @@ layout: null
 {% assign page_html = page_html | replace: '<th>Contrato</th><th>Período</th><th>Observação do RDO</th><th>Serviço executado</th><th>Quantidade</th><th>Valor executado</th>', '<th>Contrato</th><th>Período</th><th>Observação do RDO</th><th>Serviço executado</th><th>Quantidade executada</th>' %}
 {% assign page_html = page_html | replace: '+P.format(e.quantity)+" "+D(e.unit)+"</td><td><strong>"+A.format(e.value)+"</strong></td></tr>"', '+P.format(e.quantity)+" "+D(e.unit)+"</td></tr>"' %}
 {{ page_html }}
-<!-- Base Modelo Cronograma v2 atualizada e acesso blindado em 29/07/2026 17:30 BRT -->
+<!-- Base Modelo Cronograma v2 atualizada e acesso blindado em 29/07/2026 17:34 BRT -->
