@@ -1,0 +1,5 @@
+Atualizar Modelo Cronograma Base de Dados v2 em 29/07/2026 19:38 BRT.
+Saldo: Quant. Total JULHO 2026.
+Historico planejado: R$ Realista.
+Historico executado: R$ Executado.
+Planejamento futuro: quantidade inserida x Preco Unit.
