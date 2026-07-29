@@ -105,6 +105,7 @@ jobs:
             ('function Z(e){return oe(!0).reduce(function(t,n){return t+Number(n.plan[e]||0)*n.price},0)}', 'function Z(e){return oe(!0).reduce(function(t,n){return t+Number((n.planValue||[])[e]||0)},0)}'),
             ('A.format(n*e.price)', 'A.format(Number((e.planValue||[])[t]||0))'),
             ('Math.max(0,Number(n.plan[t]||0))*n.price', 'Math.max(0,Number((n.planValue||[])[t]||0))'),
+            ('Math.max(0,Number(n.plan[t]||0))*Number(n.price||0)', 'Math.max(0,Number((n.planValue||[])[t]||0))'),
             ('e.plan[t]=n,e.orders[t]=a,o&&(o.plan[t]=n,o.orders[t]=a)', 'e.plan[t]=n,e.planValue||(e.planValue=Array(12).fill(0)),e.planValue[t]=n*Number(e.price||0),e.orders[t]=a,o&&(o.plan[t]=n,o.planValue||(o.planValue=Array(12).fill(0)),o.planValue[t]=n*Number(o.price||0),o.orders[t]=a'),
             ('document.getElementById("clearFilters").onclick=function(){c=d,s="Todas",m="",l=[],u="",Be.value=String(d),document.getElementById("osFilter").value="Todas",document.getElementById("statusFilter").value="",Ee(),we(),xe()}', 'document.getElementById("clearFilters").onclick=function(){L=C,q=T(L),c=-1,s="Todas",m="",l=[],u="",Ie.value=C,Be.value="-1",document.getElementById("itemFilter").value="",document.getElementById("osFilter").value="Todas",document.getElementById("statusFilter").value="",document.getElementById("advancedFilters").classList.remove("open"),ke(!1),Ee(),we(),xe()}'),
             ('Quantidade planejada × preço unitário do recorte', 'Fonte: coluna R$ Realista da Modelo Cronograma Base de Dados v2'),
@@ -141,6 +142,10 @@ jobs:
           grep -F 'Fonte: coluna R$ Realista' Planejamento-Colaborativo/index.html
           grep -F 'Fonte: coluna R$ Executado' Planejamento-Colaborativo/index.html
           grep -F 'c=5' Planejamento-Colaborativo/index.html
+          if grep -F 'Math.max(0,Number(n.plan[t]||0))*Number(n.price||0)' Planejamento-Colaborativo/index.html; then
+            echo 'Formula antiga ainda encontrada.'
+            exit 1
+          fi
 
       - name: Publicar arquivo estatico
         shell: bash
