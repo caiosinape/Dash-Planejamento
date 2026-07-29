@@ -1,0 +1,42 @@
+name: Fix Access Planejamento Colaborativo V2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/fix-access-v2-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  fix-access-v2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reparar HTML e JavaScript
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('Planejamento-Colaborativo/index.html')
+          s=p.read_text(encoding='utf-8')
+          a='<!-- SINAPE_LAYOUT_V3_START -->'; b='<!-- SINAPE_LAYOUT_V3_END -->'
+          s=re.sub(re.escape(a)+r'.*?'+re.escape(b),'',s,flags=re.S)
+          s=s.replace('<\\/script>\n</body></html>','<\\/script></body></html>')
+          s=s.replace('<\\/script>\r\n</body></html>','<\\/script></body></html>')
+          layout='''<!-- SINAPE_LAYOUT_V3_START --><script id="sinape-layout-v3">(function(){function a(){var l=document.querySelector('#executivo .executive-lower');if(!l)return;var p=Array.from(document.querySelectorAll('#executivo > article.panel')).find(function(x){var h=x.querySelector('h3');return h&&/Causas e Planos de Ação/i.test(h.textContent||'')});if(p&&p.parentElement!==l){p.classList.add('actions-panel-v3');l.appendChild(p)}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',a);else a();setTimeout(a,300)})();</script><!-- SINAPE_LAYOUT_V3_END -->'''
+          idx=s.rfind('</body>')
+          if idx<0: raise SystemExit('body final nao encontrado')
+          s=s[:idx]+layout+s[idx:]
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Publicar correção
+        shell: bash
+        run: |
+          git config user.name "SINAPE Fix Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add Planejamento-Colaborativo/index.html
+          git commit -m "Corrige bloqueio na tela de acesso" || exit 0
+          git push
