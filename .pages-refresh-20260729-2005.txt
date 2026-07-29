@@ -1,0 +1,2 @@
+Rebuild solicitado após atualização validada da Modelo Cronograma Base de Dados v2.
+Commit de dados: c526e9b44f9b66fec9a518d47c778eccf1186f30
