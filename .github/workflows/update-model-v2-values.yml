@@ -1,0 +1,190 @@
+name: Update Modelo Cronograma V2 Values
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/model-v2-values-trigger.txt'
+
+permissions:
+  contents: write
+
+env:
+  MODEL_URL: 'https://sdmntprbrazilsouth.oaiusercontent.com/files/00000000-cda0-820e-abb2-f3626356e692/raw?se=2026-07-29T22:50:15Z&sp=r&sv=2026-02-06&sr=b&scid=65b5df39-7c57-55e3-9985-bb98adb2b001&skoid=a6356955-0ca0-4033-9150-c0c162458498&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-07-29T12:48:30Z&ske=2026-07-31T12:48:30Z&sks=b&skv=2026-02-06&sig=7Nrr27ok3hIWocaldQlR/ddhNO3Hvjs0yfaQy8SpdlE%3D'
+
+jobs:
+  update-values:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install workbook reader
+        run: python -m pip install --quiet openpyxl
+
+      - name: Download validated workbook
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os, urllib.request
+          urllib.request.urlretrieve(os.environ['MODEL_URL'], '/tmp/model-v2.xlsx')
+          PY
+
+      - name: Build internal dashboard data
+        shell: bash
+        run: |
+          python - <<'PY'
+          from openpyxl import load_workbook
+          from openpyxl.utils.cell import range_boundaries
+          from collections import defaultdict, Counter
+          from pathlib import Path
+          import json, gzip, base64, math
+
+          src=Path('/tmp/model-v2.xlsx')
+          wb=load_workbook(src, data_only=True, read_only=False)
+          ws=wb['Planilha1']
+          monthly=[(15,16,17,18,19),(20,21,22,23,24),(25,26,27,28,29),(30,31,32,33,34),(35,36,37,38,39),(40,41,42,43,44)]
+          os_cols={x[4] for x in monthly}
+          merged={}
+          for rng in ws.merged_cells.ranges:
+              minc,minr,maxc,maxr=range_boundaries(str(rng))
+              if minc==maxc and minc in os_cols:
+                  value=ws.cell(minr,minc).value
+                  for row in range(minr,maxr+1): merged[(row,minc)]=value
+
+          def num(value):
+              if value is None or value=='': return 0.0
+              if isinstance(value,(int,float)):
+                  value=float(value)
+                  return value if math.isfinite(value) else 0.0
+              try:
+                  value=float(str(value).strip().replace('.','').replace(',','.'))
+                  return value if math.isfinite(value) else 0.0
+              except Exception: return 0.0
+
+          def clean(value):
+              value=round(num(value),10)
+              if abs(value)<1e-12: return 0
+              return int(round(value)) if abs(value-round(value))<1e-10 else value
+
+          def text(value,default=''):
+              value='' if value is None else str(value).strip()
+              return value or default
+
+          data=defaultdict(list); occurrences=defaultdict(Counter)
+          for row in range(4,ws.max_row+1):
+              contract=text(ws.cell(row,2).value)
+              item=text(ws.cell(row,3).value)
+              price_raw=ws.cell(row,5).value
+              if not contract or not item or not isinstance(price_raw,(int,float)) or abs(float(price_raw))<1e-12: continue
+              occurrences[contract][item]+=1
+              occurrence=occurrences[contract][item]
+              source_id=item if occurrence==1 else item+' #'+str(occurrence)
+              plan=[0]*12; plan_value=[0]*12; executed=[0]*12; exec_value=[0]*12; orders=['Sem serviços']*12
+              for month,(pc,pvc,ec,evc,oc) in enumerate(monthly):
+                  plan[month]=clean(ws.cell(row,pc).value)
+                  plan_value[month]=clean(ws.cell(row,pvc).value)
+                  executed[month]=clean(ws.cell(row,ec).value)
+                  exec_value[month]=clean(ws.cell(row,evc).value)
+                  orders[month]=text(merged.get((row,oc),ws.cell(row,oc).value),'Sem serviços')
+              balance=ws.cell(row,10).value
+              if balance is None: balance=ws.cell(row,45).value
+              data[contract].append({
+                  'sourceId':source_id,
+                  'name':item,
+                  'unit':text(ws.cell(row,4).value,'—'),
+                  'price':clean(price_raw),
+                  'contractual':clean(ws.cell(row,8).value),
+                  'base':clean(ws.cell(row,12).value),
+                  'balance':clean(balance),
+                  'plan':plan,
+                  'planValue':plan_value,
+                  'exec':executed,
+                  'execValue':exec_value,
+                  'orders':orders
+              })
+
+          data=dict(data)
+          item_count=sum(len(items) for items in data.values())
+          if len(data)!=15 or item_count!=650:
+              raise RuntimeError(f'Importacao divergente: {len(data)} contratos e {item_count} itens')
+          metadata={
+              'source':'Modelo Cronograma Base de Dados  v2.xlsx',
+              'balanceColumn':'Quant. Total JULHO 2026',
+              'unitPriceColumn':'Preco Unit',
+              'historicalPlanValue':'R$ Realista',
+              'historicalExecValue':'R$ Executado',
+              'contracts':len(data),'items':item_count
+          }
+          script='var contractData='+json.dumps(data,ensure_ascii=False,separators=(',',':'))+';\n'
+          script+='var modelV2Metadata='+json.dumps(metadata,ensure_ascii=False,separators=(',',':'))+';\n'
+          packed=base64.b64encode(gzip.compress(script.encode('utf-8'),compresslevel=9,mtime=0)).decode('ascii')
+          size=(len(packed)+4)//5
+          out=Path('Planejamento-Colaborativo/data'); out.mkdir(parents=True,exist_ok=True)
+          for index in range(5):
+              (out/f'model-v2.part{index}').write_text(packed[index*size:(index+1)*size],encoding='ascii')
+          print(json.dumps(metadata,ensure_ascii=False))
+          PY
+
+      - name: Apply balance and future-value rules
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          path=Path('Planejamento-Colaborativo/index.html')
+          html=path.read_text(encoding='utf-8')
+
+          html,count=re.subn(r"data/model-v2\.part'\+i\+'\?v=[^']*'","data/model-v2.part'+i+'?v=saldojul20260729'",html,count=1)
+          if count!=1: raise RuntimeError('Token da base nao localizado')
+
+          old='d=2026===i.getFullYear()?i.getMonth():6,c=5,l=[]'
+          new='d=2026===i.getFullYear()?i.getMonth():6,c=2026===i.getFullYear()?i.getMonth():6,l=[]'
+          if old not in html: raise RuntimeError('Mes padrao nao localizado')
+          html=html.replace(old,new,1)
+
+          old='Number.isFinite(Number(r.quantity))&&(t.plan[n]=Number(r.quantity)),"string"==typeof r.order&&(t.orders[n]=r.order)'
+          new='Number.isFinite(Number(r.quantity))&&(t.plan[n]=Number(r.quantity),t.planValue||(t.planValue=Array(12).fill(0)),t.planValue[n]=Number(r.quantity)*Number(t.price||0)),"string"==typeof r.order&&(t.orders[n]=r.order)'
+          if old not in html: raise RuntimeError('Restauracao do planejamento nao localizada')
+          html=html.replace(old,new,1)
+
+          old='function le(e,t){for(var n=e.contractual-Math.max(0,Number(e.base||0))-function(e,t){for(var n=0,a=6;a<=t;a++)n+=W(e,a);return n}(e,t-1),a=0,r=t;r<Math.min(t+3,12);r++)a+=J(r,e)?W(e,r):Number(e.plan[r]||0);return n-a}'
+          new='function le(e,t){if(t<6)return Number(e.balance||0);for(var n=Number(e.balance||0)-function(e,t){for(var n=0,a=6;a<=t;a++)n+=W(e,a);return n}(e,t-1),a=0,r=t;r<Math.min(t+3,12);r++)a+=J(r,e)?W(e,r):Number(e.plan[r]||0);return n-a}'
+          if old not in html: raise RuntimeError('Regra anterior do saldo nao localizada')
+          html=html.replace(old,new,1)
+
+          html=html.replace('Atualização: 28/07/2026 14:12','Atualização: 29/07/2026 19:38')
+          html=html.replace('Saldo anterior − consumo da janela de 3 meses','Saldo Quant. Total JULHO 2026 − consumo futuro')
+          html=html.replace('Base financeira dos itens com quantidade contratual positiva','Histórico financeiro da planilha e planejamento futuro pelo Preço Unit')
+          path.write_text(html,encoding='utf-8')
+          PY
+
+      - name: Validate generated model and page
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64,gzip,json,re
+          parts=''.join(Path(f'Planejamento-Colaborativo/data/model-v2.part{i}').read_text() for i in range(5))
+          text=gzip.decompress(base64.b64decode(parts)).decode('utf-8')
+          match=re.search(r'var contractData=(\{.*\});\nvar modelV2Metadata=',text,re.S)
+          if not match: raise RuntimeError('contractData invalido')
+          data=json.loads(match.group(1))
+          if len(data)!=15 or sum(map(len,data.values()))!=650: raise RuntimeError('Totais invalidos')
+          html=Path('Planejamento-Colaborativo/index.html').read_text(encoding='utf-8')
+          for required in ['saldojul20260729','Number(e.balance||0)','planValue[n]=Number(r.quantity)*Number(t.price||0)','Quant. Total JULHO 2026']:
+              if required not in html: raise RuntimeError('Validacao ausente: '+required)
+          print('Validado:',len(data),'contratos,',sum(map(len,data.values())),'itens')
+          PY
+
+      - name: Publish update
+        shell: bash
+        run: |
+          git config user.name 'SINAPE Data Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add Planejamento-Colaborativo/index.html Planejamento-Colaborativo/data/model-v2.part0 Planejamento-Colaborativo/data/model-v2.part1 Planejamento-Colaborativo/data/model-v2.part2 Planejamento-Colaborativo/data/model-v2.part3 Planejamento-Colaborativo/data/model-v2.part4
+          if git diff --cached --quiet; then
+            echo 'No changes required.'
+            exit 0
+          fi
+          git commit -m 'Atualiza valores e saldo pela Modelo Cronograma v2'
+          git push
