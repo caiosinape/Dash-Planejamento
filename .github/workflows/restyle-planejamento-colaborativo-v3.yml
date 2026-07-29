@@ -1,0 +1,280 @@
+name: Restyle Planejamento Colaborativo V3
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/restyle-v3-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  restyle-v3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Aplicar visual fiel ao modelo aprovado
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('Planejamento-Colaborativo/index.html')
+          html = path.read_text(encoding='utf-8')
+
+          for a,b in [
+              ('<!-- SINAPE_VISUAL_V2_START -->','<!-- SINAPE_VISUAL_V2_END -->'),
+              ('<!-- SINAPE_VISUAL_V3_START -->','<!-- SINAPE_VISUAL_V3_END -->'),
+              ('<!-- SINAPE_LAYOUT_V3_START -->','<!-- SINAPE_LAYOUT_V3_END -->')
+          ]:
+              html = re.sub(re.escape(a)+r'.*?'+re.escape(b), '', html, flags=re.S)
+
+          css = r'''
+          <!-- SINAPE_VISUAL_V3_START -->
+          <style id="sinape-visual-v3">
+          :root{
+            --petrol:#064b67;
+            --petrol-2:#08728c;
+            --cyan:#10a5b5;
+            --cyan-dark:#087c92;
+            --blue:#155fba;
+            --green:#1aa071;
+            --amber:#e19a16;
+            --red:#d84a4a;
+            --ink:#14283a;
+            --muted:#627688;
+            --line:#dbe5ea;
+            --paper:#f3f7f9;
+            --shadow:0 5px 18px rgba(21,55,74,.08);
+          }
+          *{box-sizing:border-box}
+          body{
+            background:#f4f7f9;
+            color:var(--ink);
+            font-size:15px;
+          }
+          .cover{
+            width:100%;max-width:none;margin:0;border-radius:0;
+            min-height:112px;box-shadow:none;
+            background:#053f59;
+          }
+          .cover-inner{min-height:112px;grid-template-columns:minmax(520px,1.06fr) minmax(480px,1.12fr) minmax(250px,.55fr)}
+          .cover-brand{padding:15px 30px;background:linear-gradient(105deg,#03425e 0%,#076a82 100%)}
+          .cover-brand img{width:150px;height:78px;padding:0;background:transparent;border-radius:0;box-shadow:none}
+          .cover-copy{padding-left:22px;border-left:1px solid rgba(255,255,255,.24)}
+          .cover-copy h1{font-size:32px;line-height:1.05;margin:0 0 9px;letter-spacing:-.035em}
+          .cover-copy p{font-size:12px;color:#e8f5f8}
+          .cover-road{min-height:112px;background-position:center 58%;position:relative}
+          .cover-road:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,66,94,.28),rgba(3,66,94,.02))}
+          .cover-source{padding:15px 24px;background:linear-gradient(120deg,#0a6178,#073f58);font-size:9px}
+          .cover-source b{font-size:9px}.cover-source span{font-size:8px}
+
+          main{max-width:none;margin:0;padding:0 18px 46px}
+          .filter-shell{
+            margin:0 -18px 18px;padding:17px 20px 18px;
+            border-radius:0;background:#fff;color:var(--ink);
+            border:0;border-bottom:1px solid #d9e4e9;
+            box-shadow:0 6px 18px rgba(15,57,78,.06);
+          }
+          .filters{grid-template-columns:1.18fr 1.12fr .62fr .72fr .88fr auto auto;gap:11px;align-items:end}
+          .field>span{font-size:9px;color:#24465c;margin:0 0 7px 1px;letter-spacing:0;text-transform:none}
+          .field select,.multi-button{
+            height:42px;color:#273f50;background:#fff;border:1px solid #ccdbe2;border-radius:7px;
+            padding:0 11px;font-size:10px;box-shadow:inset 0 1px 1px rgba(23,63,83,.02)
+          }
+          .field select option{color:#273f50;background:#fff}
+          .multi-button:after{color:#4f6f81}
+          .advanced-btn{height:42px;border:0;border-radius:7px;background:linear-gradient(135deg,#08728c,#0aa3b0);color:#fff;padding:0 14px;font-size:9px}
+          .advanced-btn:before{content:'⌕ ';font-size:12px}
+          .clear-btn{height:42px;border:1px solid #bdd0d8;border-radius:7px;background:#fff;color:#24465c;text-decoration:none;padding:0 13px;font-size:9px;font-weight:900}
+          .filter-foot{color:#768b99;border-top:1px solid #e3ebef;font-size:8px;margin-top:13px;padding-top:10px}
+          .filter-foot b{color:#31596f}
+          .advanced{border-top:1px solid #e3ebef}.advanced .field>span{color:#24465c}
+          .week-menu{top:65px;border-radius:8px}
+
+          .reference-cards{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 16px}
+          .reference-card{
+            min-height:86px;display:grid;grid-template-columns:46px 1fr;grid-template-rows:auto auto auto;
+            column-gap:12px;align-items:center;padding:13px 15px;border:1px solid #dce6eb;border-top:1px solid #dce6eb;
+            border-radius:9px;background:#fff;box-shadow:var(--shadow)
+          }
+          .reference-card:before{
+            grid-row:1/4;content:'$';width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+            color:#fff;font-size:20px;font-weight:900;background:linear-gradient(145deg,#08748f,#12a5af)
+          }
+          .reference-card:nth-child(2):before{content:'▣';font-size:18px}
+          .reference-card:nth-child(3):before{content:'♙';font-size:21px}
+          .reference-card:nth-child(4):before{content:'♟';font-size:19px}
+          .reference-card span{font-size:8px;letter-spacing:0;text-transform:none;color:#344f60}
+          .reference-card strong{font-size:19px;line-height:1;margin:2px 0;color:#06708a}
+          .reference-card small{font-size:8px;margin:3px 0 0;color:#657986}
+
+          .section-nav.sinape-nav{display:none}
+          .section-block{margin-bottom:27px;scroll-margin-top:20px}
+          .section-title{align-items:center;margin:0 0 11px;gap:12px}
+          .section-title>div{gap:9px}
+          .section-number{width:30px;height:24px;border-radius:5px;font-size:10px;background:#087d94}
+          .section-title h2{font-size:18px;margin:0;color:#16354a;letter-spacing:-.01em}
+          .section-title p{font-size:8px}
+          .kicker{display:none}
+          .period-view{font-size:8px;padding:5px 9px;border-radius:12px;background:#e6f4f7}
+
+          .panel{border:1px solid #dde6eb;border-radius:9px;box-shadow:var(--shadow);margin-bottom:10px;background:#fff}
+          .panel-inner{padding:16px}
+          .panel-head{margin-bottom:12px}
+          .panel-head h3{margin:0;font-size:13px;color:#17354a}
+          .hint,.legend{font-size:8px}.legend i{width:8px;height:8px}
+
+          .cards{gap:10px;margin-bottom:11px}
+          .card{min-height:115px;border-radius:8px;padding:15px 17px;border:1px solid #c9e0e7;box-shadow:var(--shadow)}
+          .card:before{display:none}
+          .card-label{font-size:8px;text-transform:none;letter-spacing:0;color:#24465c}
+          .card strong{font-size:23px;margin:13px 0 5px;letter-spacing:-.03em}
+          .card small{font-size:8px}
+          .mini-status{font-size:8px;margin-top:9px}
+          .cards .card:nth-child(1),.cards .card:nth-child(2){color:#fff;border:0;background:linear-gradient(135deg,#07809a,#0aa5ac)}
+          .cards .card:nth-child(2){background:linear-gradient(135deg,#076c88,#0b8ca0)}
+          .cards .card:nth-child(1) .card-label,.cards .card:nth-child(2) .card-label,
+          .cards .card:nth-child(1) strong,.cards .card:nth-child(2) strong,
+          .cards .card:nth-child(1) small,.cards .card:nth-child(2) small,
+          .cards .card:nth-child(1) .mini-status,.cards .card:nth-child(2) .mini-status{color:#fff}
+          .cards .card:nth-child(3),.cards .card:nth-child(4){background:#fff;border:1.5px solid #50aec0}
+
+          .chart-grid{grid-template-columns:1fr 1fr;gap:10px}
+          .chart,.weekly-grid{height:260px;padding:7px 5px 0;background:repeating-linear-gradient(to top,transparent 0,transparent 51px,#e8eef1 52px)}
+          .bar-area{height:203px;gap:4px}.bar{width:15px;border-radius:3px 3px 0 0}
+          .bar.plan,.week-bars .wp{background:linear-gradient(180deg,#16a8ab,#087c91)}
+          .bar.done,.week-bars .we{background:linear-gradient(180deg,#1e6bc8,#17489d)}
+          .bar-group b{font-size:8px}.bar-group small{font-size:7px}
+          .week-bars{height:180px}.week-bars i{width:23px}.week strong{font-size:8px}.week small{font-size:7px}
+
+          .executive-lower{display:grid;grid-template-columns:.92fr .95fr 1.15fr;gap:10px;align-items:stretch}
+          .executive-lower>.panel{margin-bottom:0;height:100%}
+          .critical-map{grid-template-columns:1fr;gap:8px}
+          .critical-cell{min-height:62px;border-radius:7px;padding:10px 12px;display:grid;grid-template-columns:1fr auto;align-items:center}
+          .critical-cell span{grid-column:1/3;font-size:8px}.critical-cell strong{font-size:17px;margin:8px 0 2px}.critical-cell small{font-size:7px}
+          .critical-cell:has(.signal.red){background:#fff4f4;border-color:#f2cece}
+          .critical-cell:has(.signal.amber){background:#fff9ee;border-color:#f0dbb1}
+
+          .contract-kpis{grid-template-columns:repeat(3,1fr);gap:7px}
+          .contract-kpi{display:block;min-height:93px;border-radius:7px;padding:10px;border-left:0;text-align:center}
+          .contract-kpi-icon{width:28px;height:28px;margin:0 auto 6px;font-size:14px}
+          .contract-kpi-copy span{font-size:7px}.contract-kpi-copy strong{font-size:19px}.contract-kpi-copy small{font-size:7px}
+          .contract-track{height:13px;border-radius:4px}.contract-track span{font-size:0}
+          .contract-summaries{grid-template-columns:1fr 1fr;gap:7px}.contract-summary{min-height:76px;border-radius:7px;padding:9px}
+          .contract-summary-head{margin-bottom:5px}.contract-summary-icon{width:22px;height:22px;font-size:11px}.contract-summary h4{font-size:9px}.contract-summary p{font-size:7px}.contract-month-tags span{font-size:6px}
+          .contract-items-btn{font-size:7px;padding:5px}
+
+          .executive-lower .actions-panel-v3 .panel-inner{padding:13px}
+          .actions-grid{grid-template-columns:1.25fr .45fr .7fr}
+          .actions-grid>div{padding:8px;font-size:8px}
+          .actions-grid .head{font-size:7px}
+          .actions-grid .head:nth-child(2),.actions-grid .head:nth-child(3){display:none}
+          .actions-grid>div:nth-child(5n+2),.actions-grid>div:nth-child(5n+3){display:none}
+          .actions-grid>div:nth-child(5n+1){grid-column:1}
+          .actions-grid>div:nth-child(5n+4){grid-column:2}
+          .actions-grid>div:nth-child(5n+5){grid-column:3}
+          .inline-actions{display:none}
+
+          #planejamento>.section-title{margin-top:4px}
+          .planning-viewport{border-radius:8px}
+          .planning-table{font-size:9px}
+          .planning-table th{padding:10px 8px;font-size:7px;background:#f3f6f8}
+          .planning-table td{padding:9px 8px}
+          .planning-table .item-col{min-width:260px;max-width:260px;background:#fff}
+          .planning-table th.item-col{background:#06718b;color:#fff}
+          .planning-table .balance-col{min-width:190px;background:#f7fbfc}
+          .planning-table th.balance-col{background:#06718b;color:#fff}
+          .planning-table th.window-active{background:linear-gradient(180deg,#12a8b4,#087d92);color:#fff;box-shadow:inset 0 -3px 0 #075a6c}
+          .planning-table td.window-active{background:#eefafd;box-shadow:inset 1px 0 #7dcbd6,inset -1px 0 #7dcbd6}
+          .planning-table .month-col.window-muted{opacity:.52;filter:saturate(.4)}
+          .planning-table tbody tr:nth-child(even) td{background:#fbfcfd}
+          .planning-table tbody tr:nth-child(even) td.window-active{background:#e8f7fa}
+          .planning-table .item-col strong{font-size:9px}.planning-table .item-col small{font-size:7px}
+          .month-box{padding:6px;border-radius:5px}.month-box span{font-size:6px}.month-box b{font-size:9px}.month-box small{font-size:6px}
+          .month-box.plan.has-value{background:#dff4f7;border-color:#2ca8b7}
+          .balance-col strong{font-size:11px}.balance-col small{font-size:7px}
+          .weekly-plan-panel{display:none}
+
+          #operacao .panel:nth-of-type(1){width:58%;display:inline-block;vertical-align:top;margin-right:1%}
+          #operacao .panel:nth-of-type(2){width:40.5%;display:inline-block;vertical-align:top}
+          .data-table{font-size:9px}.data-table th{font-size:7px;padding:9px}.data-table td{padding:9px}.data-table small{font-size:7px}
+          .os-code{font-size:7px;padding:5px 7px}.status-pill{font-size:7px;padding:4px 7px}
+          .ops-reading{grid-template-columns:130px 1fr;gap:10px}.ops-total{border-radius:7px;padding:13px;text-align:center}.ops-total span{font-size:7px}.ops-total strong{font-size:25px}.ops-total small{font-size:7px}
+          .ops-item{padding:7px 9px;border-radius:6px}.ops-item strong{font-size:8px}.ops-item small{display:none}
+
+          #rdo .panel-inner{padding:12px}
+          .rdo-card{grid-template-columns:185px 1fr;border-radius:7px}
+          .rdo-week{padding:15px;background:#f7fafb;color:#17354a;border-right:1px solid #dce6eb}
+          .rdo-week span{color:#5c7382;font-size:7px}.rdo-week strong{font-size:16px;color:#08728c}
+          .rdo-content{padding:12px}.rdo-table{min-width:900px}.rdo-table-wrap{max-height:440px}
+
+          .footer{font-size:7px}
+
+          @media(max-width:1200px){
+            .cover-inner{grid-template-columns:1.2fr 1fr}.cover-source{display:none}
+            .filters{grid-template-columns:repeat(3,1fr)}
+            .executive-lower{grid-template-columns:1fr 1fr}.executive-lower>.actions-panel-v3{grid-column:1/-1}
+            #operacao .panel:nth-of-type(1),#operacao .panel:nth-of-type(2){width:100%;display:block;margin-right:0}
+          }
+          @media(max-width:760px){
+            .cover-inner{display:block}.cover-road{display:none}.cover-brand{padding:13px 16px}.cover-brand img{width:110px;height:60px}.cover-copy h1{font-size:23px}
+            main{padding:0 10px 40px}.filter-shell{margin:0 -10px 14px}.filters{grid-template-columns:1fr 1fr}
+            .reference-cards,.cards,.chart-grid,.executive-lower{grid-template-columns:1fr}
+            .executive-lower>.actions-panel-v3{grid-column:auto}
+            .reference-card{min-height:76px}.section-title h2{font-size:16px}
+          }
+          @media(max-width:480px){
+            .filters{grid-template-columns:1fr}.planning-table .item-col{min-width:210px;max-width:210px}.planning-table .month-col{width:175px;min-width:175px}
+          }
+          @media print{.weekly-plan-panel{display:none!important}}
+          </style>
+          <!-- SINAPE_VISUAL_V3_END -->
+          '''
+
+          layout = r'''
+          <!-- SINAPE_LAYOUT_V3_START -->
+          <script id="sinape-layout-v3">
+          (function(){
+            function applyLayoutV3(){
+              var lower=document.querySelector('#executivo .executive-lower');
+              if(!lower)return;
+              var panels=Array.from(document.querySelectorAll('#executivo > article.panel'));
+              var actions=panels.find(function(p){
+                var h=p.querySelector('h3');
+                return h && /Causas e Planos de Ação/i.test(h.textContent||'');
+              });
+              if(actions && actions.parentElement!==lower){
+                actions.classList.add('actions-panel-v3');
+                lower.appendChild(actions);
+              }
+            }
+            if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',applyLayoutV3);
+            else applyLayoutV3();
+            setTimeout(applyLayoutV3,300);
+          })();
+          </script>
+          <!-- SINAPE_LAYOUT_V3_END -->
+          '''
+
+          html = html.replace('</head>', css + '</head>', 1)
+          html = html.replace('</body>', layout + '</body>', 1)
+          path.write_text(html, encoding='utf-8')
+          PY
+
+      - name: Publicar visual aprovado
+        shell: bash
+        run: |
+          git config user.name "SINAPE Layout Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add Planejamento-Colaborativo/index.html
+          if git diff --cached --quiet; then
+            echo "Nenhuma alteração necessária."
+            exit 0
+          fi
+          git commit -m "Reformula visual conforme imagem aprovada"
+          git push
