@@ -2,7 +2,48 @@
 layout: null
 ---
 {% capture original %}{% include original-planejamento-colaborativo.html %}{% endcapture %}
-{% capture injected_head %}<head><script>
+{% capture injected_head %}<head>
+<script id="sinape-access-failsafe">
+(function(){
+  function fallbackLogo(){
+    var logo=document.getElementById('accessLogo');
+    if(!logo)return;
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="180" height="90" viewBox="0 0 180 90"><rect width="180" height="90" rx="12" fill="white"/><text x="90" y="40" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#0b5870">SINAPE</text><text x="90" y="61" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#315c70">Sinalização</text></svg>';
+    logo.onerror=null;
+    logo.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+  }
+  function bindSafeAccess(){
+    var logo=document.getElementById('accessLogo');
+    if(logo){
+      logo.addEventListener('error',fallbackLogo,{once:true});
+      if(!logo.getAttribute('src'))fallbackLogo();
+    }
+    var form=document.getElementById('accessForm');
+    if(!form||form.dataset.safeAccessBound==='1')return;
+    form.dataset.safeAccessBound='1';
+    form.addEventListener('submit',function(event){
+      var input=document.getElementById('accessEmail');
+      var email=String(input&&input.value||'').trim().toLowerCase();
+      if(!email){
+        event.preventDefault();
+        if(input)input.focus();
+        return;
+      }
+      try{sessionStorage.setItem('sinape:planning:access-email:v1',email)}catch(error){}
+      var gate=document.getElementById('accessGate');
+      if(gate)gate.hidden=true;
+      document.body.classList.remove('access-pending');
+      var session=document.getElementById('accessSession');
+      if(session)session.hidden=false;
+      var sessionEmail=document.getElementById('accessSessionEmail');
+      if(sessionEmail)sessionEmail.textContent=email;
+    },true);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bindSafeAccess);
+  else bindSafeAccess();
+})();
+</script>
+<script id="sinape-data-loader">
 (function(){
   const nativeFetch=window.fetch.bind(window);
   const partUrls=[0,1,2,3,4].map(function(i){return 'data/model-v2.part'+i;});
@@ -17,15 +58,24 @@ layout: null
     if(typeof DecompressionStream==='undefined')throw new Error('O navegador não oferece suporte à descompactação da base.');
     const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
     return new Response(stream).text();
+  }).catch(function(error){
+    console.error('A base Modelo v2 não pôde ser carregada; será usada a fonte estável do painel.',error);
+    return '';
   });
   window.fetch=async function(input,init){
     const url=typeof input==='string'?input:(input&&input.url)||'';
     if(url.indexOf('Cronogramas%20Planejamento/index.html')>=0||url.indexOf('Cronogramas Planejamento/index.html')>=0){
-      const results=await Promise.all([nativeFetch(input,init),modelDataPromise]);
-      const response=results[0];
-      const modelText=results[1];
+      let response;
+      try{
+        response=await nativeFetch(input,Object.assign({},init||{},{cache:'no-store'}));
+      }catch(error){
+        console.error('Falha ao carregar a fonte estável do painel.',error);
+        throw error;
+      }
       const originalText=await response.text();
-      return new Response(modelText+'\n'+originalText,{status:response.status,statusText:response.statusText,headers:{'Content-Type':'text/html; charset=utf-8'}});
+      const modelText=await modelDataPromise;
+      const combined=modelText?modelText+'\n'+originalText:originalText;
+      return new Response(combined,{status:response.status,statusText:response.statusText,headers:{'Content-Type':'text/html; charset=utf-8'}});
     }
     return nativeFetch(input,init);
   };
@@ -47,4 +97,4 @@ layout: null
 {% assign page_html = page_html | replace: '<th>Contrato</th><th>Período</th><th>Observação do RDO</th><th>Serviço executado</th><th>Quantidade</th><th>Valor executado</th>', '<th>Contrato</th><th>Período</th><th>Observação do RDO</th><th>Serviço executado</th><th>Quantidade executada</th>' %}
 {% assign page_html = page_html | replace: '+P.format(e.quantity)+" "+D(e.unit)+"</td><td><strong>"+A.format(e.value)+"</strong></td></tr>"', '+P.format(e.quantity)+" "+D(e.unit)+"</td></tr>"' %}
 {{ page_html }}
-<!-- Base Modelo Cronograma v2 atualizada e validada em 29/07/2026 17:04 BRT -->
+<!-- Base Modelo Cronograma v2 atualizada e acesso blindado em 29/07/2026 17:30 BRT -->
