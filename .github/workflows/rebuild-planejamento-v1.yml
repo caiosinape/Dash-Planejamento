@@ -1,0 +1,155 @@
+name: Reconstruir Planejamento Colaborativo v1
+
+on:
+  push:
+    branches:
+      - planejamento-colaborativo-rebuild-v1
+    paths:
+      - 'Planejamento-Colaborativo/.rebuild-v1/ready.txt'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: planejamento-colaborativo-rebuild-v1
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout da referência visual 73c078d
+        uses: actions/checkout@v4
+        with:
+          ref: planejamento-colaborativo-rebuild-v1
+          fetch-depth: 0
+
+      - name: Buscar dados e construtor validados
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main planejamento-colaborativo-fix-73c078d
+          mkdir -p tools
+          git show origin/planejamento-colaborativo-fix-73c078d:tools/fix_planejamento_73.py > tools/build_rebuild_v1.py
+          git show origin/planejamento-colaborativo-fix-73c078d:tools/run_fix_planejamento_73.py > tools/run_rebuild_v1.py
+
+      - name: Construir e testar sem falha automática
+        id: build
+        shell: bash
+        run: |
+          set +e
+          STATUS_PATH='Planejamento-Colaborativo/rebuild-v1-status.json'
+          LOG_PATH='/tmp/rebuild-v1.log'
+          PYTHONPATH=tools python tools/run_rebuild_v1.py >"$LOG_PATH" 2>&1
+          RC=$?
+          if [ "$RC" -ne 0 ]; then
+            python - "$STATUS_PATH" "$LOG_PATH" "$RC" <<'PY'
+          import json, pathlib, sys
+          status_path, log_path, rc = sys.argv[1], sys.argv[2], int(sys.argv[3])
+          log = pathlib.Path(log_path).read_text(encoding='utf-8', errors='replace')
+          pathlib.Path(status_path).write_text(json.dumps({
+              'status':'build-failed',
+              'stage':'construction',
+              'exitCode':rc,
+              'logTail':log[-12000:],
+              'htmlPublished':False
+          }, ensure_ascii=False, indent=2), encoding='utf-8')
+          PY
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html = Path('Planejamento-Colaborativo/index.html').read_text(encoding='utf-8')
+          scripts = re.findall(r'<script(?:\s+[^>]*)?>(.*?)</script>', html, flags=re.S)
+          main = next((script for script in scripts if 'function xe()' in script), None)
+          if main is None:
+              raise SystemExit('Script principal não encontrado')
+          Path('/tmp/rebuild-v1-main.js').write_text(main, encoding='utf-8')
+          PY
+          node --check /tmp/rebuild-v1-main.js >>"$LOG_PATH" 2>&1
+          RC=$?
+          if [ "$RC" -ne 0 ]; then
+            python - "$STATUS_PATH" "$LOG_PATH" "$RC" <<'PY'
+          import json, pathlib, sys
+          status_path, log_path, rc = sys.argv[1], sys.argv[2], int(sys.argv[3])
+          log = pathlib.Path(log_path).read_text(encoding='utf-8', errors='replace')
+          pathlib.Path(status_path).write_text(json.dumps({
+              'status':'build-failed',
+              'stage':'javascript-syntax',
+              'exitCode':rc,
+              'logTail':log[-12000:],
+              'htmlPublished':False
+          }, ensure_ascii=False, indent=2), encoding='utf-8')
+          PY
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          python3 -m http.server 8765 >/tmp/rebuild-v1-server.log 2>&1 &
+          SERVER_PID=$!
+          sleep 2
+          google-chrome --headless --no-sandbox --disable-gpu --virtual-time-budget=12000 --dump-dom 'http://127.0.0.1:8765/Planejamento-Colaborativo/index.html' >/tmp/rebuild-v1-dom.html 2>/tmp/rebuild-v1-chrome.log
+          RC=$?
+          kill "$SERVER_PID" 2>/dev/null || true
+          cat /tmp/rebuild-v1-chrome.log >>"$LOG_PATH"
+          if [ "$RC" -ne 0 ] || ! grep -q 'id="contractFilter"' /tmp/rebuild-v1-dom.html || ! grep -q '2453' /tmp/rebuild-v1-dom.html || ! grep -q 'id="yearFilter"' /tmp/rebuild-v1-dom.html || grep -E 'Uncaught|ReferenceError|SyntaxError|TypeError' /tmp/rebuild-v1-chrome.log; then
+            python - "$STATUS_PATH" "$LOG_PATH" "$RC" <<'PY'
+          import json, pathlib, sys
+          status_path, log_path, rc = sys.argv[1], sys.argv[2], int(sys.argv[3])
+          log = pathlib.Path(log_path).read_text(encoding='utf-8', errors='replace')
+          pathlib.Path(status_path).write_text(json.dumps({
+              'status':'build-failed',
+              'stage':'browser-validation',
+              'exitCode':rc,
+              'logTail':log[-12000:],
+              'htmlPublished':False
+          }, ensure_ascii=False, indent=2), encoding='utf-8')
+          PY
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, json, re
+          html = Path('Planejamento-Colaborativo/index.html').read_text(encoding='utf-8')
+          audit_path = Path('Planejamento-Colaborativo/fix73-audit.json')
+          audit = json.loads(audit_path.read_text(encoding='utf-8'))
+          required = {
+              'contracts': audit.get('contracts') == 15,
+              'items': audit.get('items') == 650,
+              'noStructuralFetch': '../Cronogramas%20Planejamento/index.html' not in html,
+              'noRootFetch': 'fetch("../index.html"' not in html,
+              'dynamicOS': 'function OCode(' in html,
+              'yearFilter': 'id="yearFilter"' in html,
+              'errorBoundary': 'id="healthError"' in html,
+              'visualReference': 'Planejado, executado e alertas operacionais' in html,
+          }
+          if not all(required.values()):
+              raise SystemExit('Validação final divergente: ' + json.dumps(required, ensure_ascii=False))
+          Path('Planejamento-Colaborativo/rebuild-v1-status.json').write_text(json.dumps({
+              'status':'success',
+              'visualReference':'73c078d3780f21911bbf5a5dbb3f280bbf7f4f22',
+              'contracts':15,
+              'items':650,
+              'rdo':'último vínculo pendente',
+              'checks':required,
+              'sha256':hashlib.sha256(html.encode('utf-8')).hexdigest(),
+              'htmlPublished':True
+          }, ensure_ascii=False, indent=2), encoding='utf-8')
+          PY
+          echo 'ready=true' >> "$GITHUB_OUTPUT"
+
+      - name: Publicar resultado validado na branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf 'Planejamento-Colaborativo/.rebuild-v1'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 'Planejamento-Colaborativo/index.html' 'Planejamento-Colaborativo/fix73-audit.json' 'Planejamento-Colaborativo/rebuild-v1-status.json' 'Planejamento-Colaborativo/.rebuild-v1'
+          git commit -m '[rebuild-v1] Gera Planejamento Colaborativo estável' || exit 0
+          git push origin HEAD:planejamento-colaborativo-rebuild-v1
