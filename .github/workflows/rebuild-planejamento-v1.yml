@@ -6,6 +6,12 @@ on:
       - planejamento-colaborativo-rebuild-v1
     paths:
       - 'Planejamento-Colaborativo/.rebuild-v1/ready.txt'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/rebuild-planejamento-v1.yml'
+      - 'Planejamento-Colaborativo/.rebuild-v1/ready.txt'
 
 permissions:
   contents: write
@@ -30,36 +36,43 @@ jobs:
           set -euo pipefail
           git fetch origin main planejamento-colaborativo-fix-73c078d
           mkdir -p tools
-          git show origin/planejamento-colaborativo-fix-73c078d:tools/fix_planejamento_73.py > tools/build_rebuild_v1.py
-          git show origin/planejamento-colaborativo-fix-73c078d:tools/run_fix_planejamento_73.py > tools/run_rebuild_v1.py
+          git show origin/planejamento-colaborativo-fix-73c078d:tools/fix_planejamento_73.py > tools/fix_planejamento_73.py
+          git show origin/planejamento-colaborativo-fix-73c078d:tools/run_fix_planejamento_73.py > tools/run_fix_planejamento_73.py
 
-      - name: Construir e testar sem falha automática
+      - name: Construir e testar com diagnóstico controlado
         id: build
         shell: bash
         run: |
           set +e
           STATUS_PATH='Planejamento-Colaborativo/rebuild-v1-status.json'
           LOG_PATH='/tmp/rebuild-v1.log'
-          PYTHONPATH=tools python tools/run_rebuild_v1.py >"$LOG_PATH" 2>&1
-          RC=$?
-          if [ "$RC" -ne 0 ]; then
-            python - "$STATUS_PATH" "$LOG_PATH" "$RC" <<'PY'
+
+          write_failure() {
+            STAGE="$1"
+            RC_VALUE="$2"
+            python - "$STATUS_PATH" "$LOG_PATH" "$STAGE" "$RC_VALUE" <<'PY'
           import json, pathlib, sys
-          status_path, log_path, rc = sys.argv[1], sys.argv[2], int(sys.argv[3])
-          log = pathlib.Path(log_path).read_text(encoding='utf-8', errors='replace')
+          status_path, log_path, stage, rc = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4])
+          log = pathlib.Path(log_path).read_text(encoding='utf-8', errors='replace') if pathlib.Path(log_path).exists() else ''
           pathlib.Path(status_path).write_text(json.dumps({
               'status':'build-failed',
-              'stage':'construction',
+              'stage':stage,
               'exitCode':rc,
               'logTail':log[-12000:],
               'htmlPublished':False
           }, ensure_ascii=False, indent=2), encoding='utf-8')
           PY
             echo 'ready=false' >> "$GITHUB_OUTPUT"
+          }
+
+          PYTHONPATH=tools python tools/run_fix_planejamento_73.py >"$LOG_PATH" 2>&1
+          RC=$?
+          if [ "$RC" -ne 0 ]; then
+            write_failure construction "$RC"
             exit 0
           fi
 
-          python - <<'PY'
+          python - <<'PY' >>"$LOG_PATH" 2>&1
           from pathlib import Path
           import re
           html = Path('Planejamento-Colaborativo/index.html').read_text(encoding='utf-8')
@@ -69,22 +82,16 @@ jobs:
               raise SystemExit('Script principal não encontrado')
           Path('/tmp/rebuild-v1-main.js').write_text(main, encoding='utf-8')
           PY
+          RC=$?
+          if [ "$RC" -ne 0 ]; then
+            write_failure script-extraction "$RC"
+            exit 0
+          fi
+
           node --check /tmp/rebuild-v1-main.js >>"$LOG_PATH" 2>&1
           RC=$?
           if [ "$RC" -ne 0 ]; then
-            python - "$STATUS_PATH" "$LOG_PATH" "$RC" <<'PY'
-          import json, pathlib, sys
-          status_path, log_path, rc = sys.argv[1], sys.argv[2], int(sys.argv[3])
-          log = pathlib.Path(log_path).read_text(encoding='utf-8', errors='replace')
-          pathlib.Path(status_path).write_text(json.dumps({
-              'status':'build-failed',
-              'stage':'javascript-syntax',
-              'exitCode':rc,
-              'logTail':log[-12000:],
-              'htmlPublished':False
-          }, ensure_ascii=False, indent=2), encoding='utf-8')
-          PY
-            echo 'ready=false' >> "$GITHUB_OUTPUT"
+            write_failure javascript-syntax "$RC"
             exit 0
           fi
 
@@ -95,26 +102,14 @@ jobs:
           RC=$?
           kill "$SERVER_PID" 2>/dev/null || true
           cat /tmp/rebuild-v1-chrome.log >>"$LOG_PATH"
-          if [ "$RC" -ne 0 ] || ! grep -q 'id="contractFilter"' /tmp/rebuild-v1-dom.html || ! grep -q '2453' /tmp/rebuild-v1-dom.html || ! grep -q 'id="yearFilter"' /tmp/rebuild-v1-dom.html || grep -E 'Uncaught|ReferenceError|SyntaxError|TypeError' /tmp/rebuild-v1-chrome.log; then
-            python - "$STATUS_PATH" "$LOG_PATH" "$RC" <<'PY'
-          import json, pathlib, sys
-          status_path, log_path, rc = sys.argv[1], sys.argv[2], int(sys.argv[3])
-          log = pathlib.Path(log_path).read_text(encoding='utf-8', errors='replace')
-          pathlib.Path(status_path).write_text(json.dumps({
-              'status':'build-failed',
-              'stage':'browser-validation',
-              'exitCode':rc,
-              'logTail':log[-12000:],
-              'htmlPublished':False
-          }, ensure_ascii=False, indent=2), encoding='utf-8')
-          PY
-            echo 'ready=false' >> "$GITHUB_OUTPUT"
+          if [ "$RC" -ne 0 ] || ! grep -q 'id="contractFilter"' /tmp/rebuild-v1-dom.html || ! grep -q '2453' /tmp/rebuild-v1-dom.html || ! grep -q 'id="yearFilter"' /tmp/rebuild-v1-dom.html || ! grep -q 'id="healthError"' /tmp/rebuild-v1-dom.html; then
+            write_failure browser-validation "$RC"
             exit 0
           fi
 
-          python - <<'PY'
+          python - <<'PY' >>"$LOG_PATH" 2>&1
           from pathlib import Path
-          import hashlib, json, re
+          import hashlib, json
           html = Path('Planejamento-Colaborativo/index.html').read_text(encoding='utf-8')
           audit_path = Path('Planejamento-Colaborativo/fix73-audit.json')
           audit = json.loads(audit_path.read_text(encoding='utf-8'))
@@ -123,10 +118,12 @@ jobs:
               'items': audit.get('items') == 650,
               'noStructuralFetch': '../Cronogramas%20Planejamento/index.html' not in html,
               'noRootFetch': 'fetch("../index.html"' not in html,
+              'undefinedReferenceRemoved': 'esc(contractCode())' not in html,
               'dynamicOS': 'function OCode(' in html,
               'yearFilter': 'id="yearFilter"' in html,
               'errorBoundary': 'id="healthError"' in html,
               'visualReference': 'Planejado, executado e alertas operacionais' in html,
+              'oldMonthlyStorageRemoved': 'sinape:planning:monthly:v2' not in html,
           }
           if not all(required.values()):
               raise SystemExit('Validação final divergente: ' + json.dumps(required, ensure_ascii=False))
@@ -141,15 +138,21 @@ jobs:
               'htmlPublished':True
           }, ensure_ascii=False, indent=2), encoding='utf-8')
           PY
+          RC=$?
+          if [ "$RC" -ne 0 ]; then
+            write_failure final-validation "$RC"
+            exit 0
+          fi
+
           echo 'ready=true' >> "$GITHUB_OUTPUT"
 
-      - name: Publicar resultado validado na branch
+      - name: Gravar resultado na branch de reconstrução
         shell: bash
         run: |
           set -euo pipefail
           rm -rf 'Planejamento-Colaborativo/.rebuild-v1'
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add 'Planejamento-Colaborativo/index.html' 'Planejamento-Colaborativo/fix73-audit.json' 'Planejamento-Colaborativo/rebuild-v1-status.json' 'Planejamento-Colaborativo/.rebuild-v1'
-          git commit -m '[rebuild-v1] Gera Planejamento Colaborativo estável' || exit 0
+          git add -A 'Planejamento-Colaborativo'
+          git commit -m '[rebuild-v1] Registra construção e validação' || exit 0
           git push origin HEAD:planejamento-colaborativo-rebuild-v1
