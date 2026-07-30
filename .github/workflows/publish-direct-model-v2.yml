@@ -1,0 +1,271 @@
+name: Publicar planilha v2 direta e corrigir acesso
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/publish-direct-model-v2-trigger.txt'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-direct-model-v2
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout completo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reconstruir base e corrigir HTML
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from collections import defaultdict
+          import base64, gzip, hashlib, json, math, re, subprocess
+
+          root = Path('.')
+          data_dir = root / 'Planejamento-Colaborativo' / 'data'
+          html_path = root / 'Planejamento-Colaborativo' / 'index.html'
+          data_dir.mkdir(parents=True, exist_ok=True)
+
+          old_commit = 'a7246033d336230fb98c2acaf723d7104d64ee92'
+          old_parts = []
+          for i in range(5):
+              path = f'Planejamento-Colaborativo/data/model-v2.part{i}'
+              old_parts.append(subprocess.check_output(['git', 'show', f'{old_commit}:{path}'], text=True).strip())
+          old_script = gzip.decompress(base64.b64decode(''.join(old_parts))).decode('utf-8')
+
+          def extract_var(text, name):
+              marker = 'var ' + name + '='
+              start = text.find(marker)
+              if start < 0:
+                  raise RuntimeError('Variável não encontrada: ' + name)
+              start += len(marker)
+              opening = text[start]
+              closing = '}' if opening == '{' else ']'
+              depth = 0
+              quoted = escaped = False
+              for pos in range(start, len(text)):
+                  ch = text[pos]
+                  if quoted:
+                      if escaped:
+                          escaped = False
+                      elif ch == '\\':
+                          escaped = True
+                      elif ch == '"':
+                          quoted = False
+                  else:
+                      if ch == '"':
+                          quoted = True
+                      elif ch == opening:
+                          depth += 1
+                      elif ch == closing:
+                          depth -= 1
+                          if depth == 0:
+                              return json.loads(text[start:pos + 1])
+              raise RuntimeError('Variável incompleta: ' + name)
+
+          contracts = extract_var(old_script, 'contractData')
+
+          expected_override_shas = [
+              'dfb83d37abdf5d4ff089c2263c94dc145539d1d4',
+              '8dd90f390300885e1402c386196adbb4104ed524',
+              '7f21dcb76a00cf3a37b0ef530f53e163672a2b00',
+              '9a200ca6cc679ef93f253ebfd0fcf1e26dbe0b0f',
+              '5ab4b17facd7feaea1c7ff199da05c9624716cca',
+              '9ca7d0cd95615c46b644398fa37c858093f04c31',
+              'b56e0dd01aaf7f89e32a1ed8f37f41f2a9db0ea3',
+              '6f29b9c56b3325bf17732565142bcce24b31ce46',
+          ]
+          override_parts = []
+          for i, expected_sha in enumerate(expected_override_shas):
+              path = data_dir / f'direct-overrides.part{i}'
+              raw = path.read_text(encoding='ascii').strip()
+              blob_sha = hashlib.sha1(b'blob ' + str(len(raw)).encode('ascii') + b'\0' + raw.encode('ascii')).hexdigest()
+              if blob_sha != expected_sha:
+                  raise RuntimeError(f'Bloco direto {i} divergente: {blob_sha} != {expected_sha}')
+              override_parts.append(raw)
+          overrides = json.loads(gzip.decompress(base64.b64decode(''.join(override_parts))).decode('utf-8'))
+
+          def norm(value):
+              return re.sub(r'\s+', ' ', str(value or '').strip().casefold())
+
+          lookup = defaultdict(list)
+          for contract, rows in contracts.items():
+              for row in rows:
+                  lookup[(contract, norm(row.get('name')))].append(row)
+
+          matched = 0
+          occurrences = defaultdict(int)
+          for source in overrides:
+              contract = source['contract']
+              key = (contract, norm(source['name']))
+              occurrences[key] += 1
+              candidates = lookup.get(key, [])
+              index = occurrences[key] - 1
+              if index >= len(candidates):
+                  raise RuntimeError('Item sem vínculo no HTML: ' + contract + ' | ' + source['name'])
+              target = candidates[index]
+              target['price'] = source['price']
+              target['balance'] = source['balance']
+              target['base'] = source.get('base', 0)
+              target['contractual'] = source.get('base', 0) + source['balance']
+              target['plan'] = source['plan']
+              target['planValue'] = source['planValue']
+              target['exec'] = source['exec']
+              target['execValue'] = source['execValue']
+              if source.get('orders'):
+                  target['orders'] = source['orders']
+              matched += 1
+
+          contract_count = len(contracts)
+          item_count = sum(len(rows) for rows in contracts.values())
+          if contract_count != 15 or item_count != 650 or matched != 650:
+              raise RuntimeError(f'Validação estrutural falhou: {contract_count} contratos, {item_count} itens, {matched} vínculos')
+
+          monthly = []
+          for month in range(6):
+              monthly.append({
+                  'month': month + 1,
+                  'plannedQuantity': sum(float(row['plan'][month] or 0) for rows in contracts.values() for row in rows),
+                  'plannedValue': sum(float(row['planValue'][month] or 0) for rows in contracts.values() for row in rows),
+                  'executedQuantity': sum(float(row['exec'][month] or 0) for rows in contracts.values() for row in rows),
+                  'executedValue': sum(float(row['execValue'][month] or 0) for rows in contracts.values() for row in rows),
+              })
+
+          expected_totals = [
+              [168145.3456, 4288589.97187, 64976.036, 2505164.9864],
+              [147245.3930083333, 3721958.315861, 215319.327, 5600261.937388289],
+              [234767.7093416666, 8551985.440092644, 282480.636, 9272194.704632578],
+              [250311.4533333334, 7007453.637268311, 293249.5193, 7991701.955549969],
+              [218891.4093481354, 11338463.850920612, 309076.8495, 10776812.480089143],
+              [206424.8499445629, 6771368.000511533, 81772.6059, 2778985.846480144],
+          ]
+          for i, totals in enumerate(monthly):
+              actual = [totals['plannedQuantity'], totals['plannedValue'], totals['executedQuantity'], totals['executedValue']]
+              for a, e in zip(actual, expected_totals[i]):
+                  if not math.isclose(a, e, rel_tol=1e-10, abs_tol=0.01):
+                      raise RuntimeError(f'Total mensal divergente no mês {i + 1}: {actual} != {expected_totals[i]}')
+
+          metadata = {
+              'source': 'Modelo Cronograma Base de Dados  v2.xlsx enviada diretamente no ChatGPT',
+              'sheet': 'Planilha1',
+              'contracts': contract_count,
+              'items': item_count,
+              'rdoRecords': 0,
+              'externalExecutedSource': False,
+              'plannedQuantity': 'Qnt Realis.',
+              'plannedValue': 'R$ Realista',
+              'executedQuantity': 'Qtd. Executada',
+              'executedValue': 'R$ Executado',
+              'unitPrice': 'E - Preço Unit',
+              'julyBalance': 'J - Quant. Total JULHO 2026',
+          }
+          script = 'var contractData=' + json.dumps(contracts, ensure_ascii=False, separators=(',', ':')) + ';\n'
+          script += 'var rdoData=[];\n'
+          script += 'var modelV2Metadata=' + json.dumps(metadata, ensure_ascii=False, separators=(',', ':')) + ';\n'
+          packed = base64.b64encode(gzip.compress(script.encode('utf-8'), compresslevel=9, mtime=0)).decode('ascii')
+          size = (len(packed) + 4) // 5
+          parts = [packed[i * size:(i + 1) * size] for i in range(5)]
+          for i, part in enumerate(parts):
+              (data_dir / f'model-v2.part{i}').write_text(part, encoding='ascii')
+          if gzip.decompress(base64.b64decode(''.join(parts))).decode('utf-8') != script:
+              raise RuntimeError('Falha no teste de reconstrução da base')
+
+          audit = {
+              'metadata': metadata,
+              'monthlyTotals': monthly,
+              'packedSha256': hashlib.sha256(packed.encode('ascii')).hexdigest(),
+              'scriptSha256': hashlib.sha256(script.encode('utf-8')).hexdigest(),
+              'partLengths': [len(p) for p in parts],
+          }
+          (data_dir / 'model-v2-audit.json').write_text(json.dumps(audit, ensure_ascii=False, indent=2), encoding='utf-8')
+
+          bootstrap = r'''(function(){
+          var originalFetch=window.fetch.bind(window),modelPromise=null;
+          function model(){if(!modelPromise)modelPromise=Promise.all([0,1,2,3,4].map(function(i){return originalFetch("data/model-v2.part"+i+"?v=direct20260729",{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error("Falha no bloco "+i);return r.text()})})).then(function(parts){var bin=atob(parts.join("").trim()),bytes=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);return new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"))).text()});return modelPromise}
+          window.fetch=function(input,init){var url=String(input&&input.url||input);if(url.indexOf("Cronogramas%20Planejamento/index.html")>=0||url.indexOf("Cronogramas Planejamento/index.html")>=0){return Promise.all([model(),originalFetch(input,init).then(function(r){return r.ok?r.text():""}).catch(function(){return ""})]).then(function(v){return new Response(v[0]+"\n"+v[1],{status:200,headers:{"Content-Type":"text/html; charset=utf-8"}})})}return originalFetch(input,init)};
+          function installAccess(){var form=document.getElementById("accessForm"),gate=document.getElementById("accessGate"),email=document.getElementById("accessEmail"),session=document.getElementById("accessSession");if(!form||form.dataset.fallbackReady)return;form.dataset.fallbackReady="1";form.addEventListener("submit",function(ev){ev.preventDefault();var value=String(email.value||"").trim().toLowerCase();if(!value||value.indexOf("@")<1)return;try{sessionStorage.setItem("sinape:planning:access-email:v1",value)}catch(e){}gate.hidden=true;document.body.classList.remove("access-pending");if(session){session.hidden=false;var out=document.getElementById("accessSessionEmail");if(out)out.textContent=value}});setTimeout(function(){if(!gate.hidden&&email)email.focus()},0)}
+          if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",installAccess);else installAccess();
+          model().catch(function(error){var help=document.querySelector(".access-help");if(help)help.textContent="Não foi possível carregar a base do painel. Atualize a página. Detalhe: "+error.message});
+          })();'''
+          (data_dir / 'model-v2-bootstrap.js').write_text(bootstrap, encoding='utf-8')
+
+          html = html_path.read_text(encoding='utf-8')
+          tag = '<script src="data/model-v2-bootstrap.js?v=direct20260729"></script>'
+          if tag not in html:
+              html = html.replace('<script>!async function(){', tag + '<script>!async function(){', 1)
+
+          old_z = 'function Z(e){return oe(!0).reduce(function(t,n){return t+Number(n.plan[e]||0)*n.price},0)}'
+          new_z = 'function Z(e){return oe(!0).reduce(function(t,n){return t+Number((n.planValue||[])[e]||0)},0)}'
+          if old_z in html:
+              html = html.replace(old_z, new_z, 1)
+          elif new_z not in html:
+              raise RuntimeError('Função de valor planejado não localizada')
+
+          old_le = re.search(r'function le\(e,t\)\{.*?return n-a\}', html)
+          new_le = 'function le(e,t){for(var n=Number(e.balance||0),a=6;a<Math.min(t+3,12);a++)n-=J(a,e)?W(e,a):Number(e.plan[a]||0);return n}'
+          if old_le:
+              html = html[:old_le.start()] + new_le + html[old_le.end():]
+          elif new_le not in html:
+              raise RuntimeError('Função de saldo não localizada')
+
+          replacements = {
+              'Fonte: Modelo Cronograma + Base BI Executado (2)': 'Fonte: Modelo Cronograma Base de Dados v2',
+              'Planejamento: base atual · Executado/RDO: <b>Base BI Executado (2) atualizada</b>': 'Planejado e executado: <b>Modelo Cronograma Base de Dados v2</b>',
+              'Quantitativos e valores executados provenientes da Base BI Executado (2)': 'RDO não alimentado por esta planilha',
+              'Planejamento: Modelo Cronograma Base de Dados · Planilha1': 'Planejado e executado: Modelo Cronograma Base de Dados v2 · Planilha1',
+              'Executado e RDO: Estudo Geral · Base BI Executado (2)': 'Executado: Modelo Cronograma Base de Dados v2 · sem Base BI',
+              'Fonte: Base BI Executado (2)': 'Fonte: Modelo Cronograma Base de Dados v2',
+              'outros registros da Base BI Executado (2).': 'outros registros disponíveis.',
+          }
+          for old, new in replacements.items():
+              html = html.replace(old, new)
+          html_path.write_text(html, encoding='utf-8')
+
+          checks = [
+              'id="accessForm"', 'id="accessGate"', tag,
+              new_z, new_le, 'var rdoData=[]',
+          ]
+          for check in checks[:-1]:
+              if check not in html:
+                  raise RuntimeError('Validação do HTML falhou: ' + check)
+          if 'Base BI Executado (2)' in html:
+              raise RuntimeError('Referência antiga à Base BI ainda presente')
+          print(json.dumps(audit, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Validar JavaScript e arquivos
+        shell: bash
+        run: |
+          node --check Planejamento-Colaborativo/data/model-v2-bootstrap.js
+          test -s Planejamento-Colaborativo/index.html
+          test -s Planejamento-Colaborativo/data/model-v2-audit.json
+          for i in 0 1 2 3 4; do test -s "Planejamento-Colaborativo/data/model-v2.part$i"; done
+          grep -q '"contracts": 15' Planejamento-Colaborativo/data/model-v2-audit.json
+          grep -q '"items": 650' Planejamento-Colaborativo/data/model-v2-audit.json
+          grep -q '"rdoRecords": 0' Planejamento-Colaborativo/data/model-v2-audit.json
+
+      - name: Publicar somente após validação
+        shell: bash
+        run: |
+          git config user.name 'SINAPE Data Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add Planejamento-Colaborativo/index.html \
+                  Planejamento-Colaborativo/data/model-v2-bootstrap.js \
+                  Planejamento-Colaborativo/data/model-v2.part0 \
+                  Planejamento-Colaborativo/data/model-v2.part1 \
+                  Planejamento-Colaborativo/data/model-v2.part2 \
+                  Planejamento-Colaborativo/data/model-v2.part3 \
+                  Planejamento-Colaborativo/data/model-v2.part4 \
+                  Planejamento-Colaborativo/data/model-v2-audit.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Corrige acesso e publica valores diretos da planilha v2'
+          git push
