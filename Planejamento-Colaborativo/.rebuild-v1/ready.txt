@@ -1,0 +1,1 @@
+Reexecutar preservando janeiro a junho do HTML-base e aplicando os valores compactados apenas em julho.
