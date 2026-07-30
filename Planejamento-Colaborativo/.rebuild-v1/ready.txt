@@ -1,0 +1,1 @@
+Reexecutar a reconstrução limpa com suporte a listas, dicionários esparsos e séries mensais compactadas em zero ou vazio.
