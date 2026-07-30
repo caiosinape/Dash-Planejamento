@@ -1,7 +1,9 @@
-Publicar Modelo Cronograma Base de Dados v2 em 29/07/2026 20:56 BRT.
-Saldo quantitativo: coluna J - Quant. Total JULHO 2026.
-Planejado historico: Qnt Realis. e R$ Realista, de janeiro a junho.
-Executado historico: Qtd. Executada e R$ Executado, de janeiro a junho.
-Planejamento futuro no HTML: quantidade inserida x Preco Unit.
-Preservar integralmente tela de e-mail, permissoes, links e demais vinculos.
-Execucao final com rotina idempotente e validacao de 15 contratos e 650 itens.
+Executar atualização completa em 29/07/2026.
+Fonte principal: Modelo Cronograma Base de Dados v2.
+Planejado histórico: Qnt Realis. e R$ Realista.
+Executado histórico: Qtd. Executada e R$ Executado.
+Preço unitário: coluna E - Preço Unit.
+Saldo quantitativo inicial: coluna J - Quant. Total JULHO 2026.
+RDO: Estudo Geral / Base BI Executado (2), somente quantidade.
+Preservar tela de e-mail, permissões, links, filtros e demais vínculos.
+Validar 15 contratos, 650 itens e 18 registros de RDO antes de publicar.
