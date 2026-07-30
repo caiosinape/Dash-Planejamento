@@ -1,0 +1,62 @@
+name: Montar Planejamento Colaborativo saudavel v1
+
+on:
+  push:
+    branches:
+      - planejamento-colaborativo-health-v1
+    paths:
+      - 'Planejamento-Colaborativo/.health-build/ready.txt'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: planejamento-colaborativo-health-v1
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: ${{ !contains(github.event.head_commit.message, '[health-build]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout da branch de recuperacao
+        uses: actions/checkout@v4
+        with:
+          ref: planejamento-colaborativo-health-v1
+          fetch-depth: 0
+
+      - name: Montar arquivo unico
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd 'Planejamento-Colaborativo'
+          cat .health-build/chunk-*.txt | base64 -d | gzip -d > index.html
+          echo '2acbec753ee023aa37fe032bb1ef0886aa98c9277c837ce15aa4279f1c61b3a0  index.html' | sha256sum -c -
+          grep -q 'id="sinapeModelBundle"' index.html
+          grep -q 'Arquitetura saudável v1' index.html
+          grep -q 'Modelo Cronograma Base de Dados  v2.xlsx' index.html
+          if grep -q 'document.write' index.html; then echo 'document.write nao permitido'; exit 1; fi
+          if grep -q 'index-core.html' index.html; then echo 'dependencia index-core nao permitida'; exit 1; fi
+          if grep -q 'direct-model-runtime.js' index.html; then echo 'runtime legado nao permitido'; exit 1; fi
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html = Path('index.html').read_text(encoding='utf-8')
+          scripts = re.findall(r'<script(?:\s+[^>]*)?>(.*?)</script>', html, flags=re.S)
+          executable = [s for s in scripts if 'sinapeModelBundle' not in s and s.strip()]
+          if not executable:
+              raise SystemExit('JavaScript principal nao encontrado')
+          Path('/tmp/health-app.js').write_text(executable[-1], encoding='utf-8')
+          PY
+          node --check /tmp/health-app.js
+          rm -rf .health-build
+
+      - name: Publicar resultado na branch de recuperacao
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 'Planejamento-Colaborativo/index.html' 'Planejamento-Colaborativo/.health-build'
+          git commit -m '[health-build] Publica HTML saudavel validado' || exit 0
+          git push origin HEAD:planejamento-colaborativo-health-v1
