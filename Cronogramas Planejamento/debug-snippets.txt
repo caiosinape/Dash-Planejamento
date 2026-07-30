@@ -1,0 +1,1536 @@
+
+===== Planejado × Executado @ 102607 =====
+div class="cover-road" role="img" aria-label="Rodovia sinalizada"></div>
+      <div class="cover-source">
+        <b>Fonte: Modelo Cronograma + Base BI Executado (2)</b>
+        <span>Atualização: 28/07/2026 14:12</span>
+        <span id="coverPeriod">Julho / 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="filter-shell">
+      <div class="filters">
+        <label class="field"><span>Contrato</span><select id="contractFilter"></select></label>
+        <label class="field"><span>Mês</span><select id="monthFilter"></select></label>
+        <div class="field"><span>Semanas</span><button class="multi-button" id="weekButton" type="button">Todas as semanas</button><div class="week-menu" id="weekMenu"></div></div>
+        <label class="field"><span>Ordem de serviço</span><select id="osFilter"><option value="Todas">Todas</option><option value="OS-01">OS-01</option></select></label>
+        <button class="advanced-btn" id="advancedButton" type="button">☷ Filtros avançados</button>
+      </div>
+      <div class="advanced" id="advancedFilters">
+        <label class="field"><span>Status da OS</span><select id="statusFilter"><option value="" selected hidden>Todos os status</option><option>No prazo</option><option>Urgente</option><option>Atenção</option><option>Finalizada</option></select></label>
+        <button class="clear-btn" id="clearFilters" type="button">Limpar filtros</button>
+      </div>
+      <div class="filter-foot"><span>Semanas: 1–7 · 8–14 · 15–21 · 22–28 · 29 ao fim do mês</span><span>Planejamento: base atual · Executado/RDO: <b>Base BI Executado (2) atualizada</b></span></div>
+    </section>
+
+    <section class="section-block" id="executivo">
+      <div class="section-title"><div><span class="section-number">01</span><div><div class="kicker">Visão executiva</div><h2>Planejado, executado e alertas operacionais</h2><p>Leitura consolidada do recorte selecionado</p></div></div><span class="period-view" id="periodView"></span></div>
+      <div class="cards" id="cards"></div>
+
+      <div class="chart-grid">
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Evolução mensal</div><h3>Planejado × Executado mensal</h3></div><div class="legend"><i class="p"></i>Planejado <i class="e"></i>Executado</div></div><div class="chart" id="monthChart"></div></div></article>
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Acompanhamento semanal</div><h3 id="weeklyTitle"></h3></div><div class="legend"><i class="p"></i>Planejado <i class="e"></i>Executado</div></div><div class="weekly-grid" id="weeklyChart"></div></div></article>
+      </div>
+
+      
+
+      <div class="executive-lower">
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Mapa de criticidade</div><h3>Alertas acionáveis do contrato</h3></div></div><div class="critical-map" id="criticalMap"></div></div></article>
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Avanço contratual</div><h3>Executado, planejado futuro e saldo livre</h3></div><span class="hint">Base financeira dos itens com quantidade contratual positiva</span></div><div id="contractProgress"></div></div></article>
+      </div>
+
+      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Gestão do desvio</div><h3>Causas e Planos de Ação</h3></div><span class="hint">Conteúdo previsto para leitura da planilha-base</span></div><div class="actions-grid" id="actionsGrid"></div></div></article>
+    </section>
+
+    <section class="section-block" id="planejamento">
+      <div class="section-title"><div><span class="section-number">02</span><div><div class="kicker">Planejamento e posição contratual</div><h2>Janela móvel de três meses</h2><p>Role horizontalmente para consultar passado e futuro; três meses ficam visíveis por vez</p></div></div><span class="period-view">Planejado + Executado + Saldo Atualizado</span></div>
+      <article class="panel"><div class="planning-viewport" id="planningViewport"><table class="planning-table"><thead id="planningHead"></thead><tbody id="planningRows"></tbody></table></div></article>
+    </section>
+
+    <section class="section-block" id="operacao">
+      <div class="section-title"><div><span class="section-number">03</span><div><div class="kicker">Visão operacional</div><h2>Ordens de Serviço do período</h2><p>Itens, quantidades e orientação escrita para Operações</p></div></div><span class="period-view" id="operationPeriod"></span></div>
+      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Ordens de Serviço</div><h3 id="osTitle"></h3></div><div class="panel-actions"><span class="hint">OS numeradas automaticamente</span><button class="secondary-btn" type="button" onclick="printOS()">↓ Download PDF</button></div></div><div class="table-wrap"><table class="data-table" id="osTable"><thead><tr><th>Nº da OS</th><th>Item do serviço</th><th>Quantidade planejada</th><th>Quantidade executada</th><th>Status da OS</th><th>Ordem de Serviço escrita</th></tr></thead><tbody id="osRows"></tbody></table></div></div></article>
+    
+
+      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Leitura operacional</div><h3 id="operationalReadingTitle">Itens que ainda precisam ser executados no mês Julho/2026</h3></div><span class="hint">A criticidade aumenta conforme o mês avança sem execução suficiente</span></div><div class="ops-reading"><div class="ops-total"><span>Itens planejados do contrato</span><strong id="plannedItemsCount">0</strong><small id="opsSummary"></small></div><div class="ops-list" id="opsList"></div></div></div></article>
+    </section>
+
+    <section class="section-block" id="rdo">
+      <div class="section-title"><div><span class="section-number">04</span><div><div class="kicker">Registro operacional</div><h2>RDO do período selecionado</h2><p>Quantitativos e valores executados provenientes da Base BI Executado (2)</p></div></div></div>
+      <article class="panel"><div class="panel-inner"><div class="rdo-card"><div class="rdo-week"><span>Período e registros</span><strong id="rdoWeek"></strong></div><div class="rdo-content" id="rdoContent"></div></div></div></article>
+ 
+
+===== Planejado × Executado @ 1420430 =====
+all>Fonte: Base BI Executado (2)</small><div class="mini-status '+(e?"":"warn")+'"><i></i>'+(e?"Dados carregados":"Sem execução no período")+'</div></article>'+
+        '<article class="card '+(rows.some(function(i){return osStatus(i,m)==="Urgente"})?"red":"amber")+'"><div class="card-label">Itens planejados do contrato</div><strong>'+rows.length+'</strong><small>Itens com quantidade planejada no mês operacional</small><div class="mini-status '+(rows.some(function(i){return osStatus(i,m)==="Urgente"})?"danger":"warn")+'"><i></i>'+rows.filter(function(i){return osStatus(i,m)==="Urgente"}).length+' urgentes</div></article>'+
+        '<article class="card '+(horizon<2?"red":horizon<3?"amber":"green")+'"><div class="card-label">Horizonte de frentes</div><strong>'+horizon+' de 3</strong><small>Meses com programação na janela móvel</small><div class="mini-status '+(horizon<2?"danger":horizon<3?"warn":"")+'"><i></i>'+(horizon===3?"Janela completa":"Revisar próximas frentes")+'</div></article>'
+    }
+    function renderMonthChart(){
+      var ps=months.map(function(_,m){return plannedValue(m)}),es=months.map(function(_,m){return executedValue(m)}),max=Math.max.apply(null,ps.concat(es).concat([1]));
+      document.getElementById("monthChart").innerHTML=months.map(function(label,m){return '<div class="bar-group" data-month="'+m+'"><div class="bar-area"><div class="bar plan" style="height:'+ps[m]/max*100+'%"></div><div class="bar done" style="height:'+es[m]/max*100+'%"></div></div><b class="'+(m===activeMonth()?"active":"")+'">'+label+'</b><small>'+(ps[m]?moneyShort(ps[m]).replace("R$ ",""):"—")+'</small></div>'}).join("");
+      document.querySelectorAll(".bar-group").forEach(function(el){el.onclick=function(){month=Number(el.dataset.month);selectedWeeks=[];document.getElementById("monthFilter").value=String(month);buildWeekMenu();render()}})
+    }
+    function renderWeekly(){
+      var m=activeMonth(),rs=ranges(m),p=plannedValue(m),e=executedValue(m),total=rs.reduce(function(s,r){return s+workdays(r.start,r.end,m)},0),visible=selectedWeeks.length?rs.filter(function(r){return selectedWeeks.indexOf(r.week)>=0}):rs;
+      document.getElementById("weeklyTitle").textContent="Planejado × Executado semanal · "+fullMonths[m]+"/2026 · rateio por dias úteis";
+      var data=visible.map(function(r){var share=workdays(r.start,r.end,m)/Math.max(total,1);return{r:r,p:p*share,e:e*share}}),max=Math.max.apply(null,data.reduce(function(a,x){return a.concat([x.p,x.e])},[1]));
+      document.getElementById("weeklyChart").innerHTML=data.map(function(x){return '<div class="week"><div class="week-bars"><i class="wp" style="height:'+x.p/max*100+'%"></i><i class="we" style="height:'+x.e/max*100+'%"></i></div><strong>Semana '+x.r.week+' · '+x.r.start+'–'+x.r.end+'</strong><small>Plan. '+money.format(x.p)+'</small><small>Exec. '+money.format(x.e)+'</small></div>'}).join("")
+    }
+    function renderOperationalReading(){
+      var m=activeMonth(),rows=plannedItems(),urgent=rows.filter(function(i){return osStatus(i,m)==="Urgente"}).length,attention=rows.filter(function(i){return osStatus(i,m)==="Atenção"}).length;
+      document.getElementById("operationalReadingTitle").textContent=month<0?"Itens que ainda precisam ser executados nos meses de 2026":"Itens que ainda precisam ser executados no mês "+fullMonths[m]+"/2026";
+      document.getElementById("plannedItemsCount").textContent=rows.length;
+      document.getElementById("opsSummary").textContent=urgent?urgent+" itens exigem ação urgente nesta semana.":attention?attention+" itens precisam de atenção ao ritmo de execução.":"Nenhum desvio crítico identificado para o recorte.";
+      document.getElementById("opsList").innerHTML=rows.length?rows.map(function(item){var p=Number(item.plan[m]||0),e=executedQty(item,m),s=osStatus(item,m),expected=p*elapsedShare(m),text;
+        if(s==="Finalizada")text=num.format(e)+" de "+num.format(p)+" "+item.unit+" executadas.";
+        else if(m>currentMonth)text="Programada para "+fullMonths[m]+": "+num.format(p)+" "+item.unit+".";
+        else if(s==="Urgente")text="Executado "+num.format(e)+" de "+num.format(p)+" "+item.unit+"; pelo tempo transcorrido, o esperado é "+num.format(expected)+".";
+        else if(s==="Atenção")text="Ritmo abaixo do esperado: "+num.format(e)+" executado de "+num.format(p)+" "+item.unit+".";
+        else text="Execução compatível com o tempo transcorrido do mês.";
+        return '<div class="ops-item"><div><strong>'+esc(item.name)+'</strong><small>OS-01'+(activeContract===ALL_CONTRACTS?' · Contrato '+esc(itemContractCode(item)):'')+' · '+text+'</small></div><span class="status-pill '+statusClass(s)+'"><i></i>'+s+'</span></div>'
+      }).join(""):'<div class="rdo-empty">Nenhum item com quantidade planejada para este filtro.</div>'
+    }
+    function renderCritical(){
+      var m=activeMonth(),p=month<0?allPlanned():plannedValue(m),e=month<0?allExecuted():executedValue(m),ad=p?e/p*100:0;
+      var overItems=items.filter(function(i){return isFullyConsumed(i)}),over=overItems.length;
+      document.getElementById("criticalMap").innerHTML=
+        '<button type="button" class="critical-cell" data-critical="adherence"><span>Aderência<i class="signal '+(ad>=100?"":ad>=90?"amber":"red")+'"></i></span><strong>'+num.format(ad)+'%</strong><small>Executado ÷ planejado do recorte</small></button>'+
+        '<button type="button" class="critical-cell" data-critical="consumed"><span>Itens já consumidos ≥ 100%<i class="signal '+(over?"red":"")+'"></i></span><strong>'+over+' itens</strong><small>Contrato completo · independente do mês selecionado</small></button>';
+      document.querySelectorAll("[data-critical]").forEach(function(button){button.onclick=function(){openCriticalDrawer(button.dataset.critical,{planned:p,executed:e,adherence:ad,overItems:overItems})}})
+    }
+    function newExecutedTotal(item){return item.exec.reduce(function(s,v){return s+Number(v||0)},0)}
+    function newExecutedValueTotal(item){return (item.execValue||z()).reduce(function(s,v){return s+Number(v||0)},0)}
+    function executedSinceModelBase(item){return item.exec.slice(executionStartMonth).reduce(function(s,v){return s+Number(v||0)},0)}
+    function consumedQuantity(item){return Math.max(0,Number(item.base||0))+executedSinceModelBase(item)}
+    function remainingBalance(item){return Number(item.contractual||0)-consumedQuantity(item)}
+    f
+
+===== saldo @ 103571 =====
+edButton" type="button">☷ Filtros avançados</button>
+      </div>
+      <div class="advanced" id="advancedFilters">
+        <label class="field"><span>Status da OS</span><select id="statusFilter"><option value="" selected hidden>Todos os status</option><option>No prazo</option><option>Urgente</option><option>Atenção</option><option>Finalizada</option></select></label>
+        <button class="clear-btn" id="clearFilters" type="button">Limpar filtros</button>
+      </div>
+      <div class="filter-foot"><span>Semanas: 1–7 · 8–14 · 15–21 · 22–28 · 29 ao fim do mês</span><span>Planejamento: base atual · Executado/RDO: <b>Base BI Executado (2) atualizada</b></span></div>
+    </section>
+
+    <section class="section-block" id="executivo">
+      <div class="section-title"><div><span class="section-number">01</span><div><div class="kicker">Visão executiva</div><h2>Planejado, executado e alertas operacionais</h2><p>Leitura consolidada do recorte selecionado</p></div></div><span class="period-view" id="periodView"></span></div>
+      <div class="cards" id="cards"></div>
+
+      <div class="chart-grid">
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Evolução mensal</div><h3>Planejado × Executado mensal</h3></div><div class="legend"><i class="p"></i>Planejado <i class="e"></i>Executado</div></div><div class="chart" id="monthChart"></div></div></article>
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Acompanhamento semanal</div><h3 id="weeklyTitle"></h3></div><div class="legend"><i class="p"></i>Planejado <i class="e"></i>Executado</div></div><div class="weekly-grid" id="weeklyChart"></div></div></article>
+      </div>
+
+      
+
+      <div class="executive-lower">
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Mapa de criticidade</div><h3>Alertas acionáveis do contrato</h3></div></div><div class="critical-map" id="criticalMap"></div></div></article>
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Avanço contratual</div><h3>Executado, planejado futuro e saldo livre</h3></div><span class="hint">Base financeira dos itens com quantidade contratual positiva</span></div><div id="contractProgress"></div></div></article>
+      </div>
+
+      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Gestão do desvio</div><h3>Causas e Planos de Ação</h3></div><span class="hint">Conteúdo previsto para leitura da planilha-base</span></div><div class="actions-grid" id="actionsGrid"></div></div></article>
+    </section>
+
+    <section class="section-block" id="planejamento">
+      <div class="section-title"><div><span class="section-number">02</span><div><div class="kicker">Planejamento e posição contratual</div><h2>Janela móvel de três meses</h2><p>Role horizontalmente para consultar passado e futuro; três meses ficam visíveis por vez</p></div></div><span class="period-view">Planejado + Executado + Saldo Atualizado</span></div>
+      <article class="panel"><div class="planning-viewport" id="planningViewport"><table class="planning-table"><thead id="planningHead"></thead><tbody id="planningRows"></tbody></table></div></article>
+    </section>
+
+    <section class="section-block" id="operacao">
+      <div class="section-title"><div><span class="section-number">03</span><div><div class="kicker">Visão operacional</div><h2>Ordens de Serviço do período</h2><p>Itens, quantidades e orientação escrita para Operações</p></div></div><span class="period-view" id="operationPeriod"></span></div>
+      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Ordens de Serviço</div><h3 id="osTitle"></h3></div><div class="panel-actions"><span class="hint">OS numeradas automaticamente</span><button class="secondary-btn" type="button" onclick="printOS()">↓ Download PDF</button></div></div><div class="table-wrap"><table class="data-table" id="osTable"><thead><tr><th>Nº da OS</th><th>Item do serviço</th><th>Quantidade planejada</th><th>Quantidade executada</th><th>Status da OS</th><th>Ordem de Serviço escrita</th></tr></thead><tbody id="osRows"></tbody></table></div></div></article>
+    
+
+      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Leitura operacional</div><h3 id="operationalReadingTitle">Itens que ainda precisam ser executados no mês Julho/2026</h3></div><span class="hint">A criticidade aumenta conforme o mês avança sem execução suficiente</span></div><div class="ops-reading"><div class="ops-total"><span>Itens planejados do contrato</span><strong id="plannedItemsCount">0</strong><small id="opsSummary"></small></div><div class="ops-list" id="opsList"></div></div></div></article>
+    </section>
+
+    <section class="section-block" id="rdo">
+      <div class="section-title"><div><span class="section-number">04</span><div><div class="kicker">Registro operacional</div><h2>RDO do período selecionado</h2><p>Quantitativos e valores executados provenientes da Base BI Executado (2)</p></div></div></div>
+      <article class="panel"><div class="panel-inner"><div class="rdo-card"><div class="rdo-week"><span>Período e registros</span><strong id="rdoWeek"></strong></div><div class="rdo-content" id="rdoContent"></div></div></div></article>
+    </section>
+
+    <footer class="footer"><span>Planejamento: Modelo Cronograma Base de Dados · Planilha1</span><span>Executado e RDO: Estudo Geral · Base BI Executado (2)</span></footer>
+  </main>
+
+  <div class="drawer-backdrop" id="drawerBackdrop" role="dialog" aria-modal="true" aria-label="Detalhamento do indicador">
+    <aside class="drawer">
+      <button class="drawer-close" id="drawerClose" type="button" aria-label="Fechar">×</button>
+      <div class="kicker">Detalhamento do indicador</div>
+      <h3 id="drawerTitle"></h3>
+      <p id="drawerSubtitle"></p>
+      <div class="drawer-value" id="drawerValue"></div>
+      <div class="drawer-progress" id="drawerProgress" hidden><div class="drawer-progress-head"><span>Avanço da aderência</span><b>0% de 100%</b></div><div class="drawer-progress-track" role="progressbar" aria-label="Aderência ao planejado" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i class="drawer-progress-fill"></i></di
+
+===== saldo @ 1428045 =====
+00%";
+        progressTrack.setAttribute("aria-valuenow",String(progressValue));
+        list.innerHTML="<div><dt>Período analisado</dt><dd>"+esc(periodLabel())+"</dd></div><div><dt>Valor planejado</dt><dd>"+money.format(data.planned)+"</dd></div><div><dt>Valor executado</dt><dd>"+money.format(data.executed)+"</dd></div><div><dt>Diferença</dt><dd>"+money.format(data.executed-data.planned)+"</dd></div>";
+        note.textContent="Cálculo: valor executado dividido pelo valor planejado do período selecionado.";
+        itemBox.innerHTML=""
+      }else{
+        title.textContent="Itens já consumidos ≥ 100%";
+        subtitle.textContent="Leitura acumulada do contrato completo, sem alteração quando outro mês é selecionado.";
+        value.textContent=data.overItems.length+" itens";
+        progress.hidden=true;
+        list.innerHTML="<div><dt>Itens do contrato</dt><dd>"+items.length+"</dd></div><div><dt>Critério</dt><dd>Saldo zerado ou negativo (consumo ≥ 100%)</dd></div><div><dt>Referência</dt><dd>Contrato '+esc(contractCode())+' completo</dd></div>";
+        note.textContent="Cada item consumido é valorizado por quantidade consumida acumulada × valor unitário.";
+        itemBox.innerHTML=data.overItems.length?data.overItems.map(function(item){var total=contractExecuted(item),value=contractExecutedValue(item);return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(item))+' · ':'')+'Quantidade consumida: '+num.format(total)+' '+esc(item.unit)+' · Executado financeiro: '+money.format(value)+'</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item atingiu 100% do consumo contratual.</div>'
+      }
+      document.getElementById("drawerBackdrop").classList.add("open")
+    }
+    function openNoBalanceItems(rows,m){
+      var title=document.getElementById("drawerTitle"),subtitle=document.getElementById("drawerSubtitle"),value=document.getElementById("drawerValue"),list=document.getElementById("drawerList"),note=document.getElementById("drawerNote"),itemBox=document.getElementById("drawerItems"),progress=document.getElementById("drawerProgress");
+      title.textContent="Itens sem saldo disponível";
+      subtitle.textContent="Itens cujo saldo atualizado está zerado ou negativo na janela de três meses.";
+      value.textContent=rows.length+" itens";
+      progress.hidden=true;
+      list.innerHTML="<div><dt>Contrato</dt><dd>"+esc(contractCode())+"</dd></div><div><dt>Período analisado</dt><dd>"+esc(periodLabel())+"</dd></div><div><dt>Critério</dt><dd>Saldo atualizado ≤ 0</dd></div>";
+      note.textContent="O saldo atualizado considera o acumulado histórico e o planejamento da janela ativa.";
+      itemBox.innerHTML=rows.length?rows.map(function(item){var balance=balanceUpdated(item,m);return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(item))+' · ':'')+'Saldo atualizado: '+num.format(balance)+' '+esc(item.unit)+'</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item está sem saldo disponível nesta janela.</div>';
+      document.getElementById("drawerBackdrop").classList.add("open")
+    }
+    function renderContractProgress(){
+      var m=activeMonth(),windowMonths=[m,m+1,m+2].filter(function(x){return x<12});
+      var positive=items.filter(function(i){return i.contractual>0});
+      var contract=positive.reduce(function(s,i){return s+i.contractual*i.price},0);
+      var executed=items.reduce(function(s,i){return s+contractExecutedValue(i)},0);
+      var future=windowMonths.reduce(function(s,x){return s+items.reduce(function(a,i){return a+Math.max(0,Number(i.plan[x]||0))*i.price},0)},0);
+      var freeValue=Math.max(0,contract-executed-future);
+      var ep=contract?executed/contract*100:0,fp=contract?future/contract*100:0,free=contract?freeValue/contract*100:0;
+      var epBar=Math.min(Math.max(ep,0),100),fpBar=Math.min(Math.max(fp,0),Math.max(0,100-epBar)),freeBar=Math.max(0,100-epBar-fpBar);
+      var noBalance=positive.filter(function(i){return balanceUpdated(i,m)<=0});
+      var monthText=windowMonths.length?fullMonths[windowMonths[0]]+"/2026 a "+fullMonths[windowMonths[windowMonths.length-1]]+"/2026":"Sem período";
+      var monthTags=windowMonths.map(function(x){return '<span>'+months[x]+'/2026</span>'}).join("");
+      document.getElementById("contractProgress").innerHTML=
+        '<div class="contract-progress-layout">'+
+          '<div class="contract-kpis">'+
+            '<div class="contract-kpi executed"><div class="contract-kpi-icon">✓</div><div class="contract-kpi-copy"><span>Executado</span><strong>'+num.format(ep)+'%</strong><small>'+moneyShort(executed)+'<br>Qtd. executada × (preço MO + preço material)</small></div></div>'+
+            '<div class="contract-kpi future"><div class="contract-kpi-icon">▣</div><div class="contract-kpi-copy"><span>Planejado futuro</span><strong>'+num.format(fp)+'%</strong><small>Planejado para '+monthText+'<br>'+moneyShort(future)+' em itens programados</small></div></div>'+
+            '<div class="contract-kpi free"><div class="contract-kpi-icon">◔</div><div class="contract-kpi-copy"><span>Saldo livre</span><strong>'+num.format(free)+'%</strong><small>'+moneyShort(freeValue)+'<br>Parcela financeira ainda disponível para planejar</small></div></div>'+
+          '</div>'+
+          '<div class="contract-track" aria-label="Distribuição do avanço contratual">'+
+            '<span class="executed" style="width:'+epBar+'%" data-short="'+num.format(ep)+'%">'+num.format(ep)+'%</span>'+
+            '<span class="future" style="width:'+fpBar+'%" data-short="'+num.format(fp)+'%">'+num.format(fp)+'%</span>'+
+            '<span class="free" style="width:'+freeBar+'%" data-short="'+num.format(free)+'%">'+num.format(free)+'%</span>'+
+          '</div>'+
+          '<div class="contract-summaries">'+
+            '<div class="contract-summary future"><div class="contract-summary-head"><span class="contract-summary-icon">▣</span><h4>Período planejado</h4></div><p>Itens programados para execução.</p><div class="contract-month-tags">'+monthTags+'</div></div>'+
+            '<div class="contract-summary attention"><div class="contract-summary-head"><span class="contract-summary-icon">!</span><h4>Atenção</h4></div><p><strong>'+noBalance.length+' itens sem saldo disponível</stron
+
+===== saldo @ 1428103 =====
+tring(progressValue));
+        list.innerHTML="<div><dt>Período analisado</dt><dd>"+esc(periodLabel())+"</dd></div><div><dt>Valor planejado</dt><dd>"+money.format(data.planned)+"</dd></div><div><dt>Valor executado</dt><dd>"+money.format(data.executed)+"</dd></div><div><dt>Diferença</dt><dd>"+money.format(data.executed-data.planned)+"</dd></div>";
+        note.textContent="Cálculo: valor executado dividido pelo valor planejado do período selecionado.";
+        itemBox.innerHTML=""
+      }else{
+        title.textContent="Itens já consumidos ≥ 100%";
+        subtitle.textContent="Leitura acumulada do contrato completo, sem alteração quando outro mês é selecionado.";
+        value.textContent=data.overItems.length+" itens";
+        progress.hidden=true;
+        list.innerHTML="<div><dt>Itens do contrato</dt><dd>"+items.length+"</dd></div><div><dt>Critério</dt><dd>Saldo zerado ou negativo (consumo ≥ 100%)</dd></div><div><dt>Referência</dt><dd>Contrato '+esc(contractCode())+' completo</dd></div>";
+        note.textContent="Cada item consumido é valorizado por quantidade consumida acumulada × valor unitário.";
+        itemBox.innerHTML=data.overItems.length?data.overItems.map(function(item){var total=contractExecuted(item),value=contractExecutedValue(item);return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(item))+' · ':'')+'Quantidade consumida: '+num.format(total)+' '+esc(item.unit)+' · Executado financeiro: '+money.format(value)+'</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item atingiu 100% do consumo contratual.</div>'
+      }
+      document.getElementById("drawerBackdrop").classList.add("open")
+    }
+    function openNoBalanceItems(rows,m){
+      var title=document.getElementById("drawerTitle"),subtitle=document.getElementById("drawerSubtitle"),value=document.getElementById("drawerValue"),list=document.getElementById("drawerList"),note=document.getElementById("drawerNote"),itemBox=document.getElementById("drawerItems"),progress=document.getElementById("drawerProgress");
+      title.textContent="Itens sem saldo disponível";
+      subtitle.textContent="Itens cujo saldo atualizado está zerado ou negativo na janela de três meses.";
+      value.textContent=rows.length+" itens";
+      progress.hidden=true;
+      list.innerHTML="<div><dt>Contrato</dt><dd>"+esc(contractCode())+"</dd></div><div><dt>Período analisado</dt><dd>"+esc(periodLabel())+"</dd></div><div><dt>Critério</dt><dd>Saldo atualizado ≤ 0</dd></div>";
+      note.textContent="O saldo atualizado considera o acumulado histórico e o planejamento da janela ativa.";
+      itemBox.innerHTML=rows.length?rows.map(function(item){var balance=balanceUpdated(item,m);return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(item))+' · ':'')+'Saldo atualizado: '+num.format(balance)+' '+esc(item.unit)+'</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item está sem saldo disponível nesta janela.</div>';
+      document.getElementById("drawerBackdrop").classList.add("open")
+    }
+    function renderContractProgress(){
+      var m=activeMonth(),windowMonths=[m,m+1,m+2].filter(function(x){return x<12});
+      var positive=items.filter(function(i){return i.contractual>0});
+      var contract=positive.reduce(function(s,i){return s+i.contractual*i.price},0);
+      var executed=items.reduce(function(s,i){return s+contractExecutedValue(i)},0);
+      var future=windowMonths.reduce(function(s,x){return s+items.reduce(function(a,i){return a+Math.max(0,Number(i.plan[x]||0))*i.price},0)},0);
+      var freeValue=Math.max(0,contract-executed-future);
+      var ep=contract?executed/contract*100:0,fp=contract?future/contract*100:0,free=contract?freeValue/contract*100:0;
+      var epBar=Math.min(Math.max(ep,0),100),fpBar=Math.min(Math.max(fp,0),Math.max(0,100-epBar)),freeBar=Math.max(0,100-epBar-fpBar);
+      var noBalance=positive.filter(function(i){return balanceUpdated(i,m)<=0});
+      var monthText=windowMonths.length?fullMonths[windowMonths[0]]+"/2026 a "+fullMonths[windowMonths[windowMonths.length-1]]+"/2026":"Sem período";
+      var monthTags=windowMonths.map(function(x){return '<span>'+months[x]+'/2026</span>'}).join("");
+      document.getElementById("contractProgress").innerHTML=
+        '<div class="contract-progress-layout">'+
+          '<div class="contract-kpis">'+
+            '<div class="contract-kpi executed"><div class="contract-kpi-icon">✓</div><div class="contract-kpi-copy"><span>Executado</span><strong>'+num.format(ep)+'%</strong><small>'+moneyShort(executed)+'<br>Qtd. executada × (preço MO + preço material)</small></div></div>'+
+            '<div class="contract-kpi future"><div class="contract-kpi-icon">▣</div><div class="contract-kpi-copy"><span>Planejado futuro</span><strong>'+num.format(fp)+'%</strong><small>Planejado para '+monthText+'<br>'+moneyShort(future)+' em itens programados</small></div></div>'+
+            '<div class="contract-kpi free"><div class="contract-kpi-icon">◔</div><div class="contract-kpi-copy"><span>Saldo livre</span><strong>'+num.format(free)+'%</strong><small>'+moneyShort(freeValue)+'<br>Parcela financeira ainda disponível para planejar</small></div></div>'+
+          '</div>'+
+          '<div class="contract-track" aria-label="Distribuição do avanço contratual">'+
+            '<span class="executed" style="width:'+epBar+'%" data-short="'+num.format(ep)+'%">'+num.format(ep)+'%</span>'+
+            '<span class="future" style="width:'+fpBar+'%" data-short="'+num.format(fp)+'%">'+num.format(fp)+'%</span>'+
+            '<span class="free" style="width:'+freeBar+'%" data-short="'+num.format(free)+'%">'+num.format(free)+'%</span>'+
+          '</div>'+
+          '<div class="contract-summaries">'+
+            '<div class="contract-summary future"><div class="contract-summary-head"><span class="contract-summary-icon">▣</span><h4>Período planejado</h4></div><p>Itens programados para execução.</p><div class="contract-month-tags">'+monthTags+'</div></div>'+
+            '<div class="contract-summary attention"><div class="contract-summary-head"><span class="contract-summary-icon">!</span><h4>Atenção</h4></div><p><strong>'+noBalance.length+' itens sem saldo disponível</strong></p><button class="contract-items-btn" id="contractItems
+
+===== saldo @ 1428481 =====
+culo: valor executado dividido pelo valor planejado do período selecionado.";
+        itemBox.innerHTML=""
+      }else{
+        title.textContent="Itens já consumidos ≥ 100%";
+        subtitle.textContent="Leitura acumulada do contrato completo, sem alteração quando outro mês é selecionado.";
+        value.textContent=data.overItems.length+" itens";
+        progress.hidden=true;
+        list.innerHTML="<div><dt>Itens do contrato</dt><dd>"+items.length+"</dd></div><div><dt>Critério</dt><dd>Saldo zerado ou negativo (consumo ≥ 100%)</dd></div><div><dt>Referência</dt><dd>Contrato '+esc(contractCode())+' completo</dd></div>";
+        note.textContent="Cada item consumido é valorizado por quantidade consumida acumulada × valor unitário.";
+        itemBox.innerHTML=data.overItems.length?data.overItems.map(function(item){var total=contractExecuted(item),value=contractExecutedValue(item);return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(item))+' · ':'')+'Quantidade consumida: '+num.format(total)+' '+esc(item.unit)+' · Executado financeiro: '+money.format(value)+'</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item atingiu 100% do consumo contratual.</div>'
+      }
+      document.getElementById("drawerBackdrop").classList.add("open")
+    }
+    function openNoBalanceItems(rows,m){
+      var title=document.getElementById("drawerTitle"),subtitle=document.getElementById("drawerSubtitle"),value=document.getElementById("drawerValue"),list=document.getElementById("drawerList"),note=document.getElementById("drawerNote"),itemBox=document.getElementById("drawerItems"),progress=document.getElementById("drawerProgress");
+      title.textContent="Itens sem saldo disponível";
+      subtitle.textContent="Itens cujo saldo atualizado está zerado ou negativo na janela de três meses.";
+      value.textContent=rows.length+" itens";
+      progress.hidden=true;
+      list.innerHTML="<div><dt>Contrato</dt><dd>"+esc(contractCode())+"</dd></div><div><dt>Período analisado</dt><dd>"+esc(periodLabel())+"</dd></div><div><dt>Critério</dt><dd>Saldo atualizado ≤ 0</dd></div>";
+      note.textContent="O saldo atualizado considera o acumulado histórico e o planejamento da janela ativa.";
+      itemBox.innerHTML=rows.length?rows.map(function(item){var balance=balanceUpdated(item,m);return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(item))+' · ':'')+'Saldo atualizado: '+num.format(balance)+' '+esc(item.unit)+'</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item está sem saldo disponível nesta janela.</div>';
+      document.getElementById("drawerBackdrop").classList.add("open")
+    }
+    function renderContractProgress(){
+      var m=activeMonth(),windowMonths=[m,m+1,m+2].filter(function(x){return x<12});
+      var positive=items.filter(function(i){return i.contractual>0});
+      var contract=positive.reduce(function(s,i){return s+i.contractual*i.price},0);
+      var executed=items.reduce(function(s,i){return s+contractExecutedValue(i)},0);
+      var future=windowMonths.reduce(function(s,x){return s+items.reduce(function(a,i){return a+Math.max(0,Number(i.plan[x]||0))*i.price},0)},0);
+      var freeValue=Math.max(0,contract-executed-future);
+      var ep=contract?executed/contract*100:0,fp=contract?future/contract*100:0,free=contract?freeValue/contract*100:0;
+      var epBar=Math.min(Math.max(ep,0),100),fpBar=Math.min(Math.max(fp,0),Math.max(0,100-epBar)),freeBar=Math.max(0,100-epBar-fpBar);
+      var noBalance=positive.filter(function(i){return balanceUpdated(i,m)<=0});
+      var monthText=windowMonths.length?fullMonths[windowMonths[0]]+"/2026 a "+fullMonths[windowMonths[windowMonths.length-1]]+"/2026":"Sem período";
+      var monthTags=windowMonths.map(function(x){return '<span>'+months[x]+'/2026</span>'}).join("");
+      document.getElementById("contractProgress").innerHTML=
+        '<div class="contract-progress-layout">'+
+          '<div class="contract-kpis">'+
+            '<div class="contract-kpi executed"><div class="contract-kpi-icon">✓</div><div class="contract-kpi-copy"><span>Executado</span><strong>'+num.format(ep)+'%</strong><small>'+moneyShort(executed)+'<br>Qtd. executada × (preço MO + preço material)</small></div></div>'+
+            '<div class="contract-kpi future"><div class="contract-kpi-icon">▣</div><div class="contract-kpi-copy"><span>Planejado futuro</span><strong>'+num.format(fp)+'%</strong><small>Planejado para '+monthText+'<br>'+moneyShort(future)+' em itens programados</small></div></div>'+
+            '<div class="contract-kpi free"><div class="contract-kpi-icon">◔</div><div class="contract-kpi-copy"><span>Saldo livre</span><strong>'+num.format(free)+'%</strong><small>'+moneyShort(freeValue)+'<br>Parcela financeira ainda disponível para planejar</small></div></div>'+
+          '</div>'+
+          '<div class="contract-track" aria-label="Distribuição do avanço contratual">'+
+            '<span class="executed" style="width:'+epBar+'%" data-short="'+num.format(ep)+'%">'+num.format(ep)+'%</span>'+
+            '<span class="future" style="width:'+fpBar+'%" data-short="'+num.format(fp)+'%">'+num.format(fp)+'%</span>'+
+            '<span class="free" style="width:'+freeBar+'%" data-short="'+num.format(free)+'%">'+num.format(free)+'%</span>'+
+          '</div>'+
+          '<div class="contract-summaries">'+
+            '<div class="contract-summary future"><div class="contract-summary-head"><span class="contract-summary-icon">▣</span><h4>Período planejado</h4></div><p>Itens programados para execução.</p><div class="contract-month-tags">'+monthTags+'</div></div>'+
+            '<div class="contract-summary attention"><div class="contract-summary-head"><span class="contract-summary-icon">!</span><h4>Atenção</h4></div><p><strong>'+noBalance.length+' itens sem saldo disponível</strong></p><button class="contract-items-btn" id="contractItemsButton" type="button">Ver itens</button></div>'+
+          '</div>'+
+        '</div>';
+      document.getElementById("contractItemsButton").onclick=function(){openNoBalanceItems(noBalance,m)}
+    }
+    function renderActions(){
+      var el=document.getElementById("actionsGrid");
+      el.innerHTML='<div class="head">Desvio identificado</div><div class="head">Plano de ação</d
+
+===== saldo @ 1428953 =====
+><dt>Critério</dt><dd>Saldo zerado ou negativo (consumo ≥ 100%)</dd></div><div><dt>Referência</dt><dd>Contrato '+esc(contractCode())+' completo</dd></div>";
+        note.textContent="Cada item consumido é valorizado por quantidade consumida acumulada × valor unitário.";
+        itemBox.innerHTML=data.overItems.length?data.overItems.map(function(item){var total=contractExecuted(item),value=contractExecutedValue(item);return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(item))+' · ':'')+'Quantidade consumida: '+num.format(total)+' '+esc(item.unit)+' · Executado financeiro: '+money.format(value)+'</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item atingiu 100% do consumo contratual.</div>'
+      }
+      document.getElementById("drawerBackdrop").classList.add("open")
+    }
+    function openNoBalanceItems(rows,m){
+      var title=document.getElementById("drawerTitle"),subtitle=document.getElementById("drawerSubtitle"),value=document.getElementById("drawerValue"),list=document.getElementById("drawerList"),note=document.getElementById("drawerNote"),itemBox=document.getElementById("drawerItems"),progress=document.getElementById("drawerProgress");
+      title.textContent="Itens sem saldo disponível";
+      subtitle.textContent="Itens cujo saldo atualizado está zerado ou negativo na janela de três meses.";
+      value.textContent=rows.length+" itens";
+      progress.hidden=true;
+      list.innerHTML="<div><dt>Contrato</dt><dd>"+esc(contractCode())+"</dd></div><div><dt>Período analisado</dt><dd>"+esc(periodLabel())+"</dd></div><div><dt>Critério</dt><dd>Saldo atualizado ≤ 0</dd></div>";
+      note.textContent="O saldo atualizado considera o acumulado histórico e o planejamento da janela ativa.";
+      itemBox.innerHTML=rows.length?rows.map(function(item){var balance=balanceUpdated(item,m);return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(item))+' · ':'')+'Saldo atualizado: '+num.format(balance)+' '+esc(item.unit)+'</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item está sem saldo disponível nesta janela.</div>';
+      document.getElementById("drawerBackdrop").classList.add("open")
+    }
+    function renderContractProgress(){
+      var m=activeMonth(),windowMonths=[m,m+1,m+2].filter(function(x){return x<12});
+      var positive=items.filter(function(i){return i.contractual>0});
+      var contract=positive.reduce(function(s,i){return s+i.contractual*i.price},0);
+      var executed=items.reduce(function(s,i){return s+contractExecutedValue(i)},0);
+      var future=windowMonths.reduce(function(s,x){return s+items.reduce(function(a,i){return a+Math.max(0,Number(i.plan[x]||0))*i.price},0)},0);
+      var freeValue=Math.max(0,contract-executed-future);
+      var ep=contract?executed/contract*100:0,fp=contract?future/contract*100:0,free=contract?freeValue/contract*100:0;
+      var epBar=Math.min(Math.max(ep,0),100),fpBar=Math.min(Math.max(fp,0),Math.max(0,100-epBar)),freeBar=Math.max(0,100-epBar-fpBar);
+      var noBalance=positive.filter(function(i){return balanceUpdated(i,m)<=0});
+      var monthText=windowMonths.length?fullMonths[windowMonths[0]]+"/2026 a "+fullMonths[windowMonths[windowMonths.length-1]]+"/2026":"Sem período";
+      var monthTags=windowMonths.map(function(x){return '<span>'+months[x]+'/2026</span>'}).join("");
+      document.getElementById("contractProgress").innerHTML=
+        '<div class="contract-progress-layout">'+
+          '<div class="contract-kpis">'+
+            '<div class="contract-kpi executed"><div class="contract-kpi-icon">✓</div><div class="contract-kpi-copy"><span>Executado</span><strong>'+num.format(ep)+'%</strong><small>'+moneyShort(executed)+'<br>Qtd. executada × (preço MO + preço material)</small></div></div>'+
+            '<div class="contract-kpi future"><div class="contract-kpi-icon">▣</div><div class="contract-kpi-copy"><span>Planejado futuro</span><strong>'+num.format(fp)+'%</strong><small>Planejado para '+monthText+'<br>'+moneyShort(future)+' em itens programados</small></div></div>'+
+            '<div class="contract-kpi free"><div class="contract-kpi-icon">◔</div><div class="contract-kpi-copy"><span>Saldo livre</span><strong>'+num.format(free)+'%</strong><small>'+moneyShort(freeValue)+'<br>Parcela financeira ainda disponível para planejar</small></div></div>'+
+          '</div>'+
+          '<div class="contract-track" aria-label="Distribuição do avanço contratual">'+
+            '<span class="executed" style="width:'+epBar+'%" data-short="'+num.format(ep)+'%">'+num.format(ep)+'%</span>'+
+            '<span class="future" style="width:'+fpBar+'%" data-short="'+num.format(fp)+'%">'+num.format(fp)+'%</span>'+
+            '<span class="free" style="width:'+freeBar+'%" data-short="'+num.format(free)+'%">'+num.format(free)+'%</span>'+
+          '</div>'+
+          '<div class="contract-summaries">'+
+            '<div class="contract-summary future"><div class="contract-summary-head"><span class="contract-summary-icon">▣</span><h4>Período planejado</h4></div><p>Itens programados para execução.</p><div class="contract-month-tags">'+monthTags+'</div></div>'+
+            '<div class="contract-summary attention"><div class="contract-summary-head"><span class="contract-summary-icon">!</span><h4>Atenção</h4></div><p><strong>'+noBalance.length+' itens sem saldo disponível</strong></p><button class="contract-items-btn" id="contractItemsButton" type="button">Ver itens</button></div>'+
+          '</div>'+
+        '</div>';
+      document.getElementById("contractItemsButton").onclick=function(){openNoBalanceItems(noBalance,m)}
+    }
+    function renderActions(){
+      var el=document.getElementById("actionsGrid");
+      el.innerHTML='<div class="head">Desvio identificado</div><div class="head">Plano de ação</div><div class="head">Responsável</div><div class="head">Prazo</div><div class="head">Status</div>'+
+        (causeActions.length?causeActions.map(function(a){return '<div>'+esc(a.cause)+'</div><div>'+esc(a.action)+'</div><div>'+esc(a.owner)+'</div><div>'+esc(a.due)+'</div><div>'+esc(a.status)+'</div>'}).join(""):'<div class="actions-empty">Aguardando os campos “Causa” e “Plano de Ação” na planilha-base.</div>')
+    }
+    function renderPlanning(){
+      var start=acti
+
+===== saldo @ 1432222 =====
+[windowMonths[0]]+"/2026 a "+fullMonths[windowMonths[windowMonths.length-1]]+"/2026":"Sem período";
+      var monthTags=windowMonths.map(function(x){return '<span>'+months[x]+'/2026</span>'}).join("");
+      document.getElementById("contractProgress").innerHTML=
+        '<div class="contract-progress-layout">'+
+          '<div class="contract-kpis">'+
+            '<div class="contract-kpi executed"><div class="contract-kpi-icon">✓</div><div class="contract-kpi-copy"><span>Executado</span><strong>'+num.format(ep)+'%</strong><small>'+moneyShort(executed)+'<br>Qtd. executada × (preço MO + preço material)</small></div></div>'+
+            '<div class="contract-kpi future"><div class="contract-kpi-icon">▣</div><div class="contract-kpi-copy"><span>Planejado futuro</span><strong>'+num.format(fp)+'%</strong><small>Planejado para '+monthText+'<br>'+moneyShort(future)+' em itens programados</small></div></div>'+
+            '<div class="contract-kpi free"><div class="contract-kpi-icon">◔</div><div class="contract-kpi-copy"><span>Saldo livre</span><strong>'+num.format(free)+'%</strong><small>'+moneyShort(freeValue)+'<br>Parcela financeira ainda disponível para planejar</small></div></div>'+
+          '</div>'+
+          '<div class="contract-track" aria-label="Distribuição do avanço contratual">'+
+            '<span class="executed" style="width:'+epBar+'%" data-short="'+num.format(ep)+'%">'+num.format(ep)+'%</span>'+
+            '<span class="future" style="width:'+fpBar+'%" data-short="'+num.format(fp)+'%">'+num.format(fp)+'%</span>'+
+            '<span class="free" style="width:'+freeBar+'%" data-short="'+num.format(free)+'%">'+num.format(free)+'%</span>'+
+          '</div>'+
+          '<div class="contract-summaries">'+
+            '<div class="contract-summary future"><div class="contract-summary-head"><span class="contract-summary-icon">▣</span><h4>Período planejado</h4></div><p>Itens programados para execução.</p><div class="contract-month-tags">'+monthTags+'</div></div>'+
+            '<div class="contract-summary attention"><div class="contract-summary-head"><span class="contract-summary-icon">!</span><h4>Atenção</h4></div><p><strong>'+noBalance.length+' itens sem saldo disponível</strong></p><button class="contract-items-btn" id="contractItemsButton" type="button">Ver itens</button></div>'+
+          '</div>'+
+        '</div>';
+      document.getElementById("contractItemsButton").onclick=function(){openNoBalanceItems(noBalance,m)}
+    }
+    function renderActions(){
+      var el=document.getElementById("actionsGrid");
+      el.innerHTML='<div class="head">Desvio identificado</div><div class="head">Plano de ação</div><div class="head">Responsável</div><div class="head">Prazo</div><div class="head">Status</div>'+
+        (causeActions.length?causeActions.map(function(a){return '<div>'+esc(a.cause)+'</div><div>'+esc(a.action)+'</div><div>'+esc(a.owner)+'</div><div>'+esc(a.due)+'</div><div>'+esc(a.status)+'</div>'}).join(""):'<div class="actions-empty">Aguardando os campos “Causa” e “Plano de Ação” na planilha-base.</div>')
+    }
+    function renderPlanning(){
+      var start=activeMonth(),rows=filtered(true).filter(function(i){return i.contractual!==0||i.base!==0||i.plan.some(function(v){return v>0})||i.exec.some(function(v){return Number(v||0)>0})});
+      document.getElementById("planningHead").innerHTML='<tr><th class="item-col">Item do contrato</th>'+months.map(function(label,m){var activeWindow=m>=start&&m<Math.min(start+3,12);return '<th class="month-col '+(activeWindow?"window-active":"window-muted")+'">'+label+'/2026</th>'}).join("")+'<th class="balance-col">Saldo Atualizado</th></tr>';
+      document.getElementById("planningRows").innerHTML=rows.map(function(item){
+        var bal=balanceUpdated(item,start),usage=item.contractual>0?(item.contractual-bal)/item.contractual*100:null,windowEnd=Math.min(start+3,12),hasPlanned=item.plan.slice(start,windowEnd).some(function(v){return Number(v||0)>0});
+        return '<tr class="'+(hasPlanned?"has-planned":"")+'"><td class="item-col"><strong>'+esc(item.name)+'</strong><small>OS-01'+(activeContract===ALL_CONTRACTS?' · Contrato '+esc(itemContractCode(item)):'')+' · '+esc(item.unit)+'</small></td>'+
+          months.map(function(_,m){var p=Number(item.plan[m]||0),e=executedQty(item,m),closed=isClosed(m),activeWindow=m>=start&&m<Math.min(start+3,12);return '<td class="month-col '+(activeWindow?"window-active":"window-muted")+'"><div class="month-boxes '+(closed?"closed":"")+'">'+
+            (closed?'':'<div class="month-box plan '+(p>0&&activeWindow?"has-value":"")+'"><span>Planejado</span><b>'+num.format(p)+' '+esc(item.unit)+'</b><small>'+money.format(p*item.price)+'</small></div>')+
+            '<div class="month-box exec"><span>Executado</span><b>'+num.format(e)+' '+esc(item.unit)+'</b><small>'+money.format(executedItemValue(item,m))+'</small></div></div></td>'}).join("")+
+          '<td class="balance-col"><strong class="'+(bal<0?"neg":"")+'">'+num.format(bal)+' '+esc(item.unit)+'</strong><small>Saldo anterior − consumo da janela de 3 meses</small>'+
+          (usage===null?'<small>Base contratual não positiva</small>':'<div class="consumption"><b>'+num.format(usage)+'%</b><span class="track '+(usage>=100?"over":"")+'"><i style="width:'+Math.max(0,Math.min(usage,100))+'%"></i></span></div>')+'</td></tr>'
+      }).join("");
+      var viewport=document.getElementById("planningViewport"),itemWidth=innerWidth<=480?220:290,balanceWidth=220,minimumMonthWidth=innerWidth<=480?180:210,monthWidth=Math.max(minimumMonthWidth,Math.floor((viewport.clientWidth-itemWidth-balanceWidth)/3));
+      viewport.style.setProperty("--planning-month-width",monthWidth+"px");
+      requestAnimationFrame(function(){viewport.scrollLeft=Math.max(0,start*monthWidth)})
+    }
+    function renderOS(){
+      var m=activeMonth(),rows;
+      if(month<0)rows=filtered(true).filter(function(i){return i.plan.some(function(v){return Number(v||0)>0})||i.exec.some(function(v){return Number(v||0)>0})});
+      else rows=filtered(true).filter(function(i){return Number(i.plan[m]||0)>0||executedQty(i,m)>0});
+      document.getElementById("osTitle").textContent=month<0?"Ordens de Serviço planejadas em 2026":"O que deve ser executado em "+fullMonths[m]+"/2026";
+      document.getElementById("osRows").innerHTML=rows.length?rows.map(function(i){var p=month<0?i.plan.reduce(function(s,v
+
+===== Saldo @ 104458 =====
+e alertas operacionais</h2><p>Leitura consolidada do recorte selecionado</p></div></div><span class="period-view" id="periodView"></span></div>
+      <div class="cards" id="cards"></div>
+
+      <div class="chart-grid">
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Evolução mensal</div><h3>Planejado × Executado mensal</h3></div><div class="legend"><i class="p"></i>Planejado <i class="e"></i>Executado</div></div><div class="chart" id="monthChart"></div></div></article>
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Acompanhamento semanal</div><h3 id="weeklyTitle"></h3></div><div class="legend"><i class="p"></i>Planejado <i class="e"></i>Executado</div></div><div class="weekly-grid" id="weeklyChart"></div></div></article>
+      </div>
+
+      
+
+      <div class="executive-lower">
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Mapa de criticidade</div><h3>Alertas acionáveis do contrato</h3></div></div><div class="critical-map" id="criticalMap"></div></div></article>
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Avanço contratual</div><h3>Executado, planejado futuro e saldo livre</h3></div><span class="hint">Base financeira dos itens com quantidade contratual positiva</span></div><div id="contractProgress"></div></div></article>
+      </div>
+
+      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Gestão do desvio</div><h3>Causas e Planos de Ação</h3></div><span class="hint">Conteúdo previsto para leitura da planilha-base</span></div><div class="actions-grid" id="actionsGrid"></div></div></article>
+    </section>
+
+    <section class="section-block" id="planejamento">
+      <div class="section-title"><div><span class="section-number">02</span><div><div class="kicker">Planejamento e posição contratual</div><h2>Janela móvel de três meses</h2><p>Role horizontalmente para consultar passado e futuro; três meses ficam visíveis por vez</p></div></div><span class="period-view">Planejado + Executado + Saldo Atualizado</span></div>
+      <article class="panel"><div class="planning-viewport" id="planningViewport"><table class="planning-table"><thead id="planningHead"></thead><tbody id="planningRows"></tbody></table></div></article>
+    </section>
+
+    <section class="section-block" id="operacao">
+      <div class="section-title"><div><span class="section-number">03</span><div><div class="kicker">Visão operacional</div><h2>Ordens de Serviço do período</h2><p>Itens, quantidades e orientação escrita para Operações</p></div></div><span class="period-view" id="operationPeriod"></span></div>
+      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Ordens de Serviço</div><h3 id="osTitle"></h3></div><div class="panel-actions"><span class="hint">OS numeradas automaticamente</span><button class="secondary-btn" type="button" onclick="printOS()">↓ Download PDF</button></div></div><div class="table-wrap"><table class="data-table" id="osTable"><thead><tr><th>Nº da OS</th><th>Item do serviço</th><th>Quantidade planejada</th><th>Quantidade executada</th><th>Status da OS</th><th>Ordem de Serviço escrita</th></tr></thead><tbody id="osRows"></tbody></table></div></div></article>
+    
+
+      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Leitura operacional</div><h3 id="operationalReadingTitle">Itens que ainda precisam ser executados no mês Julho/2026</h3></div><span class="hint">A criticidade aumenta conforme o mês avança sem execução suficiente</span></div><div class="ops-reading"><div class="ops-total"><span>Itens planejados do contrato</span><strong id="plannedItemsCount">0</strong><small id="opsSummary"></small></div><div class="ops-list" id="opsList"></div></div></div></article>
+    </section>
+
+    <section class="section-block" id="rdo">
+      <div class="section-title"><div><span class="section-number">04</span><div><div class="kicker">Registro operacional</div><h2>RDO do período selecionado</h2><p>Quantitativos e valores executados provenientes da Base BI Executado (2)</p></div></div></div>
+      <article class="panel"><div class="panel-inner"><div class="rdo-card"><div class="rdo-week"><span>Período e registros</span><strong id="rdoWeek"></strong></div><div class="rdo-content" id="rdoContent"></div></div></div></article>
+    </section>
+
+    <footer class="footer"><span>Planejamento: Modelo Cronograma Base de Dados · Planilha1</span><span>Executado e RDO: Estudo Geral · Base BI Executado (2)</span></footer>
+  </main>
+
+  <div class="drawer-backdrop" id="drawerBackdrop" role="dialog" aria-modal="true" aria-label="Detalhamento do indicador">
+    <aside class="drawer">
+      <button class="drawer-close" id="drawerClose" type="button" aria-label="Fechar">×</button>
+      <div class="kicker">Detalhamento do indicador</div>
+      <h3 id="drawerTitle"></h3>
+      <p id="drawerSubtitle"></p>
+      <div class="drawer-value" id="drawerValue"></div>
+      <div class="drawer-progress" id="drawerProgress" hidden><div class="drawer-progress-head"><span>Avanço da aderência</span><b>0% de 100%</b></div><div class="drawer-progress-track" role="progressbar" aria-label="Aderência ao planejado" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i class="drawer-progress-fill"></i></div></div>
+      <dl class="drawer-list" id="drawerList"></dl>
+      <div class="drawer-note" id="drawerNote"></div>
+      <div class="drawer-items" id="drawerItems"></div>
+    </aside>
+  </div>
+
+  <script>
+  (function(){
+    var months=["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
+    var fullMonths=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+    var currentDate=new Date(2026,6,30),currentMonth=6,month=6,selectedWeeks=[],os="Todas",statusFilter="";
+    var executionStartMonth=6;
+    var orderText="Serviços executados pela TGA";
+    function z(){return [0,0,0,0,0,0,0,0,0,0,0,0]}
+    function orders(active){return months.map(function(_,i){return active.indexOf(i)>=0?orderText:"Sem serviços"})}
+    var contractData={"2453 - DER PR":[{"name":"Cilindro delimitador tipo I (ABNT 1665
+
+===== Saldo @ 1426775 =====
+mber(item.contractual||0)-consumedQuantity(item)}
+    function isFullyConsumed(item){return consumedQuantity(item)>0&&remainingBalance(item)<=0}
+    function contractExecuted(item){return newExecutedTotal(item)}
+    function contractExecutedValue(item){return newExecutedValueTotal(item)}
+    function openCriticalDrawer(key,data){
+      var title=document.getElementById("drawerTitle"),subtitle=document.getElementById("drawerSubtitle"),value=document.getElementById("drawerValue"),list=document.getElementById("drawerList"),note=document.getElementById("drawerNote"),itemBox=document.getElementById("drawerItems"),progress=document.getElementById("drawerProgress");
+      if(key==="adherence"){
+        title.textContent="Aderência ao Planejado";
+        subtitle.textContent="Comparação entre o executado e o planejado no recorte atualmente selecionado.";
+        value.textContent=num.format(data.adherence)+"%";
+        progress.hidden=false;
+        var progressValue=Math.max(0,Math.min(data.adherence,100)),progressTrack=progress.querySelector(".drawer-progress-track");
+        progress.querySelector(".drawer-progress-fill").style.width=progressValue+"%";
+        progress.querySelector(".drawer-progress-head b").textContent=num.format(data.adherence)+"% de 100%";
+        progressTrack.setAttribute("aria-valuenow",String(progressValue));
+        list.innerHTML="<div><dt>Período analisado</dt><dd>"+esc(periodLabel())+"</dd></div><div><dt>Valor planejado</dt><dd>"+money.format(data.planned)+"</dd></div><div><dt>Valor executado</dt><dd>"+money.format(data.executed)+"</dd></div><div><dt>Diferença</dt><dd>"+money.format(data.executed-data.planned)+"</dd></div>";
+        note.textContent="Cálculo: valor executado dividido pelo valor planejado do período selecionado.";
+        itemBox.innerHTML=""
+      }else{
+        title.textContent="Itens já consumidos ≥ 100%";
+        subtitle.textContent="Leitura acumulada do contrato completo, sem alteração quando outro mês é selecionado.";
+        value.textContent=data.overItems.length+" itens";
+        progress.hidden=true;
+        list.innerHTML="<div><dt>Itens do contrato</dt><dd>"+items.length+"</dd></div><div><dt>Critério</dt><dd>Saldo zerado ou negativo (consumo ≥ 100%)</dd></div><div><dt>Referência</dt><dd>Contrato '+esc(contractCode())+' completo</dd></div>";
+        note.textContent="Cada item consumido é valorizado por quantidade consumida acumulada × valor unitário.";
+        itemBox.innerHTML=data.overItems.length?data.overItems.map(function(item){var total=contractExecuted(item),value=contractExecutedValue(item);return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(item))+' · ':'')+'Quantidade consumida: '+num.format(total)+' '+esc(item.unit)+' · Executado financeiro: '+money.format(value)+'</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item atingiu 100% do consumo contratual.</div>'
+      }
+      document.getElementById("drawerBackdrop").classList.add("open")
+    }
+    function openNoBalanceItems(rows,m){
+      var title=document.getElementById("drawerTitle"),subtitle=document.getElementById("drawerSubtitle"),value=document.getElementById("drawerValue"),list=document.getElementById("drawerList"),note=document.getElementById("drawerNote"),itemBox=document.getElementById("drawerItems"),progress=document.getElementById("drawerProgress");
+      title.textContent="Itens sem saldo disponível";
+      subtitle.textContent="Itens cujo saldo atualizado está zerado ou negativo na janela de três meses.";
+      value.textContent=rows.length+" itens";
+      progress.hidden=true;
+      list.innerHTML="<div><dt>Contrato</dt><dd>"+esc(contractCode())+"</dd></div><div><dt>Período analisado</dt><dd>"+esc(periodLabel())+"</dd></div><div><dt>Critério</dt><dd>Saldo atualizado ≤ 0</dd></div>";
+      note.textContent="O saldo atualizado considera o acumulado histórico e o planejamento da janela ativa.";
+      itemBox.innerHTML=rows.length?rows.map(function(item){var balance=balanceUpdated(item,m);return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(item))+' · ':'')+'Saldo atualizado: '+num.format(balance)+' '+esc(item.unit)+'</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item está sem saldo disponível nesta janela.</div>';
+      document.getElementById("drawerBackdrop").classList.add("open")
+    }
+    function renderContractProgress(){
+      var m=activeMonth(),windowMonths=[m,m+1,m+2].filter(function(x){return x<12});
+      var positive=items.filter(function(i){return i.contractual>0});
+      var contract=positive.reduce(function(s,i){return s+i.contractual*i.price},0);
+      var executed=items.reduce(function(s,i){return s+contractExecutedValue(i)},0);
+      var future=windowMonths.reduce(function(s,x){return s+items.reduce(function(a,i){return a+Math.max(0,Number(i.plan[x]||0))*i.price},0)},0);
+      var freeValue=Math.max(0,contract-executed-future);
+      var ep=contract?executed/contract*100:0,fp=contract?future/contract*100:0,free=contract?freeValue/contract*100:0;
+      var epBar=Math.min(Math.max(ep,0),100),fpBar=Math.min(Math.max(fp,0),Math.max(0,100-epBar)),freeBar=Math.max(0,100-epBar-fpBar);
+      var noBalance=positive.filter(function(i){return balanceUpdated(i,m)<=0});
+      var monthText=windowMonths.length?fullMonths[windowMonths[0]]+"/2026 a "+fullMonths[windowMonths[windowMonths.length-1]]+"/2026":"Sem período";
+      var monthTags=windowMonths.map(function(x){return '<span>'+months[x]+'/2026</span>'}).join("");
+      document.getElementById("contractProgress").innerHTML=
+        '<div class="contract-progress-layout">'+
+          '<div class="contract-kpis">'+
+            '<div class="contract-kpi executed"><div class="contract-kpi-icon">✓</div><div class="contract-kpi-copy"><span>Executado</span><strong>'+num.format(ep)+'%</strong><small>'+moneyShort(executed)+'<br>Qtd. executada × (preço MO + preço material)</small></div></div>'+
+            '<div class="contract-kpi future"><div class="contract-kpi-icon">▣</div><div class="contract-kpi-copy"><span>Planejado futuro</span><strong>'+num.format(fp)+'%</strong><small>Planejado para '+monthText+'<br>'+moneyShort(future)+' em itens programados</small></div></div>'+
+            '<div class="contract-kpi
+
+===== Saldo @ 1428421 =====
+d-data.planned)+"</dd></div>";
+        note.textContent="Cálculo: valor executado dividido pelo valor planejado do período selecionado.";
+        itemBox.innerHTML=""
+      }else{
+        title.textContent="Itens já consumidos ≥ 100%";
+        subtitle.textContent="Leitura acumulada do contrato completo, sem alteração quando outro mês é selecionado.";
+        value.textContent=data.overItems.length+" itens";
+        progress.hidden=true;
+        list.innerHTML="<div><dt>Itens do contrato</dt><dd>"+items.length+"</dd></div><div><dt>Critério</dt><dd>Saldo zerado ou negativo (consumo ≥ 100%)</dd></div><div><dt>Referência</dt><dd>Contrato '+esc(contractCode())+' completo</dd></div>";
+        note.textContent="Cada item consumido é valorizado por quantidade consumida acumulada × valor unitário.";
+        itemBox.innerHTML=data.overItems.length?data.overItems.map(function(item){var total=contractExecuted(item),value=contractExecutedValue(item);return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(item))+' · ':'')+'Quantidade consumida: '+num.format(total)+' '+esc(item.unit)+' · Executado financeiro: '+money.format(value)+'</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item atingiu 100% do consumo contratual.</div>'
+      }
+      document.getElementById("drawerBackdrop").classList.add("open")
+    }
+    function openNoBalanceItems(rows,m){
+      var title=document.getElementById("drawerTitle"),subtitle=document.getElementById("drawerSubtitle"),value=document.getElementById("drawerValue"),list=document.getElementById("drawerList"),note=document.getElementById("drawerNote"),itemBox=document.getElementById("drawerItems"),progress=document.getElementById("drawerProgress");
+      title.textContent="Itens sem saldo disponível";
+      subtitle.textContent="Itens cujo saldo atualizado está zerado ou negativo na janela de três meses.";
+      value.textContent=rows.length+" itens";
+      progress.hidden=true;
+      list.innerHTML="<div><dt>Contrato</dt><dd>"+esc(contractCode())+"</dd></div><div><dt>Período analisado</dt><dd>"+esc(periodLabel())+"</dd></div><div><dt>Critério</dt><dd>Saldo atualizado ≤ 0</dd></div>";
+      note.textContent="O saldo atualizado considera o acumulado histórico e o planejamento da janela ativa.";
+      itemBox.innerHTML=rows.length?rows.map(function(item){var balance=balanceUpdated(item,m);return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(item))+' · ':'')+'Saldo atualizado: '+num.format(balance)+' '+esc(item.unit)+'</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item está sem saldo disponível nesta janela.</div>';
+      document.getElementById("drawerBackdrop").classList.add("open")
+    }
+    function renderContractProgress(){
+      var m=activeMonth(),windowMonths=[m,m+1,m+2].filter(function(x){return x<12});
+      var positive=items.filter(function(i){return i.contractual>0});
+      var contract=positive.reduce(function(s,i){return s+i.contractual*i.price},0);
+      var executed=items.reduce(function(s,i){return s+contractExecutedValue(i)},0);
+      var future=windowMonths.reduce(function(s,x){return s+items.reduce(function(a,i){return a+Math.max(0,Number(i.plan[x]||0))*i.price},0)},0);
+      var freeValue=Math.max(0,contract-executed-future);
+      var ep=contract?executed/contract*100:0,fp=contract?future/contract*100:0,free=contract?freeValue/contract*100:0;
+      var epBar=Math.min(Math.max(ep,0),100),fpBar=Math.min(Math.max(fp,0),Math.max(0,100-epBar)),freeBar=Math.max(0,100-epBar-fpBar);
+      var noBalance=positive.filter(function(i){return balanceUpdated(i,m)<=0});
+      var monthText=windowMonths.length?fullMonths[windowMonths[0]]+"/2026 a "+fullMonths[windowMonths[windowMonths.length-1]]+"/2026":"Sem período";
+      var monthTags=windowMonths.map(function(x){return '<span>'+months[x]+'/2026</span>'}).join("");
+      document.getElementById("contractProgress").innerHTML=
+        '<div class="contract-progress-layout">'+
+          '<div class="contract-kpis">'+
+            '<div class="contract-kpi executed"><div class="contract-kpi-icon">✓</div><div class="contract-kpi-copy"><span>Executado</span><strong>'+num.format(ep)+'%</strong><small>'+moneyShort(executed)+'<br>Qtd. executada × (preço MO + preço material)</small></div></div>'+
+            '<div class="contract-kpi future"><div class="contract-kpi-icon">▣</div><div class="contract-kpi-copy"><span>Planejado futuro</span><strong>'+num.format(fp)+'%</strong><small>Planejado para '+monthText+'<br>'+moneyShort(future)+' em itens programados</small></div></div>'+
+            '<div class="contract-kpi free"><div class="contract-kpi-icon">◔</div><div class="contract-kpi-copy"><span>Saldo livre</span><strong>'+num.format(free)+'%</strong><small>'+moneyShort(freeValue)+'<br>Parcela financeira ainda disponível para planejar</small></div></div>'+
+          '</div>'+
+          '<div class="contract-track" aria-label="Distribuição do avanço contratual">'+
+            '<span class="executed" style="width:'+epBar+'%" data-short="'+num.format(ep)+'%">'+num.format(ep)+'%</span>'+
+            '<span class="future" style="width:'+fpBar+'%" data-short="'+num.format(fp)+'%">'+num.format(fp)+'%</span>'+
+            '<span class="free" style="width:'+freeBar+'%" data-short="'+num.format(free)+'%">'+num.format(free)+'%</span>'+
+          '</div>'+
+          '<div class="contract-summaries">'+
+            '<div class="contract-summary future"><div class="contract-summary-head"><span class="contract-summary-icon">▣</span><h4>Período planejado</h4></div><p>Itens programados para execução.</p><div class="contract-month-tags">'+monthTags+'</div></div>'+
+            '<div class="contract-summary attention"><div class="contract-summary-head"><span class="contract-summary-icon">!</span><h4>Atenção</h4></div><p><strong>'+noBalance.length+' itens sem saldo disponível</strong></p><button class="contract-items-btn" id="contractItemsButton" type="button">Ver itens</button></div>'+
+          '</div>'+
+        '</div>';
+      document.getElementById("contractItemsButton").onclick=function(){openNoBalanceItems(noBalance,m)}
+    }
+    function renderActions(){
+      var el=document.getElementById("actionsGrid");
+      el.innerHTML='<div class="head"
+
+===== Saldo @ 1428821 =====
+h+" itens";
+        progress.hidden=true;
+        list.innerHTML="<div><dt>Itens do contrato</dt><dd>"+items.length+"</dd></div><div><dt>Critério</dt><dd>Saldo zerado ou negativo (consumo ≥ 100%)</dd></div><div><dt>Referência</dt><dd>Contrato '+esc(contractCode())+' completo</dd></div>";
+        note.textContent="Cada item consumido é valorizado por quantidade consumida acumulada × valor unitário.";
+        itemBox.innerHTML=data.overItems.length?data.overItems.map(function(item){var total=contractExecuted(item),value=contractExecutedValue(item);return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(item))+' · ':'')+'Quantidade consumida: '+num.format(total)+' '+esc(item.unit)+' · Executado financeiro: '+money.format(value)+'</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item atingiu 100% do consumo contratual.</div>'
+      }
+      document.getElementById("drawerBackdrop").classList.add("open")
+    }
+    function openNoBalanceItems(rows,m){
+      var title=document.getElementById("drawerTitle"),subtitle=document.getElementById("drawerSubtitle"),value=document.getElementById("drawerValue"),list=document.getElementById("drawerList"),note=document.getElementById("drawerNote"),itemBox=document.getElementById("drawerItems"),progress=document.getElementById("drawerProgress");
+      title.textContent="Itens sem saldo disponível";
+      subtitle.textContent="Itens cujo saldo atualizado está zerado ou negativo na janela de três meses.";
+      value.textContent=rows.length+" itens";
+      progress.hidden=true;
+      list.innerHTML="<div><dt>Contrato</dt><dd>"+esc(contractCode())+"</dd></div><div><dt>Período analisado</dt><dd>"+esc(periodLabel())+"</dd></div><div><dt>Critério</dt><dd>Saldo atualizado ≤ 0</dd></div>";
+      note.textContent="O saldo atualizado considera o acumulado histórico e o planejamento da janela ativa.";
+      itemBox.innerHTML=rows.length?rows.map(function(item){var balance=balanceUpdated(item,m);return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(item))+' · ':'')+'Saldo atualizado: '+num.format(balance)+' '+esc(item.unit)+'</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item está sem saldo disponível nesta janela.</div>';
+      document.getElementById("drawerBackdrop").classList.add("open")
+    }
+    function renderContractProgress(){
+      var m=activeMonth(),windowMonths=[m,m+1,m+2].filter(function(x){return x<12});
+      var positive=items.filter(function(i){return i.contractual>0});
+      var contract=positive.reduce(function(s,i){return s+i.contractual*i.price},0);
+      var executed=items.reduce(function(s,i){return s+contractExecutedValue(i)},0);
+      var future=windowMonths.reduce(function(s,x){return s+items.reduce(function(a,i){return a+Math.max(0,Number(i.plan[x]||0))*i.price},0)},0);
+      var freeValue=Math.max(0,contract-executed-future);
+      var ep=contract?executed/contract*100:0,fp=contract?future/contract*100:0,free=contract?freeValue/contract*100:0;
+      var epBar=Math.min(Math.max(ep,0),100),fpBar=Math.min(Math.max(fp,0),Math.max(0,100-epBar)),freeBar=Math.max(0,100-epBar-fpBar);
+      var noBalance=positive.filter(function(i){return balanceUpdated(i,m)<=0});
+      var monthText=windowMonths.length?fullMonths[windowMonths[0]]+"/2026 a "+fullMonths[windowMonths[windowMonths.length-1]]+"/2026":"Sem período";
+      var monthTags=windowMonths.map(function(x){return '<span>'+months[x]+'/2026</span>'}).join("");
+      document.getElementById("contractProgress").innerHTML=
+        '<div class="contract-progress-layout">'+
+          '<div class="contract-kpis">'+
+            '<div class="contract-kpi executed"><div class="contract-kpi-icon">✓</div><div class="contract-kpi-copy"><span>Executado</span><strong>'+num.format(ep)+'%</strong><small>'+moneyShort(executed)+'<br>Qtd. executada × (preço MO + preço material)</small></div></div>'+
+            '<div class="contract-kpi future"><div class="contract-kpi-icon">▣</div><div class="contract-kpi-copy"><span>Planejado futuro</span><strong>'+num.format(fp)+'%</strong><small>Planejado para '+monthText+'<br>'+moneyShort(future)+' em itens programados</small></div></div>'+
+            '<div class="contract-kpi free"><div class="contract-kpi-icon">◔</div><div class="contract-kpi-copy"><span>Saldo livre</span><strong>'+num.format(free)+'%</strong><small>'+moneyShort(freeValue)+'<br>Parcela financeira ainda disponível para planejar</small></div></div>'+
+          '</div>'+
+          '<div class="contract-track" aria-label="Distribuição do avanço contratual">'+
+            '<span class="executed" style="width:'+epBar+'%" data-short="'+num.format(ep)+'%">'+num.format(ep)+'%</span>'+
+            '<span class="future" style="width:'+fpBar+'%" data-short="'+num.format(fp)+'%">'+num.format(fp)+'%</span>'+
+            '<span class="free" style="width:'+freeBar+'%" data-short="'+num.format(free)+'%">'+num.format(free)+'%</span>'+
+          '</div>'+
+          '<div class="contract-summaries">'+
+            '<div class="contract-summary future"><div class="contract-summary-head"><span class="contract-summary-icon">▣</span><h4>Período planejado</h4></div><p>Itens programados para execução.</p><div class="contract-month-tags">'+monthTags+'</div></div>'+
+            '<div class="contract-summary attention"><div class="contract-summary-head"><span class="contract-summary-icon">!</span><h4>Atenção</h4></div><p><strong>'+noBalance.length+' itens sem saldo disponível</strong></p><button class="contract-items-btn" id="contractItemsButton" type="button">Ver itens</button></div>'+
+          '</div>'+
+        '</div>';
+      document.getElementById("contractItemsButton").onclick=function(){openNoBalanceItems(noBalance,m)}
+    }
+    function renderActions(){
+      var el=document.getElementById("actionsGrid");
+      el.innerHTML='<div class="head">Desvio identificado</div><div class="head">Plano de ação</div><div class="head">Responsável</div><div class="head">Prazo</div><div class="head">Status</div>'+
+        (causeActions.length?causeActions.map(function(a){return '<div>'+esc(a.cause)+'</div><div>'+esc(a.action)+'</div><div>'+esc(a.owner)+'</div><div>'+esc(a.due)+'</div><div>'+esc(a.status)+'</div>'}).join(""):'<div class="actions-empty
+
+===== Saldo @ 1431057 =====
+ce)+' '+esc(item.unit)+'</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item está sem saldo disponível nesta janela.</div>';
+      document.getElementById("drawerBackdrop").classList.add("open")
+    }
+    function renderContractProgress(){
+      var m=activeMonth(),windowMonths=[m,m+1,m+2].filter(function(x){return x<12});
+      var positive=items.filter(function(i){return i.contractual>0});
+      var contract=positive.reduce(function(s,i){return s+i.contractual*i.price},0);
+      var executed=items.reduce(function(s,i){return s+contractExecutedValue(i)},0);
+      var future=windowMonths.reduce(function(s,x){return s+items.reduce(function(a,i){return a+Math.max(0,Number(i.plan[x]||0))*i.price},0)},0);
+      var freeValue=Math.max(0,contract-executed-future);
+      var ep=contract?executed/contract*100:0,fp=contract?future/contract*100:0,free=contract?freeValue/contract*100:0;
+      var epBar=Math.min(Math.max(ep,0),100),fpBar=Math.min(Math.max(fp,0),Math.max(0,100-epBar)),freeBar=Math.max(0,100-epBar-fpBar);
+      var noBalance=positive.filter(function(i){return balanceUpdated(i,m)<=0});
+      var monthText=windowMonths.length?fullMonths[windowMonths[0]]+"/2026 a "+fullMonths[windowMonths[windowMonths.length-1]]+"/2026":"Sem período";
+      var monthTags=windowMonths.map(function(x){return '<span>'+months[x]+'/2026</span>'}).join("");
+      document.getElementById("contractProgress").innerHTML=
+        '<div class="contract-progress-layout">'+
+          '<div class="contract-kpis">'+
+            '<div class="contract-kpi executed"><div class="contract-kpi-icon">✓</div><div class="contract-kpi-copy"><span>Executado</span><strong>'+num.format(ep)+'%</strong><small>'+moneyShort(executed)+'<br>Qtd. executada × (preço MO + preço material)</small></div></div>'+
+            '<div class="contract-kpi future"><div class="contract-kpi-icon">▣</div><div class="contract-kpi-copy"><span>Planejado futuro</span><strong>'+num.format(fp)+'%</strong><small>Planejado para '+monthText+'<br>'+moneyShort(future)+' em itens programados</small></div></div>'+
+            '<div class="contract-kpi free"><div class="contract-kpi-icon">◔</div><div class="contract-kpi-copy"><span>Saldo livre</span><strong>'+num.format(free)+'%</strong><small>'+moneyShort(freeValue)+'<br>Parcela financeira ainda disponível para planejar</small></div></div>'+
+          '</div>'+
+          '<div class="contract-track" aria-label="Distribuição do avanço contratual">'+
+            '<span class="executed" style="width:'+epBar+'%" data-short="'+num.format(ep)+'%">'+num.format(ep)+'%</span>'+
+            '<span class="future" style="width:'+fpBar+'%" data-short="'+num.format(fp)+'%">'+num.format(fp)+'%</span>'+
+            '<span class="free" style="width:'+freeBar+'%" data-short="'+num.format(free)+'%">'+num.format(free)+'%</span>'+
+          '</div>'+
+          '<div class="contract-summaries">'+
+            '<div class="contract-summary future"><div class="contract-summary-head"><span class="contract-summary-icon">▣</span><h4>Período planejado</h4></div><p>Itens programados para execução.</p><div class="contract-month-tags">'+monthTags+'</div></div>'+
+            '<div class="contract-summary attention"><div class="contract-summary-head"><span class="contract-summary-icon">!</span><h4>Atenção</h4></div><p><strong>'+noBalance.length+' itens sem saldo disponível</strong></p><button class="contract-items-btn" id="contractItemsButton" type="button">Ver itens</button></div>'+
+          '</div>'+
+        '</div>';
+      document.getElementById("contractItemsButton").onclick=function(){openNoBalanceItems(noBalance,m)}
+    }
+    function renderActions(){
+      var el=document.getElementById("actionsGrid");
+      el.innerHTML='<div class="head">Desvio identificado</div><div class="head">Plano de ação</div><div class="head">Responsável</div><div class="head">Prazo</div><div class="head">Status</div>'+
+        (causeActions.length?causeActions.map(function(a){return '<div>'+esc(a.cause)+'</div><div>'+esc(a.action)+'</div><div>'+esc(a.owner)+'</div><div>'+esc(a.due)+'</div><div>'+esc(a.status)+'</div>'}).join(""):'<div class="actions-empty">Aguardando os campos “Causa” e “Plano de Ação” na planilha-base.</div>')
+    }
+    function renderPlanning(){
+      var start=activeMonth(),rows=filtered(true).filter(function(i){return i.contractual!==0||i.base!==0||i.plan.some(function(v){return v>0})||i.exec.some(function(v){return Number(v||0)>0})});
+      document.getElementById("planningHead").innerHTML='<tr><th class="item-col">Item do contrato</th>'+months.map(function(label,m){var activeWindow=m>=start&&m<Math.min(start+3,12);return '<th class="month-col '+(activeWindow?"window-active":"window-muted")+'">'+label+'/2026</th>'}).join("")+'<th class="balance-col">Saldo Atualizado</th></tr>';
+      document.getElementById("planningRows").innerHTML=rows.map(function(item){
+        var bal=balanceUpdated(item,start),usage=item.contractual>0?(item.contractual-bal)/item.contractual*100:null,windowEnd=Math.min(start+3,12),hasPlanned=item.plan.slice(start,windowEnd).some(function(v){return Number(v||0)>0});
+        return '<tr class="'+(hasPlanned?"has-planned":"")+'"><td class="item-col"><strong>'+esc(item.name)+'</strong><small>OS-01'+(activeContract===ALL_CONTRACTS?' · Contrato '+esc(itemContractCode(item)):'')+' · '+esc(item.unit)+'</small></td>'+
+          months.map(function(_,m){var p=Number(item.plan[m]||0),e=executedQty(item,m),closed=isClosed(m),activeWindow=m>=start&&m<Math.min(start+3,12);return '<td class="month-col '+(activeWindow?"window-active":"window-muted")+'"><div class="month-boxes '+(closed?"closed":"")+'">'+
+            (closed?'':'<div class="month-box plan '+(p>0&&activeWindow?"has-value":"")+'"><span>Planejado</span><b>'+num.format(p)+' '+esc(item.unit)+'</b><small>'+money.format(p*item.price)+'</small></div>')+
+            '<div class="month-box exec"><span>Executado</span><b>'+num.format(e)+' '+esc(item.unit)+'</b><small>'+money.format(executedItemValue(item,m))+'</small></div></div></td>'}).join("")+
+          '<td class="balance-col"><strong class="'+(bal<0?"neg":"")+'">'+num.format(bal)+' '+esc(item.unit)+'</strong><small>Saldo anterior − consumo da janela de 3 meses</small>'+
+          (usage===null?'<small>Base contratual não positiva</small>':'<div class="consumption"><b>'+num.format(usage)+'%</b><span class="tra
+
+===== Saldo @ 1433650 =====
+'+
+            '<span class="future" style="width:'+fpBar+'%" data-short="'+num.format(fp)+'%">'+num.format(fp)+'%</span>'+
+            '<span class="free" style="width:'+freeBar+'%" data-short="'+num.format(free)+'%">'+num.format(free)+'%</span>'+
+          '</div>'+
+          '<div class="contract-summaries">'+
+            '<div class="contract-summary future"><div class="contract-summary-head"><span class="contract-summary-icon">▣</span><h4>Período planejado</h4></div><p>Itens programados para execução.</p><div class="contract-month-tags">'+monthTags+'</div></div>'+
+            '<div class="contract-summary attention"><div class="contract-summary-head"><span class="contract-summary-icon">!</span><h4>Atenção</h4></div><p><strong>'+noBalance.length+' itens sem saldo disponível</strong></p><button class="contract-items-btn" id="contractItemsButton" type="button">Ver itens</button></div>'+
+          '</div>'+
+        '</div>';
+      document.getElementById("contractItemsButton").onclick=function(){openNoBalanceItems(noBalance,m)}
+    }
+    function renderActions(){
+      var el=document.getElementById("actionsGrid");
+      el.innerHTML='<div class="head">Desvio identificado</div><div class="head">Plano de ação</div><div class="head">Responsável</div><div class="head">Prazo</div><div class="head">Status</div>'+
+        (causeActions.length?causeActions.map(function(a){return '<div>'+esc(a.cause)+'</div><div>'+esc(a.action)+'</div><div>'+esc(a.owner)+'</div><div>'+esc(a.due)+'</div><div>'+esc(a.status)+'</div>'}).join(""):'<div class="actions-empty">Aguardando os campos “Causa” e “Plano de Ação” na planilha-base.</div>')
+    }
+    function renderPlanning(){
+      var start=activeMonth(),rows=filtered(true).filter(function(i){return i.contractual!==0||i.base!==0||i.plan.some(function(v){return v>0})||i.exec.some(function(v){return Number(v||0)>0})});
+      document.getElementById("planningHead").innerHTML='<tr><th class="item-col">Item do contrato</th>'+months.map(function(label,m){var activeWindow=m>=start&&m<Math.min(start+3,12);return '<th class="month-col '+(activeWindow?"window-active":"window-muted")+'">'+label+'/2026</th>'}).join("")+'<th class="balance-col">Saldo Atualizado</th></tr>';
+      document.getElementById("planningRows").innerHTML=rows.map(function(item){
+        var bal=balanceUpdated(item,start),usage=item.contractual>0?(item.contractual-bal)/item.contractual*100:null,windowEnd=Math.min(start+3,12),hasPlanned=item.plan.slice(start,windowEnd).some(function(v){return Number(v||0)>0});
+        return '<tr class="'+(hasPlanned?"has-planned":"")+'"><td class="item-col"><strong>'+esc(item.name)+'</strong><small>OS-01'+(activeContract===ALL_CONTRACTS?' · Contrato '+esc(itemContractCode(item)):'')+' · '+esc(item.unit)+'</small></td>'+
+          months.map(function(_,m){var p=Number(item.plan[m]||0),e=executedQty(item,m),closed=isClosed(m),activeWindow=m>=start&&m<Math.min(start+3,12);return '<td class="month-col '+(activeWindow?"window-active":"window-muted")+'"><div class="month-boxes '+(closed?"closed":"")+'">'+
+            (closed?'':'<div class="month-box plan '+(p>0&&activeWindow?"has-value":"")+'"><span>Planejado</span><b>'+num.format(p)+' '+esc(item.unit)+'</b><small>'+money.format(p*item.price)+'</small></div>')+
+            '<div class="month-box exec"><span>Executado</span><b>'+num.format(e)+' '+esc(item.unit)+'</b><small>'+money.format(executedItemValue(item,m))+'</small></div></div></td>'}).join("")+
+          '<td class="balance-col"><strong class="'+(bal<0?"neg":"")+'">'+num.format(bal)+' '+esc(item.unit)+'</strong><small>Saldo anterior − consumo da janela de 3 meses</small>'+
+          (usage===null?'<small>Base contratual não positiva</small>':'<div class="consumption"><b>'+num.format(usage)+'%</b><span class="track '+(usage>=100?"over":"")+'"><i style="width:'+Math.max(0,Math.min(usage,100))+'%"></i></span></div>')+'</td></tr>'
+      }).join("");
+      var viewport=document.getElementById("planningViewport"),itemWidth=innerWidth<=480?220:290,balanceWidth=220,minimumMonthWidth=innerWidth<=480?180:210,monthWidth=Math.max(minimumMonthWidth,Math.floor((viewport.clientWidth-itemWidth-balanceWidth)/3));
+      viewport.style.setProperty("--planning-month-width",monthWidth+"px");
+      requestAnimationFrame(function(){viewport.scrollLeft=Math.max(0,start*monthWidth)})
+    }
+    function renderOS(){
+      var m=activeMonth(),rows;
+      if(month<0)rows=filtered(true).filter(function(i){return i.plan.some(function(v){return Number(v||0)>0})||i.exec.some(function(v){return Number(v||0)>0})});
+      else rows=filtered(true).filter(function(i){return Number(i.plan[m]||0)>0||executedQty(i,m)>0});
+      document.getElementById("osTitle").textContent=month<0?"Ordens de Serviço planejadas em 2026":"O que deve ser executado em "+fullMonths[m]+"/2026";
+      document.getElementById("osRows").innerHTML=rows.length?rows.map(function(i){var p=month<0?i.plan.reduce(function(s,v){return s+Number(v||0)},0):Number(i.plan[m]||0),e=month<0?i.exec.reduce(function(s,v){return s+Number(v||0)},0):executedQty(i,m),s=osStatus(i,m);return '<tr><td><span class="os-code">OS-01</span></td><td><strong>'+esc(i.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(i))+' · '+esc(itemContractName(i)):esc(contractName()))+'</small></td><td><strong>'+num.format(p)+'</strong> '+esc(i.unit)+'</td><td><strong>'+num.format(e)+'</strong> '+esc(i.unit)+'</td><td><span class="status-pill '+statusClass(s)+'"><i></i>'+s+'</span></td><td>'+esc(i.orders[m]||orderText)+'</td></tr>'}).join(""):'<tr><td colspan="6" style="text-align:center;color:#687986;padding:24px">Nenhuma Ordem de Serviço prevista neste recorte.</td></tr>'
+    }
+    function printOS(){
+      var title=esc(document.getElementById("osTitle").textContent),table=document.getElementById("osTable").outerHTML,popup=window.open("","_blank","width=1200,height=800");
+      if(!popup){alert("Autorize a abertura da janela para gerar o PDF da tabela de OS.");return}
+      popup.document.write('<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Ordens de Serviço · Contrato '+esc(contractCode())+'</title><style>@page{size:A4 landscape;margin:12mm}body{font:11px Arial,sans-serif;color:#17212b;margin:0}header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid #0b2f47;pad
+
+===== Saldo @ 1435060 =====
+cause)+'</div><div>'+esc(a.action)+'</div><div>'+esc(a.owner)+'</div><div>'+esc(a.due)+'</div><div>'+esc(a.status)+'</div>'}).join(""):'<div class="actions-empty">Aguardando os campos “Causa” e “Plano de Ação” na planilha-base.</div>')
+    }
+    function renderPlanning(){
+      var start=activeMonth(),rows=filtered(true).filter(function(i){return i.contractual!==0||i.base!==0||i.plan.some(function(v){return v>0})||i.exec.some(function(v){return Number(v||0)>0})});
+      document.getElementById("planningHead").innerHTML='<tr><th class="item-col">Item do contrato</th>'+months.map(function(label,m){var activeWindow=m>=start&&m<Math.min(start+3,12);return '<th class="month-col '+(activeWindow?"window-active":"window-muted")+'">'+label+'/2026</th>'}).join("")+'<th class="balance-col">Saldo Atualizado</th></tr>';
+      document.getElementById("planningRows").innerHTML=rows.map(function(item){
+        var bal=balanceUpdated(item,start),usage=item.contractual>0?(item.contractual-bal)/item.contractual*100:null,windowEnd=Math.min(start+3,12),hasPlanned=item.plan.slice(start,windowEnd).some(function(v){return Number(v||0)>0});
+        return '<tr class="'+(hasPlanned?"has-planned":"")+'"><td class="item-col"><strong>'+esc(item.name)+'</strong><small>OS-01'+(activeContract===ALL_CONTRACTS?' · Contrato '+esc(itemContractCode(item)):'')+' · '+esc(item.unit)+'</small></td>'+
+          months.map(function(_,m){var p=Number(item.plan[m]||0),e=executedQty(item,m),closed=isClosed(m),activeWindow=m>=start&&m<Math.min(start+3,12);return '<td class="month-col '+(activeWindow?"window-active":"window-muted")+'"><div class="month-boxes '+(closed?"closed":"")+'">'+
+            (closed?'':'<div class="month-box plan '+(p>0&&activeWindow?"has-value":"")+'"><span>Planejado</span><b>'+num.format(p)+' '+esc(item.unit)+'</b><small>'+money.format(p*item.price)+'</small></div>')+
+            '<div class="month-box exec"><span>Executado</span><b>'+num.format(e)+' '+esc(item.unit)+'</b><small>'+money.format(executedItemValue(item,m))+'</small></div></div></td>'}).join("")+
+          '<td class="balance-col"><strong class="'+(bal<0?"neg":"")+'">'+num.format(bal)+' '+esc(item.unit)+'</strong><small>Saldo anterior − consumo da janela de 3 meses</small>'+
+          (usage===null?'<small>Base contratual não positiva</small>':'<div class="consumption"><b>'+num.format(usage)+'%</b><span class="track '+(usage>=100?"over":"")+'"><i style="width:'+Math.max(0,Math.min(usage,100))+'%"></i></span></div>')+'</td></tr>'
+      }).join("");
+      var viewport=document.getElementById("planningViewport"),itemWidth=innerWidth<=480?220:290,balanceWidth=220,minimumMonthWidth=innerWidth<=480?180:210,monthWidth=Math.max(minimumMonthWidth,Math.floor((viewport.clientWidth-itemWidth-balanceWidth)/3));
+      viewport.style.setProperty("--planning-month-width",monthWidth+"px");
+      requestAnimationFrame(function(){viewport.scrollLeft=Math.max(0,start*monthWidth)})
+    }
+    function renderOS(){
+      var m=activeMonth(),rows;
+      if(month<0)rows=filtered(true).filter(function(i){return i.plan.some(function(v){return Number(v||0)>0})||i.exec.some(function(v){return Number(v||0)>0})});
+      else rows=filtered(true).filter(function(i){return Number(i.plan[m]||0)>0||executedQty(i,m)>0});
+      document.getElementById("osTitle").textContent=month<0?"Ordens de Serviço planejadas em 2026":"O que deve ser executado em "+fullMonths[m]+"/2026";
+      document.getElementById("osRows").innerHTML=rows.length?rows.map(function(i){var p=month<0?i.plan.reduce(function(s,v){return s+Number(v||0)},0):Number(i.plan[m]||0),e=month<0?i.exec.reduce(function(s,v){return s+Number(v||0)},0):executedQty(i,m),s=osStatus(i,m);return '<tr><td><span class="os-code">OS-01</span></td><td><strong>'+esc(i.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(i))+' · '+esc(itemContractName(i)):esc(contractName()))+'</small></td><td><strong>'+num.format(p)+'</strong> '+esc(i.unit)+'</td><td><strong>'+num.format(e)+'</strong> '+esc(i.unit)+'</td><td><span class="status-pill '+statusClass(s)+'"><i></i>'+s+'</span></td><td>'+esc(i.orders[m]||orderText)+'</td></tr>'}).join(""):'<tr><td colspan="6" style="text-align:center;color:#687986;padding:24px">Nenhuma Ordem de Serviço prevista neste recorte.</td></tr>'
+    }
+    function printOS(){
+      var title=esc(document.getElementById("osTitle").textContent),table=document.getElementById("osTable").outerHTML,popup=window.open("","_blank","width=1200,height=800");
+      if(!popup){alert("Autorize a abertura da janela para gerar o PDF da tabela de OS.");return}
+      popup.document.write('<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Ordens de Serviço · Contrato '+esc(contractCode())+'</title><style>@page{size:A4 landscape;margin:12mm}body{font:11px Arial,sans-serif;color:#17212b;margin:0}header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid #0b2f47;padding-bottom:10px;margin-bottom:14px}h1{font-size:20px;color:#0b2f47;margin:0 0 4px}p{margin:0;color:#687986}table{width:100%;border-collapse:collapse}th{background:#0b2f47;color:#fff;text-align:left;padding:8px;font-size:9px;text-transform:uppercase}td{border-bottom:1px solid #dce5ea;padding:8px;vertical-align:middle}small{display:block;color:#687986;margin-top:3px}.os-code{background:#0b2f47;color:#fff;border-radius:4px;padding:4px 7px;font-weight:bold}.status-pill{font-weight:bold}.status-pill i{display:none}footer{margin-top:12px;color:#687986;font-size:8px;text-align:right}</style></head><body><header><div><h1>'+title+'</h1><p>Contrato '+esc(contractCode())+' · '+esc(contractName())+'</p></div><b>SINAPE · Planejamento e Gestão Técnica</b></header>'+table+'<footer>Gerado em '+new Date().toLocaleString("pt-BR")+'</footer><script>window.onload=function(){setTimeout(function(){window.print()},250)}<\\/script></body></html>');
+      popup.document.close()
+    }
+    window.printOS=printOS;
+    function renderRDO(){
+      var m=activeMonth(),code=contractCode(),allowed={};filtered(true).forEach(function(item){allowed[item.sourceId]=true});var rows=rdoData.filter(function(x){return (month<0||x.month===m)&&(activeContract===ALL_CONTRACTS||x.contract===code)&&allowed[x.itemId]});
+      document.getElementById("rdoWeek").textContent=(month<0?"Todos os meses de 2026":fullMonths[m]+"/2026")+" · "
+
+===== render @ 1417277 =====
+d;d++){var wd=new Date(2026,m,d).getDay();if(wd!==0&&wd!==6)n++}return n}
+    function elapsedShare(m){
+      if(m<currentMonth)return 1;
+      if(m>currentMonth)return 0;
+      var last=new Date(2026,m+1,0).getDate();
+      return workdays(1,currentDate.getDate(),m)/Math.max(workdays(1,last,m),1)
+    }
+    function currentWeek(){return Math.min(5,Math.ceil(currentDate.getDate()/7))}
+    function osStatus(item,m){
+      var p=Number(item.plan[m]||0),e=executedQty(item,m);
+      if(p<=0)return e>0?"Finalizada":"No prazo";
+      if(e>=p)return "Finalizada";
+      if(m<currentMonth)return "Urgente";
+      if(m>currentMonth)return "No prazo";
+      var expected=p*elapsedShare(m),week=currentWeek();
+      if(e>=expected)return "No prazo";
+      if(week>=3)return "Urgente";
+      if(week>=2)return "Atenção";
+      return "No prazo"
+    }
+    function filtered(applyStatus){
+      var m=activeMonth();
+      return items.filter(function(item){
+        if(os!=="Todas"&&item.orders.indexOf(orderText)<0)return false;
+        if(applyStatus!==false&&statusFilter&&osStatus(item,m)!==statusFilter)return false;
+        return true
+      })
+    }
+    function periodLabel(){return month<0?"Todos os meses de 2026":fullMonths[month]+"/2026"+(selectedWeeks.length?" · Semanas "+selectedWeeks.join(", "):" · Mês completo")}
+    function moneyShort(v){if(Math.abs(v)>=1000000)return "R$ "+num.format(v/1000000)+" mi";if(Math.abs(v)>=1000)return "R$ "+num.format(v/1000)+" mil";return money.format(v)}
+    function plannedItems(){var m=activeMonth();return filtered(true).filter(function(i){return Number(i.plan[m]||0)>0})}
+    function confirmedThrough(item,endMonth){var total=0;for(var m=executionStartMonth;m<=endMonth;m++)total+=executedQty(item,m);return total}
+    function balanceUpdated(item,startMonth){
+      var baseline=item.contractual-Math.max(0,Number(item.base||0))-confirmedThrough(item,startMonth-1),usage=0;
+      for(var m=startMonth;m<Math.min(startMonth+3,12);m++)usage+=isClosed(m)?executedQty(item,m):Number(item.plan[m]||0);
+      return baseline-usage
+    }
+    function statusClass(s){return s==="Urgente"?"danger":s==="Atenção"?"warn":s==="No prazo"?"info":""}
+
+    function renderPeriod(){
+      document.getElementById("periodView").textContent=periodLabel();
+      document.getElementById("operationPeriod").textContent=periodLabel();
+      document.getElementById("coverPeriod").textContent=month<0?"Todos os meses / 2026":fullMonths[month]+" / 2026"
+    }
+    function renderCards(){
+      var m=activeMonth(),p=month<0?allPlanned():plannedValue(m),e=month<0?allExecuted():executedValue(m),rows=plannedItems(),horizon=0;
+      for(var n=m;n<Math.min(m+3,12);n++)if(plannedValue(n)>0)horizon++;
+      document.getElementById("cards").innerHTML=
+        '<article class="card"><div class="card-label">Valor planejado</div><strong>'+moneyShort(p)+'</strong><small>Quantidade planejada × preço unitário do recorte</small><div class="mini-status"><i></i>'+rows.length+' itens com quantidade</div></article>'+
+        '<article class="card green"><div class="card-label">Valor executado</div><strong>'+moneyShort(e)+'</strong><small>Fonte: Base BI Executado (2)</small><div class="mini-status '+(e?"":"warn")+'"><i></i>'+(e?"Dados carregados":"Sem execução no período")+'</div></article>'+
+        '<article class="card '+(rows.some(function(i){return osStatus(i,m)==="Urgente"})?"red":"amber")+'"><div class="card-label">Itens planejados do contrato</div><strong>'+rows.length+'</strong><small>Itens com quantidade planejada no mês operacional</small><div class="mini-status '+(rows.some(function(i){return osStatus(i,m)==="Urgente"})?"danger":"warn")+'"><i></i>'+rows.filter(function(i){return osStatus(i,m)==="Urgente"}).length+' urgentes</div></article>'+
+        '<article class="card '+(horizon<2?"red":horizon<3?"amber":"green")+'"><div class="card-label">Horizonte de frentes</div><strong>'+horizon+' de 3</strong><small>Meses com programação na janela móvel</small><div class="mini-status '+(horizon<2?"danger":horizon<3?"warn":"")+'"><i></i>'+(horizon===3?"Janela completa":"Revisar próximas frentes")+'</div></article>'
+    }
+    function renderMonthChart(){
+      var ps=months.map(function(_,m){return plannedValue(m)}),es=months.map(function(_,m){return executedValue(m)}),max=Math.max.apply(null,ps.concat(es).concat([1]));
+      document.getElementById("monthChart").innerHTML=months.map(function(label,m){return '<div class="bar-group" data-month="'+m+'"><div class="bar-area"><div class="bar plan" style="height:'+ps[m]/max*100+'%"></div><div class="bar done" style="height:'+es[m]/max*100+'%"></div></div><b class="'+(m===activeMonth()?"active":"")+'">'+label+'</b><small>'+(ps[m]?moneyShort(ps[m]).replace("R$ ",""):"—")+'</small></div>'}).join("");
+      document.querySelectorAll(".bar-group").forEach(function(el){el.onclick=function(){month=Number(el.dataset.month);selectedWeeks=[];document.getElementById("monthFilter").value=String(month);buildWeekMenu();render()}})
+    }
+    function renderWeekly(){
+      var m=activeMonth(),rs=ranges(m),p=plannedValue(m),e=executedValue(m),total=rs.reduce(function(s,r){return s+workdays(r.start,r.end,m)},0),visible=selectedWeeks.length?rs.filter(function(r){return selectedWeeks.indexOf(r.week)>=0}):rs;
+      document.getElementById("weeklyTitle").textContent="Planejado × Executado semanal · "+fullMonths[m]+"/2026 · rateio por dias úteis";
+      var data=visible.map(function(r){var share=workdays(r.start,r.end,m)/Math.max(total,1);return{r:r,p:p*share,e:e*share}}),max=Math.max.apply(null,data.reduce(function(a,x){return a.concat([x.p,x.e])},[1]));
+      document.getElementById("weeklyChart").innerHTML=data.map(function(x){return '<div class="week"><div class="week-bars"><i class="wp" style="height:'+x.p/max*100+'%"></i><i class="we" style="height:'+x.e/max*100+'%"></i></div><strong>Semana '+x.r.week+' · '+x.r.start+'–'+x.r.end+'</strong><small>Plan. '+money.format(x.p)+'</small><small>Exec. '+money.format(x.e)+'</small></div>'}).join("")
+    }
+    function renderOperationalReading(){
+      var m=activeMonth(),rows=plannedItems(),urgent=rows.filter(function(i){return osStatus(i,m)==="Urgente"}).length,attention=rows.filter(function(i){return osStatus(i,m)==="Atenção"}).length;
+      document.getElementById("operationalReadingTitle").textContent=month<0?"Itens que ainda precisam ser execut
+
+===== render @ 1417576 =====
+    }
+    function currentWeek(){return Math.min(5,Math.ceil(currentDate.getDate()/7))}
+    function osStatus(item,m){
+      var p=Number(item.plan[m]||0),e=executedQty(item,m);
+      if(p<=0)return e>0?"Finalizada":"No prazo";
+      if(e>=p)return "Finalizada";
+      if(m<currentMonth)return "Urgente";
+      if(m>currentMonth)return "No prazo";
+      var expected=p*elapsedShare(m),week=currentWeek();
+      if(e>=expected)return "No prazo";
+      if(week>=3)return "Urgente";
+      if(week>=2)return "Atenção";
+      return "No prazo"
+    }
+    function filtered(applyStatus){
+      var m=activeMonth();
+      return items.filter(function(item){
+        if(os!=="Todas"&&item.orders.indexOf(orderText)<0)return false;
+        if(applyStatus!==false&&statusFilter&&osStatus(item,m)!==statusFilter)return false;
+        return true
+      })
+    }
+    function periodLabel(){return month<0?"Todos os meses de 2026":fullMonths[month]+"/2026"+(selectedWeeks.length?" · Semanas "+selectedWeeks.join(", "):" · Mês completo")}
+    function moneyShort(v){if(Math.abs(v)>=1000000)return "R$ "+num.format(v/1000000)+" mi";if(Math.abs(v)>=1000)return "R$ "+num.format(v/1000)+" mil";return money.format(v)}
+    function plannedItems(){var m=activeMonth();return filtered(true).filter(function(i){return Number(i.plan[m]||0)>0})}
+    function confirmedThrough(item,endMonth){var total=0;for(var m=executionStartMonth;m<=endMonth;m++)total+=executedQty(item,m);return total}
+    function balanceUpdated(item,startMonth){
+      var baseline=item.contractual-Math.max(0,Number(item.base||0))-confirmedThrough(item,startMonth-1),usage=0;
+      for(var m=startMonth;m<Math.min(startMonth+3,12);m++)usage+=isClosed(m)?executedQty(item,m):Number(item.plan[m]||0);
+      return baseline-usage
+    }
+    function statusClass(s){return s==="Urgente"?"danger":s==="Atenção"?"warn":s==="No prazo"?"info":""}
+
+    function renderPeriod(){
+      document.getElementById("periodView").textContent=periodLabel();
+      document.getElementById("operationPeriod").textContent=periodLabel();
+      document.getElementById("coverPeriod").textContent=month<0?"Todos os meses / 2026":fullMonths[month]+" / 2026"
+    }
+    function renderCards(){
+      var m=activeMonth(),p=month<0?allPlanned():plannedValue(m),e=month<0?allExecuted():executedValue(m),rows=plannedItems(),horizon=0;
+      for(var n=m;n<Math.min(m+3,12);n++)if(plannedValue(n)>0)horizon++;
+      document.getElementById("cards").innerHTML=
+        '<article class="card"><div class="card-label">Valor planejado</div><strong>'+moneyShort(p)+'</strong><small>Quantidade planejada × preço unitário do recorte</small><div class="mini-status"><i></i>'+rows.length+' itens com quantidade</div></article>'+
+        '<article class="card green"><div class="card-label">Valor executado</div><strong>'+moneyShort(e)+'</strong><small>Fonte: Base BI Executado (2)</small><div class="mini-status '+(e?"":"warn")+'"><i></i>'+(e?"Dados carregados":"Sem execução no período")+'</div></article>'+
+        '<article class="card '+(rows.some(function(i){return osStatus(i,m)==="Urgente"})?"red":"amber")+'"><div class="card-label">Itens planejados do contrato</div><strong>'+rows.length+'</strong><small>Itens com quantidade planejada no mês operacional</small><div class="mini-status '+(rows.some(function(i){return osStatus(i,m)==="Urgente"})?"danger":"warn")+'"><i></i>'+rows.filter(function(i){return osStatus(i,m)==="Urgente"}).length+' urgentes</div></article>'+
+        '<article class="card '+(horizon<2?"red":horizon<3?"amber":"green")+'"><div class="card-label">Horizonte de frentes</div><strong>'+horizon+' de 3</strong><small>Meses com programação na janela móvel</small><div class="mini-status '+(horizon<2?"danger":horizon<3?"warn":"")+'"><i></i>'+(horizon===3?"Janela completa":"Revisar próximas frentes")+'</div></article>'
+    }
+    function renderMonthChart(){
+      var ps=months.map(function(_,m){return plannedValue(m)}),es=months.map(function(_,m){return executedValue(m)}),max=Math.max.apply(null,ps.concat(es).concat([1]));
+      document.getElementById("monthChart").innerHTML=months.map(function(label,m){return '<div class="bar-group" data-month="'+m+'"><div class="bar-area"><div class="bar plan" style="height:'+ps[m]/max*100+'%"></div><div class="bar done" style="height:'+es[m]/max*100+'%"></div></div><b class="'+(m===activeMonth()?"active":"")+'">'+label+'</b><small>'+(ps[m]?moneyShort(ps[m]).replace("R$ ",""):"—")+'</small></div>'}).join("");
+      document.querySelectorAll(".bar-group").forEach(function(el){el.onclick=function(){month=Number(el.dataset.month);selectedWeeks=[];document.getElementById("monthFilter").value=String(month);buildWeekMenu();render()}})
+    }
+    function renderWeekly(){
+      var m=activeMonth(),rs=ranges(m),p=plannedValue(m),e=executedValue(m),total=rs.reduce(function(s,r){return s+workdays(r.start,r.end,m)},0),visible=selectedWeeks.length?rs.filter(function(r){return selectedWeeks.indexOf(r.week)>=0}):rs;
+      document.getElementById("weeklyTitle").textContent="Planejado × Executado semanal · "+fullMonths[m]+"/2026 · rateio por dias úteis";
+      var data=visible.map(function(r){var share=workdays(r.start,r.end,m)/Math.max(total,1);return{r:r,p:p*share,e:e*share}}),max=Math.max.apply(null,data.reduce(function(a,x){return a.concat([x.p,x.e])},[1]));
+      document.getElementById("weeklyChart").innerHTML=data.map(function(x){return '<div class="week"><div class="week-bars"><i class="wp" style="height:'+x.p/max*100+'%"></i><i class="we" style="height:'+x.e/max*100+'%"></i></div><strong>Semana '+x.r.week+' · '+x.r.start+'–'+x.r.end+'</strong><small>Plan. '+money.format(x.p)+'</small><small>Exec. '+money.format(x.e)+'</small></div>'}).join("")
+    }
+    function renderOperationalReading(){
+      var m=activeMonth(),rows=plannedItems(),urgent=rows.filter(function(i){return osStatus(i,m)==="Urgente"}).length,attention=rows.filter(function(i){return osStatus(i,m)==="Atenção"}).length;
+      document.getElementById("operationalReadingTitle").textContent=month<0?"Itens que ainda precisam ser executados nos meses de 2026":"Itens que ainda precisam ser executados no mês "+fullMonths[m]+"/2026";
+      document.getElementById("plannedItemsCount").textContent=rows.length;
+      document.getElementById("opsSummary").textContent=urgent?urgent+" itens exigem ação urgente nesta semana.":attention?att
+
+===== render @ 1419251 =====
+,12);m++)usage+=isClosed(m)?executedQty(item,m):Number(item.plan[m]||0);
+      return baseline-usage
+    }
+    function statusClass(s){return s==="Urgente"?"danger":s==="Atenção"?"warn":s==="No prazo"?"info":""}
+
+    function renderPeriod(){
+      document.getElementById("periodView").textContent=periodLabel();
+      document.getElementById("operationPeriod").textContent=periodLabel();
+      document.getElementById("coverPeriod").textContent=month<0?"Todos os meses / 2026":fullMonths[month]+" / 2026"
+    }
+    function renderCards(){
+      var m=activeMonth(),p=month<0?allPlanned():plannedValue(m),e=month<0?allExecuted():executedValue(m),rows=plannedItems(),horizon=0;
+      for(var n=m;n<Math.min(m+3,12);n++)if(plannedValue(n)>0)horizon++;
+      document.getElementById("cards").innerHTML=
+        '<article class="card"><div class="card-label">Valor planejado</div><strong>'+moneyShort(p)+'</strong><small>Quantidade planejada × preço unitário do recorte</small><div class="mini-status"><i></i>'+rows.length+' itens com quantidade</div></article>'+
+        '<article class="card green"><div class="card-label">Valor executado</div><strong>'+moneyShort(e)+'</strong><small>Fonte: Base BI Executado (2)</small><div class="mini-status '+(e?"":"warn")+'"><i></i>'+(e?"Dados carregados":"Sem execução no período")+'</div></article>'+
+        '<article class="card '+(rows.some(function(i){return osStatus(i,m)==="Urgente"})?"red":"amber")+'"><div class="card-label">Itens planejados do contrato</div><strong>'+rows.length+'</strong><small>Itens com quantidade planejada no mês operacional</small><div class="mini-status '+(rows.some(function(i){return osStatus(i,m)==="Urgente"})?"danger":"warn")+'"><i></i>'+rows.filter(function(i){return osStatus(i,m)==="Urgente"}).length+' urgentes</div></article>'+
+        '<article class="card '+(horizon<2?"red":horizon<3?"amber":"green")+'"><div class="card-label">Horizonte de frentes</div><strong>'+horizon+' de 3</strong><small>Meses com programação na janela móvel</small><div class="mini-status '+(horizon<2?"danger":horizon<3?"warn":"")+'"><i></i>'+(horizon===3?"Janela completa":"Revisar próximas frentes")+'</div></article>'
+    }
+    function renderMonthChart(){
+      var ps=months.map(function(_,m){return plannedValue(m)}),es=months.map(function(_,m){return executedValue(m)}),max=Math.max.apply(null,ps.concat(es).concat([1]));
+      document.getElementById("monthChart").innerHTML=months.map(function(label,m){return '<div class="bar-group" data-month="'+m+'"><div class="bar-area"><div class="bar plan" style="height:'+ps[m]/max*100+'%"></div><div class="bar done" style="height:'+es[m]/max*100+'%"></div></div><b class="'+(m===activeMonth()?"active":"")+'">'+label+'</b><small>'+(ps[m]?moneyShort(ps[m]).replace("R$ ",""):"—")+'</small></div>'}).join("");
+      document.querySelectorAll(".bar-group").forEach(function(el){el.onclick=function(){month=Number(el.dataset.month);selectedWeeks=[];document.getElementById("monthFilter").value=String(month);buildWeekMenu();render()}})
+    }
+    function renderWeekly(){
+      var m=activeMonth(),rs=ranges(m),p=plannedValue(m),e=executedValue(m),total=rs.reduce(function(s,r){return s+workdays(r.start,r.end,m)},0),visible=selectedWeeks.length?rs.filter(function(r){return selectedWeeks.indexOf(r.week)>=0}):rs;
+      document.getElementById("weeklyTitle").textContent="Planejado × Executado semanal · "+fullMonths[m]+"/2026 · rateio por dias úteis";
+      var data=visible.map(function(r){var share=workdays(r.start,r.end,m)/Math.max(total,1);return{r:r,p:p*share,e:e*share}}),max=Math.max.apply(null,data.reduce(function(a,x){return a.concat([x.p,x.e])},[1]));
+      document.getElementById("weeklyChart").innerHTML=data.map(function(x){return '<div class="week"><div class="week-bars"><i class="wp" style="height:'+x.p/max*100+'%"></i><i class="we" style="height:'+x.e/max*100+'%"></i></div><strong>Semana '+x.r.week+' · '+x.r.start+'–'+x.r.end+'</strong><small>Plan. '+money.format(x.p)+'</small><small>Exec. '+money.format(x.e)+'</small></div>'}).join("")
+    }
+    function renderOperationalReading(){
+      var m=activeMonth(),rows=plannedItems(),urgent=rows.filter(function(i){return osStatus(i,m)==="Urgente"}).length,attention=rows.filter(function(i){return osStatus(i,m)==="Atenção"}).length;
+      document.getElementById("operationalReadingTitle").textContent=month<0?"Itens que ainda precisam ser executados nos meses de 2026":"Itens que ainda precisam ser executados no mês "+fullMonths[m]+"/2026";
+      document.getElementById("plannedItemsCount").textContent=rows.length;
+      document.getElementById("opsSummary").textContent=urgent?urgent+" itens exigem ação urgente nesta semana.":attention?attention+" itens precisam de atenção ao ritmo de execução.":"Nenhum desvio crítico identificado para o recorte.";
+      document.getElementById("opsList").innerHTML=rows.length?rows.map(function(item){var p=Number(item.plan[m]||0),e=executedQty(item,m),s=osStatus(item,m),expected=p*elapsedShare(m),text;
+        if(s==="Finalizada")text=num.format(e)+" de "+num.format(p)+" "+item.unit+" executadas.";
+        else if(m>currentMonth)text="Programada para "+fullMonths[m]+": "+num.format(p)+" "+item.unit+".";
+        else if(s==="Urgente")text="Executado "+num.format(e)+" de "+num.format(p)+" "+item.unit+"; pelo tempo transcorrido, o esperado é "+num.format(expected)+".";
+        else if(s==="Atenção")text="Ritmo abaixo do esperado: "+num.format(e)+" executado de "+num.format(p)+" "+item.unit+".";
+        else text="Execução compatível com o tempo transcorrido do mês.";
+        return '<div class="ops-item"><div><strong>'+esc(item.name)+'</strong><small>OS-01'+(activeContract===ALL_CONTRACTS?' · Contrato '+esc(itemContractCode(item)):'')+' · '+text+'</small></div><span class="status-pill '+statusClass(s)+'"><i></i>'+s+'</span></div>'
+      }).join(""):'<div class="rdo-empty">Nenhum item com quantidade planejada para este filtro.</div>'
+    }
+    function renderCritical(){
+      var m=activeMonth(),p=month<0?allPlanned():plannedValue(m),e=month<0?allExecuted():executedValue(m),ad=p?e/p*100:0;
+      var overItems=items.filter(function(i){return isFullyConsumed(i)}),over=overItems.length;
+      document.getElementById("criticalMap").innerHTML=
+        '<button type="button" class="critical-cell" data-critical="adherence"><span>Aderência<i class="signal '+(a
+
+===== render @ 1420083 =====
+div class="card-label">Valor planejado</div><strong>'+moneyShort(p)+'</strong><small>Quantidade planejada × preço unitário do recorte</small><div class="mini-status"><i></i>'+rows.length+' itens com quantidade</div></article>'+
+        '<article class="card green"><div class="card-label">Valor executado</div><strong>'+moneyShort(e)+'</strong><small>Fonte: Base BI Executado (2)</small><div class="mini-status '+(e?"":"warn")+'"><i></i>'+(e?"Dados carregados":"Sem execução no período")+'</div></article>'+
+        '<article class="card '+(rows.some(function(i){return osStatus(i,m)==="Urgente"})?"red":"amber")+'"><div class="card-label">Itens planejados do contrato</div><strong>'+rows.length+'</strong><small>Itens com quantidade planejada no mês operacional</small><div class="mini-status '+(rows.some(function(i){return osStatus(i,m)==="Urgente"})?"danger":"warn")+'"><i></i>'+rows.filter(function(i){return osStatus(i,m)==="Urgente"}).length+' urgentes</div></article>'+
+        '<article class="card '+(horizon<2?"red":horizon<3?"amber":"green")+'"><div class="card-label">Horizonte de frentes</div><strong>'+horizon+' de 3</strong><small>Meses com programação na janela móvel</small><div class="mini-status '+(horizon<2?"danger":horizon<3?"warn":"")+'"><i></i>'+(horizon===3?"Janela completa":"Revisar próximas frentes")+'</div></article>'
+    }
+    function renderMonthChart(){
+      var ps=months.map(function(_,m){return plannedValue(m)}),es=months.map(function(_,m){return executedValue(m)}),max=Math.max.apply(null,ps.concat(es).concat([1]));
+      document.getElementById("monthChart").innerHTML=months.map(function(label,m){return '<div class="bar-group" data-month="'+m+'"><div class="bar-area"><div class="bar plan" style="height:'+ps[m]/max*100+'%"></div><div class="bar done" style="height:'+es[m]/max*100+'%"></div></div><b class="'+(m===activeMonth()?"active":"")+'">'+label+'</b><small>'+(ps[m]?moneyShort(ps[m]).replace("R$ ",""):"—")+'</small></div>'}).join("");
+      document.querySelectorAll(".bar-group").forEach(function(el){el.onclick=function(){month=Number(el.dataset.month);selectedWeeks=[];document.getElementById("monthFilter").value=String(month);buildWeekMenu();render()}})
+    }
+    function renderWeekly(){
+      var m=activeMonth(),rs=ranges(m),p=plannedValue(m),e=executedValue(m),total=rs.reduce(function(s,r){return s+workdays(r.start,r.end,m)},0),visible=selectedWeeks.length?rs.filter(function(r){return selectedWeeks.indexOf(r.week)>=0}):rs;
+      document.getElementById("weeklyTitle").textContent="Planejado × Executado semanal · "+fullMonths[m]+"/2026 · rateio por dias úteis";
+      var data=visible.map(function(r){var share=workdays(r.start,r.end,m)/Math.max(total,1);return{r:r,p:p*share,e:e*share}}),max=Math.max.apply(null,data.reduce(function(a,x){return a.concat([x.p,x.e])},[1]));
+      document.getElementById("weeklyChart").innerHTML=data.map(function(x){return '<div class="week"><div class="week-bars"><i class="wp" style="height:'+x.p/max*100+'%"></i><i class="we" style="height:'+x.e/max*100+'%"></i></div><strong>Semana '+x.r.week+' · '+x.r.start+'–'+x.r.end+'</strong><small>Plan. '+money.format(x.p)+'</small><small>Exec. '+money.format(x.e)+'</small></div>'}).join("")
+    }
+    function renderOperationalReading(){
+      var m=activeMonth(),rows=plannedItems(),urgent=rows.filter(function(i){return osStatus(i,m)==="Urgente"}).length,attention=rows.filter(function(i){return osStatus(i,m)==="Atenção"}).length;
+      document.getElementById("operationalReadingTitle").textContent=month<0?"Itens que ainda precisam ser executados nos meses de 2026":"Itens que ainda precisam ser executados no mês "+fullMonths[m]+"/2026";
+      document.getElementById("plannedItemsCount").textContent=rows.length;
+      document.getElementById("opsSummary").textContent=urgent?urgent+" itens exigem ação urgente nesta semana.":attention?attention+" itens precisam de atenção ao ritmo de execução.":"Nenhum desvio crítico identificado para o recorte.";
+      document.getElementById("opsList").innerHTML=rows.length?rows.map(function(item){var p=Number(item.plan[m]||0),e=executedQty(item,m),s=osStatus(item,m),expected=p*elapsedShare(m),text;
+        if(s==="Finalizada")text=num.format(e)+" de "+num.format(p)+" "+item.unit+" executadas.";
+        else if(m>currentMonth)text="Programada para "+fullMonths[m]+": "+num.format(p)+" "+item.unit+".";
+        else if(s==="Urgente")text="Executado "+num.format(e)+" de "+num.format(p)+" "+item.unit+"; pelo tempo transcorrido, o esperado é "+num.format(expected)+".";
+        else if(s==="Atenção")text="Ritmo abaixo do esperado: "+num.format(e)+" executado de "+num.format(p)+" "+item.unit+".";
+        else text="Execução compatível com o tempo transcorrido do mês.";
+        return '<div class="ops-item"><div><strong>'+esc(item.name)+'</strong><small>OS-01'+(activeContract===ALL_CONTRACTS?' · Contrato '+esc(itemContractCode(item)):'')+' · '+text+'</small></div><span class="status-pill '+statusClass(s)+'"><i></i>'+s+'</span></div>'
+      }).join(""):'<div class="rdo-empty">Nenhum item com quantidade planejada para este filtro.</div>'
+    }
+    function renderCritical(){
+      var m=activeMonth(),p=month<0?allPlanned():plannedValue(m),e=month<0?allExecuted():executedValue(m),ad=p?e/p*100:0;
+      var overItems=items.filter(function(i){return isFullyConsumed(i)}),over=overItems.length;
+      document.getElementById("criticalMap").innerHTML=
+        '<button type="button" class="critical-cell" data-critical="adherence"><span>Aderência<i class="signal '+(ad>=100?"":ad>=90?"amber":"red")+'"></i></span><strong>'+num.format(ad)+'%</strong><small>Executado ÷ planejado do recorte</small></button>'+
+        '<button type="button" class="critical-cell" data-critical="consumed"><span>Itens já consumidos ≥ 100%<i class="signal '+(over?"red":"")+'"></i></span><strong>'+over+' itens</strong><small>Contrato completo · independente do mês selecionado</small></button>';
+      document.querySelectorAll("[data-critical]").forEach(function(button){button.onclick=function(){openCriticalDrawer(button.dataset.critical,{planned:p,executed:e,adherence:ad,overItems:overItems})}})
+    }
+    function newExecutedTotal(item){return item.exec.reduce(function(s,v){return s+Number(v||0)},0)}
+    function newExecutedValueTotal(item){return (item.execValue||z()).reduce(function(s,v){return s+Number(v||0
+
+===== render @ 1420114 =====
+anejado</div><strong>'+moneyShort(p)+'</strong><small>Quantidade planejada × preço unitário do recorte</small><div class="mini-status"><i></i>'+rows.length+' itens com quantidade</div></article>'+
+        '<article class="card green"><div class="card-label">Valor executado</div><strong>'+moneyShort(e)+'</strong><small>Fonte: Base BI Executado (2)</small><div class="mini-status '+(e?"":"warn")+'"><i></i>'+(e?"Dados carregados":"Sem execução no período")+'</div></article>'+
+        '<article class="card '+(rows.some(function(i){return osStatus(i,m)==="Urgente"})?"red":"amber")+'"><div class="card-label">Itens planejados do contrato</div><strong>'+rows.length+'</strong><small>Itens com quantidade planejada no mês operacional</small><div class="mini-status '+(rows.some(function(i){return osStatus(i,m)==="Urgente"})?"danger":"warn")+'"><i></i>'+rows.filter(function(i){return osStatus(i,m)==="Urgente"}).length+' urgentes</div></article>'+
+        '<article class="card '+(horizon<2?"red":horizon<3?"amber":"green")+'"><div class="card-label">Horizonte de frentes</div><strong>'+horizon+' de 3</strong><small>Meses com programação na janela móvel</small><div class="mini-status '+(horizon<2?"danger":horizon<3?"warn":"")+'"><i></i>'+(horizon===3?"Janela completa":"Revisar próximas frentes")+'</div></article>'
+    }
+    function renderMonthChart(){
+      var ps=months.map(function(_,m){return plannedValue(m)}),es=months.map(function(_,m){return executedValue(m)}),max=Math.max.apply(null,ps.concat(es).concat([1]));
+      document.getElementById("monthChart").innerHTML=months.map(function(label,m){return '<div class="bar-group" data-month="'+m+'"><div class="bar-area"><div class="bar plan" style="height:'+ps[m]/max*100+'%"></div><div class="bar done" style="height:'+es[m]/max*100+'%"></div></div><b class="'+(m===activeMonth()?"active":"")+'">'+label+'</b><small>'+(ps[m]?moneyShort(ps[m]).replace("R$ ",""):"—")+'</small></div>'}).join("");
+      document.querySelectorAll(".bar-group").forEach(function(el){el.onclick=function(){month=Number(el.dataset.month);selectedWeeks=[];document.getElementById("monthFilter").value=String(month);buildWeekMenu();render()}})
+    }
+    function renderWeekly(){
+      var m=activeMonth(),rs=ranges(m),p=plannedValue(m),e=executedValue(m),total=rs.reduce(function(s,r){return s+workdays(r.start,r.end,m)},0),visible=selectedWeeks.length?rs.filter(function(r){return selectedWeeks.indexOf(r.week)>=0}):rs;
+      document.getElementById("weeklyTitle").textContent="Planejado × Executado semanal · "+fullMonths[m]+"/2026 · rateio por dias úteis";
+      var data=visible.map(function(r){var share=workdays(r.start,r.end,m)/Math.max(total,1);return{r:r,p:p*share,e:e*share}}),max=Math.max.apply(null,data.reduce(function(a,x){return a.concat([x.p,x.e])},[1]));
+      document.getElementById("weeklyChart").innerHTML=data.map(function(x){return '<div class="week"><div class="week-bars"><i class="wp" style="height:'+x.p/max*100+'%"></i><i class="we" style="height:'+x.e/max*100+'%"></i></div><strong>Semana '+x.r.week+' · '+x.r.start+'–'+x.r.end+'</strong><small>Plan. '+money.format(x.p)+'</small><small>Exec. '+money.format(x.e)+'</small></div>'}).join("")
+    }
+    function renderOperationalReading(){
+      var m=activeMonth(),rows=plannedItems(),urgent=rows.filter(function(i){return osStatus(i,m)==="Urgente"}).length,attention=rows.filter(function(i){return osStatus(i,m)==="Atenção"}).length;
+      document.getElementById("operationalReadingTitle").textContent=month<0?"Itens que ainda precisam ser executados nos meses de 2026":"Itens que ainda precisam ser executados no mês "+fullMonths[m]+"/2026";
+      document.getElementById("plannedItemsCount").textContent=rows.length;
+      document.getElementById("opsSummary").textContent=urgent?urgent+" itens exigem ação urgente nesta semana.":attention?attention+" itens precisam de atenção ao ritmo de execução.":"Nenhum desvio crítico identificado para o recorte.";
+      document.getElementById("opsList").innerHTML=rows.length?rows.map(function(item){var p=Number(item.plan[m]||0),e=executedQty(item,m),s=osStatus(item,m),expected=p*elapsedShare(m),text;
+        if(s==="Finalizada")text=num.format(e)+" de "+num.format(p)+" "+item.unit+" executadas.";
+        else if(m>currentMonth)text="Programada para "+fullMonths[m]+": "+num.format(p)+" "+item.unit+".";
+        else if(s==="Urgente")text="Executado "+num.format(e)+" de "+num.format(p)+" "+item.unit+"; pelo tempo transcorrido, o esperado é "+num.format(expected)+".";
+        else if(s==="Atenção")text="Ritmo abaixo do esperado: "+num.format(e)+" executado de "+num.format(p)+" "+item.unit+".";
+        else text="Execução compatível com o tempo transcorrido do mês.";
+        return '<div class="ops-item"><div><strong>'+esc(item.name)+'</strong><small>OS-01'+(activeContract===ALL_CONTRACTS?' · Contrato '+esc(itemContractCode(item)):'')+' · '+text+'</small></div><span class="status-pill '+statusClass(s)+'"><i></i>'+s+'</span></div>'
+      }).join(""):'<div class="rdo-empty">Nenhum item com quantidade planejada para este filtro.</div>'
+    }
+    function renderCritical(){
+      var m=activeMonth(),p=month<0?allPlanned():plannedValue(m),e=month<0?allExecuted():executedValue(m),ad=p?e/p*100:0;
+      var overItems=items.filter(function(i){return isFullyConsumed(i)}),over=overItems.length;
+      document.getElementById("criticalMap").innerHTML=
+        '<button type="button" class="critical-cell" data-critical="adherence"><span>Aderência<i class="signal '+(ad>=100?"":ad>=90?"amber":"red")+'"></i></span><strong>'+num.format(ad)+'%</strong><small>Executado ÷ planejado do recorte</small></button>'+
+        '<button type="button" class="critical-cell" data-critical="consumed"><span>Itens já consumidos ≥ 100%<i class="signal '+(over?"red":"")+'"></i></span><strong>'+over+' itens</strong><small>Contrato completo · independente do mês selecionado</small></button>';
+      document.querySelectorAll("[data-critical]").forEach(function(button){button.onclick=function(){openCriticalDrawer(button.dataset.critical,{planned:p,executed:e,adherence:ad,overItems:overItems})}})
+    }
+    function newExecutedTotal(item){return item.exec.reduce(function(s,v){return s+Number(v||0)},0)}
+    function newExecutedValueTotal(item){return (item.execValue||z()).reduce(function(s,v){return s+Number(v||0)},0)}
+    function executedSin
+
+===== render @ 1421140 =====
+<div class="card-label">Horizonte de frentes</div><strong>'+horizon+' de 3</strong><small>Meses com programação na janela móvel</small><div class="mini-status '+(horizon<2?"danger":horizon<3?"warn":"")+'"><i></i>'+(horizon===3?"Janela completa":"Revisar próximas frentes")+'</div></article>'
+    }
+    function renderMonthChart(){
+      var ps=months.map(function(_,m){return plannedValue(m)}),es=months.map(function(_,m){return executedValue(m)}),max=Math.max.apply(null,ps.concat(es).concat([1]));
+      document.getElementById("monthChart").innerHTML=months.map(function(label,m){return '<div class="bar-group" data-month="'+m+'"><div class="bar-area"><div class="bar plan" style="height:'+ps[m]/max*100+'%"></div><div class="bar done" style="height:'+es[m]/max*100+'%"></div></div><b class="'+(m===activeMonth()?"active":"")+'">'+label+'</b><small>'+(ps[m]?moneyShort(ps[m]).replace("R$ ",""):"—")+'</small></div>'}).join("");
+      document.querySelectorAll(".bar-group").forEach(function(el){el.onclick=function(){month=Number(el.dataset.month);selectedWeeks=[];document.getElementById("monthFilter").value=String(month);buildWeekMenu();render()}})
+    }
+    function renderWeekly(){
+      var m=activeMonth(),rs=ranges(m),p=plannedValue(m),e=executedValue(m),total=rs.reduce(function(s,r){return s+workdays(r.start,r.end,m)},0),visible=selectedWeeks.length?rs.filter(function(r){return selectedWeeks.indexOf(r.week)>=0}):rs;
+      document.getElementById("weeklyTitle").textContent="Planejado × Executado semanal · "+fullMonths[m]+"/2026 · rateio por dias úteis";
+      var data=visible.map(function(r){var share=workdays(r.start,r.end,m)/Math.max(total,1);return{r:r,p:p*share,e:e*share}}),max=Math.max.apply(null,data.reduce(function(a,x){return a.concat([x.p,x.e])},[1]));
+      document.getElementById("weeklyChart").innerHTML=data.map(function(x){return '<div class="week"><div class="week-bars"><i class="wp" style="height:'+x.p/max*100+'%"></i><i class="we" style="height:'+x.e/max*100+'%"></i></div><strong>Semana '+x.r.week+' · '+x.r.start+'–'+x.r.end+'</strong><small>Plan. '+money.format(x.p)+'</small><small>Exec. '+money.format(x.e)+'</small></div>'}).join("")
+    }
+    function renderOperationalReading(){
+      var m=activeMonth(),rows=plannedItems(),urgent=rows.filter(function(i){return osStatus(i,m)==="Urgente"}).length,attention=rows.filter(function(i){return osStatus(i,m)==="Atenção"}).length;
+      document.getElementById("operationalReadingTitle").textContent=month<0?"Itens que ainda precisam ser executados nos meses de 2026":"Itens que ainda precisam ser executados no mês "+fullMonths[m]+"/2026";
+      document.getElementById("plannedItemsCount").textContent=rows.length;
+      document.getElementById("opsSummary").textContent=urgent?urgent+" itens exigem ação urgente nesta semana.":attention?attention+" itens precisam de atenção ao ritmo de execução.":"Nenhum desvio crítico identificado para o recorte.";
+      document.getElementById("opsList").innerHTML=rows.length?rows.map(function(item){var p=Number(item.plan[m]||0),e=executedQty(item,m),s=osStatus(item,m),expected=p*elapsedShare(m),text;
+        if(s==="Finalizada")text=num.format(e)+" de "+num.format(p)+" "+item.unit+" executadas.";
+        else if(m>currentMonth)text="Programada para "+fullMonths[m]+": "+num.format(p)+" "+item.unit+".";
+        else if(s==="Urgente")text="Executado "+num.format(e)+" de "+num.format(p)+" "+item.unit+"; pelo tempo transcorrido, o esperado é "+num.format(expected)+".";
+        else if(s==="Atenção")text="Ritmo abaixo do esperado: "+num.format(e)+" executado de "+num.format(p)+" "+item.unit+".";
+        else text="Execução compatível com o tempo transcorrido do mês.";
+        return '<div class="ops-item"><div><strong>'+esc(item.name)+'</strong><small>OS-01'+(activeContract===ALL_CONTRACTS?' · Contrato '+esc(itemContractCode(item)):'')+' · '+text+'</small></div><span class="status-pill '+statusClass(s)+'"><i></i>'+s+'</span></div>'
+      }).join(""):'<div class="rdo-empty">Nenhum item com quantidade planejada para este filtro.</div>'
+    }
+    function renderCritical(){
+      var m=activeMonth(),p=month<0?allPlanned():plannedValue(m),e=month<0?allExecuted():executedValue(m),ad=p?e/p*100:0;
+      var overItems=items.filter(function(i){return isFullyConsumed(i)}),over=overItems.length;
+      document.getElementById("criticalMap").innerHTML=
+        '<button type="button" class="critical-cell" data-critical="adherence"><span>Aderência<i class="signal '+(ad>=100?"":ad>=90?"amber":"red")+'"></i></span><strong>'+num.format(ad)+'%</strong><small>Executado ÷ planejado do recorte</small></button>'+
+        '<button type="button" class="critical-cell" data-critical="consumed"><span>Itens já consumidos ≥ 100%<i class="signal '+(over?"red":"")+'"></i></span><strong>'+over+' itens</strong><small>Contrato completo · independente do mês selecionado</small></button>';
+      document.querySelectorAll("[data-critical]").forEach(function(button){button.onclick=function(){openCriticalDrawer(button.dataset.critical,{planned:p,executed:e,adherence:ad,overItems:overItems})}})
+    }
+    function newExecutedTotal(item){return item.exec.reduce(function(s,v){return s+Number(v||0)},0)}
+    function newExecutedValueTotal(item){return (item.execValue||z()).reduce(function(s,v){return s+Number(v||0)},0)}
+    function executedSinceModelBase(item){return item.exec.slice(executionStartMonth).reduce(function(s,v){return s+Number(v||0)},0)}
+    function consumedQuantity(item){return Math.max(0,Number(item.base||0))+executedSinceModelBase(item)}
+    function remainingBalance(item){return Number(item.contractual||0)-consumedQuantity(item)}
+    function isFullyConsumed(item){return consumedQuantity(item)>0&&remainingBalance(item)<=0}
+    function contractExecuted(item){return newExecutedTotal(item)}
+    function contractExecutedValue(item){return newExecutedValueTotal(item)}
+    function openCriticalDrawer(key,data){
+      var title=document.getElementById("drawerTitle"),subtitle=document.getElementById("drawerSubtitle"),value=document.getElementById("drawerValue"),list=document.getElementById("drawerList"),note=document.getElementById("drawerNote"),itemBox=document.getElementById("drawerItems"),progress=document.getElementById("drawerProgress");
+      if(key==="adherence"){
+        title.textContent="Aderência ao Planejado";
+        subtitle
+
+===== render @ 1423044 =====
+rs"><i class="wp" style="height:'+x.p/max*100+'%"></i><i class="we" style="height:'+x.e/max*100+'%"></i></div><strong>Semana '+x.r.week+' · '+x.r.start+'–'+x.r.end+'</strong><small>Plan. '+money.format(x.p)+'</small><small>Exec. '+money.format(x.e)+'</small></div>'}).join("")
+    }
+    function renderOperationalReading(){
+      var m=activeMonth(),rows=plannedItems(),urgent=rows.filter(function(i){return osStatus(i,m)==="Urgente"}).length,attention=rows.filter(function(i){return osStatus(i,m)==="Atenção"}).length;
+      document.getElementById("operationalReadingTitle").textContent=month<0?"Itens que ainda precisam ser executados nos meses de 2026":"Itens que ainda precisam ser executados no mês "+fullMonths[m]+"/2026";
+      document.getElementById("plannedItemsCount").textContent=rows.length;
+      document.getElementById("opsSummary").textContent=urgent?urgent+" itens exigem ação urgente nesta semana.":attention?attention+" itens precisam de atenção ao ritmo de execução.":"Nenhum desvio crítico identificado para o recorte.";
+      document.getElementById("opsList").innerHTML=rows.length?rows.map(function(item){var p=Number(item.plan[m]||0),e=executedQty(item,m),s=osStatus(item,m),expected=p*elapsedShare(m),text;
+        if(s==="Finalizada")text=num.format(e)+" de "+num.format(p)+" "+item.unit+" executadas.";
+        else if(m>currentMonth)text="Programada para "+fullMonths[m]+": "+num.format(p)+" "+item.unit+".";
+        else if(s==="Urgente")text="Executado "+num.format(e)+" de "+num.format(p)+" "+item.unit+"; pelo tempo transcorrido, o esperado é "+num.format(expected)+".";
+        else if(s==="Atenção")text="Ritmo abaixo do esperado: "+num.format(e)+" executado de "+num.format(p)+" "+item.unit+".";
+        else text="Execução compatível com o tempo transcorrido do mês.";
+        return '<div class="ops-item"><div><strong>'+esc(item.name)+'</strong><small>OS-01'+(activeContract===ALL_CONTRACTS?' · Contrato '+esc(itemContractCode(item)):'')+' · '+text+'</small></div><span class="status-pill '+statusClass(s)+'"><i></i>'+s+'</span></div>'
+      }).join(""):'<div class="rdo-empty">Nenhum item com quantidade planejada para este filtro.</div>'
+    }
+    function renderCritical(){
+      var m=activeMonth(),p=month<0?allPlanned():plannedValue(m),e=month<0?allExecuted():executedValue(m),ad=p?e/p*100:0;
+      var overItems=items.filter(function(i){return isFullyConsumed(i)}),over=overItems.length;
+      document.getElementById("criticalMap").innerHTML=
+        '<button type="button" class="critical-cell" data-critical="adherence"><span>Aderência<i class="signal '+(ad>=100?"":ad>=90?"amber":"red")+'"></i></span><strong>'+num.format(ad)+'%</strong><small>Executado ÷ planejado do recorte</small></button>'+
+        '<button type="button" class="critical-cell" data-critical="consumed"><span>Itens já consumidos ≥ 100%<i class="signal '+(over?"red":"")+'"></i></span><strong>'+over+' itens</strong><small>Contrato completo · independente do mês selecionado</small></button>';
+      document.querySelectorAll("[data-critical]").forEach(function(button){button.onclick=function(){openCriticalDrawer(button.dataset.critical,{planned:p,executed:e,adherence:ad,overItems:overItems})}})
+    }
+    function newExecutedTotal(item){return item.exec.reduce(function(s,v){return s+Number(v||0)},0)}
+    function newExecutedValueTotal(item){return (item.execValue||z()).reduce(function(s,v){return s+Number(v||0)},0)}
+    function executedSinceModelBase(item){return item.exec.slice(executionStartMonth).reduce(function(s,v){return s+Number(v||0)},0)}
+    function consumedQuantity(item){return Math.max(0,Number(item.base||0))+executedSinceModelBase(item)}
+    function remainingBalance(item){return Number(item.contractual||0)-consumedQuantity(item)}
+    function isFullyConsumed(item){return consumedQuantity(item)>0&&remainingBalance(item)<=0}
+    function contractExecuted(item){return newExecutedTotal(item)}
+    function contractExecutedValue(item){return newExecutedValueTotal(item)}
+    function openCriticalDrawer(key,data){
+      var title=document.getElementById("drawerTitle"),subtitle=document.getElementById("drawerSubtitle"),value=document.getElementById("drawerValue"),list=document.getElementById("drawerList"),note=document.getElementById("drawerNote"),itemBox=document.getElementById("drawerItems"),progress=document.getElementById("drawerProgress");
+      if(key==="adherence"){
+        title.textContent="Aderência ao Planejado";
+        subtitle.textContent="Comparação entre o executado e o planejado no recorte atualmente selecionado.";
+        value.textContent=num.format(data.adherence)+"%";
+        progress.hidden=false;
+        var progressValue=Math.max(0,Math.min(data.adherence,100)),progressTrack=progress.querySelector(".drawer-progress-track");
+        progress.querySelector(".drawer-progress-fill").style.width=progressValue+"%";
+        progress.querySelector(".drawer-progress-head b").textContent=num.format(data.adherence)+"% de 100%";
+        progressTrack.setAttribute("aria-valuenow",String(progressValue));
+        list.innerHTML="<div><dt>Período analisado</dt><dd>"+esc(periodLabel())+"</dd></div><div><dt>Valor planejado</dt><dd>"+money.format(data.planned)+"</dd></div><div><dt>Valor executado</dt><dd>"+money.format(data.executed)+"</dd></div><div><dt>Diferença</dt><dd>"+money.format(data.executed-data.planned)+"</dd></div>";
+        note.textContent="Cálculo: valor executado dividido pelo valor planejado do período selecionado.";
+        itemBox.innerHTML=""
+      }else{
+        title.textContent="Itens já consumidos ≥ 100%";
+        subtitle.textContent="Leitura acumulada do contrato completo, sem alteração quando outro mês é selecionado.";
+        value.textContent=data.overItems.length+" itens";
+        progress.hidden=true;
+        list.innerHTML="<div><dt>Itens do contrato</dt><dd>"+items.length+"</dd></div><div><dt>Critério</dt><dd>Saldo zerado ou negativo (consumo ≥ 100%)</dd></div><div><dt>Referência</dt><dd>Contrato '+esc(contractCode())+' completo</dd></div>";
+        note.textContent="Cada item consumido é valorizado por quantidade consumida acumulada × valor unitário.";
+        itemBox.innerHTML=data.overItems.length?data.overItems.map(function(item){var total=contractExecuted(item),value=contractExecutedValue(item);return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><sm
+
+===== render @ 1429081 =====
+e())+' completo</dd></div>";
+        note.textContent="Cada item consumido é valorizado por quantidade consumida acumulada × valor unitário.";
+        itemBox.innerHTML=data.overItems.length?data.overItems.map(function(item){var total=contractExecuted(item),value=contractExecutedValue(item);return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(item))+' · ':'')+'Quantidade consumida: '+num.format(total)+' '+esc(item.unit)+' · Executado financeiro: '+money.format(value)+'</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item atingiu 100% do consumo contratual.</div>'
+      }
+      document.getElementById("drawerBackdrop").classList.add("open")
+    }
+    function openNoBalanceItems(rows,m){
+      var title=document.getElementById("drawerTitle"),subtitle=document.getElementById("drawerSubtitle"),value=document.getElementById("drawerValue"),list=document.getElementById("drawerList"),note=document.getElementById("drawerNote"),itemBox=document.getElementById("drawerItems"),progress=document.getElementById("drawerProgress");
+      title.textContent="Itens sem saldo disponível";
+      subtitle.textContent="Itens cujo saldo atualizado está zerado ou negativo na janela de três meses.";
+      value.textContent=rows.length+" itens";
+      progress.hidden=true;
+      list.innerHTML="<div><dt>Contrato</dt><dd>"+esc(contractCode())+"</dd></div><div><dt>Período analisado</dt><dd>"+esc(periodLabel())+"</dd></div><div><dt>Critério</dt><dd>Saldo atualizado ≤ 0</dd></div>";
+      note.textContent="O saldo atualizado considera o acumulado histórico e o planejamento da janela ativa.";
+      itemBox.innerHTML=rows.length?rows.map(function(item){var balance=balanceUpdated(item,m);return '<div class="drawer-item"><strong>'+esc(item.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(item))+' · ':'')+'Saldo atualizado: '+num.format(balance)+' '+esc(item.unit)+'</small></div>'}).join(""):'<div class="rdo-empty">Nenhum item está sem saldo disponível nesta janela.</div>';
+      document.getElementById("drawerBackdrop").classList.add("open")
+    }
+    function renderContractProgress(){
+      var m=activeMonth(),windowMonths=[m,m+1,m+2].filter(function(x){return x<12});
+      var positive=items.filter(function(i){return i.contractual>0});
+      var contract=positive.reduce(function(s,i){return s+i.contractual*i.price},0);
+      var executed=items.reduce(function(s,i){return s+contractExecutedValue(i)},0);
+      var future=windowMonths.reduce(function(s,x){return s+items.reduce(function(a,i){return a+Math.max(0,Number(i.plan[x]||0))*i.price},0)},0);
+      var freeValue=Math.max(0,contract-executed-future);
+      var ep=contract?executed/contract*100:0,fp=contract?future/contract*100:0,free=contract?freeValue/contract*100:0;
+      var epBar=Math.min(Math.max(ep,0),100),fpBar=Math.min(Math.max(fp,0),Math.max(0,100-epBar)),freeBar=Math.max(0,100-epBar-fpBar);
+      var noBalance=positive.filter(function(i){return balanceUpdated(i,m)<=0});
+      var monthText=windowMonths.length?fullMonths[windowMonths[0]]+"/2026 a "+fullMonths[windowMonths[windowMonths.length-1]]+"/2026":"Sem período";
+      var monthTags=windowMonths.map(function(x){return '<span>'+months[x]+'/2026</span>'}).join("");
+      document.getElementById("contractProgress").innerHTML=
+        '<div class="contract-progress-layout">'+
+          '<div class="contract-kpis">'+
+            '<div class="contract-kpi executed"><div class="contract-kpi-icon">✓</div><div class="contract-kpi-copy"><span>Executado</span><strong>'+num.format(ep)+'%</strong><small>'+moneyShort(executed)+'<br>Qtd. executada × (preço MO + preço material)</small></div></div>'+
+            '<div class="contract-kpi future"><div class="contract-kpi-icon">▣</div><div class="contract-kpi-copy"><span>Planejado futuro</span><strong>'+num.format(fp)+'%</strong><small>Planejado para '+monthText+'<br>'+moneyShort(future)+' em itens programados</small></div></div>'+
+            '<div class="contract-kpi free"><div class="contract-kpi-icon">◔</div><div class="contract-kpi-copy"><span>Saldo livre</span><strong>'+num.format(free)+'%</strong><small>'+moneyShort(freeValue)+'<br>Parcela financeira ainda disponível para planejar</small></div></div>'+
+          '</div>'+
+          '<div class="contract-track" aria-label="Distribuição do avanço contratual">'+
+            '<span class="executed" style="width:'+epBar+'%" data-short="'+num.format(ep)+'%">'+num.format(ep)+'%</span>'+
+            '<span class="future" style="width:'+fpBar+'%" data-short="'+num.format(fp)+'%">'+num.format(fp)+'%</span>'+
+            '<span class="free" style="width:'+freeBar+'%" data-short="'+num.format(free)+'%">'+num.format(free)+'%</span>'+
+          '</div>'+
+          '<div class="contract-summaries">'+
+            '<div class="contract-summary future"><div class="contract-summary-head"><span class="contract-summary-icon">▣</span><h4>Período planejado</h4></div><p>Itens programados para execução.</p><div class="contract-month-tags">'+monthTags+'</div></div>'+
+            '<div class="contract-summary attention"><div class="contract-summary-head"><span class="contract-summary-icon">!</span><h4>Atenção</h4></div><p><strong>'+noBalance.length+' itens sem saldo disponível</strong></p><button class="contract-items-btn" id="contractItemsButton" type="button">Ver itens</button></div>'+
+          '</div>'+
+        '</div>';
+      document.getElementById("contractItemsButton").onclick=function(){openNoBalanceItems(noBalance,m)}
+    }
+    function renderActions(){
+      var el=document.getElementById("actionsGrid");
+      el.innerHTML='<div class="head">Desvio identificado</div><div class="head">Plano de ação</div><div class="head">Responsável</div><div class="head">Prazo</div><div class="head">Status</div>'+
+        (causeActions.length?causeActions.map(function(a){return '<div>'+esc(a.cause)+'</div><div>'+esc(a.action)+'</div><div>'+esc(a.owner)+'</div><div>'+esc(a.due)+'</div><div>'+esc(a.status)+'</div>'}).join(""):'<div class="actions-empty">Aguardando os campos “Causa” e “Plano de Ação” na planilha-base.</div>')
+    }
+    function renderPlanning(){
+      var start=activeMonth(),rows=filtered(true).filter(function(i){return i.contractual!==0||i.base!==0||i.plan.some(function(v){return v>0})||i.e
+
+===== render @ 1432514 =====
+-progress-layout">'+
+          '<div class="contract-kpis">'+
+            '<div class="contract-kpi executed"><div class="contract-kpi-icon">✓</div><div class="contract-kpi-copy"><span>Executado</span><strong>'+num.format(ep)+'%</strong><small>'+moneyShort(executed)+'<br>Qtd. executada × (preço MO + preço material)</small></div></div>'+
+            '<div class="contract-kpi future"><div class="contract-kpi-icon">▣</div><div class="contract-kpi-copy"><span>Planejado futuro</span><strong>'+num.format(fp)+'%</strong><small>Planejado para '+monthText+'<br>'+moneyShort(future)+' em itens programados</small></div></div>'+
+            '<div class="contract-kpi free"><div class="contract-kpi-icon">◔</div><div class="contract-kpi-copy"><span>Saldo livre</span><strong>'+num.format(free)+'%</strong><small>'+moneyShort(freeValue)+'<br>Parcela financeira ainda disponível para planejar</small></div></div>'+
+          '</div>'+
+          '<div class="contract-track" aria-label="Distribuição do avanço contratual">'+
+            '<span class="executed" style="width:'+epBar+'%" data-short="'+num.format(ep)+'%">'+num.format(ep)+'%</span>'+
+            '<span class="future" style="width:'+fpBar+'%" data-short="'+num.format(fp)+'%">'+num.format(fp)+'%</span>'+
+            '<span class="free" style="width:'+freeBar+'%" data-short="'+num.format(free)+'%">'+num.format(free)+'%</span>'+
+          '</div>'+
+          '<div class="contract-summaries">'+
+            '<div class="contract-summary future"><div class="contract-summary-head"><span class="contract-summary-icon">▣</span><h4>Período planejado</h4></div><p>Itens programados para execução.</p><div class="contract-month-tags">'+monthTags+'</div></div>'+
+            '<div class="contract-summary attention"><div class="contract-summary-head"><span class="contract-summary-icon">!</span><h4>Atenção</h4></div><p><strong>'+noBalance.length+' itens sem saldo disponível</strong></p><button class="contract-items-btn" id="contractItemsButton" type="button">Ver itens</button></div>'+
+          '</div>'+
+        '</div>';
+      document.getElementById("contractItemsButton").onclick=function(){openNoBalanceItems(noBalance,m)}
+    }
+    function renderActions(){
+      var el=document.getElementById("actionsGrid");
+      el.innerHTML='<div class="head">Desvio identificado</div><div class="head">Plano de ação</div><div class="head">Responsável</div><div class="head">Prazo</div><div class="head">Status</div>'+
+        (causeActions.length?causeActions.map(function(a){return '<div>'+esc(a.cause)+'</div><div>'+esc(a.action)+'</div><div>'+esc(a.owner)+'</div><div>'+esc(a.due)+'</div><div>'+esc(a.status)+'</div>'}).join(""):'<div class="actions-empty">Aguardando os campos “Causa” e “Plano de Ação” na planilha-base.</div>')
+    }
+    function renderPlanning(){
+      var start=activeMonth(),rows=filtered(true).filter(function(i){return i.contractual!==0||i.base!==0||i.plan.some(function(v){return v>0})||i.exec.some(function(v){return Number(v||0)>0})});
+      document.getElementById("planningHead").innerHTML='<tr><th class="item-col">Item do contrato</th>'+months.map(function(label,m){var activeWindow=m>=start&&m<Math.min(start+3,12);return '<th class="month-col '+(activeWindow?"window-active":"window-muted")+'">'+label+'/2026</th>'}).join("")+'<th class="balance-col">Saldo Atualizado</th></tr>';
+      document.getElementById("planningRows").innerHTML=rows.map(function(item){
+        var bal=balanceUpdated(item,start),usage=item.contractual>0?(item.contractual-bal)/item.contractual*100:null,windowEnd=Math.min(start+3,12),hasPlanned=item.plan.slice(start,windowEnd).some(function(v){return Number(v||0)>0});
+        return '<tr class="'+(hasPlanned?"has-planned":"")+'"><td class="item-col"><strong>'+esc(item.name)+'</strong><small>OS-01'+(activeContract===ALL_CONTRACTS?' · Contrato '+esc(itemContractCode(item)):'')+' · '+esc(item.unit)+'</small></td>'+
+          months.map(function(_,m){var p=Number(item.plan[m]||0),e=executedQty(item,m),closed=isClosed(m),activeWindow=m>=start&&m<Math.min(start+3,12);return '<td class="month-col '+(activeWindow?"window-active":"window-muted")+'"><div class="month-boxes '+(closed?"closed":"")+'">'+
+            (closed?'':'<div class="month-box plan '+(p>0&&activeWindow?"has-value":"")+'"><span>Planejado</span><b>'+num.format(p)+' '+esc(item.unit)+'</b><small>'+money.format(p*item.price)+'</small></div>')+
+            '<div class="month-box exec"><span>Executado</span><b>'+num.format(e)+' '+esc(item.unit)+'</b><small>'+money.format(executedItemValue(item,m))+'</small></div></div></td>'}).join("")+
+          '<td class="balance-col"><strong class="'+(bal<0?"neg":"")+'">'+num.format(bal)+' '+esc(item.unit)+'</strong><small>Saldo anterior − consumo da janela de 3 meses</small>'+
+          (usage===null?'<small>Base contratual não positiva</small>':'<div class="consumption"><b>'+num.format(usage)+'%</b><span class="track '+(usage>=100?"over":"")+'"><i style="width:'+Math.max(0,Math.min(usage,100))+'%"></i></span></div>')+'</td></tr>'
+      }).join("");
+      var viewport=document.getElementById("planningViewport"),itemWidth=innerWidth<=480?220:290,balanceWidth=220,minimumMonthWidth=innerWidth<=480?180:210,monthWidth=Math.max(minimumMonthWidth,Math.floor((viewport.clientWidth-itemWidth-balanceWidth)/3));
+      viewport.style.setProperty("--planning-month-width",monthWidth+"px");
+      requestAnimationFrame(function(){viewport.scrollLeft=Math.max(0,start*monthWidth)})
+    }
+    function renderOS(){
+      var m=activeMonth(),rows;
+      if(month<0)rows=filtered(true).filter(function(i){return i.plan.some(function(v){return Number(v||0)>0})||i.exec.some(function(v){return Number(v||0)>0})});
+      else rows=filtered(true).filter(function(i){return Number(i.plan[m]||0)>0||executedQty(i,m)>0});
+      document.getElementById("osTitle").textContent=month<0?"Ordens de Serviço planejadas em 2026":"O que deve ser executado em "+fullMonths[m]+"/2026";
+      document.getElementById("osRows").innerHTML=rows.length?rows.map(function(i){var p=month<0?i.plan.reduce(function(s,v){return s+Number(v||0)},0):Number(i.plan[m]||0),e=month<0?i.exec.reduce(function(s,v){return s+Number(v||0)},0):executedQty(i,m),s=osStatus(i,m);return '<tr><td><span class="os-code">OS-01</span></td><td><strong>'+esc(i.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+es
+
+===== render @ 1433115 =====
+</small></div></div>'+
+            '<div class="contract-kpi free"><div class="contract-kpi-icon">◔</div><div class="contract-kpi-copy"><span>Saldo livre</span><strong>'+num.format(free)+'%</strong><small>'+moneyShort(freeValue)+'<br>Parcela financeira ainda disponível para planejar</small></div></div>'+
+          '</div>'+
+          '<div class="contract-track" aria-label="Distribuição do avanço contratual">'+
+            '<span class="executed" style="width:'+epBar+'%" data-short="'+num.format(ep)+'%">'+num.format(ep)+'%</span>'+
+            '<span class="future" style="width:'+fpBar+'%" data-short="'+num.format(fp)+'%">'+num.format(fp)+'%</span>'+
+            '<span class="free" style="width:'+freeBar+'%" data-short="'+num.format(free)+'%">'+num.format(free)+'%</span>'+
+          '</div>'+
+          '<div class="contract-summaries">'+
+            '<div class="contract-summary future"><div class="contract-summary-head"><span class="contract-summary-icon">▣</span><h4>Período planejado</h4></div><p>Itens programados para execução.</p><div class="contract-month-tags">'+monthTags+'</div></div>'+
+            '<div class="contract-summary attention"><div class="contract-summary-head"><span class="contract-summary-icon">!</span><h4>Atenção</h4></div><p><strong>'+noBalance.length+' itens sem saldo disponível</strong></p><button class="contract-items-btn" id="contractItemsButton" type="button">Ver itens</button></div>'+
+          '</div>'+
+        '</div>';
+      document.getElementById("contractItemsButton").onclick=function(){openNoBalanceItems(noBalance,m)}
+    }
+    function renderActions(){
+      var el=document.getElementById("actionsGrid");
+      el.innerHTML='<div class="head">Desvio identificado</div><div class="head">Plano de ação</div><div class="head">Responsável</div><div class="head">Prazo</div><div class="head">Status</div>'+
+        (causeActions.length?causeActions.map(function(a){return '<div>'+esc(a.cause)+'</div><div>'+esc(a.action)+'</div><div>'+esc(a.owner)+'</div><div>'+esc(a.due)+'</div><div>'+esc(a.status)+'</div>'}).join(""):'<div class="actions-empty">Aguardando os campos “Causa” e “Plano de Ação” na planilha-base.</div>')
+    }
+    function renderPlanning(){
+      var start=activeMonth(),rows=filtered(true).filter(function(i){return i.contractual!==0||i.base!==0||i.plan.some(function(v){return v>0})||i.exec.some(function(v){return Number(v||0)>0})});
+      document.getElementById("planningHead").innerHTML='<tr><th class="item-col">Item do contrato</th>'+months.map(function(label,m){var activeWindow=m>=start&&m<Math.min(start+3,12);return '<th class="month-col '+(activeWindow?"window-active":"window-muted")+'">'+label+'/2026</th>'}).join("")+'<th class="balance-col">Saldo Atualizado</th></tr>';
+      document.getElementById("planningRows").innerHTML=rows.map(function(item){
+        var bal=balanceUpdated(item,start),usage=item.contractual>0?(item.contractual-bal)/item.contractual*100:null,windowEnd=Math.min(start+3,12),hasPlanned=item.plan.slice(start,windowEnd).some(function(v){return Number(v||0)>0});
+        return '<tr class="'+(hasPlanned?"has-planned":"")+'"><td class="item-col"><strong>'+esc(item.name)+'</strong><small>OS-01'+(activeContract===ALL_CONTRACTS?' · Contrato '+esc(itemContractCode(item)):'')+' · '+esc(item.unit)+'</small></td>'+
+          months.map(function(_,m){var p=Number(item.plan[m]||0),e=executedQty(item,m),closed=isClosed(m),activeWindow=m>=start&&m<Math.min(start+3,12);return '<td class="month-col '+(activeWindow?"window-active":"window-muted")+'"><div class="month-boxes '+(closed?"closed":"")+'">'+
+            (closed?'':'<div class="month-box plan '+(p>0&&activeWindow?"has-value":"")+'"><span>Planejado</span><b>'+num.format(p)+' '+esc(item.unit)+'</b><small>'+money.format(p*item.price)+'</small></div>')+
+            '<div class="month-box exec"><span>Executado</span><b>'+num.format(e)+' '+esc(item.unit)+'</b><small>'+money.format(executedItemValue(item,m))+'</small></div></div></td>'}).join("")+
+          '<td class="balance-col"><strong class="'+(bal<0?"neg":"")+'">'+num.format(bal)+' '+esc(item.unit)+'</strong><small>Saldo anterior − consumo da janela de 3 meses</small>'+
+          (usage===null?'<small>Base contratual não positiva</small>':'<div class="consumption"><b>'+num.format(usage)+'%</b><span class="track '+(usage>=100?"over":"")+'"><i style="width:'+Math.max(0,Math.min(usage,100))+'%"></i></span></div>')+'</td></tr>'
+      }).join("");
+      var viewport=document.getElementById("planningViewport"),itemWidth=innerWidth<=480?220:290,balanceWidth=220,minimumMonthWidth=innerWidth<=480?180:210,monthWidth=Math.max(minimumMonthWidth,Math.floor((viewport.clientWidth-itemWidth-balanceWidth)/3));
+      viewport.style.setProperty("--planning-month-width",monthWidth+"px");
+      requestAnimationFrame(function(){viewport.scrollLeft=Math.max(0,start*monthWidth)})
+    }
+    function renderOS(){
+      var m=activeMonth(),rows;
+      if(month<0)rows=filtered(true).filter(function(i){return i.plan.some(function(v){return Number(v||0)>0})||i.exec.some(function(v){return Number(v||0)>0})});
+      else rows=filtered(true).filter(function(i){return Number(i.plan[m]||0)>0||executedQty(i,m)>0});
+      document.getElementById("osTitle").textContent=month<0?"Ordens de Serviço planejadas em 2026":"O que deve ser executado em "+fullMonths[m]+"/2026";
+      document.getElementById("osRows").innerHTML=rows.length?rows.map(function(i){var p=month<0?i.plan.reduce(function(s,v){return s+Number(v||0)},0):Number(i.plan[m]||0),e=month<0?i.exec.reduce(function(s,v){return s+Number(v||0)},0):executedQty(i,m),s=osStatus(i,m);return '<tr><td><span class="os-code">OS-01</span></td><td><strong>'+esc(i.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(i))+' · '+esc(itemContractName(i)):esc(contractName()))+'</small></td><td><strong>'+num.format(p)+'</strong> '+esc(i.unit)+'</td><td><strong>'+num.format(e)+'</strong> '+esc(i.unit)+'</td><td><span class="status-pill '+statusClass(s)+'"><i></i>'+s+'</span></td><td>'+esc(i.orders[m]||orderText)+'</td></tr>'}).join(""):'<tr><td colspan="6" style="text-align:center;color:#687986;padding:24px">Nenhuma Ordem de Serviço prevista neste recorte.</td></tr>'
+    }
+    function printOS(){
+      var title=esc(document.getElementById("osTitle").textContent),table=document.getElementById("
+
+===== chart @ 46752 =====
+n;align-items:flex-end;gap:20px;margin:0 0 11px}.section-title>div{display:flex;align-items:center;gap:10px}.section-number{width:28px;height:28px;border-radius:7px;background:var(--petrol);color:#fff;display:grid;place-items:center;font-size:8px;font-weight:900}.section-title h2{font-size:19px;margin:2px 0;color:var(--petrol)}.section-title p{margin:0;color:var(--muted);font-size:9px}.period-view{background:#e4f2f7;color:var(--petrol-2);padding:7px 10px;border-radius:20px;font-size:9px;font-weight:900}
+    .kicker{font-size:9px;letter-spacing:.14em;font-weight:900;color:#1689b3;text-transform:uppercase}
+    .panel{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 4px 15px #163b5408;margin-bottom:11px}.panel-inner{padding:18px}.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:14px}.panel-head h3{margin:3px 0 0;color:var(--petrol);font-size:15px}.hint,.legend{color:var(--muted);font-size:8px;font-weight:700}.legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin:0 4px 0 10px}.legend .p{background:#bfd6e3}.legend .e{background:var(--green)}
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:11px}.card{position:relative;min-height:130px;background:#fff;border:1px solid var(--line);border-radius:11px;padding:15px 16px;box-shadow:0 4px 14px #133b5708;overflow:hidden}.card:before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--cyan)}.card.green:before{background:var(--green)}.card.amber:before{background:var(--amber)}.card.red:before{background:var(--red)}.card-label{color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:900}.card strong{display:block;margin:15px 0 5px;color:var(--petrol);font-size:24px;letter-spacing:-.04em}.card small{display:block;color:var(--muted);font-size:8px;line-height:1.45}.mini-status{display:flex;align-items:center;gap:6px;margin-top:11px;font-size:8px;font-weight:900;color:#50616f}.mini-status i{width:7px;height:7px;border-radius:50%;background:var(--green)}.mini-status.warn i{background:var(--amber)}.mini-status.danger i{background:var(--red)}
+    .chart-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:11px}.chart{height:220px;display:flex;align-items:stretch;gap:8px;border-bottom:1px solid var(--line);padding:4px 4px 0;overflow-x:auto}.bar-group{flex:1;min-width:42px;text-align:center;cursor:pointer}.bar-area{height:170px;display:flex;align-items:flex-end;justify-content:center;gap:3px}.bar{width:13px;border-radius:3px 3px 0 0}.bar.plan{background:#bfd6e3}.bar.done{background:var(--green)}.bar-group b{display:block;font-size:9px;padding-top:7px}.bar-group b.active{color:#1689b3}.bar-group small{font-size:7px;color:#8d99a3}
+    .weekly-grid{height:220px;display:flex;gap:16px;align-items:stretch;padding:4px 10px 0;border-bottom:1px solid var(--line);overflow-x:auto}.week{flex:1;text-align:center;display:flex;flex-direction:column;min-width:115px}.week-bars{height:142px;display:flex;align-items:flex-end;justify-content:center;gap:7px}.week-bars i{width:24px;border-radius:4px 4px 0 0}.week-bars .wp{background:#bfd6e3}.week-bars .we{background:var(--green)}.week strong{font-size:8px;margin-top:7px}.week small{font-size:7px;color:var(--muted);margin-top:3px}
+    .ops-reading{display:grid;grid-template-columns:250px 1fr;gap:14px}.ops-total{display:flex;flex-direction:column;justify-content:center;border-radius:10px;background:linear-gradient(145deg,var(--petrol),var(--petrol-2));color:#fff;padding:20px}.ops-total span{font-size:9px;text-transform:uppercase;letter-spacing:.09em;color:#b9d5e2;font-weight:900}.ops-total strong{font-size:38px;margin:10px 0 5px}.ops-total small{color:#d2e4ec;line-height:1.5}.ops-list{display:grid;gap:7px}.ops-item{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:9px;padding:10px 12px}.ops-item strong{display:block;color:var(--petrol);font-size:10px}.ops-item small{display:block;color:var(--muted);font-size:8px;margin-top:4px;line-height:1.45}
+    .status-pill{display:inline-flex;align-items:center;gap:6px;border-radius:14px;background:var(--green-soft);color:#197052;padding:5px 8px;font-size:8px;font-weight:900;white-space:nowrap}.status-pill.warn{background:var(--amber-soft);color:#8a5b0b}.status-pill.danger{background:var(--red-soft);color:#a72f2f}.status-pill.info{background:var(--cyan-soft);color:#176b86}.status-pill i{width:6px;height:6px;border-radius:50%;background:currentColor}
+    .executive-lower{display:grid;grid-template-columns:.8fr 1.2fr;gap:11px}.critical-map{display:grid;grid-template-columns:1fr 1fr;gap:9px}.critical-cell{border:1px solid var(--line);background:#fbfcfd;border-radius:9px;padding:13px;text-align:left;min-height:100px}.critical-cell span{display:flex;justify-content:space-between;color:var(--muted);font-size:8px;text-transform:uppercase;font-weight:900}.signal{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px #1e8a6816}.signal.amber{background:var(--amber)}.signal.red{background:var(--red)}.critical-cell strong{display:block;margin:14px 0 4px;font-size:20px;color:var(--petrol)}.critical-cell small{color:var(--muted);font-size:8px}
+    .contract-progress-layout{display:grid;gap:14px}
+    .contract-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .contract-kpi{position:relative;display:grid;grid-template-columns:43px 1fr;gap:11px;align-items:center;min-height:108px;border:1px solid var(--line);border-left:4px solid #cbd5dc;border-radius:11px;background:#fff;padding:13px;overflow:hidden}
+    .contract-kpi.executed{border-left-color:var(--green);background:linear-gradient(135deg,#fff,#f2fbf7)}
+    .contract-kpi.future{border-left-color:#1486b3;background:linear-gradient(135deg,#fff,#f1f9fd)}
+    .contract-kpi.free{background:linear-gradient(135deg,#fff,#f5f7f9)}
+    .contract-kpi-icon{display:grid;place-items:center;width:43px;height:43px;border-radius:50%;background:#e9eef2;color:#596976;font-size:22px;font-weight:900}
+    .contract-kpi.executed .contract-kpi-icon{background:#e2f4ed;color:var(--green)}
+    .contract-kpi.future .contract-kpi-icon{background:#e3f2f8;color:#0f7da8}
+    .contract-kpi-copy span{display:block;color:var(--muted);font-size:8px;font-weight:900;text-transform:u
+
+===== chart @ 46819 =====
+display:flex;align-items:center;gap:10px}.section-number{width:28px;height:28px;border-radius:7px;background:var(--petrol);color:#fff;display:grid;place-items:center;font-size:8px;font-weight:900}.section-title h2{font-size:19px;margin:2px 0;color:var(--petrol)}.section-title p{margin:0;color:var(--muted);font-size:9px}.period-view{background:#e4f2f7;color:var(--petrol-2);padding:7px 10px;border-radius:20px;font-size:9px;font-weight:900}
+    .kicker{font-size:9px;letter-spacing:.14em;font-weight:900;color:#1689b3;text-transform:uppercase}
+    .panel{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 4px 15px #163b5408;margin-bottom:11px}.panel-inner{padding:18px}.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:14px}.panel-head h3{margin:3px 0 0;color:var(--petrol);font-size:15px}.hint,.legend{color:var(--muted);font-size:8px;font-weight:700}.legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin:0 4px 0 10px}.legend .p{background:#bfd6e3}.legend .e{background:var(--green)}
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:11px}.card{position:relative;min-height:130px;background:#fff;border:1px solid var(--line);border-radius:11px;padding:15px 16px;box-shadow:0 4px 14px #133b5708;overflow:hidden}.card:before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--cyan)}.card.green:before{background:var(--green)}.card.amber:before{background:var(--amber)}.card.red:before{background:var(--red)}.card-label{color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.06em;font-weight:900}.card strong{display:block;margin:15px 0 5px;color:var(--petrol);font-size:24px;letter-spacing:-.04em}.card small{display:block;color:var(--muted);font-size:8px;line-height:1.45}.mini-status{display:flex;align-items:center;gap:6px;margin-top:11px;font-size:8px;font-weight:900;color:#50616f}.mini-status i{width:7px;height:7px;border-radius:50%;background:var(--green)}.mini-status.warn i{background:var(--amber)}.mini-status.danger i{background:var(--red)}
+    .chart-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:11px}.chart{height:220px;display:flex;align-items:stretch;gap:8px;border-bottom:1px solid var(--line);padding:4px 4px 0;overflow-x:auto}.bar-group{flex:1;min-width:42px;text-align:center;cursor:pointer}.bar-area{height:170px;display:flex;align-items:flex-end;justify-content:center;gap:3px}.bar{width:13px;border-radius:3px 3px 0 0}.bar.plan{background:#bfd6e3}.bar.done{background:var(--green)}.bar-group b{display:block;font-size:9px;padding-top:7px}.bar-group b.active{color:#1689b3}.bar-group small{font-size:7px;color:#8d99a3}
+    .weekly-grid{height:220px;display:flex;gap:16px;align-items:stretch;padding:4px 10px 0;border-bottom:1px solid var(--line);overflow-x:auto}.week{flex:1;text-align:center;display:flex;flex-direction:column;min-width:115px}.week-bars{height:142px;display:flex;align-items:flex-end;justify-content:center;gap:7px}.week-bars i{width:24px;border-radius:4px 4px 0 0}.week-bars .wp{background:#bfd6e3}.week-bars .we{background:var(--green)}.week strong{font-size:8px;margin-top:7px}.week small{font-size:7px;color:var(--muted);margin-top:3px}
+    .ops-reading{display:grid;grid-template-columns:250px 1fr;gap:14px}.ops-total{display:flex;flex-direction:column;justify-content:center;border-radius:10px;background:linear-gradient(145deg,var(--petrol),var(--petrol-2));color:#fff;padding:20px}.ops-total span{font-size:9px;text-transform:uppercase;letter-spacing:.09em;color:#b9d5e2;font-weight:900}.ops-total strong{font-size:38px;margin:10px 0 5px}.ops-total small{color:#d2e4ec;line-height:1.5}.ops-list{display:grid;gap:7px}.ops-item{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:9px;padding:10px 12px}.ops-item strong{display:block;color:var(--petrol);font-size:10px}.ops-item small{display:block;color:var(--muted);font-size:8px;margin-top:4px;line-height:1.45}
+    .status-pill{display:inline-flex;align-items:center;gap:6px;border-radius:14px;background:var(--green-soft);color:#197052;padding:5px 8px;font-size:8px;font-weight:900;white-space:nowrap}.status-pill.warn{background:var(--amber-soft);color:#8a5b0b}.status-pill.danger{background:var(--red-soft);color:#a72f2f}.status-pill.info{background:var(--cyan-soft);color:#176b86}.status-pill i{width:6px;height:6px;border-radius:50%;background:currentColor}
+    .executive-lower{display:grid;grid-template-columns:.8fr 1.2fr;gap:11px}.critical-map{display:grid;grid-template-columns:1fr 1fr;gap:9px}.critical-cell{border:1px solid var(--line);background:#fbfcfd;border-radius:9px;padding:13px;text-align:left;min-height:100px}.critical-cell span{display:flex;justify-content:space-between;color:var(--muted);font-size:8px;text-transform:uppercase;font-weight:900}.signal{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px #1e8a6816}.signal.amber{background:var(--amber)}.signal.red{background:var(--red)}.critical-cell strong{display:block;margin:14px 0 4px;font-size:20px;color:var(--petrol)}.critical-cell small{color:var(--muted);font-size:8px}
+    .contract-progress-layout{display:grid;gap:14px}
+    .contract-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .contract-kpi{position:relative;display:grid;grid-template-columns:43px 1fr;gap:11px;align-items:center;min-height:108px;border:1px solid var(--line);border-left:4px solid #cbd5dc;border-radius:11px;background:#fff;padding:13px;overflow:hidden}
+    .contract-kpi.executed{border-left-color:var(--green);background:linear-gradient(135deg,#fff,#f2fbf7)}
+    .contract-kpi.future{border-left-color:#1486b3;background:linear-gradient(135deg,#fff,#f1f9fd)}
+    .contract-kpi.free{background:linear-gradient(135deg,#fff,#f5f7f9)}
+    .contract-kpi-icon{display:grid;place-items:center;width:43px;height:43px;border-radius:50%;background:#e9eef2;color:#596976;font-size:22px;font-weight:900}
+    .contract-kpi.executed .contract-kpi-icon{background:#e2f4ed;color:var(--green)}
+    .contract-kpi.future .contract-kpi-icon{background:#e3f2f8;color:#0f7da8}
+    .contract-kpi-copy span{display:block;color:var(--muted);font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
+    .contract-kpi-copy strong{displa
+
+===== chart @ 61200 =====
+child(2){width:9%}.rdo-table th:nth-child(3){width:22%}.rdo-table th:nth-child(4){width:37%}.rdo-table th:nth-child(5){width:12%}.rdo-table th:nth-child(6){width:12%}.rdo-table td{vertical-align:top;line-height:1.4}
+    .drawer-backdrop{display:none;position:fixed;inset:0;background:#06192580;z-index:70}.drawer-backdrop.open{display:block}.drawer{position:absolute;right:0;top:0;height:100%;width:min(470px,94vw);background:#fff;box-shadow:-12px 0 35px #081d2d3d;padding:25px;overflow:auto}.drawer-close{position:absolute;right:18px;top:17px;border:0;background:#eef2f4;border-radius:50%;width:32px;height:32px;font-size:18px}.drawer h3{margin:18px 40px 5px 0;color:var(--petrol);font-size:22px}.drawer p{color:var(--muted);font-size:10px;line-height:1.55}.drawer-value{font-size:34px;font-weight:900;color:var(--petrol);margin:23px 0}.drawer-progress{margin:-10px 0 24px}.drawer-progress[hidden]{display:none}.drawer-progress-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;color:var(--muted);font-size:9px}.drawer-progress-head b{color:var(--petrol)}.drawer-progress-track{height:10px;overflow:hidden;border-radius:999px;background:#e1e9ed}.drawer-progress-fill{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width .35s ease}.drawer-list{margin:0}.drawer-list>div{display:flex;justify-content:space-between;gap:18px;border-bottom:1px solid var(--line);padding:11px 0}.drawer-list dt{color:var(--muted);font-size:9px}.drawer-list dd{margin:0;text-align:right;font-size:9px;font-weight:900}.drawer-note{margin-top:18px;padding:12px;background:#f2f7f9;border-left:3px solid var(--cyan);font-size:9px;line-height:1.55;color:#50616e}.drawer-items{display:grid;gap:8px;margin-top:16px}.drawer-item{border:1px solid var(--line);border-radius:8px;padding:10px}.drawer-item strong{display:block;color:var(--petrol);font-size:10px}.drawer-item small{display:block;color:var(--muted);font-size:8px;margin-top:5px}
+    .footer{display:flex;justify-content:space-between;gap:20px;color:#83909b;font-size:8px;padding:14px 3px}
+    @media(max-width:1050px){.cards{grid-template-columns:1fr 1fr}.chart-grid,.executive-lower{grid-template-columns:1fr}.filters{grid-template-columns:repeat(3,1fr)}.ops-reading{grid-template-columns:1fr}.cover-inner{grid-template-columns:1.35fr .9fr}.cover-source{display:none}.cover-copy h1{white-space:normal}}
+    @media(max-width:720px){.cover{width:calc(100% - 28px);margin-top:14px}.cover-inner{display:block}.cover-brand{padding:14px}.cover-brand img{width:78px;height:60px}.cover-road{display:none}.cover-copy h1{font-size:22px}.cover-copy p{font-size:9px}main{padding-left:14px;padding-right:14px}.source-chip{display:none}.filters{grid-template-columns:1fr 1fr}.advanced{grid-template-columns:1fr}.section-title{align-items:flex-start}.period-view{display:none}.critical-map{grid-template-columns:1fr}.rdo-card{grid-template-columns:1fr}.filter-foot,.footer{display:block}.filter-foot span,.footer span{display:block;margin-top:5px}}
+    @media(max-width:480px){.cards,.filters{grid-template-columns:1fr}.planning-table .item-col{min-width:220px;max-width:220px}.planning-table .month-col{width:180px;min-width:180px}}
+    @media print{.filter-shell,.section-nav,.secondary-btn,.source-chip{display:none!important}.cover{min-height:100px;width:100%;margin:0}.cover-inner{min-height:100px}.cover-road{min-height:100px}main{max-width:none;padding:10px}.panel,.card{box-shadow:none;break-inside:avoid}.planning-viewport{overflow:visible}.planning-table{width:100%;font-size:7px}.planning-table .item-col,.planning-table .balance-col{position:static;min-width:auto}.planning-table .month-col{min-width:auto;width:auto}.section-block{break-before:auto}}
+  </style>
+</head>
+<body>
+  <section class="cover">
+    <div class="cover-inner">
+      <div class="cover-brand">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAdUAAAHHCAYAAADpp8JnAAAQAElEQVR4Aey9TXrbSJY1fANyvtOmV9DyCloe1mOlLK2gqdxASVb2uGhXz2XPu23VuCxbtYGUegWSlfJTQ7tXYH0rsL7p6xTivSdAUCAAkggS/zx4EMRf/Nw4NxAn4kYgGAg3IkAEiAARIAJEoBQESKqlwMhIiAARIAJEgAiIkFSrKAWMkwgQASJABNYSAZLqWqqdmSYCRIAIEIEqECCpVoEq46wCAcZJBIgAEWg9AiTV1quIAhIBIkAEiEBXECCpdkVTlJMIVIEA4yQCRKBUBEiqpcLJyIgAESACRGCdESCprrP2mffaEfj18vdduKPr6+Gvn35/Hbuj65vLKffp5tvRpxvr4b5PhUd8Vzcf4/hfXN+MkC7cweU/N2vP+HolyNyuMQIk1TVWPrNePgL/cfl5C8QVkdnNO0d0n26+xORoA3MJJzY4t2KOYydWdqeciC/xDabCIz4jB3H8xso7pAu3EdzHhP3NyTcm3xfXnw8gu3AjAkRgaQRIqktDx4DrjAB6eyAgkOfR1edzJU1HnGFgv4C4IjKTkSM6kS1p57bp5BuTr7H2I2TXvKCH7Hq+yB/IFo2FdmaBUq0NAh3JKEm1I4qimM0hcHB5OZgQKMyqn26+o7cHAgJ5irFDla6txKmiLbW7nq/V3jTIFo0FR7aa/18/3bwD0aJhsVTMDEQEeowASbXHymXWlkMAZAHSOFKzqBLJl43gp+8TAoVZVWQg67pp/q3ICESLhoXi8/1Ie+ovdMyWvVnhRgSkY6RKjRGB8hFATzSaOHTzTkniG8gCpCFqFtXU+tYD1SyVug/QU8eY7bg3OybZzwdonJSaEiMjAh1AgKTaASVRxPIRQIX/QntXR2rO3NCeqLiJQzISEd8JQsJtCoFBRLL2Ixon2kj5AnMxe7FTGPGixwiQVHus3KJZWxd/qNhRwWtFP+6NyjtRc+a65L+hfG7BXPzQi735CKtAQ7IwWSJQOQIk1cohZgJNIpAkUlTsqOBVHvZGFYQGdu3FygGsAtqwUTMxCVa49Q4BkmrvVMoMwbSLT0G04v7WHJFSDwsQSBLsN1gQ0ABaEIaPiUDrESCptl5FFLAoAi+uPx8cuTHS+29WzLGGY49UQejAvmlFRmgAaUPoC/SIyWMdkJsiEoEMAiTVDCS80SUE0Cs9ij59+e5m7HKMtEvqy5N1C3rcCH76Br2me695AXiPCLQJAZJqm7RBWQojgN7M0bhXOv70ZVA4MD12AYEB9JrsvXZBaMpIBEiqLAOdQQAmwXisFL0ZztztjOpWFdT1XtU0rGOvv79GOVg1QoZPIsDzMhEgqZaJJuOqBAGYeDGRZUNNgpZjpZVg3JFIdezVHKMcwDSMctERuSnmGiFAUl0jZXctq6g0UXliEQErgoUZBsKNCGCZSCMHKBdHOp6OckJQiEBbEIhJtS3yUA4iIKgkUVmi0sS4GiEhAjMRILnOhIYPmkGApNoM7kw1BwGSaQ4ovFUMAZJrMZzoq3IESKpVQsy4CyFAMi0EEz0VQWBMrpjQxglNRQCjn7IRIKmWjSjjK4wAKj1Ufmrm/UIzb2HY6LEAAlaiCU0vrm8wFl8gBL0QgXIQIKmWgyNj8UTgxfXnA8ziROWnQX0mIKl37kSgEAIDY8X9nd+vl7/vFgpBT0RgRQRIqisCyOB+CKByO/p088V9Z4pZnH7B6ZsILIPApg3M5dH1zSWGGpaJgGGIQFEESKpFkaK/lRCAqRczelG5aUT8428FoVX7OghjZVeHGtwCEuuQXeaxGQRIqs3gvlapvtBxrY3gp28cN10rtbc2sxhyUGvJt19pEm6tjrosGEm1y9pruexYDP1ITW4Y11JROW6qIHBvDQLOJIyVumBFqUgqRruGCJBU11DpdWQZs3qxGLpY4QQR4dZWBKzIaEOtKEfX18O2yki5uoUASbVb+mq9tK53+unmixVz3HphKSARiBAYiA3Oj9ySh5e0qESYtPe35ZKRVFuuoC6JN+mdinAiknDrHAJu4YifvnCstXOaa5XAJNVWqaObwuAzhSP2TrupPEqdRmA81vr76/QDXhOBIgh0lFSLZI1+6kDghVvE4f6LpsXeqYLAvR8IYPgCDUU0GPuRI+aiLgRIqnUh3bN0MGMSY1BcxKFnimV2kghsbQT3XziJKQkJzxchQFJdhNAaPS+aVUxG2gh+uuR3p0URo78OI+AmMeHTmw7ngaLXiABJtUaw+5AUzL1hYC81LzT3Kgjc1wMBKzKKzMGXnB28HipfOpck1aWhW7+ANPcuo3OG6RECag7+6RssNT3KE7NSMgIk1ZIB7WN0bvz0080Xmnv7qF3myROBgVpqvsBi4xmO3tcEAZLqmih62WyiVa7jp180PM29CgL3diDQtBSYoMdx1qa10M70Sart1Esr
+
+===== chart @ 102464 =====
+   <h1>Planejado x Executado</h1>
+          <p>Programação, desempenho operacional e posição contratual</p>
+        </div>
+      </div>
+      <div class="cover-road" role="img" aria-label="Rodovia sinalizada"></div>
+      <div class="cover-source">
+        <b>Fonte: Modelo Cronograma + Base BI Executado (2)</b>
+        <span>Atualização: 28/07/2026 14:12</span>
+        <span id="coverPeriod">Julho / 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="filter-shell">
+      <div class="filters">
+        <label class="field"><span>Contrato</span><select id="contractFilter"></select></label>
+        <label class="field"><span>Mês</span><select id="monthFilter"></select></label>
+        <div class="field"><span>Semanas</span><button class="multi-button" id="weekButton" type="button">Todas as semanas</button><div class="week-menu" id="weekMenu"></div></div>
+        <label class="field"><span>Ordem de serviço</span><select id="osFilter"><option value="Todas">Todas</option><option value="OS-01">OS-01</option></select></label>
+        <button class="advanced-btn" id="advancedButton" type="button">☷ Filtros avançados</button>
+      </div>
+      <div class="advanced" id="advancedFilters">
+        <label class="field"><span>Status da OS</span><select id="statusFilter"><option value="" selected hidden>Todos os status</option><option>No prazo</option><option>Urgente</option><option>Atenção</option><option>Finalizada</option></select></label>
+        <button class="clear-btn" id="clearFilters" type="button">Limpar filtros</button>
+      </div>
+      <div class="filter-foot"><span>Semanas: 1–7 · 8–14 · 15–21 · 22–28 · 29 ao fim do mês</span><span>Planejamento: base atual · Executado/RDO: <b>Base BI Executado (2) atualizada</b></span></div>
+    </section>
+
+    <section class="section-block" id="executivo">
+      <div class="section-title"><div><span class="section-number">01</span><div><div class="kicker">Visão executiva</div><h2>Planejado, executado e alertas operacionais</h2><p>Leitura consolidada do recorte selecionado</p></div></div><span class="period-view" id="periodView"></span></div>
+      <div class="cards" id="cards"></div>
+
+      <div class="chart-grid">
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Evolução mensal</div><h3>Planejado × Executado mensal</h3></div><div class="legend"><i class="p"></i>Planejado <i class="e"></i>Executado</div></div><div class="chart" id="monthChart"></div></div></article>
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Acompanhamento semanal</div><h3 id="weeklyTitle"></h3></div><div class="legend"><i class="p"></i>Planejado <i class="e"></i>Executado</div></div><div class="weekly-grid" id="weeklyChart"></div></div></article>
+      </div>
+
+      
+
+      <div class="executive-lower">
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Mapa de criticidade</div><h3>Alertas acionáveis do contrato</h3></div></div><div class="critical-map" id="criticalMap"></div></div></article>
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Avanço contratual</div><h3>Executado, planejado futuro e saldo livre</h3></div><span class="hint">Base financeira dos itens com quantidade contratual positiva</span></div><div id="contractProgress"></div></div></article>
+      </div>
+
+      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Gestão do desvio</div><h3>Causas e Planos de Ação</h3></div><span class="hint">Conteúdo previsto para leitura da planilha-base</span></div><div class="actions-grid" id="actionsGrid"></div></div></article>
+    </section>
+
+    <section class="section-block" id="planejamento">
+      <div class="section-title"><div><span class="section-number">02</span><div><div class="kicker">Planejamento e posição contratual</div><h2>Janela móvel de três meses</h2><p>Role horizontalmente para consultar passado e futuro; três meses ficam visíveis por vez</p></div></div><span class="period-view">Planejado + Executado + Saldo Atualizado</span></div>
+      <article class="panel"><div class="planning-viewport" id="planningViewport"><table class="planning-table"><thead id="planningHead"></thead><tbody id="planningRows"></tbody></table></div></article>
+    </section>
+
+    <section class="section-block" id="operacao">
+      <div class="section-title"><div><span class="section-number">03</span><div><div class="kicker">Visão operacional</div><h2>Ordens de Serviço do período</h2><p>Itens, quantidades e orientação escrita para Operações</p></div></div><span class="period-view" id="operationPeriod"></span></div>
+      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Ordens de Serviço</div><h3 id="osTitle"></h3></div><div class="panel-actions"><span class="hint">OS numeradas automaticamente</span><button class="secondary-btn" type="button" onclick="printOS()">↓ Download PDF</button></div></div><div class="table-wrap"><table class="data-table" id="osTable"><thead><tr><th>Nº da OS</th><th>Item do serviço</th><th>Quantidade planejada</th><th>Quantidade executada</th><th>Status da OS</th><th>Ordem de Serviço escrita</th></tr></thead><tbody id="osRows"></tbody></table></div></div></article>
+    
+
+      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Leitura operacional</div><h3 id="operationalReadingTitle">Itens que ainda precisam ser executados no mês Julho/2026</h3></div><span class="hint">A criticidade aumenta conforme o mês avança sem execução suficiente</span></div><div class="ops-reading"><div class="ops-total"><span>Itens planejados do contrato</span><strong id="plannedItemsCount">0</strong><small id="opsSummary"></small></div><div class="ops-list" id="opsList"></div></div></div></article>
+    </section>
+
+    <section class="section-block" id="rdo">
+      <div class="section-title"><div><span class="section-number">04</span><div><div class="kicker">Registro operacional</div><h2>RDO do período selecionado</h2><p>Quantitativos e valores executados provenientes da Base BI Executado (2)</p></div></div></div>
+      <article class="panel"><div class="panel-inner"><div class="rdo-card"><div class="rdo-we
+
+===== chart @ 102743 =====
+grama + Base BI Executado (2)</b>
+        <span>Atualização: 28/07/2026 14:12</span>
+        <span id="coverPeriod">Julho / 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="filter-shell">
+      <div class="filters">
+        <label class="field"><span>Contrato</span><select id="contractFilter"></select></label>
+        <label class="field"><span>Mês</span><select id="monthFilter"></select></label>
+        <div class="field"><span>Semanas</span><button class="multi-button" id="weekButton" type="button">Todas as semanas</button><div class="week-menu" id="weekMenu"></div></div>
+        <label class="field"><span>Ordem de serviço</span><select id="osFilter"><option value="Todas">Todas</option><option value="OS-01">OS-01</option></select></label>
+        <button class="advanced-btn" id="advancedButton" type="button">☷ Filtros avançados</button>
+      </div>
+      <div class="advanced" id="advancedFilters">
+        <label class="field"><span>Status da OS</span><select id="statusFilter"><option value="" selected hidden>Todos os status</option><option>No prazo</option><option>Urgente</option><option>Atenção</option><option>Finalizada</option></select></label>
+        <button class="clear-btn" id="clearFilters" type="button">Limpar filtros</button>
+      </div>
+      <div class="filter-foot"><span>Semanas: 1–7 · 8–14 · 15–21 · 22–28 · 29 ao fim do mês</span><span>Planejamento: base atual · Executado/RDO: <b>Base BI Executado (2) atualizada</b></span></div>
+    </section>
+
+    <section class="section-block" id="executivo">
+      <div class="section-title"><div><span class="section-number">01</span><div><div class="kicker">Visão executiva</div><h2>Planejado, executado e alertas operacionais</h2><p>Leitura consolidada do recorte selecionado</p></div></div><span class="period-view" id="periodView"></span></div>
+      <div class="cards" id="cards"></div>
+
+      <div class="chart-grid">
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Evolução mensal</div><h3>Planejado × Executado mensal</h3></div><div class="legend"><i class="p"></i>Planejado <i class="e"></i>Executado</div></div><div class="chart" id="monthChart"></div></div></article>
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Acompanhamento semanal</div><h3 id="weeklyTitle"></h3></div><div class="legend"><i class="p"></i>Planejado <i class="e"></i>Executado</div></div><div class="weekly-grid" id="weeklyChart"></div></div></article>
+      </div>
+
+      
+
+      <div class="executive-lower">
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Mapa de criticidade</div><h3>Alertas acionáveis do contrato</h3></div></div><div class="critical-map" id="criticalMap"></div></div></article>
+        <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Avanço contratual</div><h3>Executado, planejado futuro e saldo livre</h3></div><span class="hint">Base financeira dos itens com quantidade contratual positiva</span></div><div id="contractProgress"></div></div></article>
+      </div>
+
+      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Gestão do desvio</div><h3>Causas e Planos de Ação</h3></div><span class="hint">Conteúdo previsto para leitura da planilha-base</span></div><div class="actions-grid" id="actionsGrid"></div></div></article>
+    </section>
+
+    <section class="section-block" id="planejamento">
+      <div class="section-title"><div><span class="section-number">02</span><div><div class="kicker">Planejamento e posição contratual</div><h2>Janela móvel de três meses</h2><p>Role horizontalmente para consultar passado e futuro; três meses ficam visíveis por vez</p></div></div><span class="period-view">Planejado + Executado + Saldo Atualizado</span></div>
+      <article class="panel"><div class="planning-viewport" id="planningViewport"><table class="planning-table"><thead id="planningHead"></thead><tbody id="planningRows"></tbody></table></div></article>
+    </section>
+
+    <section class="section-block" id="operacao">
+      <div class="section-title"><div><span class="section-number">03</span><div><div class="kicker">Visão operacional</div><h2>Ordens de Serviço do período</h2><p>Itens, quantidades e orientação escrita para Operações</p></div></div><span class="period-view" id="operationPeriod"></span></div>
+      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Ordens de Serviço</div><h3 id="osTitle"></h3></div><div class="panel-actions"><span class="hint">OS numeradas automaticamente</span><button class="secondary-btn" type="button" onclick="printOS()">↓ Download PDF</button></div></div><div class="table-wrap"><table class="data-table" id="osTable"><thead><tr><th>Nº da OS</th><th>Item do serviço</th><th>Quantidade planejada</th><th>Quantidade executada</th><th>Status da OS</th><th>Ordem de Serviço escrita</th></tr></thead><tbody id="osRows"></tbody></table></div></div></article>
+    
+
+      <article class="panel"><div class="panel-inner"><div class="panel-head"><div><div class="kicker">Leitura operacional</div><h3 id="operationalReadingTitle">Itens que ainda precisam ser executados no mês Julho/2026</h3></div><span class="hint">A criticidade aumenta conforme o mês avança sem execução suficiente</span></div><div class="ops-reading"><div class="ops-total"><span>Itens planejados do contrato</span><strong id="plannedItemsCount">0</strong><small id="opsSummary"></small></div><div class="ops-list" id="opsList"></div></div></div></article>
+    </section>
+
+    <section class="section-block" id="rdo">
+      <div class="section-title"><div><span class="section-number">04</span><div><div class="kicker">Registro operacional</div><h2>RDO do período selecionado</h2><p>Quantitativos e valores executados provenientes da Base BI Executado (2)</p></div></div></div>
+      <article class="panel"><div class="panel-inner"><div class="rdo-card"><div class="rdo-week"><span>Período e registros</span><strong id="rdoWeek"></strong></div><div class="rdo-content" id="rdoContent"></div></div></div></article>
+    </section>
+
+    <footer class="footer"><span>Planejamento: Modelo Cronograma Base de Dados · Planilha1</span><span>Executado e RDO: E
