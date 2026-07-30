@@ -1,4 +1,4 @@
-name: Diagnosticar carga Planejamento 73c078d
+name: Validar carga Planejamento 73c078d
 
 on:
   push:
@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  diagnose:
+  validate-data:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout da branch de correção
@@ -28,18 +28,18 @@ jobs:
         shell: bash
         run: git fetch origin main
 
-      - name: Diagnosticar formato sem alterar o HTML
+      - name: Decodificar e validar sem alterar o HTML
         shell: bash
         run: |
           set -euo pipefail
-          python tools/diagnose_direct_overrides.py
+          DECODE_ONLY=1 PYTHONPATH=tools python tools/run_fix_planejamento_73.py
 
-      - name: Gravar diagnóstico na branch
+      - name: Gravar auditoria da decodificação
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add 'Planejamento-Colaborativo/direct-overrides-shape.json'
-          git commit -m '[diagnostic73] Registra formato real da carga compactada' || exit 0
+          git add 'Planejamento-Colaborativo/direct-overrides-decoded-audit.json'
+          git commit -m '[decode73] Valida 650 registros e totais mensais' || exit 0
           git push origin HEAD:planejamento-colaborativo-fix-73c078d
