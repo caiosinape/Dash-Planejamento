@@ -1,1 +1,1 @@
-Executar correção estrutural, incorporar a carga validada do Modelo Cronograma v2 e validar o HTML original sem alterar o visual.
+Executar a correção determinística do HTML original 73c078d usando tools/fix_planejamento_73.py, incorporar a carga validada do Modelo Cronograma v2, preservar integralmente o visual e interromper a publicação se qualquer teste falhar.
