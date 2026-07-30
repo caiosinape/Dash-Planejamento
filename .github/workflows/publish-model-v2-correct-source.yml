@@ -1,0 +1,88 @@
+name: Publicar valores da base correta v2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/model-v2-correct-source-trigger.txt'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-model-v2-correct-source
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Instalar leitor das planilhas
+        run: python -m pip install --quiet openpyxl
+
+      - name: Baixar as bases corretas
+        shell: bash
+        env:
+          MODEL_URL: 'https://sdmntprbrazilsouth.oaiusercontent.com/files/00000000-f744-820e-9334-ed9e996f3755/raw?se=2026-07-30T01:36:31Z&sp=r&sv=2026-02-06&sr=b&scid=d2709d25-80e2-549e-8839-89f123b697ee&skoid=a6356955-0ca0-4033-9150-c0c162458498&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-07-29T23:22:42Z&ske=2026-07-31T23:22:42Z&sks=b&skv=2026-02-06&sig=gIwlOUIpFrIhbYPnhpIFUgjk2Wyhxc6AiCgOUHZ5qEM%3D'
+          ESTUDO_URL: 'https://sdmntprbrazilsouth.oaiusercontent.com/files/00000000-7180-820e-a4bf-f9fd4613ec9d/raw?se=2026-07-30T01:29:45Z&sp=r&sv=2026-02-06&sr=b&scid=8fdbb42b-f295-59b9-8df2-7dad372e97f0&skoid=33096a49-a96b-4506-9fc4-04a7517f8175&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-07-29T23:34:22Z&ske=2026-07-31T23:34:22Z&sks=b&skv=2026-02-06&sig=BEoQ2b02j7iVB013iw0lsVWUl/CR3GL6wZ4Ecq0U9Ak%3D'
+        run: |
+          python - <<'PY'
+          import os
+          import urllib.request
+          import zipfile
+          from pathlib import Path
+
+          files = {
+              'MODEL_URL': Path('/tmp/model-v2.xlsx'),
+              'ESTUDO_URL': Path('/tmp/estudo-geral.xlsx'),
+          }
+          for env_name, target in files.items():
+              urllib.request.urlretrieve(os.environ[env_name], target)
+              if not target.exists() or target.stat().st_size < 10000:
+                  raise RuntimeError('Arquivo não baixado corretamente: ' + env_name)
+              if not zipfile.is_zipfile(target):
+                  raise RuntimeError('Arquivo XLSX inválido: ' + env_name)
+              print(env_name, target.stat().st_size)
+          PY
+
+      - name: Gerar somente os arquivos de dados
+        run: |
+          python .github/scripts/build_model_v2.py \
+            --model /tmp/model-v2.xlsx \
+            --estudo /tmp/estudo-geral.xlsx \
+            --output Planejamento-Colaborativo/data
+
+      - name: Validar dados e preservar o HTML
+        shell: bash
+        run: |
+          test -s Planejamento-Colaborativo/index.html
+          grep -q 'id="accessForm"' Planejamento-Colaborativo/index.html
+          grep -q 'sinape-access-failsafe' Planejamento-Colaborativo/index.html
+          for i in 0 1 2 3 4; do test -s "Planejamento-Colaborativo/data/model-v2.part$i"; done
+          test -s Planejamento-Colaborativo/data/model-v2-audit.json
+          grep -q '"source": "Modelo Cronograma Base de Dados  v2.xlsx"' Planejamento-Colaborativo/data/model-v2-audit.json
+          grep -q '"contracts": 15' Planejamento-Colaborativo/data/model-v2-audit.json
+          grep -q '"items": 650' Planejamento-Colaborativo/data/model-v2-audit.json
+          grep -q '"rdoRecords": 18' Planejamento-Colaborativo/data/model-v2-audit.json
+          git diff --exit-code -- Planejamento-Colaborativo/index.html
+
+      - name: Publicar apenas a base atualizada
+        shell: bash
+        run: |
+          git config user.name 'SINAPE Data Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add Planejamento-Colaborativo/data/model-v2.part0 \
+                  Planejamento-Colaborativo/data/model-v2.part1 \
+                  Planejamento-Colaborativo/data/model-v2.part2 \
+                  Planejamento-Colaborativo/data/model-v2.part3 \
+                  Planejamento-Colaborativo/data/model-v2.part4 \
+                  Planejamento-Colaborativo/data/model-v2-audit.json
+          if git diff --cached --quiet; then
+            echo 'A base publicada já está atualizada.'
+            exit 0
+          fi
+          git commit -m 'Atualiza planejado executado preço e saldo pela base v2 correta'
+          git push
