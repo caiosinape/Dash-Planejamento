@@ -20,6 +20,17 @@ EXPECTED_TOTALS = [
 ]
 
 
+def _pad_months(values, fill_value, field, contract, name):
+    if not isinstance(values, list):
+        raise RuntimeError(f"Campo {field} inválido em {contract}, item {name}: esperado lista")
+    if len(values) > 12:
+        raise RuntimeError(
+            f"Campo {field} inválido em {contract}, item {name}: "
+            f"recebidos {len(values)} meses; máximo 12"
+        )
+    return list(values) + [fill_value] * (12 - len(values))
+
+
 def _decode_compact_matrix(payload):
     """Decodifica o formato oficial {c: contratos, m: metadados}."""
     if not isinstance(payload, dict):
@@ -51,19 +62,13 @@ def _decode_compact_matrix(payload):
                 executed_value,
                 orders,
             ) = compact
-            arrays = {
-                "plan": plan,
-                "planValue": plan_value,
-                "exec": executed,
-                "execValue": executed_value,
-                "orders": orders,
-            }
-            for field, values in arrays.items():
-                if not isinstance(values, list) or len(values) != 12:
-                    raise RuntimeError(
-                        f"Campo {field} inválido em {contract}, item {name}: "
-                        "esperados 12 meses"
-                    )
+
+            plan = _pad_months(plan, 0, "plan", contract, name)
+            plan_value = _pad_months(plan_value, 0, "planValue", contract, name)
+            executed = _pad_months(executed, 0, "exec", contract, name)
+            executed_value = _pad_months(executed_value, 0, "execValue", contract, name)
+            orders = _pad_months(orders, "", "orders", contract, name)
+
             rows.append(
                 {
                     "contract": contract,
