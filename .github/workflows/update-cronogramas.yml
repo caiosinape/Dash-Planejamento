@@ -1,0 +1,228 @@
+name: Atualizar Cronogramas Planejamento
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "Cronogramas Planejamento/contract-data-update.part*"
+      - ".github/workflows/update-cronogramas.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: atualizar-cronogramas-planejamento
+  cancel-in-progress: false
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Atualizar dados incorporados no HTML
+        shell: python
+        run: |
+          import base64
+          import difflib
+          import gzip
+          import json
+          import re
+          import unicodedata
+          from datetime import datetime
+          from pathlib import Path
+          from zoneinfo import ZoneInfo
+
+          html_path = Path("Cronogramas Planejamento/index.html")
+          payload_parts = sorted(Path("Cronogramas Planejamento").glob("contract-data-update.part*"))
+          if not payload_parts:
+              raise RuntimeError("Payload de atualização não encontrado.")
+          text = html_path.read_text(encoding="utf-8")
+
+          match = re.search(r"(?m)^\s*var contractData=(\{.*\});\s*$", text)
+          if not match:
+              raise RuntimeError("Não foi possível localizar contractData no HTML.")
+
+          old_data = json.loads(match.group(1))
+          payload_b64 = "".join(part.read_text(encoding="ascii").strip() for part in payload_parts)
+          payload_text = gzip.decompress(base64.b64decode(payload_b64)).decode("utf-8")
+          new_data = json.loads(payload_text)
+
+          def norm(value):
+              value = unicodedata.normalize("NFKD", str(value or ""))
+              value = "".join(ch for ch in value if not unicodedata.combining(ch))
+              value = value.lower().replace("–", "-").replace("—", "-")
+              value = re.sub(r"[^a-z0-9]+", " ", value)
+              return re.sub(r"\s+", " ", value).strip()
+
+          def nonzero(values, start=0):
+              for value in (values or [])[start:]:
+                  try:
+                      if value is not None and abs(float(value)) > 1e-9:
+                          return True
+                  except (TypeError, ValueError):
+                      pass
+              return False
+
+          def merge_array(new_item, old_item, field, default):
+              new_values = list(new_item.get(field) or [])
+              old_values = list((old_item or {}).get(field) or [])
+              result = []
+              for idx in range(12):
+                  new_value = new_values[idx] if idx < len(new_values) else None
+                  old_value = old_values[idx] if idx < len(old_values) else None
+                  if new_value is None:
+                      value = old_value if old_value is not None else default
+                  else:
+                      value = new_value
+                  result.append(value)
+              return result
+
+          merged_data = {}
+          for contract, incoming_items in new_data.items():
+              previous_items = list(old_data.get(contract, []))
+              used = set()
+              by_name = {}
+              by_source = {}
+              for idx, item in enumerate(previous_items):
+                  by_name.setdefault(norm(item.get("name")), []).append(idx)
+                  source_id = item.get("sourceId")
+                  if source_id:
+                      by_source.setdefault(source_id, []).append(idx)
+
+              merged_items = []
+              for incoming in incoming_items:
+                  candidate = None
+                  incoming_name = norm(incoming.get("name"))
+
+                  for idx in by_name.get(incoming_name, []):
+                      if idx not in used:
+                          candidate = idx
+                          break
+
+                  if candidate is None:
+                      for idx in by_source.get(incoming.get("sourceId"), []):
+                          if idx in used:
+                              continue
+                          ratio = difflib.SequenceMatcher(None, incoming_name, norm(previous_items[idx].get("name"))).ratio()
+                          if ratio >= 0.72:
+                              candidate = idx
+                              break
+
+                  if candidate is None and incoming_name:
+                      best_idx = None
+                      best_ratio = 0.0
+                      for idx, previous in enumerate(previous_items):
+                          if idx in used:
+                              continue
+                          ratio = difflib.SequenceMatcher(None, incoming_name, norm(previous.get("name"))).ratio()
+                          if ratio > best_ratio:
+                              best_ratio = ratio
+                              best_idx = idx
+                      if best_idx is not None and best_ratio >= 0.94:
+                          candidate = best_idx
+
+                  previous = previous_items[candidate] if candidate is not None else {}
+                  if candidate is not None:
+                      used.add(candidate)
+
+                  item = {
+                      "name": incoming.get("name") or previous.get("name") or "Serviço sem identificação",
+                      "unit": incoming.get("unit") or previous.get("unit") or "—",
+                      "price": incoming.get("price") if incoming.get("price") is not None else previous.get("price", 0),
+                      "contractual": incoming.get("contractual") if incoming.get("contractual") is not None else previous.get("contractual", 0),
+                      "base": incoming.get("base") if incoming.get("base") is not None else previous.get("base", 0),
+                      "plan": merge_array(incoming, previous, "plan", 0),
+                      "exec": merge_array(incoming, previous, "exec", 0),
+                      "orders": merge_array(incoming, previous, "orders", "Sem serviços"),
+                      "sourceId": incoming.get("sourceId") or previous.get("sourceId"),
+                      "execValue": merge_array(incoming, previous, "execValue", 0),
+                  }
+                  if incoming.get("executedOnly") or previous.get("executedOnly"):
+                      item["executedOnly"] = True
+                  merged_items.append(item)
+
+              # Preserve historical/executed-only lines and future plans that are not
+              # represented in the current workbook snapshot.
+              for idx, previous in enumerate(previous_items):
+                  if idx in used:
+                      continue
+                  if previous.get("executedOnly") or nonzero(previous.get("plan"), 7) or nonzero(previous.get("exec"), 6):
+                      merged_items.append(previous)
+
+              merged_data[contract] = merged_items
+
+          # Contracts absent from the current cronograma workbook (for example,
+          # contracts represented only by historical execution) remain available.
+          for contract, previous_items in old_data.items():
+              if contract not in merged_data:
+                  merged_data[contract] = previous_items
+
+          compact = json.dumps(merged_data, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
+          text, count = re.subn(
+              r"(?m)^\s*var contractData=\{.*\};\s*$",
+              lambda _: "    var contractData=" + compact + ";",
+              text,
+              count=1,
+          )
+          if count != 1:
+              raise RuntimeError("A substituição de contractData não foi concluída.")
+
+          now = datetime.now(ZoneInfo("America/Sao_Paulo"))
+          stamp = now.strftime("%d/%m/%Y %H:%M")
+          text = re.sub(r"Atualizado em \d{2}/\d{2}/\d{4} \d{2}:\d{2}", f"Atualizado em {stamp}", text, count=1)
+          text = re.sub(
+              r"var currentDate=new Date\([^)]*\),currentMonth=\d+,month=\d+;?",
+              f"var currentDate=new Date({now.year},{now.month - 1},{now.day}),currentMonth={now.month - 1},month={now.month - 1}",
+              text,
+              count=1,
+          )
+          text = text.replace(
+              "Dados carregados estaticamente a partir da planilha Modelo Cronograma Base de Dados.",
+              "Dados carregados estaticamente a partir das planilhas Modelo Cronograma Base de Dados v2 e Estudo Geral.",
+          )
+          html_path.write_text(text, encoding="utf-8")
+
+          print(f"Contratos publicados: {len(merged_data)}")
+          print(f"Itens publicados: {sum(len(items) for items in merged_data.values())}")
+          print(f"Atualização: {stamp}")
+
+      - name: Validar HTML
+        shell: python
+        run: |
+          import json
+          import re
+          from pathlib import Path
+
+          text = Path("Cronogramas Planejamento/index.html").read_text(encoding="utf-8")
+          match = re.search(r"(?m)^\s*var contractData=(\{.*\});\s*$", text)
+          if not match:
+              raise SystemExit("contractData ausente")
+          data = json.loads(match.group(1))
+          if len(data) < 15:
+              raise SystemExit(f"Quantidade inesperada de contratos: {len(data)}")
+          if "2453 - DER PR" not in data or "2465 - DER SP" not in data:
+              raise SystemExit("Contratos de validação não encontrados")
+          for contract, items in data.items():
+              for item in items:
+                  for field in ("plan", "exec", "orders", "execValue"):
+                      if len(item.get(field, [])) != 12:
+                          raise SystemExit(f"Array inválido: {contract} / {item.get('name')} / {field}")
+          print("HTML e dados validados com sucesso.")
+
+      - name: Publicar atualização
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "Cronogramas Planejamento/index.html"
+          if git diff --cached --quiet; then
+            echo "Nenhuma alteração para publicar."
+            exit 0
+          fi
+          git commit -m "Atualiza cronogramas com bases do SharePoint"
+          git push
