@@ -118,7 +118,6 @@ def merge_series(existing, incoming, fill):
 def merge_model_rebuilding_contracts(structural):
     old_contracts = fix.extract_js_value(structural, "contractData")
     target_label_by_code = {contract_code(label): label for label in old_contracts}
-
     match_lookup = {}
     for label, rows in old_contracts.items():
         code = contract_code(label)
@@ -141,7 +140,6 @@ def merge_model_rebuilding_contracts(structural):
             candidates = match_lookup.get(key, [])
             source = copy.deepcopy(candidates[position]) if position < len(candidates) else {}
             occurrence_cursor[key] = position + 1
-
             source["name"] = incoming["name"]
             source.setdefault("unit", "UN")
             source["contractKey"] = label
@@ -162,7 +160,6 @@ def merge_model_rebuilding_contracts(structural):
     item_count = sum(len(rows) for rows in new_contracts.values())
     if contract_count != 15 or item_count != 650:
         raise RuntimeError(f"Validação estrutural divergente: {contract_count} contratos, {item_count} itens")
-
     structural = fix.replace_js_value(structural, "contractData", new_contracts)
     structural = fix.replace_js_value(structural, "rdoData", [])
     metadata = {"source":"Modelo Cronograma Base de Dados v2","sheet":"Planilha1","contracts":15,"items":650,"years":[2026],"monthsLoaded":[0,1,2,3,4,5,6],"rdo":"aguardando vínculo definitivo"}
@@ -170,8 +167,24 @@ def merge_model_rebuilding_contracts(structural):
     return structural, contract_count, item_count, len(overrides)
 
 
+STRICT_REPLACE = fix.replace_once
+OPTIONAL_VISUAL_LABELS = {
+    "OS na janela de três meses",
+    "OS na leitura operacional",
+    "Código da OS na tabela operacional",
+    "Texto da Ordem de Serviço",
+}
+
+
+def compatible_replace(text, old, new, label):
+    if label in OPTIONAL_VISUAL_LABELS and text.count(old) == 0:
+        return text
+    return STRICT_REPLACE(text, old, new, label)
+
+
 fix.load_overrides = load_overrides_compatible
 fix.merge_model = merge_model_rebuilding_contracts
+fix.replace_once = compatible_replace
 rows = load_overrides_compatible()
 
 if os.environ.get("DECODE_ONLY") == "1":
