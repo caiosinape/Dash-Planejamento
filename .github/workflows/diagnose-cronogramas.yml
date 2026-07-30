@@ -1,0 +1,67 @@
+name: Diagnosticar HTML Cronogramas
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/diagnose-cronogramas.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  diagnosticar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Extrair trechos relevantes
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path("Cronogramas Planejamento/index.html")
+          html = path.read_text(encoding="utf-8")
+          keywords = [
+              "VALOR PLANEJADO",
+              "VALOR EXECUTADO",
+              "Planejado × Executado",
+              "valorPlanejado",
+              "valorExecutado",
+              "saldo",
+              "Saldo",
+              "render",
+              "update",
+              "chart",
+          ]
+          chunks = []
+          seen = set()
+          for keyword in keywords:
+              start = 0
+              found = 0
+              while found < 10:
+                  idx = html.find(keyword, start)
+                  if idx < 0:
+                      break
+                  left = max(0, idx - 2200)
+                  right = min(len(html), idx + 4200)
+                  key = (left, right)
+                  if key not in seen:
+                      seen.add(key)
+                      chunks.append(f"\n===== {keyword} @ {idx} =====\n" + html[left:right])
+                  start = idx + len(keyword)
+                  found += 1
+          out = Path("Cronogramas Planejamento/debug-snippets.txt")
+          out.write_text("\n".join(chunks), encoding="utf-8")
+          print(f"Trechos gravados: {len(chunks)}; bytes: {out.stat().st_size}")
+
+      - name: Publicar diagnóstico
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "Cronogramas Planejamento/debug-snippets.txt"
+          git commit -m "Gera trechos de diagnóstico do HTML" || exit 0
+          git push
