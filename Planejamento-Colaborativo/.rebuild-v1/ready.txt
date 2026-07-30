@@ -1,0 +1,1 @@
+Reexecutar a reconstrução limpa com o decodificador atualizado. Preservar o visual 73c078d, validar 15 contratos, 650 itens e manter o último vínculo do RDO pendente.
