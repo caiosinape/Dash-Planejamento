@@ -1,0 +1,54 @@
+{
+  "version": "model-v2-validated-20260730-atomic",
+  "generatedFrom": {
+    "model": "Modelo Cronograma Base de Dados  v2.xlsx",
+    "modelSharePointModifiedAt": "2026-07-29T19:34:06Z",
+    "rdo": "Estudo Geral.xlsx / Base BI Executado (2)",
+    "rdoSharePointModifiedAt": "2026-07-28T18:00:40Z"
+  },
+  "mapping": {
+    "contract": "B - Codigo e Nome da Obra",
+    "item": "C - Item/CPU - SIENGE",
+    "unit": "D - Unid serviço/Coef Insumo",
+    "unitPrice": "E - Preço Unit",
+    "currentBalance": "J - Quant. Total JULHO 2026",
+    "plannedQuantity": "Qnt Realis. (mensal, Jan-Jun)",
+    "plannedValue": "R$ Realista (mensal, Jan-Jun)",
+    "executedQuantity": "Qtd. Executada (mensal, Jan-Jun)",
+    "executedValue": "R$ Executado (mensal, Jan-Jun)",
+    "serviceOrder": "Ordem de Serviço mensal, incluindo células mescladas",
+    "futurePlannedValue": "quantidade lançada no HTML x Preço Unit",
+    "rdo": "somente detalhamento e quantidade; não substitui o executado do painel"
+  },
+  "validation": {
+    "source": "Modelo Cronograma Base de Dados  v2.xlsx",
+    "sheet": "Planilha1",
+    "balanceColumn": "J - Quant. Total JULHO 2026",
+    "unitPriceColumn": "E - Preço Unit",
+    "historicalPlanQuantity": "Qnt Realis.",
+    "historicalPlanValue": "R$ Realista",
+    "historicalExecQuantity": "Qtd. Executada",
+    "historicalExecValue": "R$ Executado",
+    "futurePlanValueRule": "quantidade inserida no HTML x Preço Unit",
+    "rdoSource": "Estudo Geral.xlsx / Base BI Executado (2)",
+    "rdoRule": "somente quantidade; não altera o Executado do painel",
+    "contracts": 15,
+    "items": 650,
+    "rdoRecords": 18
+  },
+  "monthlyTotals": [
+    {"month":1,"plannedQuantity":168145.3456,"plannedValue":4288589.97187,"executedQuantity":64976.036,"executedValue":2505164.9864000003},
+    {"month":2,"plannedQuantity":147245.3930083333,"plannedValue":3721958.315861,"executedQuantity":215319.327,"executedValue":5600261.937388289},
+    {"month":3,"plannedQuantity":234767.7093416666,"plannedValue":8551985.440092644,"executedQuantity":282480.636,"executedValue":9272194.704632578},
+    {"month":4,"plannedQuantity":250311.4533333334,"plannedValue":7007453.637268311,"executedQuantity":293249.5193,"executedValue":7991701.955549969},
+    {"month":5,"plannedQuantity":218891.4093481354,"plannedValue":11338463.850920612,"executedQuantity":309076.8495,"executedValue":10776812.480089143},
+    {"month":6,"plannedQuantity":206424.8499445629,"plannedValue":6771368.000511533,"executedQuantity":81772.6059,"executedValue":2778985.846480144}
+  ],
+  "parts": {
+    "model-v2.part0":{"length":14060,"gitBlobSha":"4e310aa9ab5169977832c14b56a25786ecc17d9c"},
+    "model-v2.part1":{"length":14060,"gitBlobSha":"79b57724eea25fa05aeaea7fdeb2952914e49e24"},
+    "model-v2.part2":{"length":14060,"gitBlobSha":"4ade39221cae19640704618c8f8b9fb6c777a710"},
+    "model-v2.part3":{"length":14060,"gitBlobSha":"70d46617aeb6eb7d01ac801fa6e97de3c4c0afee"},
+    "model-v2.part4":{"length":14056,"gitBlobSha":"7cf417b61a7ba468e218919acf353237850ae854"}
+  }
+}
