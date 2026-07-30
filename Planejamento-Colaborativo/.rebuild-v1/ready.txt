@@ -1,1 +1,0 @@
-Reexecutar usando contrato e posição original da linha como chave estável de vínculo.
