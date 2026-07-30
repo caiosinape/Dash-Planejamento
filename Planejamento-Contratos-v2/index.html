@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b2f47">
+<title>Planejado x Executado (Cronogramas) | SINAPE</title>
+<link rel="stylesheet" href="styles.css?v=20260730">
+</head>
+<body>
+<div class="loading" id="loading"><div class="loader-box"><div class="spinner"></div><strong>Carregando base de contratos</strong><div class="muted" style="margin-top:6px">Validando 15 contratos e 650 itens...</div></div></div>
+<main class="shell">
+<header class="cover">
+ <div class="cover-inner">
+  <div class="cover-brand">
+   <div class="logo" aria-label="SINAPE"><svg viewBox="0 0 180 110" role="img"><path d="M16 75h72l22-42h54" fill="none" stroke="#55bcc3" stroke-width="14" stroke-linecap="round"/><path d="M18 90h76l22-42h48" fill="none" stroke="#0b5270" stroke-width="11" stroke-linecap="round"/><text x="12" y="30" font-family="Arial" font-weight="900" font-size="28" fill="#0b5270">SINAPE</text><text x="13" y="106" font-family="Arial" font-size="10" fill="#4b6e7e">POR UM DESTINO MAIS SEGURO</text></svg></div>
+   <div class="cover-copy"><h1>Planejado x Executado (Cronogramas)</h1><p>Visão executiva e operacional dos contratos • financeiro, quantitativos, saldos, ordens de serviço e horizonte fixo de três meses.</p></div>
+  </div>
+  <div class="cover-road"><svg viewBox="0 0 650 180" preserveAspectRatio="none" aria-hidden="true"><path d="M0 151 C150 80 300 195 650 35" stroke="#153b4e" stroke-width="85" fill="none"/><path d="M0 151 C150 80 300 195 650 35" stroke="#e6eef0" stroke-width="4" fill="none" stroke-dasharray="30 22"/><path d="M500 0v72" stroke="#fff" stroke-width="5"/><rect x="449" y="6" width="105" height="44" rx="5" fill="#fff"/><path d="M461 39h82M461 26h48" stroke="#28a8c6" stroke-width="6"/><circle cx="78" cy="47" r="35" fill="#ffffff1c"/><path d="M78 21v52M52 47h52" stroke="#fff" stroke-width="5" opacity=".7"/></svg></div>
+ </div>
+ <div class="topline"><div class="status" id="status"><i></i><span id="statusText">Carregando a base oficial...</span></div><div class="version">Versão de consulta • 30/07/2026</div></div>
+</header>
+<section class="filters" aria-label="Filtros">
+ <div class="field"><label>Contrato</label><select id="contractFilter"><option value="">Todos os contratos</option></select></div>
+ <div class="field"><label>Ano</label><select id="yearFilter"><option value="2026">2026</option></select></div>
+ <div class="field"><label>Mês</label><select id="monthFilter"></select></div>
+ <div class="field"><label>Item de serviço</label><input id="itemFilter" placeholder="Digite para localizar um item"></div>
+ <button class="clear" id="clearFilters">Limpar filtros</button>
+</section>
+<div class="notice" id="errorBox"></div>
+
+<section class="section">
+ <div class="section-head"><div><div class="eyebrow">Visão executiva</div><h2>Planejado, executado e posição contratual</h2></div><div class="section-note" id="selectionNote">Recorte selecionado</div></div>
+ <div class="cards">
+  <article class="card kpi"><div class="label">Planejado financeiro</div><div class="value" id="plannedMoney">—</div><div class="sub">R$ Realista do período selecionado</div><div class="tag"><i></i><span id="plannedItems">0 itens com quantidade</span></div></article>
+  <article class="card kpi green"><div class="label">Executado financeiro</div><div class="value" id="executedMoney">—</div><div class="sub">R$ Executado do período selecionado</div><div class="tag"><i></i><span id="executedItems">0 itens executados</span></div></article>
+  <article class="card kpi"><div class="label">Quantidade planejada</div><div class="value" id="plannedQty">—</div><div class="sub">Somatório das quantidades planejadas</div></article>
+  <article class="card kpi green"><div class="label">Quantidade executada</div><div class="value" id="executedQty">—</div><div class="sub">Somatório das quantidades executadas</div></article>
+  <article class="card kpi amber"><div class="label">Saldo financeiro</div><div class="value" id="contractBalance">—</div><div class="sub">Saldo quantitativo de julho × preço unitário</div></article>
+  <article class="card kpi red"><div class="label">Término base</div><div class="value" id="endDate">—</div><div class="sub" id="endDateSub">Prazo cadastrado por contrato</div></article>
+ </div>
+</section>
+
+<section class="section grid2">
+ <article class="card panel"><div class="panel-title"><div><h3>Planejado x executado financeiro</h3><span>Janeiro a julho de 2026</span></div><div class="legend"><span><i class="p"></i>Planejado</span><span><i class="e"></i>Executado</span></div></div><div class="chart" id="financialChart"></div></article>
+ <article class="card panel"><div class="panel-title"><div><h3>Planejado x executado quantitativo</h3><span>Leitura consolidada mensal</span></div><div class="legend"><span><i class="p"></i>Planejado</span><span><i class="e"></i>Executado</span></div></div><div class="chart" id="quantityChart"></div></article>
+</section>
+
+<section class="section">
+ <div class="section-head"><div><div class="eyebrow">Planejamento futuro</div><h2>Horizonte de frente de atuação — três meses travados</h2></div><div class="section-note">O quadro mantém sempre três competências consecutivas.</div></div>
+ <div class="horizon" id="horizon"></div>
+</section>
+
+<section class="section">
+ <div class="section-head"><div><div class="eyebrow">Posição quantitativa</div><h2>Saldo dos itens de serviço — julho/2026</h2></div><div class="section-note" id="balanceCount">0 itens</div></div>
+ <article class="card panel"><div class="table-wrap tall"><table><thead><tr><th>Contrato</th><th>Item de serviço</th><th>Ocorrência</th><th class="num">Preço unitário</th><th class="num">Saldo quantitativo jul/26</th><th class="num">Saldo financeiro</th><th>Status</th></tr></thead><tbody id="balanceBody"></tbody></table></div></article>
+</section>
+
+<section class="section grid2">
+ <article class="card panel"><div class="panel-title"><div><h3>Ordens de Serviço por contrato e item</h3><span id="ordersCount">0 registros no período</span></div></div><div class="table-wrap"><table><thead><tr><th>Contrato</th><th>Item de serviço</th><th>Ordem de Serviço</th><th class="num">Planejado</th><th class="num">Executado</th><th class="num">R$ planejado</th></tr></thead><tbody id="ordersBody"></tbody></table></div></article>
+ <aside class="rdo-side">
+  <article class="card panel"><div class="panel-title"><div><h3>RDO do período selecionado</h3><span>Visão provisória a partir do executado incorporado</span></div></div><div class="rdo-summary"><div class="mini"><span>Registros executados</span><strong id="rdoCount">0</strong></div><div class="mini"><span>Valor executado</span><strong id="rdoValue">R$ 0</strong></div></div></article>
+  <article class="card panel"><div class="table-wrap"><table><thead><tr><th>Contrato</th><th>Item executado</th><th class="num">Quantidade</th><th class="num">Valor</th><th>OS associada</th></tr></thead><tbody id="rdoBody"></tbody></table></div></article>
+ </aside>
+</section>
+
+<footer class="footer"><span>Fontes: Modelo Cronograma Base de Dados v2 • carga estática incorporada no repositório.</span><span>O RDO definitivo será substituído pelo vínculo permanente da aba BI Base Executado.</span></footer>
+</main>
+<script src="app.js?v=20260730" defer></script>
+</body>
+</html>
