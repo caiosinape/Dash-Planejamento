@@ -121,10 +121,16 @@ def merge_model_by_code_and_order(structural):
     grouped = {}
     for row in overrides:
         grouped.setdefault(row["contractCode"], []).append(row)
-    if set(grouped) != set(target_by_code):
-        missing = sorted(set(grouped) - set(target_by_code))
-        extra = sorted(set(target_by_code) - set(grouped))
-        raise RuntimeError(f"Códigos de contrato divergentes. Sem destino={missing}; sem carga={extra}")
+
+    missing_targets = sorted(set(grouped) - set(target_by_code))
+    if missing_targets:
+        raise RuntimeError(f"Contratos sem destino no HTML-base: {missing_targets}")
+
+    official_codes = set(grouped)
+    for code, (label, _) in list(target_by_code.items()):
+        if code not in official_codes:
+            contracts.pop(label, None)
+    target_by_code = {contract_code(label): (label, rows) for label, rows in contracts.items()}
 
     for code, incoming_rows in grouped.items():
         target_label, target_rows = target_by_code[code]
