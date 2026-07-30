@@ -1,0 +1,249 @@
+name: Corrigir Planejamento Colaborativo 73c078d
+
+on:
+  push:
+    branches:
+      - planejamento-colaborativo-fix-73c078d
+    paths:
+      - 'Planejamento-Colaborativo/.fix73/ready.txt'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: planejamento-colaborativo-fix-73c078d
+  cancel-in-progress: false
+
+jobs:
+  fix:
+    if: ${{ !contains(github.event.head_commit.message, '[fix73-build]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout da branch original
+        uses: actions/checkout@v4
+        with:
+          ref: planejamento-colaborativo-fix-73c078d
+          fetch-depth: 0
+
+      - name: Buscar a carga validada do Modelo v2
+        shell: bash
+        run: git fetch origin main
+
+      - name: Corrigir vínculos, dados e falhas do HTML
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import base64, gzip, hashlib, json, re, subprocess, unicodedata
+
+          dashboard_path = Path('Planejamento-Colaborativo/index.html')
+          structural_path = Path('Cronogramas Planejamento/index.html')
+          dashboard = dashboard_path.read_text(encoding='utf-8')
+          structural = structural_path.read_text(encoding='utf-8')
+
+          def js_value_bounds(text, name):
+              marker = 'var ' + name + '='
+              start = text.find(marker)
+              if start < 0:
+                  raise RuntimeError(f'Base {name} não encontrada')
+              start += len(marker)
+              opening = text[start]
+              closing = '}' if opening == '{' else ']'
+              depth = 0
+              quoted = False
+              escaped = False
+              for pos in range(start, len(text)):
+                  char = text[pos]
+                  if quoted:
+                      if escaped:
+                          escaped = False
+                      elif char == '\\':
+                          escaped = True
+                      elif char == '"':
+                          quoted = False
+                  elif char == '"':
+                      quoted = True
+                  elif char == opening:
+                      depth += 1
+                  elif char == closing:
+                      depth -= 1
+                      if depth == 0:
+                          return start, pos + 1
+              raise RuntimeError(f'Base {name} incompleta')
+
+          def extract_js_value(text, name):
+              start, end = js_value_bounds(text, name)
+              return json.loads(text[start:end])
+
+          def replace_js_value(text, name, value):
+              start, end = js_value_bounds(text, name)
+              payload = json.dumps(value, ensure_ascii=False, separators=(',', ':'))
+              return text[:start] + payload + text[end:]
+
+          def normalize(value):
+              value = unicodedata.normalize('NFKD', str(value or ''))
+              value = ''.join(ch for ch in value if not unicodedata.combining(ch))
+              return ' '.join(value.strip().lower().split())
+
+          contracts = extract_js_value(structural, 'contractData')
+          parts = []
+          for index in range(8):
+              path = f'Planejamento-Colaborativo/data/direct-overrides.part{index}'
+              parts.append(subprocess.check_output(['git', 'show', f'origin/main:{path}'], text=True).strip())
+          overrides = json.loads(gzip.decompress(base64.b64decode(''.join(parts))).decode('utf-8'))
+
+          lookup = {}
+          occurrences = {}
+          for contract, rows in contracts.items():
+              for row in rows:
+                  lookup.setdefault((contract, normalize(row.get('name'))), []).append(row)
+
+          for incoming in overrides:
+              key = (incoming['contract'], normalize(incoming.get('name')))
+              offset = occurrences.get(key, 0)
+              candidates = lookup.get(key, [])
+              if offset >= len(candidates):
+                  raise RuntimeError(f"Item sem vínculo: {incoming['contract']} | {incoming.get('name')}")
+              target = candidates[offset]
+              occurrences[key] = offset + 1
+              target['price'] = float(incoming.get('price') or 0)
+              target['balance'] = float(incoming.get('balance') or 0)
+              target['base'] = float(incoming.get('base') or 0)
+              target['contractual'] = target['base'] + target['balance']
+              target['plan'] = incoming.get('plan') or [0] * 12
+              target['planValue'] = incoming.get('planValue') or [0] * 12
+              target['exec'] = incoming.get('exec') or [0] * 12
+              target['execValue'] = incoming.get('execValue') or [0] * 12
+              if incoming.get('orders') is not None:
+                  target['orders'] = incoming['orders']
+
+          contract_count = len(contracts)
+          item_count = sum(len(rows) for rows in contracts.values())
+          if contract_count != 15 or item_count != 650 or len(overrides) != 650:
+              raise RuntimeError(f'Validação estrutural divergente: {contract_count} contratos, {item_count} itens, {len(overrides)} vínculos')
+
+          structural = replace_js_value(structural, 'contractData', contracts)
+          structural = replace_js_value(structural, 'rdoData', [])
+
+          fetch_expression = 'var e=await fetch("../Cronogramas%20Planejamento/index.html",{cache:"no-store"}).then(function(e){if(!e.ok)throw new Error("Falha ao carregar a base do painel: "+e.status);return e.text()});'
+          if fetch_expression not in dashboard:
+              raise RuntimeError('Vínculo externo original não localizado')
+          dashboard = dashboard.replace(fetch_expression, 'var e=' + json.dumps(structural, ensure_ascii=False, separators=(',', ':')) + ';', 1)
+
+          dashboard = dashboard.replace('esc(contractCode())', 'D(F())')
+          dashboard = dashboard.replace(
+              'function Z(e){return oe(!0).reduce(function(t,n){return t+Number(n.plan[e]||0)*n.price},0)}',
+              'function PV(e,t){return e.planValue&&null!=e.planValue[t]?Number(e.planValue[t]||0):Number(e.plan[t]||0)*Number(e.price||0)}function Z(e){return oe(!0).reduce(function(t,n){return t+PV(n,e)},0)}'
+          )
+          dashboard = dashboard.replace('A.format(n*e.price)', 'A.format(PV(e,t))')
+          dashboard = dashboard.replace(
+              'e.plan[t]=n,e.orders[t]=a,o&&(o.plan[t]=n,o.orders[t]=a),x[r]||(x[r]={})',
+              'e.plan[t]=n,e.orders[t]=a,e.planValue||(e.planValue=Array(12).fill(0)),e.planValue[t]=n*Number(e.price||0),o&&(o.plan[t]=n,o.orders[t]=a,o.planValue||(o.planValue=Array(12).fill(0)),o.planValue[t]=n*Number(o.price||0)),x[r]||(x[r]={})'
+          )
+
+          os_helpers = '''function OC(e,t){var n=String((e.orders||[])[t]||"").trim();return n||"Sem Ordem de Serviço"}function OM(t){var n={},a={};return q.forEach(function(e){var r=H(e),o=r+"|"+OC(e,t);if(!n[o]){a[r]=(a[r]||0)+1,n[o]="OS-"+String(a[r]).padStart(2,"0")}}),n}function OCode(e,t){return OM(t)[H(e)+"|"+OC(e,t)]||"OS-01"}function OF(){var e=V(),t=OM(e),n=Array.from(new Set(Object.values(t))).sort(),a=document.getElementById("osFilter");a&&(n.indexOf(s)<0&&(s="Todas"),a.innerHTML='<option value="Todas">Todas</option>'+n.map(function(e){return'<option value="'+D(e)+'">'+D(e)+"</option>"}).join(""),a.value=s)}'''
+          marker = 'function R(e){return String(e.contractKey||L)+"|"+String(e.sourceId||e.name)}'
+          if marker not in dashboard:
+              raise RuntimeError('Ponto de inserção das OS não localizado')
+          dashboard = dashboard.replace(marker, marker + os_helpers, 1)
+          dashboard = dashboard.replace('"Todas"!==s&&n.orders.indexOf(p)<0', '"Todas"!==s&&OCode(n,t)!==s')
+          dashboard = dashboard.replace('function xe(){var e,t,n,a,i,s,u;', 'function xe(){var e,t,n,a,i,s,u;OF(),', 1)
+          dashboard = dashboard.replace('<strong>'+"'+D(t.name)+'"+'</strong><small>OS-01', '<strong>'+"'+D(t.name)+'"+'</strong><small>'+"'+D(OCode(t,e))+'")
+          dashboard = dashboard.replace('<strong>'+"'+D(e.name)+'"+'</strong><small>OS-01', '<strong>'+"'+D(e.name)+'"+'</strong><small>'+"'+D(OCode(e,a))+'")
+          dashboard = dashboard.replace('<span class="os-code">OS-01</span>', '<span class="os-code">'+"'+D(OCode(e,t))+'"+'</span>')
+
+          dashboard = dashboard.replace('r=t.reduce(function(t,n){return t+ne(n.start,n.end,e)},0)', 'r=t.length')
+          dashboard = dashboard.replace('var o=ne(t.start,t.end,e)/Math.max(r,1);', 'var o=1/Math.max(r,1);')
+          dashboard = dashboard.replace('rateio por dias úteis', 'divisão pelo número de semanas')
+
+          dashboard = dashboard.replace('sinape:planning:monthly:v2', 'sinape:planning:monthly:fix73-v1')
+          dashboard = dashboard.replace('sinape:planning:weekly:v2', 'sinape:planning:weekly:fix73-v1')
+          dashboard = dashboard.replace('sinape:planning:actions:v2', 'sinape:planning:actions:fix73-v1')
+
+          month_field = '<label class="field"><span>Mês</span><select id="monthFilter"></select></label>'
+          year_field = '<label class="field"><span>Ano</span><select id="yearFilter"><option value="2026">2026</option></select></label>'
+          if year_field not in dashboard:
+              dashboard = dashboard.replace(month_field, year_field + month_field, 1)
+          dashboard = dashboard.replace('.filters{grid-template-columns:0.7fr 1.25fr 0.85fr 1.05fr 0.85fr auto}', '.filters{grid-template-columns:0.7fr 1.25fr 0.62fr 0.85fr 1.05fr 0.85fr auto}', 1)
+
+          root_fetch = dashboard.rfind(',fetch("../index.html",{cache:"no-store"})')
+          if root_fetch >= 0:
+              script_end = dashboard.index('}()</script>', root_fetch)
+              dashboard = dashboard[:root_fetch] + ',ue()' + dashboard[script_end:]
+
+          error_box = '<div id="healthError" hidden style="position:fixed;left:16px;right:16px;top:16px;z-index:2000;padding:12px 16px;border-radius:9px;background:#fff0f0;color:#9b2727;border:1px solid #e0a9a9;font:700 11px Segoe UI,Arial,sans-serif"></div>'
+          dashboard = dashboard.replace('<body class="access-pending">', '<body class="access-pending">' + error_box, 1)
+          main_script = '<script>!async function(){'
+          health_script = '''<script>window.SINAPE_LINKS={rdo:null,teams:null,lastLinkPending:true};window.addEventListener("error",function(e){var n=document.getElementById("healthError");n&&(n.hidden=false,n.textContent="Falha controlada no painel: "+String(e.message||"erro desconhecido"))});window.addEventListener("unhandledrejection",function(e){var n=document.getElementById("healthError");n&&(n.hidden=false,n.textContent="Falha controlada no carregamento: "+String(e.reason&&e.reason.message||e.reason||"erro desconhecido"))});</script>'''
+          dashboard = dashboard.replace(main_script, health_script + main_script, 1)
+
+          checks = {
+              'external_structural_fetch_removed': '../Cronogramas%20Planejamento/index.html' not in dashboard,
+              'root_dashboard_fetch_removed': 'fetch("../index.html"' not in dashboard,
+              'undefined_esc_removed': 'esc(contractCode())' not in dashboard,
+              'plan_value_enabled': 'function PV(' in dashboard,
+              'dynamic_os_enabled': 'function OCode(' in dashboard,
+              'year_filter_enabled': 'id="yearFilter"' in dashboard,
+              'weekly_equal_split': 'divisão pelo número de semanas' in dashboard,
+              'error_boundary_enabled': 'id="healthError"' in dashboard,
+              'contracts': contract_count,
+              'items': item_count,
+              'rdo_status': 'aguardando último vínculo'
+          }
+          if not all(value is True for key, value in checks.items() if isinstance(value, bool)):
+              raise RuntimeError('Uma ou mais correções obrigatórias não foram aplicadas: ' + json.dumps(checks, ensure_ascii=False))
+
+          dashboard_path.write_text(dashboard, encoding='utf-8')
+          audit = {
+              'status': 'validado estruturalmente',
+              'baseVisual': '73c078d3780f21911bbf5a5dbb3f280bbf7f4f22',
+              'source': 'Modelo Cronograma Base de Dados v2 - carga incorporada',
+              'contracts': contract_count,
+              'items': item_count,
+              'overrides': len(overrides),
+              'rdo': 'vínculo final pendente',
+              'checks': checks,
+              'sha256': hashlib.sha256(dashboard.encode('utf-8')).hexdigest()
+          }
+          Path('Planejamento-Colaborativo/fix73-audit.json').write_text(json.dumps(audit, ensure_ascii=False, indent=2), encoding='utf-8')
+          PY
+
+      - name: Validar JavaScript e abertura no navegador
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html = Path('Planejamento-Colaborativo/index.html').read_text(encoding='utf-8')
+          scripts = re.findall(r'<script(?:\s+[^>]*)?>(.*?)</script>', html, flags=re.S)
+          main = next((script for script in scripts if 'function xe()' in script), None)
+          if main is None:
+              raise SystemExit('Script principal não encontrado')
+          Path('/tmp/fix73-main.js').write_text(main, encoding='utf-8')
+          PY
+          node --check /tmp/fix73-main.js
+          python3 -m http.server 8765 >/tmp/fix73-server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID || true' EXIT
+          sleep 2
+          google-chrome --headless --no-sandbox --disable-gpu --virtual-time-budget=8000 --dump-dom 'http://127.0.0.1:8765/Planejamento-Colaborativo/index.html' >/tmp/fix73-dom.html 2>/tmp/fix73-chrome.log
+          grep -q 'id="contractFilter"' /tmp/fix73-dom.html
+          grep -q '2453' /tmp/fix73-dom.html
+          grep -q 'id="yearFilter"' /tmp/fix73-dom.html
+          if grep -E 'Uncaught|ReferenceError|SyntaxError|TypeError' /tmp/fix73-chrome.log; then
+            cat /tmp/fix73-chrome.log
+            exit 1
+          fi
+
+      - name: Publicar somente na branch de correção
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf 'Planejamento-Colaborativo/.fix73'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 'Planejamento-Colaborativo/index.html' 'Planejamento-Colaborativo/fix73-audit.json' 'Planejamento-Colaborativo/.fix73'
+          git commit -m '[fix73-build] Corrige HTML original sem alterar o visual'
+          git push origin HEAD:planejamento-colaborativo-fix-73c078d
