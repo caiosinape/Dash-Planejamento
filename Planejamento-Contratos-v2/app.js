@@ -1,0 +1,54 @@
+(()=>{'use strict';
+const MONTHS=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const END_DATES={2453:'2026-11-21',2456:'2026-12-19',2459:'2026-08-25',2460:'2027-07-17',2463:'2026-07-08',2465:'2027-03-15',2468:'2026-07-16',2470:'2026-06-12',2473:'2028-07-07',2475:'2030-12-12',2476:'2027-10-29',2479:'2027-03-17',2480:'2028-10-17',2481:'2026-07-15',2483:'2030-12-12'};
+const PART_BASE='../Planejamento-Colaborativo/data/direct-overrides.part';
+const $=id=>document.getElementById(id);let allRows=[],meta={},selectedMonth=6;
+const num=v=>{const n=Number(v);return Number.isFinite(n)?n:0};
+function normalizeSeries(value,kind='number'){
+ const empty=kind==='string'?'':0,out=Array(12).fill(empty),set=(i,v)=>{if(i<0||i>11)return;out[i]=kind==='string'?String(v??'').trim():num(v)};
+ if(Array.isArray(value)){value.slice(0,12).forEach((v,i)=>set(i,v));return out}
+ if(value&&typeof value==='object'){
+  const names={jan:0,janeiro:0,feb:1,fev:1,fevereiro:1,mar:2,marco:2,'março':2,apr:3,abr:3,abril:3,may:4,mai:4,maio:4,jun:5,junho:5,jul:6,julho:6,aug:7,ago:7,agosto:7,sep:8,set:8,setembro:8,oct:9,out:9,outubro:9,nov:10,novembro:10,dec:11,dez:11,dezembro:11};
+  Object.entries(value).forEach(([k,v])=>{let i=/^\d+$/.test(k)?Number(k):names[String(k).toLowerCase()];if(i>=1&&i<=12&&!Object.prototype.hasOwnProperty.call(value,'0'))i--;set(i,v)});return out
+ }
+ if(value!==null&&value!==undefined&&value!==''){
+  if(kind==='string'){if(String(value).trim())set(6,value)}else if(num(value)!==0)set(6,value);
+ }
+ return out;
+}
+async function gunzipBase64(b64){
+ if(!('DecompressionStream'in window))throw new Error('Este navegador não oferece o recurso de descompactação necessário. Abra o painel no Microsoft Edge ou Google Chrome atualizado.');
+ const bytes=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));return await new Response(stream).text();
+}
+async function loadPacked(){
+ const responses=await Promise.all(Array.from({length:8},(_,i)=>fetch(PART_BASE+i+'?v=20260730',{cache:'no-store'})));
+ responses.forEach((r,i)=>{if(!r.ok)throw new Error('Não foi possível carregar o bloco de dados '+(i+1)+' (HTTP '+r.status+').')});
+ const parts=await Promise.all(responses.map(r=>r.text()));const payload=JSON.parse(await gunzipBase64(parts.map(x=>x.trim()).join('')));
+ if(!payload||!payload.c||!payload.m)throw new Error('A base carregada não contém a estrutura esperada.');
+ const rows=[];Object.entries(payload.c).forEach(([contract,list])=>{if(!Array.isArray(list))return;list.forEach((r,idx)=>{
+  if(!Array.isArray(r)||r.length<10)return;const [name,occurrence,price,balance,base,plan,planValue,exec,execValue,orders]=r;
+  rows.push({contract,code:Number((String(contract).match(/\d{4}/)||['0'])[0]),name:String(name||'Item sem descrição'),occurrence:num(occurrence)||idx+1,price:num(price),balance:num(balance),base:num(base),plan:normalizeSeries(plan),planValue:normalizeSeries(planValue),exec:normalizeSeries(exec),execValue:normalizeSeries(execValue),orders:normalizeSeries(orders,'string')});
+ })});
+ if(Number(payload.m.contracts)!==15||rows.length!==650)throw new Error('Validação da base divergente: '+Object.keys(payload.c).length+' contratos e '+rows.length+' itens. Esperado: 15 contratos e 650 itens.');
+ meta=payload.m;allRows=rows;
+}
+const money=v=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:2}).format(num(v));
+const compactMoney=v=>{const n=num(v),a=Math.abs(n);if(a>=1e6)return 'R$ '+(n/1e6).toLocaleString('pt-BR',{maximumFractionDigits:2})+' mi';if(a>=1e3)return 'R$ '+(n/1e3).toLocaleString('pt-BR',{maximumFractionDigits:1})+' mil';return money(n)};
+const qty=v=>num(v).toLocaleString('pt-BR',{maximumFractionDigits:2});
+const dateBR=s=>s?new Date(s+'T12:00:00').toLocaleDateString('pt-BR'):'—';
+function filteredRows(){const c=$('contractFilter').value,q=$('itemFilter').value.trim().toLowerCase();return allRows.filter(r=>(!c||r.contract===c)&&(!q||r.name.toLowerCase().includes(q)))}
+function aggregate(rows,m){return rows.reduce((a,r)=>{a.pq+=r.plan[m];a.pv+=r.planValue[m];a.eq+=r.exec[m];a.ev+=r.execValue[m];if(r.plan[m]!==0)a.pi++;if(r.exec[m]!==0)a.ei++;if(r.orders[m])a.oi++;return a},{pq:0,pv:0,eq:0,ev:0,pi:0,ei:0,oi:0})}
+function selectionLabel(){const c=$('contractFilter').value||'Todos os contratos';return c+' • '+MONTHS[selectedMonth]+'/2026'}
+function updateFilters(){const current=$('contractFilter').value;const contracts=[...new Set(allRows.map(r=>r.contract))].sort((a,b)=>a.localeCompare(b,'pt-BR',{numeric:true}));$('contractFilter').innerHTML='<option value="">Todos os contratos</option>'+contracts.map(c=>'<option '+(c===current?'selected':'')+' value="'+esc(c)+'">'+esc(c)+'</option>').join('');$('monthFilter').innerHTML=MONTHS.map((m,i)=>'<option value="'+i+'" '+(i===6?'selected':'')+'>'+m+'/2026</option>').join('')}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+function renderCards(rows){const a=aggregate(rows,selectedMonth);$('plannedMoney').textContent=compactMoney(a.pv);$('executedMoney').textContent=compactMoney(a.ev);$('plannedQty').textContent=qty(a.pq);$('executedQty').textContent=qty(a.eq);$('plannedItems').textContent=a.pi+' itens com quantidade';$('executedItems').textContent=a.ei+' itens executados';const bal=rows.reduce((s,r)=>s+r.balance*r.price,0);$('contractBalance').textContent=compactMoney(bal);const codes=[...new Set(rows.map(r=>r.code).filter(Boolean))];if(codes.length===1){$('endDate').textContent=dateBR(END_DATES[codes[0]]);$('endDateSub').textContent='Contrato '+codes[0]}else{$('endDate').textContent='—';$('endDateSub').textContent='Selecione um contrato para visualizar'}$('selectionNote').textContent=selectionLabel()}
+function renderChart(id,rows,type){const values=Array.from({length:7},(_,m)=>aggregate(rows,m));const max=Math.max(1,...values.flatMap(v=>type==='money'?[Math.abs(v.pv),Math.abs(v.ev)]:[Math.abs(v.pq),Math.abs(v.eq)]));$(id).innerHTML=values.map((v,m)=>{const p=type==='money'?v.pv:v.pq,e=type==='money'?v.ev:v.eq,ph=Math.max(2,Math.abs(p)/max*225),eh=Math.max(2,Math.abs(e)/max*225),fmt=type==='money'?compactMoney:qty;return '<div class="month-col"><div class="bars"><div class="bar plan" style="height:'+ph+'px" data-tip="'+esc(fmt(p))+'"></div><div class="bar exec" style="height:'+eh+'px" data-tip="'+esc(fmt(e))+'"></div></div><div class="month-label">'+MONTHS[m].slice(0,3).toUpperCase()+'</div></div>'}).join('')}
+function renderHorizon(rows){$('horizon').innerHTML=Array.from({length:3},(_,k)=>{const m=(selectedMonth+k)%12,a=aggregate(rows,m);return '<article class="card month-card '+(k===0?'current':'')+'"><div class="month-name"><span>'+MONTHS[m]+'/2026</span><span class="lock">HORIZONTE '+(k+1)+'</span></div><div class="metric-grid"><div class="metric"><span>Planejado financeiro</span><strong>'+compactMoney(a.pv)+'</strong></div><div class="metric"><span>Planejado quantidade</span><strong>'+qty(a.pq)+'</strong></div><div class="metric"><span>Executado financeiro</span><strong>'+compactMoney(a.ev)+'</strong></div><div class="metric"><span>Executado quantidade</span><strong>'+qty(a.eq)+'</strong></div><div class="metric"><span>Itens planejados</span><strong>'+a.pi+'</strong></div><div class="metric"><span>Ordens registradas</span><strong>'+a.oi+'</strong></div></div></article>'}).join('')}
+function renderBalance(rows){const sorted=[...rows].sort((a,b)=>a.contract.localeCompare(b.contract,'pt-BR',{numeric:true})||a.name.localeCompare(b.name,'pt-BR'));$('balanceCount').textContent=sorted.length+' itens';$('balanceBody').innerHTML=sorted.map(r=>{const val=r.balance*r.price,cl=r.balance<0?'warn':r.balance===0?'zero':'ok',tx=r.balance<0?'Ultrapassado':r.balance===0?'Sem saldo':'Disponível';return '<tr><td>'+esc(r.contract)+'</td><td class="item-name">'+esc(r.name)+'</td><td>'+r.occurrence+'</td><td class="num">'+money(r.price)+'</td><td class="num">'+qty(r.balance)+'</td><td class="num">'+money(val)+'</td><td><span class="badge '+cl+'">'+tx+'</span></td></tr>'}).join('')||'<tr><td colspan="7" class="muted">Nenhum item encontrado para os filtros selecionados.</td></tr>'}
+function renderOrders(rows){const list=rows.filter(r=>r.orders[selectedMonth]||r.plan[selectedMonth]||r.exec[selectedMonth]);$('ordersCount').textContent=list.length+' registros no período';$('ordersBody').innerHTML=list.slice(0,250).map(r=>'<tr><td>'+esc(r.contract)+'</td><td class="item-name">'+esc(r.name)+'</td><td>'+esc(r.orders[selectedMonth]||'Sem OS registrada')+'</td><td class="num">'+qty(r.plan[selectedMonth])+'</td><td class="num">'+qty(r.exec[selectedMonth])+'</td><td class="num">'+money(r.planValue[selectedMonth])+'</td></tr>').join('')||'<tr><td colspan="6" class="muted">Não há planejamento, execução ou OS registrada neste recorte.</td></tr>'}
+function renderRdo(rows){const list=rows.filter(r=>r.exec[selectedMonth]!==0||r.execValue[selectedMonth]!==0);const total=list.reduce((s,r)=>s+r.execValue[selectedMonth],0);$('rdoCount').textContent=list.length;$('rdoValue').textContent=compactMoney(total);$('rdoBody').innerHTML=list.slice(0,200).map(r=>'<tr><td>'+esc(r.contract)+'</td><td class="item-name">'+esc(r.name)+'</td><td class="num">'+qty(r.exec[selectedMonth])+'</td><td class="num">'+money(r.execValue[selectedMonth])+'</td><td>'+esc(r.orders[selectedMonth]||'—')+'</td></tr>').join('')||'<tr><td colspan="5" class="muted">Sem registros executados no período selecionado.</td></tr>'}
+function render(){const rows=filteredRows();renderCards(rows);renderChart('financialChart',rows,'money');renderChart('quantityChart',rows,'qty');renderHorizon(rows);renderBalance(rows);renderOrders(rows);renderRdo(rows)}
+function bind(){['contractFilter','monthFilter'].forEach(id=>$(id).addEventListener('change',()=>{selectedMonth=Number($('monthFilter').value);render()}));$('itemFilter').addEventListener('input',render);$('clearFilters').addEventListener('click',()=>{$('contractFilter').value='';$('monthFilter').value='6';$('itemFilter').value='';selectedMonth=6;render()})}
+async function init(){try{await loadPacked();updateFilters();bind();render();$('status').classList.add('ok');$('statusText').textContent='Base validada: '+meta.contracts+' contratos • '+meta.items+' itens';}catch(err){console.error(err);$('status').classList.add('err');$('statusText').textContent='Falha ao carregar a base';$('errorBox').textContent='Não foi possível abrir os dados do painel.\n\n'+(err&&err.message?err.message:String(err));$('errorBox').classList.add('show')}finally{$('loading').classList.add('hidden')}}
+init();
+})();
