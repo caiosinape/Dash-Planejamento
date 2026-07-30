@@ -20,13 +20,29 @@
       var start=html.indexOf('function we(){');
       var end=html.indexOf('function xe(){',start);
       if(start<0||end<0)throw new Error('Funcao do filtro semanal nao localizada');
-      var replacement='function we(){var e=te(V()),t=document.getElementById("weekMenu");t.innerHTML=\'<label><input type="checkbox" value="all" \'+(l.length?"":"checked")+\'> Todas as semanas</label>\'+e.map(function(e){return\'<label><input type="checkbox" value="\'+e.week+\'" \'+(l.indexOf(e.week)>=0?"checked":"")+\'> Semana \'+e.week+\' · \'+e.start+\'–\'+e.end+\'</label>\'}).join("");t.querySelectorAll("input").forEach(function(e){e.onchange=function(){if("all"===this.value)l=[];else{var e=Number(this.value);this.checked&&l.indexOf(e)<0&&l.push(e),this.checked||(l=l.filter(function(t){return t!==e})),l.sort()}we(),xe()}}),document.getElementById("weekButton").textContent=l.length?"Semanas "+l.join(", "):"Todas as semanas"}';
+      var replacement=`function we(){
+        var weeks=te(V()),menu=document.getElementById("weekMenu");
+        menu.innerHTML="";
+        function addOption(value,text,checked){
+          var label=document.createElement("label"),input=document.createElement("input"),node=document.createTextNode(" "+text);
+          input.type="checkbox";input.value=String(value);input.checked=!!checked;
+          label.appendChild(input);label.appendChild(node);menu.appendChild(label);
+          input.onchange=function(){
+            if(this.value==="all")l=[];
+            else{var week=Number(this.value);if(this.checked&&l.indexOf(week)<0)l.push(week);if(!this.checked)l=l.filter(function(item){return item!==week});l.sort(function(a,b){return a-b})}
+            we();xe();
+          };
+        }
+        addOption("all","Todas as semanas",!l.length);
+        weeks.forEach(function(item){addOption(item.week,"Semana "+item.week+" · "+item.start+"–"+item.end,l.indexOf(item.week)>=0)});
+        document.getElementById("weekButton").textContent=l.length?"Semanas "+l.join(", "):"Todas as semanas";
+      }`;
       return html.slice(0,start)+replacement+html.slice(end);
     }
     var controller=typeof AbortController!=='undefined'?new AbortController():null,timer=setTimeout(function(){if(controller)controller.abort()},20000);
     fetch('index-core.html?v=layout-stable-20260730',{cache:'no-store',signal:controller&&controller.signal}).then(function(r){clearTimeout(timer);if(!r.ok)throw new Error('HTML-base indisponivel ('+r.status+')');return r.text()}).then(function(html){
       var marker='<script>!async function(){';
-      var scripts='<script src="data/access-failsafe.js?v=weekfix20260730"><\\/script><script src="data/direct-model-runtime.js?v=weekfix20260730"><\\/script>';
+      var scripts='<script src="data/access-failsafe.js?v=domweek20260730"><\\/script><script src="data/direct-model-runtime.js?v=domweek20260730"><\\/script>';
       html=one(html,marker,scripts+marker,'injecao segura');
       html=replaceWeekFunction(html);
       html=one(html,"Contrato '+esc(contractCode())+' completo","Contrato '+D(F())+' completo",'detalhamento de itens consumidos');
@@ -40,7 +56,7 @@
       html=one(html,'<th>Contrato</th><th>Período</th><th>Observação do RDO</th><th>Serviço executado</th><th>Quantidade</th><th>Valor executado</th>','<th>Contrato</th><th>Período</th><th>Observação do RDO</th><th>Serviço executado</th><th>Quantidade</th>','RDO sem valor');
       html=one(html,'<td>"+P.format(e.quantity)+" "+D(e.unit)+"</td><td><strong>"+A.format(e.value)+"</strong></td>','<td>"+P.format(e.quantity)+" "+D(e.unit)+"</td>','linha RDO sem valor');
       html=one(html,'document.getElementById("clearFilters").onclick=function(){c=d,s="Todas",m="",l=[],u="",Be.value=String(d),document.getElementById("osFilter").value="Todas",document.getElementById("statusFilter").value="",Ee(),we(),xe()}','document.getElementById("clearFilters").onclick=function(){L=C,q=T(L),c=d,s="Todas",m="",l=[],u="",Ie.value=C,Be.value=String(d),document.getElementById("osFilter").value="Todas",document.getElementById("statusFilter").value="",document.getElementById("advancedFilters").classList.remove("open"),ke(!1),Ee(),we(),xe()}','limpeza de filtros');
-      html=html.replace(/Fonte: Modelo Cronograma \+ Base BI Executado \(2\)/g,'Fonte: Modelo Cronograma Base de Dados v2 + Estudo Geral').replace(/Atualização: 28\/07\/2026 14:12/g,'Atualização: 30/07/2026 20:41').replace(/Planejamento: base atual · Executado\/RDO: <b>Base BI Executado \(2\) atualizada<\/b>/g,'Planejado e executado: <b>Modelo Cronograma v2</b> · RDO: Base BI Executado (2)').replace(/Quantitativos e valores executados provenientes da Base BI Executado \(2\)/g,'Quantitativos do RDO provenientes da Base BI Executado (2)').replace(/Planejamento: Modelo Cronograma Base de Dados · Planilha1/g,'Planejado e executado: Modelo Cronograma Base de Dados v2 · Planilha1').replace(/Executado e RDO: Estudo Geral · Base BI Executado \(2\)/g,'RDO: Estudo Geral · Base BI Executado (2) · somente quantidade').replace(/Quantidade planejada × preço unitário do recorte/g,'Histórico: R$ Realista · futuro: quantidade × Preço Unit').replace(/Fonte: Base BI Executado \(2\)/g,'Fonte: R$ Executado da Modelo Cronograma v2').replace(/Saldo anterior − consumo da janela de 3 meses/g,'Saldo Quant. Total JULHO 2026 − consumo futuro');
+      html=html.replace(/Fonte: Modelo Cronograma \+ Base BI Executado \(2\)/g,'Fonte: Modelo Cronograma Base de Dados v2 + Estudo Geral').replace(/Atualização: 28\/07\/2026 14:12/g,'Atualização: 30/07/2026 20:47').replace(/Planejamento: base atual · Executado\/RDO: <b>Base BI Executado \(2\) atualizada<\/b>/g,'Planejado e executado: <b>Modelo Cronograma v2</b> · RDO: Base BI Executado (2)').replace(/Quantitativos e valores executados provenientes da Base BI Executado \(2\)/g,'Quantitativos do RDO provenientes da Base BI Executado (2)').replace(/Planejamento: Modelo Cronograma Base de Dados · Planilha1/g,'Planejado e executado: Modelo Cronograma Base de Dados v2 · Planilha1').replace(/Executado e RDO: Estudo Geral · Base BI Executado \(2\)/g,'RDO: Estudo Geral · Base BI Executado (2) · somente quantidade').replace(/Quantidade planejada × preço unitário do recorte/g,'Histórico: R$ Realista · futuro: quantidade × Preço Unit').replace(/Fonte: Base BI Executado \(2\)/g,'Fonte: R$ Executado da Modelo Cronograma v2').replace(/Saldo anterior − consumo da janela de 3 meses/g,'Saldo Quant. Total JULHO 2026 − consumo futuro');
       validate(html);document.open();document.write(html);document.close();
     }).catch(function(error){clearTimeout(timer);var message=error&&error.name==='AbortError'?'Tempo excedido ao carregar o painel':String(error&&error.message||error);document.querySelector('.loading').innerHTML='<b>Não foi possível abrir o painel</b><span>'+message+'</span>'});
   })();
