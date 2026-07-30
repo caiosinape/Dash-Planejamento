@@ -1,4 +1,4 @@
-Executar atualização completa em 29/07/2026.
+Executar atualização completa em 29/07/2026 às 22:02 BRT.
 Fonte principal: Modelo Cronograma Base de Dados v2.
 Planejado histórico: Qnt Realis. e R$ Realista.
 Executado histórico: Qtd. Executada e R$ Executado.
