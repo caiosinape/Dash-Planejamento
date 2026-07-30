@@ -27,6 +27,14 @@
       return html.split(from).join(to);
     }
 
+    function validateCoreScript(html){
+      var marker='<script>!async function(){';
+      var start=html.indexOf(marker);
+      var end=html.lastIndexOf('</script>');
+      if(start<0||end<=start)throw new Error('Script principal não localizado para validação');
+      new Function(html.slice(start+8,end));
+    }
+
     fetch('index-core.html?v=layout-stable-20260730',{cache:'no-store'})
       .then(function(response){
         if(!response.ok)throw new Error('HTML-base indisponível ('+response.status+')');
@@ -34,10 +42,18 @@
       })
       .then(function(html){
         var marker='<script>!async function(){';
-        var scripts='<script src="data/access-failsafe.js?v=resilient20260730b"><\/script>'+
-                    '<script src="data/direct-model-runtime.js?v=resilient20260730b"><\/script>';
+        var scripts='<script src="data/access-failsafe.js?v=audit20260730"><\/script>'+
+                    '<script src="data/direct-model-runtime.js?v=audit20260730"><\/script>';
 
         html=replaceOnce(html,marker,scripts+marker,'injeção segura');
+        html=replaceOnce(html,
+          'Todas as semanas</label>"+e.map',
+          "Todas as semanas</label>'+e.map",
+          'montagem do filtro de semanas');
+        html=replaceOnce(html,
+          "Contrato '+esc(contractCode())+' completo",
+          "Contrato '+D(F())+' completo",
+          'detalhamento de itens consumidos');
         html=replaceOnce(html,
           'function Z(e){return oe(!0).reduce(function(t,n){return t+Number(n.plan[e]||0)*n.price},0)}',
           'function Z(e){return oe(!0).reduce(function(t,n){return t+Number((n.planValue||[])[e]||0)},0)}',
@@ -82,7 +98,7 @@
 
         html=html
           .replace(/Fonte: Modelo Cronograma \+ Base BI Executado \(2\)/g,'Fonte: Modelo Cronograma Base de Dados v2 + Estudo Geral')
-          .replace(/Atualização: 28\/07\/2026 14:12/g,'Atualização: 30/07/2026 17:05')
+          .replace(/Atualização: 28\/07\/2026 14:12/g,'Atualização: 30/07/2026 20:09')
           .replace(/Planejamento: base atual · Executado\/RDO: <b>Base BI Executado \(2\) atualizada<\/b>/g,'Planejado e executado: <b>Modelo Cronograma v2</b> · RDO: Base BI Executado (2)')
           .replace(/Quantitativos e valores executados provenientes da Base BI Executado \(2\)/g,'Quantitativos do RDO provenientes da Base BI Executado (2)')
           .replace(/Planejamento: Modelo Cronograma Base de Dados · Planilha1/g,'Planejado e executado: Modelo Cronograma Base de Dados v2 · Planilha1')
@@ -91,6 +107,7 @@
           .replace(/Fonte: Base BI Executado \(2\)/g,'Fonte: R$ Executado da Modelo Cronograma v2')
           .replace(/Saldo anterior − consumo da janela de 3 meses/g,'Saldo Quant. Total JULHO 2026 − consumo futuro');
 
+        validateCoreScript(html);
         document.open();
         document.write(html);
         document.close();
