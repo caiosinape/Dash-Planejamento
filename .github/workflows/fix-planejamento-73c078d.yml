@@ -1,4 +1,4 @@
-name: Corrigir Planejamento Colaborativo 73c078d
+name: Diagnosticar carga Planejamento 73c078d
 
 on:
   push:
@@ -6,18 +6,6 @@ on:
       - planejamento-colaborativo-fix-73c078d
     paths:
       - 'Planejamento-Colaborativo/.fix73/ready.txt'
-      - 'tools/fix_planejamento_73.py'
-      - 'tools/run_fix_planejamento_73.py'
-      - '.github/workflows/fix-planejamento-73c078d.yml'
-  pull_request:
-    branches:
-      - main
-    paths:
-      - 'Planejamento-Colaborativo/.fix73/ready.txt'
-      - 'tools/fix_planejamento_73.py'
-      - 'tools/run_fix_planejamento_73.py'
-      - '.github/workflows/fix-planejamento-73c078d.yml'
-      - 'Planejamento-Colaborativo/index.html'
 
 permissions:
   contents: write
@@ -27,8 +15,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  fix:
-    if: ${{ !contains(github.event.head_commit.message || github.event.pull_request.title || '', '[fix73-build]') }}
+  diagnose:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout da branch de correção
@@ -37,61 +24,22 @@ jobs:
           ref: planejamento-colaborativo-fix-73c078d
           fetch-depth: 0
 
-      - name: Buscar carga validada do Modelo v2
+      - name: Buscar carga da main
         shell: bash
         run: git fetch origin main
 
-      - name: Aplicar correções determinísticas
+      - name: Diagnosticar formato sem alterar o HTML
         shell: bash
         run: |
           set -euo pipefail
-          PYTHONPATH=tools python tools/run_fix_planejamento_73.py
+          python tools/diagnose_direct_overrides.py
 
-      - name: Validar JavaScript
+      - name: Gravar diagnóstico na branch
         shell: bash
         run: |
           set -euo pipefail
-          python - <<'PY'
-          from pathlib import Path
-          import re
-          html = Path('Planejamento-Colaborativo/index.html').read_text(encoding='utf-8')
-          scripts = re.findall(r'<script(?:\s+[^>]*)?>(.*?)</script>', html, flags=re.S)
-          main = next((script for script in scripts if 'function xe()' in script), None)
-          if main is None:
-              raise SystemExit('Script principal não encontrado')
-          Path('/tmp/fix73-main.js').write_text(main, encoding='utf-8')
-          PY
-          node --check /tmp/fix73-main.js
-
-      - name: Validar abertura no navegador
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 -m http.server 8765 >/tmp/fix73-server.log 2>&1 &
-          SERVER_PID=$!
-          trap 'kill $SERVER_PID || true' EXIT
-          sleep 2
-          google-chrome --headless --no-sandbox --disable-gpu --virtual-time-budget=10000 --dump-dom 'http://127.0.0.1:8765/Planejamento-Colaborativo/index.html' >/tmp/fix73-dom.html 2>/tmp/fix73-chrome.log
-          grep -q 'id="contractFilter"' /tmp/fix73-dom.html
-          grep -q '2453' /tmp/fix73-dom.html
-          grep -q 'id="yearFilter"' /tmp/fix73-dom.html
-          grep -q 'id="healthError"' /tmp/fix73-dom.html
-          if grep -E 'Uncaught|ReferenceError|SyntaxError|TypeError' /tmp/fix73-chrome.log; then
-            cat /tmp/fix73-chrome.log
-            exit 1
-          fi
-
-      - name: Publicar resultado somente na branch de correção
-        shell: bash
-        run: |
-          set -euo pipefail
-          rm -rf 'Planejamento-Colaborativo/.fix73'
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add 'Planejamento-Colaborativo/index.html' 'Planejamento-Colaborativo/fix73-audit.json' 'Planejamento-Colaborativo/.fix73'
-          if git diff --cached --quiet; then
-            echo 'Nenhuma alteração pendente.'
-            exit 0
-          fi
-          git commit -m '[fix73-build] Corrige HTML original sem alterar o visual'
+          git add 'Planejamento-Colaborativo/direct-overrides-shape.json'
+          git commit -m '[diagnostic73] Registra formato real da carga compactada' || exit 0
           git push origin HEAD:planejamento-colaborativo-fix-73c078d
