@@ -1,4 +1,4 @@
-name: Publish Modelo Cronograma V2 Data
+name: Publicar dados validados do Modelo Cronograma V2
 
 on:
   push:
@@ -11,10 +11,11 @@ permissions:
 
 concurrency:
   group: publish-model-v2-data
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 env:
-  MODEL_URL: 'https://sdmntprbrazilsouth.oaiusercontent.com/files/00000000-c318-820e-aa0d-3dca13fbe72d/raw?se=2026-07-29T22:55:39Z&sp=r&sv=2026-02-06&sr=b&scid=49bfb3ad-bbfd-5b92-b80b-6ce745e43a6b&skoid=a6356955-0ca0-4033-9150-c0c162458498&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-07-29T12:10:20Z&ske=2026-07-31T12:10:20Z&sks=b&skv=2026-02-06&sig=SwMdo4%2BbVGrIaQBVQ6uGczGfTHYvc1F8aRLKK7g8gLk%3D'
+  MODEL_URL: 'https://sdmntprbrazilsouth.oaiusercontent.com/files/00000000-18e8-820e-9426-d3b46ea0157c/raw?se=2026-07-30T00:29:43Z&sp=r&sv=2026-02-06&sr=b&scid=1e9d15f3-10b3-5da6-b375-08908268c659&skoid=a6356955-0ca0-4033-9150-c0c162458498&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-07-29T23:36:34Z&ske=2026-07-31T23:36:34Z&sks=b&skv=2026-02-06&sig=4BV6pEFbGK7ceEmsG%2BbsLrrfDgRWIoW9ymq%2BQJzk1QI%3D'
+  ESTUDO_URL: 'https://sdmntprbrazilsouth.oaiusercontent.com/files/00000000-a6c4-820e-a7d4-9adcbda83074/raw?se=2026-07-30T00:29:50Z&sp=r&sv=2026-02-06&sr=b&scid=980a5471-4f33-53e9-8695-87210ea132c6&skoid=a6356955-0ca0-4033-9150-c0c162458498&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-07-29T23:32:14Z&ske=2026-07-31T23:32:14Z&sks=b&skv=2026-02-06&sig=LFr2m1OCZQmZ97t%2BJCrwjdDo42HaSJqwplTzBaLpHKc%3D'
 
 jobs:
   publish:
@@ -23,192 +24,330 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install workbook reader
+      - name: Instalar leitor de planilhas
         run: python -m pip install --quiet openpyxl
 
-      - name: Download workbook
+      - name: Baixar e validar as bases vinculadas
         shell: bash
         run: |
           python - <<'PY'
-          import os, urllib.request, zipfile
+          import os
+          import urllib.request
+          import zipfile
           from pathlib import Path
-          target=Path('/tmp/model-v2.xlsx')
-          urllib.request.urlretrieve(os.environ['MODEL_URL'], target)
-          if not target.exists() or target.stat().st_size < 10000 or not zipfile.is_zipfile(target):
-              raise RuntimeError('Falha ao baixar um XLSX valido')
-          print('Workbook OK:', target.stat().st_size)
+
+          files = {
+              'MODEL_URL': Path('/tmp/model-v2.xlsx'),
+              'ESTUDO_URL': Path('/tmp/estudo-geral.xlsx'),
+          }
+          for env_name, target in files.items():
+              urllib.request.urlretrieve(os.environ[env_name], target)
+              if not target.exists() or target.stat().st_size < 10000:
+                  raise RuntimeError(f'Arquivo não baixado corretamente: {env_name}')
+              if not zipfile.is_zipfile(target):
+                  raise RuntimeError(f'O arquivo não é um XLSX válido: {env_name}')
+              print(env_name, target.stat().st_size, 'bytes')
           PY
 
-      - name: Build validated data files
+      - name: Gerar pacote interno validado
         shell: bash
         run: |
           python - <<'PY'
           from openpyxl import load_workbook
           from openpyxl.utils.cell import range_boundaries
           from collections import defaultdict, Counter
+          from datetime import datetime, date
           from pathlib import Path
-          import base64, gzip, json, math
+          import base64
+          import gzip
+          import hashlib
+          import json
+          import math
+          import re
+          import unicodedata
 
-          wb=load_workbook('/tmp/model-v2.xlsx', data_only=True, read_only=False)
-          ws=wb['Planilha1']
-          monthly=[(15,16,17,18,19),(20,21,22,23,24),(25,26,27,28,29),(30,31,32,33,34),(35,36,37,38,39),(40,41,42,43,44)]
-          os_columns={entry[4] for entry in monthly}
-          merged_orders={}
-          for merged_range in ws.merged_cells.ranges:
-              min_col,min_row,max_col,max_row=range_boundaries(str(merged_range))
-              if min_col==max_col and min_col in os_columns:
-                  value=ws.cell(min_row,min_col).value
-                  for row in range(min_row,max_row+1):
-                      merged_orders[(row,min_col)]=value
+          model_path = Path('/tmp/model-v2.xlsx')
+          estudo_path = Path('/tmp/estudo-geral.xlsx')
+          output = Path('Planejamento-Colaborativo/data')
+          output.mkdir(parents=True, exist_ok=True)
+
+          monthly = [
+              (15,16,17,18,19),
+              (20,21,22,23,24),
+              (25,26,27,28,29),
+              (30,31,32,33,34),
+              (35,36,37,38,39),
+              (40,41,42,43,44),
+          ]
 
           def number(value):
-              if value is None or value=='': return 0.0
-              if isinstance(value,(int,float)):
-                  value=float(value)
+              if value is None or value == '':
+                  return 0.0
+              if isinstance(value, (int, float)):
+                  value = float(value)
                   return value if math.isfinite(value) else 0.0
+              raw = str(value).strip()
               try:
-                  raw=str(value).strip()
-                  if ',' in raw: raw=raw.replace('.','').replace(',','.')
-                  value=float(raw)
+                  if ',' in raw:
+                      raw = raw.replace('.', '').replace(',', '.')
+                  value = float(raw)
                   return value if math.isfinite(value) else 0.0
               except Exception:
                   return 0.0
 
           def clean_number(value):
-              value=round(number(value),10)
-              if abs(value)<1e-12: return 0
-              if abs(value-round(value))<1e-10: return int(round(value))
+              value = round(number(value), 10)
+              if abs(value) < 1e-12:
+                  return 0
+              if abs(value - round(value)) < 1e-10:
+                  return int(round(value))
               return value
 
-          def clean_text(value,default=''):
-              value='' if value is None else str(value).strip()
+          def clean_text(value, default=''):
+              value = '' if value is None else str(value).strip()
               return value or default
 
-          data=defaultdict(list)
-          occurrences=defaultdict(Counter)
-          for row in range(4,ws.max_row+1):
-              contract=clean_text(ws.cell(row,2).value)
-              item=clean_text(ws.cell(row,3).value)
-              price_raw=ws.cell(row,5).value
-              if not contract or not item or not isinstance(price_raw,(int,float)) or abs(float(price_raw))<1e-12:
-                  continue
-              occurrences[contract][item]+=1
-              occurrence=occurrences[contract][item]
-              source_id=item if occurrence==1 else item+' #'+str(occurrence)
-              plan=[0]*12
-              plan_value=[0]*12
-              executed=[0]*12
-              exec_value=[0]*12
-              orders=['Sem servicos']*12
-              for month,(plan_col,plan_value_col,exec_col,exec_value_col,order_col) in enumerate(monthly):
-                  plan[month]=clean_number(ws.cell(row,plan_col).value)
-                  plan_value[month]=clean_number(ws.cell(row,plan_value_col).value)
-                  executed[month]=clean_number(ws.cell(row,exec_col).value)
-                  exec_value[month]=clean_number(ws.cell(row,exec_value_col).value)
-                  orders[month]=clean_text(merged_orders.get((row,order_col),ws.cell(row,order_col).value),'Sem servicos')
-              data[contract].append({
-                  'sourceId':source_id,
-                  'name':item,
-                  'unit':clean_text(ws.cell(row,4).value,'-'),
-                  'price':clean_number(price_raw),
-                  'contractual':clean_number(ws.cell(row,8).value),
-                  'base':clean_number(ws.cell(row,12).value),
-                  'balance':clean_number(ws.cell(row,10).value),
-                  'plan':plan,
-                  'planValue':plan_value,
-                  'exec':executed,
-                  'execValue':exec_value,
-                  'orders':orders
-              })
+          def normalize(value):
+              value = '' if value is None else str(value)
+              value = unicodedata.normalize('NFKD', value)
+              value = ''.join(ch for ch in value if not unicodedata.combining(ch))
+              return re.sub(r'\s+', ' ', value.lower().strip())
 
-          data=dict(data)
-          contract_count=len(data)
-          item_count=sum(len(items) for items in data.values())
-          if contract_count!=15 or item_count!=650:
-              raise RuntimeError(f'Importacao divergente: {contract_count} contratos e {item_count} itens')
+          def parse_date(value):
+              if isinstance(value, datetime):
+                  return value
+              if isinstance(value, date):
+                  return datetime(value.year, value.month, value.day)
+              raw = clean_text(value)
+              for fmt in ('%d/%m/%Y', '%Y-%m-%d', '%d/%m/%y'):
+                  try:
+                      return datetime.strptime(raw, fmt)
+                  except ValueError:
+                      pass
+              return None
 
-          metadata={
-              'source':'Modelo Cronograma Base de Dados v2.xlsx',
-              'sheet':'Planilha1',
-              'balanceColumn':'Quant. Total JULHO 2026',
-              'unitPriceColumn':'Preco Unit',
-              'historicalPlanQuantity':'Qnt Realis.',
-              'historicalPlanValue':'R$ Realista',
-              'historicalExecQuantity':'Qtd. Executada',
-              'historicalExecValue':'R$ Executado',
-              'futurePlanValueRule':'quantidade inserida no HTML x Preco Unit',
-              'contracts':contract_count,
-              'items':item_count
+          def git_blob_sha(text):
+              raw = text.encode('utf-8')
+              return hashlib.sha1(b'blob ' + str(len(raw)).encode('ascii') + b'\0' + raw).hexdigest()
+
+          wb = load_workbook(model_path, data_only=True, read_only=False)
+          if 'Planilha1' not in wb.sheetnames:
+              raise RuntimeError('A aba Planilha1 não foi localizada')
+          ws = wb['Planilha1']
+
+          expected_headers = {
+              2: 'Codigo e Nome da Obra',
+              3: 'Item/CPU - SIENGE',
+              4: 'Unid serviço/Coef Insumo',
+              5: 'Preço Unit',
+              10: 'Quant. Total JULHO 2026',
           }
-          script='var contractData='+json.dumps(data,ensure_ascii=False,separators=(',',':'))+';\n'
-          script+='var modelV2Metadata='+json.dumps(metadata,ensure_ascii=False,separators=(',',':'))+';\n'
-          packed=base64.b64encode(gzip.compress(script.encode('utf-8'),compresslevel=9,mtime=0)).decode('ascii')
-          part_size=(len(packed)+4)//5
-          output=Path('Planejamento-Colaborativo/data')
-          output.mkdir(parents=True,exist_ok=True)
-          for index in range(5):
-              (output/f'model-v2.part{index}').write_text(packed[index*part_size:(index+1)*part_size],encoding='ascii')
-          joined=''.join((output/f'model-v2.part{i}').read_text(encoding='ascii') for i in range(5))
-          if gzip.decompress(base64.b64decode(joined)).decode('utf-8')!=script:
-              raise RuntimeError('Pacote interno invalido')
-          totals=[]
-          for month in range(6):
-              totals.append({
-                  'month':month+1,
-                  'planned':round(sum(float(item['planValue'][month] or 0) for items in data.values() for item in items),2),
-                  'executed':round(sum(float(item['execValue'][month] or 0) for items in data.values() for item in items),2)
+          for col, expected in expected_headers.items():
+              actual = clean_text(ws.cell(1, col).value)
+              if actual != expected:
+                  raise RuntimeError(f'Cabeçalho divergente na coluna {col}: {actual!r}')
+
+          expected_month = ['Qnt Realis.', 'R$ Realista', 'Qtd. Executada', 'R$ Executado', 'Ordem de Serviço']
+          for group in monthly:
+              actual = [clean_text(ws.cell(2, col).value) for col in group]
+              if actual != expected_month:
+                  raise RuntimeError(f'Cabeçalhos mensais divergentes: {actual!r}')
+
+          os_columns = {group[4] for group in monthly}
+          merged_orders = {}
+          for merged_range in ws.merged_cells.ranges:
+              min_col, min_row, max_col, max_row = range_boundaries(str(merged_range))
+              if min_col == max_col and min_col in os_columns:
+                  value = ws.cell(min_row, min_col).value
+                  for row in range(min_row, max_row + 1):
+                      merged_orders[(row, min_col)] = value
+
+          contract_data = defaultdict(list)
+          occurrences = defaultdict(Counter)
+          code_to_contract = {}
+          source_by_contract_item = defaultdict(list)
+          unit_by_contract_source = {}
+
+          for row in range(4, ws.max_row + 1):
+              code_raw = ws.cell(row, 1).value
+              contract = clean_text(ws.cell(row, 2).value)
+              item = clean_text(ws.cell(row, 3).value)
+              unit = clean_text(ws.cell(row, 4).value, '-')
+              price_raw = ws.cell(row, 5).value
+
+              if contract and code_raw not in (None, ''):
+                  try:
+                      code = str(int(float(code_raw)))
+                  except Exception:
+                      code = clean_text(code_raw)
+                  code_to_contract[code] = contract
+
+              # Linhas sem preço são títulos de grupos, não itens contratuais.
+              if not contract or not item or not isinstance(price_raw, (int, float)) or abs(float(price_raw)) < 1e-12:
+                  continue
+
+              occurrences[contract][item] += 1
+              occurrence = occurrences[contract][item]
+              source_id = item if occurrence == 1 else item + ' #' + str(occurrence)
+
+              plan = [0] * 12
+              plan_value = [0] * 12
+              executed = [0] * 12
+              exec_value = [0] * 12
+              orders = ['Sem serviços'] * 12
+
+              for month, (plan_col, plan_value_col, exec_col, exec_value_col, order_col) in enumerate(monthly):
+                  plan[month] = clean_number(ws.cell(row, plan_col).value)
+                  plan_value[month] = clean_number(ws.cell(row, plan_value_col).value)
+                  executed[month] = clean_number(ws.cell(row, exec_col).value)
+                  exec_value[month] = clean_number(ws.cell(row, exec_value_col).value)
+                  orders[month] = clean_text(
+                      merged_orders.get((row, order_col), ws.cell(row, order_col).value),
+                      'Sem serviços',
+                  )
+
+              contract_data[contract].append({
+                  'sourceId': source_id,
+                  'name': item,
+                  'unit': unit,
+                  'price': clean_number(price_raw),
+                  'contractual': clean_number(ws.cell(row, 8).value),
+                  'base': clean_number(ws.cell(row, 12).value),
+                  'balance': clean_number(ws.cell(row, 10).value),
+                  'plan': plan,
+                  'planValue': plan_value,
+                  'exec': executed,
+                  'execValue': exec_value,
+                  'orders': orders,
               })
-          print(json.dumps({'metadata':metadata,'monthlyTotals':totals},ensure_ascii=False))
+              source_by_contract_item[(contract, normalize(item))].append(source_id)
+              unit_by_contract_source[(contract, source_id)] = unit
+
+          contract_data = dict(contract_data)
+          contract_count = len(contract_data)
+          item_count = sum(len(items) for items in contract_data.values())
+          if contract_count != 15 or item_count != 650:
+              raise RuntimeError(f'Importação divergente: {contract_count} contratos e {item_count} itens')
+
+          wb_estudo = load_workbook(estudo_path, data_only=True, read_only=True)
+          if 'Base BI Executado (2)' not in wb_estudo.sheetnames:
+              raise RuntimeError('A aba Base BI Executado (2) não foi localizada')
+          ws_rdo = wb_estudo['Base BI Executado (2)']
+
+          rdo_data = []
+          unmatched = []
+          for row_index, row in enumerate(ws_rdo.iter_rows(min_row=4, values_only=True), start=4):
+              date_raw, code_raw, task_raw, _labor_price, _material_price, qty_raw = row[:6]
+              if date_raw in (None, '') or code_raw in (None, '') or task_raw in (None, '') or qty_raw in (None, ''):
+                  continue
+              dt = parse_date(date_raw)
+              qty = number(qty_raw)
+              if dt is None or not math.isfinite(qty):
+                  continue
+              code = clean_text(code_raw)
+              if code.endswith('.0'):
+                  code = code[:-2]
+              contract_key = code_to_contract.get(code)
+              task = clean_text(task_raw)
+              if not contract_key:
+                  unmatched.append({'row': row_index, 'reason': 'contract', 'code': code, 'task': task})
+                  continue
+              candidates = source_by_contract_item.get((contract_key, normalize(task)), [])
+              if not candidates:
+                  unmatched.append({'row': row_index, 'reason': 'item', 'contract': contract_key, 'task': task})
+                  continue
+              source_id = candidates[0]
+              rdo_data.append({
+                  'contract': contract_key.split(' - ')[0],
+                  'month': dt.month - 1,
+                  'itemId': source_id,
+                  'observation': 'RDO de ' + dt.strftime('%d/%m/%Y'),
+                  'service': task,
+                  'quantity': clean_number(qty),
+                  'unit': unit_by_contract_source.get((contract_key, source_id), '-'),
+              })
+
+          if unmatched:
+              raise RuntimeError('Registros de RDO sem vínculo: ' + json.dumps(unmatched, ensure_ascii=False))
+          if len(rdo_data) != 18:
+              raise RuntimeError(f'Quantidade de registros de RDO divergente: {len(rdo_data)}')
+
+          metadata = {
+              'source': 'Modelo Cronograma Base de Dados  v2.xlsx',
+              'sheet': 'Planilha1',
+              'balanceColumn': 'J - Quant. Total JULHO 2026',
+              'unitPriceColumn': 'E - Preço Unit',
+              'historicalPlanQuantity': 'Qnt Realis.',
+              'historicalPlanValue': 'R$ Realista',
+              'historicalExecQuantity': 'Qtd. Executada',
+              'historicalExecValue': 'R$ Executado',
+              'futurePlanValueRule': 'quantidade inserida no HTML x Preço Unit',
+              'rdoSource': 'Estudo Geral.xlsx / Base BI Executado (2)',
+              'rdoRule': 'somente quantidade; não altera o Executado do painel',
+              'contracts': contract_count,
+              'items': item_count,
+              'rdoRecords': len(rdo_data),
+          }
+
+          script = 'var contractData=' + json.dumps(contract_data, ensure_ascii=False, separators=(',', ':')) + ';\n'
+          script += 'var rdoData=' + json.dumps(rdo_data, ensure_ascii=False, separators=(',', ':')) + ';\n'
+          script += 'var modelV2Metadata=' + json.dumps(metadata, ensure_ascii=False, separators=(',', ':')) + ';\n'
+
+          packed = base64.b64encode(gzip.compress(script.encode('utf-8'), compresslevel=9, mtime=0)).decode('ascii')
+          part_size = (len(packed) + 4) // 5
+          parts = []
+          for index in range(5):
+              part = packed[index * part_size:(index + 1) * part_size]
+              (output / ('model-v2.part' + str(index))).write_text(part, encoding='ascii')
+              parts.append(part)
+
+          joined = ''.join(parts)
+          if gzip.decompress(base64.b64decode(joined)).decode('utf-8') != script:
+              raise RuntimeError('Falha na validação do pacote interno')
+
+          monthly_totals = []
+          for month in range(6):
+              monthly_totals.append({
+                  'month': month + 1,
+                  'plannedQuantity': round(sum(float(item['plan'][month] or 0) for items in contract_data.values() for item in items), 10),
+                  'plannedValue': round(sum(float(item['planValue'][month] or 0) for items in contract_data.values() for item in items), 10),
+                  'executedQuantity': round(sum(float(item['exec'][month] or 0) for items in contract_data.values() for item in items), 10),
+                  'executedValue': round(sum(float(item['execValue'][month] or 0) for items in contract_data.values() for item in items), 10),
+              })
+
+          audit = {
+              'metadata': metadata,
+              'partLengths': [len(part) for part in parts],
+              'partGitBlobShas': [git_blob_sha(part) for part in parts],
+              'monthlyTotals': monthly_totals,
+              'rdoByMonth': dict(Counter(record['month'] + 1 for record in rdo_data)),
+              'rdoContracts': dict(Counter(record['contract'] for record in rdo_data)),
+          }
+          (output / 'model-v2-audit.json').write_text(json.dumps(audit, ensure_ascii=False, indent=2), encoding='utf-8')
+          print(json.dumps(audit, ensure_ascii=False, indent=2))
           PY
 
-      - name: Apply safe HTML rules
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import os,re
-          path=Path('Planejamento-Colaborativo/index.html')
-          html=path.read_text(encoding='utf-8')
-          token='modelv2-'+os.environ.get('GITHUB_SHA','manual')[:8]
-          html=re.sub(r"data/model-v2\.part'\+i\+'\?v=[^']*'","data/model-v2.part'+i+'?v="+token+"'",html,count=1)
-
-          balance_function='function le(e,t){if(t<6)return Number(e.balance||0);for(var n=Number(e.balance||0)-function(e,t){for(var n=0,a=6;a<=t;a++)n+=W(e,a);return n}(e,t-1),a=0,r=t;r<Math.min(t+3,12);r++)a+=J(r,e)?W(e,r):Number(e.plan[r]||0);return n-a}function se(e){'
-          html,count=re.subn(r'function le\(e,t\)\{.*?\}function se\(e\)\{',balance_function,html,count=1)
-          if count!=1:
-              raise RuntimeError('Funcao de saldo nao localizada')
-
-          old='Number.isFinite(Number(r.quantity))&&(t.plan[n]=Number(r.quantity)),"string"==typeof r.order&&(t.orders[n]=r.order)'
-          new='Number.isFinite(Number(r.quantity))&&(t.plan[n]=Number(r.quantity),t.planValue||(t.planValue=Array(12).fill(0)),t.planValue[n]=Number(r.quantity)*Number(t.price||0)),"string"==typeof r.order&&(t.orders[n]=r.order)'
-          if old in html:
-              html=html.replace(old,new,1)
-
-          html=html.replace('Saldo anterior − consumo da janela de 3 meses','Saldo Quant. Total JULHO 2026 − consumo futuro')
-          html=html.replace('Atualização: 28/07/2026 14:12','Atualização: 29/07/2026 20:55')
-
-          required=['id="accessForm"','sinape-access-failsafe','planValue','Number(e.balance||0)','Quant. Total JULHO 2026']
-          for marker in required:
-              if marker not in html:
-                  raise RuntimeError('Marcador obrigatorio ausente: '+marker)
-          path.write_text(html,encoding='utf-8')
-          PY
-
-      - name: Final validation
+      - name: Validação final antes da publicação
         shell: bash
         run: |
           test -s Planejamento-Colaborativo/index.html
-          for i in 0 1 2 3 4; do test -s "Planejamento-Colaborativo/data/model-v2.part$i"; done
           grep -q 'id="accessForm"' Planejamento-Colaborativo/index.html
-          grep -q 'Number(e.balance||0)' Planejamento-Colaborativo/index.html
+          grep -q 'sinape-access-failsafe' Planejamento-Colaborativo/index.html
+          for i in 0 1 2 3 4; do test -s "Planejamento-Colaborativo/data/model-v2.part$i"; done
+          test -s Planejamento-Colaborativo/data/model-v2-audit.json
+          grep -q '"contracts": 15' Planejamento-Colaborativo/data/model-v2-audit.json
+          grep -q '"items": 650' Planejamento-Colaborativo/data/model-v2-audit.json
+          grep -q '"rdoRecords": 18' Planejamento-Colaborativo/data/model-v2-audit.json
 
-      - name: Publish data
+      - name: Publicar somente os dados validados
         shell: bash
         run: |
           git config user.name 'SINAPE Data Bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add Planejamento-Colaborativo/index.html Planejamento-Colaborativo/data/model-v2.part0 Planejamento-Colaborativo/data/model-v2.part1 Planejamento-Colaborativo/data/model-v2.part2 Planejamento-Colaborativo/data/model-v2.part3 Planejamento-Colaborativo/data/model-v2.part4
+          git add Planejamento-Colaborativo/data/model-v2.part0 Planejamento-Colaborativo/data/model-v2.part1 Planejamento-Colaborativo/data/model-v2.part2 Planejamento-Colaborativo/data/model-v2.part3 Planejamento-Colaborativo/data/model-v2.part4 Planejamento-Colaborativo/data/model-v2-audit.json
           if git diff --cached --quiet; then
-            echo 'Nenhuma alteracao necessaria.'
+            echo 'Nenhuma alteração necessária.'
             exit 0
           fi
-          git commit -m 'Publica Modelo Cronograma v2 com saldo de julho'
+          git commit -m 'Publica base validada da Modelo Cronograma v2'
           git push
