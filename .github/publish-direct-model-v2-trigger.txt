@@ -1,0 +1,5 @@
+Publicar em 29/07/2026 às 23:02 BRT.
+Fonte exclusiva: arquivo Modelo Cronograma Base de Dados  v2.xlsx enviado diretamente no ChatGPT.
+Corrigir o portal de e-mail antes do carregamento da base.
+Atualizar planejado, executado, preço unitário e Quant. Total JULHO 2026.
+Não utilizar Base BI Executado (2).
