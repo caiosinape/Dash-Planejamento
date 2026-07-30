@@ -32,7 +32,7 @@ jobs:
           cd 'Planejamento-Colaborativo'
           test "$(find .health-v2 -maxdepth 1 -name 'part-*.txt' | wc -l)" -eq 16
           cat .health-v2/part-*.txt | base64 -d | gzip -d > index.html
-          echo '98f3a0dfcd653ed84a010aa4bb819073333f8cf94b63e3e66b9aa56aa2038b67  index.html' | sha256sum -c -
+          echo '2acbec753ee023aa37fe032bb1ef0886aa98c9277c837ce15aa4279f1c61b3a0  index.html' | sha256sum -c -
           python - <<'PY'
           from pathlib import Path
           import json, re, subprocess, hashlib
