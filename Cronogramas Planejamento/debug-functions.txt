@@ -1,0 +1,181 @@
+===== plannedValue =====
+function plannedValue(m){return filtered(true).reduce(function(s,i){return s+Number(i.plan[m]||0)*i.price},0)}
+
+===== executedValue =====
+function executedValue(m){return filtered(true).reduce(function(s,i){return s+executedItemValue(i,m)},0)}
+
+===== executedQty =====
+function executedQty(item,m){return Number(item.exec[m]||0)}
+
+===== allPlanned =====
+function allPlanned(){return months.reduce(function(s,_,m){return s+plannedValue(m)},0)}
+
+===== allExecuted =====
+function allExecuted(){return months.reduce(function(s,_,m){return s+executedValue(m)},0)}
+
+===== renderCards =====
+function renderCards(){
+      var m=activeMonth(),p=month<0?allPlanned():plannedValue(m),e=month<0?allExecuted():executedValue(m),rows=plannedItems(),horizon=0;
+      for(var n=m;n<Math.min(m+3,12);n++)if(plannedValue(n)>0)horizon++;
+      document.getElementById("cards").innerHTML=
+        '<article class="card"><div class="card-label">Valor planejado</div><strong>'+moneyShort(p)+'</strong><small>Quantidade planejada × preço unitário do recorte</small><div class="mini-status"><i></i>'+rows.length+' itens com quantidade</div></article>'+
+        '<article class="card green"><div class="card-label">Valor executado</div><strong>'+moneyShort(e)+'</strong><small>Fonte: Base BI Executado (2)</small><div class="mini-status '+(e?"":"warn")+'"><i></i>'+(e?"Dados carregados":"Sem execução no período")+'</div></article>'+
+        '<article class="card '+(rows.some(function(i){return osStatus(i,m)==="Urgente"})?"red":"amber")+'"><div class="card-label">Itens planejados do contrato</div><strong>'+rows.length+'</strong><small>Itens com quantidade planejada no mês operacional</small><div class="mini-status '+(rows.some(function(i){return osStatus(i,m)==="Urgente"})?"danger":"warn")+'"><i></i>'+rows.filter(function(i){return osStatus(i,m)==="Urgente"}).length+' urgentes</div></article>'+
+        '<article class="card '+(horizon<2?"red":horizon<3?"amber":"green")+'"><div class="card-label">Horizonte de frentes</div><strong>'+horizon+' de 3</strong><small>Meses com programação na janela móvel</small><div class="mini-status '+(horizon<2?"danger":horizon<3?"warn":"")+'"><i></i>'+(horizon===3?"Janela completa":"Revisar próximas frentes")+'</div></article>'
+    }
+
+===== renderMonthChart =====
+function renderMonthChart(){
+      var ps=months.map(function(_,m){return plannedValue(m)}),es=months.map(function(_,m){return executedValue(m)}),max=Math.max.apply(null,ps.concat(es).concat([1]));
+      document.getElementById("monthChart").innerHTML=months.map(function(label,m){return '<div class="bar-group" data-month="'+m+'"><div class="bar-area"><div class="bar plan" style="height:'+ps[m]/max*100+'%"></div><div class="bar done" style="height:'+es[m]/max*100+'%"></div></div><b class="'+(m===activeMonth()?"active":"")+'">'+label+'</b><small>'+(ps[m]?moneyShort(ps[m]).replace("R$ ",""):"—")+'</small></div>'}).join("");
+      document.querySelectorAll(".bar-group").forEach(function(el){el.onclick=function(){month=Number(el.dataset.month);selectedWeeks=[];document.getElementById("monthFilter").value=String(month);buildWeekMenu();render()}})
+    }
+
+===== renderPlanning =====
+function renderPlanning(){
+      var start=activeMonth(),rows=filtered(true).filter(function(i){return i.contractual!==0||i.base!==0||i.plan.some(function(v){return v>0})||i.exec.some(function(v){return Number(v||0)>0})});
+      document.getElementById("planningHead").innerHTML='<tr><th class="item-col">Item do contrato</th>'+months.map(function(label,m){var activeWindow=m>=start&&m<Math.min(start+3,12);return '<th class="month-col '+(activeWindow?"window-active":"window-muted")+'">'+label+'/2026</th>'}).join("")+'<th class="balance-col">Saldo Atualizado</th></tr>';
+      document.getElementById("planningRows").innerHTML=rows.map(function(item){
+        var bal=balanceUpdated(item,start),usage=item.contractual>0?(item.contractual-bal)/item.contractual*100:null,windowEnd=Math.min(start+3,12),hasPlanned=item.plan.slice(start,windowEnd).some(function(v){return Number(v||0)>0});
+        return '<tr class="'+(hasPlanned?"has-planned":"")+'"><td class="item-col"><strong>'+esc(item.name)+'</strong><small>OS-01'+(activeContract===ALL_CONTRACTS?' · Contrato '+esc(itemContractCode(item)):'')+' · '+esc(item.unit)+'</small></td>'+
+          months.map(function(_,m){var p=Number(item.plan[m]||0),e=executedQty(item,m),closed=isClosed(m),activeWindow=m>=start&&m<Math.min(start+3,12);return '<td class="month-col '+(activeWindow?"window-active":"window-muted")+'"><div class="month-boxes '+(closed?"closed":"")+'">'+
+            (closed?'':'<div class="month-box plan '+(p>0&&activeWindow?"has-value":"")+'"><span>Planejado</span><b>'+num.format(p)+' '+esc(item.unit)+'</b><small>'+money.format(p*item.price)+'</small></div>')+
+            '<div class="month-box exec"><span>Executado</span><b>'+num.format(e)+' '+esc(item.unit)+'</b><small>'+money.format(executedItemValue(item,m))+'</small></div></div></td>'}).join("")+
+          '<td class="balance-col"><strong class="'+(bal<0?"neg":"")+'">'+num.format(bal)+' '+esc(item.unit)+'</strong><small>Saldo anterior − consumo da janela de 3 meses</small>'+
+          (usage===null?'<small>Base contratual não positiva</small>':'<div class="consumption"><b>'+num.format(usage)+'%</b><span class="track '+(usage>=100?"over":"")+'"><i style="width:'+Math.max(0,Math.min(usage,100))+'%"></i></span></div>')+'</td></tr>'
+      }).join("");
+      var viewport=document.getElementById("planningViewport"),itemWidth=innerWidth<=480?220:290,balanceWidth=220,minimumMonthWidth=innerWidth<=480?180:210,monthWidth=Math.max(minimumMonthWidth,Math.floor((viewport.clientWidth-itemWidth-balanceWidth)/3));
+      viewport.style.setProperty("--planning-month-width",monthWidth+"px");
+      requestAnimationFrame(function(){viewport.scrollLeft=Math.max(0,start*monthWidth)})
+    }
+
+===== remainingBalance =====
+function remainingBalance(item){return Number(item.contractual||0)-consumedQuantity(item)}
+
+===== consumedQuantity =====
+function consumedQuantity(item){return Math.max(0,Number(item.base||0))+executedSinceModelBase(item)}
+
+===== newExecutedTotal =====
+function newExecutedTotal(item){return item.exec.reduce(function(s,v){return s+Number(v||0)},0)}
+
+===== executedSinceModelBase =====
+function executedSinceModelBase(item){return item.exec.slice(executionStartMonth).reduce(function(s,v){return s+Number(v||0)},0)}
+
+===== activeMonth =====
+function activeMonth(){return month<0?currentMonth:month}
+
+===== termo executionStartMonth @ 108332 =====
+pan>Avanço da aderência</span><b>0% de 100%</b></div><div class="drawer-progress-track" role="progressbar" aria-label="Aderência ao planejado" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i class="drawer-progress-fill"></i></div></div>
+      <dl class="drawer-list" id="drawerList"></dl>
+      <div class="drawer-note" id="drawerNote"></div>
+      <div class="drawer-items" id="drawerItems"></div>
+    </aside>
+  </div>
+
+  <script>
+  (function(){
+    var months=["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
+    var fullMonths=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+    var currentDate=new Date(2026,6,30),currentMonth=6,month=6,selectedWeeks=[],os="Todas",statusFilter="";
+    var executionStartMonth=6;
+    var orderText="Serviços executados pela TGA";
+    function z(){return [0,0,0,0,0,0,0,0,0,0,0,0]}
+    function orders(active){return months.map(function(_,i){return active.indexOf(i)>=0?orderText:"Sem serviços"})}
+    var contractData={"2453 - DER PR":[{"name":"Cilindro delimitador tipo I (ABNT 16658)","unit":"un","price":300.687573,"contractual":1029.333,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,1003.1081232832853,0,0,0,0,0],"exec":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:0","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Cilindro delimitador tipo II (ABNT 16658)","unit":"un","price":413.758132,"contractual":1674.333,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,1631.6751074543156,0,0,0,0,0],"exec":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:1","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal - termoplástico por aspersão - e=1,5mm","unit":"m²","price":63.6284,"contractual":0.0,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem 
+
+===== termo executionStartMonth @ 1416764 =====
+ar m=activeMonth();
+      return items.filter(function(item){
+        if(os!=="Todas"&&item.orders.indexOf(orderText)<0)return false;
+        if(applyStatus!==false&&statusFilter&&osStatus(item,m)!==statusFilter)return false;
+        return true
+      })
+    }
+    function periodLabel(){return month<0?"Todos os meses de 2026":fullMonths[month]+"/2026"+(selectedWeeks.length?" · Semanas "+selectedWeeks.join(", "):" · Mês completo")}
+    function moneyShort(v){if(Math.abs(v)>=1000000)return "R$ "+num.format(v/1000000)+" mi";if(Math.abs(v)>=1000)return "R$ "+num.format(v/1000)+" mil";return money.format(v)}
+    function plannedItems(){var m=activeMonth();return filtered(true).filter(function(i){return Number(i.plan[m]||0)>0})}
+    function confirmedThrough(item,endMonth){var total=0;for(var m=executionStartMonth;m<=endMonth;m++)total+=executedQty(item,m);return total}
+    function balanceUpdated(item,startMonth){
+      var baseline=item.contractual-Math.max(0,Number(item.base||0))-confirmedThrough(item,startMonth-1),usage=0;
+      for(var m=startMonth;m<Math.min(startMonth+3,12);m++)usage+=isClosed(m)?executedQty(item,m):Number(item.plan[m]||0);
+      return baseline-usage
+    }
+    function statusClass(s){return s==="Urgente"?"danger":s==="Atenção"?"warn":s==="No prazo"?"info":""}
+
+    function renderPeriod(){
+      document.getElementById("periodView").textContent=periodLabel();
+      document.getElementById("operationPeriod").textContent=periodLabel();
+      document.getElementById("coverPeriod").textContent=month<0?"Todos os meses / 2026":fullMonths[month]+" / 2026"
+    }
+    function renderCards(){
+      var m=activeMonth(),p=month<0?allPlanned():plannedValue(m),e=month<0?allExecuted():executedValue(m),rows=plannedItems(),horizon=0;
+      for(var n=m;n<Math.min(m+3,12);n++)if(plannedValue(n)>0)horizon++;
+      document.getElementById("cards").innerHTML=
+        '<article class="card"><div class="card-label">Valor planejado</div><strong>'+moneyShort(p)+'</strong><small>Quantidade planejada × preço unitário do recorte</small><div class="mini-status"><i></i>'+rows.length+' itens com quantidade</div></article>'+
+        '<article class="card green"><div class="card-label">Valor executado</div><strong>'+moneyShort(e)+'</strong><small>Fonte: Base BI Executado (2)</small><div class="mini-status '+(e?"":"warn")+'"><i></i>'+(e?"Dados carregados":"Sem execução no per
+
+===== termo executionStartMonth @ 1424355 =====
+nejado do recorte</small></button>'+
+        '<button type="button" class="critical-cell" data-critical="consumed"><span>Itens já consumidos ≥ 100%<i class="signal '+(over?"red":"")+'"></i></span><strong>'+over+' itens</strong><small>Contrato completo · independente do mês selecionado</small></button>';
+      document.querySelectorAll("[data-critical]").forEach(function(button){button.onclick=function(){openCriticalDrawer(button.dataset.critical,{planned:p,executed:e,adherence:ad,overItems:overItems})}})
+    }
+    function newExecutedTotal(item){return item.exec.reduce(function(s,v){return s+Number(v||0)},0)}
+    function newExecutedValueTotal(item){return (item.execValue||z()).reduce(function(s,v){return s+Number(v||0)},0)}
+    function executedSinceModelBase(item){return item.exec.slice(executionStartMonth).reduce(function(s,v){return s+Number(v||0)},0)}
+    function consumedQuantity(item){return Math.max(0,Number(item.base||0))+executedSinceModelBase(item)}
+    function remainingBalance(item){return Number(item.contractual||0)-consumedQuantity(item)}
+    function isFullyConsumed(item){return consumedQuantity(item)>0&&remainingBalance(item)<=0}
+    function contractExecuted(item){return newExecutedTotal(item)}
+    function contractExecutedValue(item){return newExecutedValueTotal(item)}
+    function openCriticalDrawer(key,data){
+      var title=document.getElementById("drawerTitle"),subtitle=document.getElementById("drawerSubtitle"),value=document.getElementById("drawerValue"),list=document.getElementById("drawerList"),note=document.getElementById("drawerNote"),itemBox=document.getElementById("drawerItems"),progress=document.getElementById("drawerProgress");
+      if(key==="adherence"){
+        title.textContent="Aderência ao Planejado";
+        subtitle.textContent="Comparação entre o executado e o planejado no recorte atualmente selecionado.";
+        value.textContent=num.format(data.adherence)+"%";
+        progress.hidden=false;
+        var progressValue=Math.max(0,Math.min(data.adherence,100)),progressTrack=progress.querySelector(".drawer-progress-track");
+        progress.querySelector(".drawer-progress-fill").style.width=progressValue+"%";
+        progress.querySelector(".drawer-progress-head b").textContent=num.format(data.adherence)+"% de 100%";
+        progressTrack.setAttribute("aria-valuenow",String(progressValue));
+        list.innerHTML="<div>
+
+===== termo contractual @ 108694 =====
+iv class="drawer-items" id="drawerItems"></div>
+    </aside>
+  </div>
+
+  <script>
+  (function(){
+    var months=["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
+    var fullMonths=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+    var currentDate=new Date(2026,6,30),currentMonth=6,month=6,selectedWeeks=[],os="Todas",statusFilter="";
+    var executionStartMonth=6;
+    var orderText="Serviços executados pela TGA";
+    function z(){return [0,0,0,0,0,0,0,0,0,0,0,0]}
+    function orders(active){return months.map(function(_,i){return active.indexOf(i)>=0?orderText:"Sem serviços"})}
+    var contractData={"2453 - DER PR":[{"name":"Cilindro delimitador tipo I (ABNT 16658)","unit":"un","price":300.687573,"contractual":1029.333,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,1003.1081232832853,0,0,0,0,0],"exec":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:0","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Cilindro delimitador tipo II (ABNT 16658)","unit":"un","price":413.758132,"contractual":1674.333,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,1631.6751074543156,0,0,0,0,0],"exec":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:1","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal - termoplástico por aspersão - e=1,5mm","unit":"m²","price":63.6284,"contractual":0.0,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:2","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal c/ termopl. em alto relevo aplic. por extrusão mecânica","unit":"m²","price":153.243217,"contractual":0.0,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[0.0,0.0
+
+===== termo contractual @ 109180 =====
+os executados pela TGA";
+    function z(){return [0,0,0,0,0,0,0,0,0,0,0,0]}
+    function orders(active){return months.map(function(_,i){return active.indexOf(i)>=0?orderText:"Sem serviços"})}
+    var contractData={"2453 - DER PR":[{"name":"Cilindro delimitador tipo I (ABNT 16658)","unit":"un","price":300.687573,"contractual":1029.333,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,1003.1081232832853,0,0,0,0,0],"exec":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:0","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Cilindro delimitador tipo II (ABNT 16658)","unit":"un","price":413.758132,"contractual":1674.333,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,1631.6751074543156,0,0,0,0,0],"exec":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:1","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal - termoplástico por aspersão - e=1,5mm","unit":"m²","price":63.6284,"contractual":0.0,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:2","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal c/ termopl. em alto relevo aplic. por extrusão mecânica","unit":"m²","price":153.243217,"contractual":0.0,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:3","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal c/ tinta resina acrílica base água","unit":"m²","price":36.007889999999996,"contractual":2193.203450000001,"base":2193.205,"plan":[0.0,0.0,2193.2,0.0,0.0
+
+===== termo contractual @ 109692 =====
+m serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:0","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Cilindro delimitador tipo II (ABNT 16658)","unit":"un","price":413.758132,"contractual":1674.333,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,1631.6751074543156,0,0,0,0,0],"exec":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:1","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal - termoplástico por aspersão - e=1,5mm","unit":"m²","price":63.6284,"contractual":0.0,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:2","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal c/ termopl. em alto relevo aplic. por extrusão mecânica","unit":"m²","price":153.243217,"contractual":0.0,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:3","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal c/ tinta resina acrílica base água","unit":"m²","price":36.007889999999996,"contractual":2193.203450000001,"base":2193.205,"plan":[0.0,0.0,2193.2,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[0.0,0.0,1459.175,734.03,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:4","execValue":[0.0,0.0,52541.81289074999,26430.871496699998,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal c/ tinta resina acrílica base solvente","unit":"m²","price":39.218232,"contractual":10125.060000000001,"bas
+
+===== termo contractual @ 110204 =====
+,"Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:1","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal - termoplástico por aspersão - e=1,5mm","unit":"m²","price":63.6284,"contractual":0.0,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:2","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal c/ termopl. em alto relevo aplic. por extrusão mecânica","unit":"m²","price":153.243217,"contractual":0.0,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:3","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal c/ tinta resina acrílica base água","unit":"m²","price":36.007889999999996,"contractual":2193.203450000001,"base":2193.205,"plan":[0.0,0.0,2193.2,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[0.0,0.0,1459.175,734.03,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:4","execValue":[0.0,0.0,52541.81289074999,26430.871496699998,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal c/ tinta resina acrílica base solvente","unit":"m²","price":39.218232,"contractual":10125.060000000001,"base":10125.06,"plan":[1738.8935,7694.611,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[2430.45,7694.61,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:5","execValue":[95317.9519644,301769.00012951996,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal provisória","unit":"m²","price":27.114375,"contractual":29248
+
+===== termo contractual @ 110703 =====
+erviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:2","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal c/ termopl. em alto relevo aplic. por extrusão mecânica","unit":"m²","price":153.243217,"contractual":0.0,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:3","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal c/ tinta resina acrílica base água","unit":"m²","price":36.007889999999996,"contractual":2193.203450000001,"base":2193.205,"plan":[0.0,0.0,2193.2,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[0.0,0.0,1459.175,734.03,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:4","execValue":[0.0,0.0,52541.81289074999,26430.871496699998,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal c/ tinta resina acrílica base solvente","unit":"m²","price":39.218232,"contractual":10125.060000000001,"base":10125.06,"plan":[1738.8935,7694.611,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[2430.45,7694.61,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:5","execValue":[95317.9519644,301769.00012951996,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal provisória","unit":"m²","price":27.114375,"contractual":29248.77399999999,"base":29248.774,"plan":[647.6166,11167.205,17174.995000000003,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[906.572,10861.842,17480.36,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:6","execValue":[24581.1331725,294512.05717875,473969.036175,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Pintura de setas e zebrados - ter
+
+===== termo contractual @ 111256 =====
+em serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:3","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal c/ tinta resina acrílica base água","unit":"m²","price":36.007889999999996,"contractual":2193.203450000001,"base":2193.205,"plan":[0.0,0.0,2193.2,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[0.0,0.0,1459.175,734.03,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:4","execValue":[0.0,0.0,52541.81289074999,26430.871496699998,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal c/ tinta resina acrílica base solvente","unit":"m²","price":39.218232,"contractual":10125.060000000001,"base":10125.06,"plan":[1738.8935,7694.611,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[2430.45,7694.61,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:5","execValue":[95317.9519644,301769.00012951996,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal provisória","unit":"m²","price":27.114375,"contractual":29248.77399999999,"base":29248.774,"plan":[647.6166,11167.205,17174.995000000003,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[906.572,10861.842,17480.36,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:6","execValue":[24581.1331725,294512.05717875,473969.036175,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Pintura de setas e zebrados - termpoplástico por extrsuão - e=3,0mm","unit":"m²","price":93.345755,"contractual":2657.753999999999,"base":1713.66,"plan":[0.0,0.0,1206.1039999999996,0.0,0.0,0.0,920.0408036495564,0,0,0,0,0],"exec":[0.0,582.74,574.62,556.3,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:7","execValue":[0.0,54396.3052687,53638.337738099995,51928.243506499995,0.0,0.0,0,0,0,0,0,0]},{"name":"
+
+===== termo contractual @ 111786 =====
+m serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:4","execValue":[0.0,0.0,52541.81289074999,26430.871496699998,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal c/ tinta resina acrílica base solvente","unit":"m²","price":39.218232,"contractual":10125.060000000001,"base":10125.06,"plan":[1738.8935,7694.611,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[2430.45,7694.61,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:5","execValue":[95317.9519644,301769.00012951996,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal provisória","unit":"m²","price":27.114375,"contractual":29248.77399999999,"base":29248.774,"plan":[647.6166,11167.205,17174.995000000003,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[906.572,10861.842,17480.36,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:6","execValue":[24581.1331725,294512.05717875,473969.036175,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Pintura de setas e zebrados - termpoplástico por extrsuão - e=3,0mm","unit":"m²","price":93.345755,"contractual":2657.753999999999,"base":1713.66,"plan":[0.0,0.0,1206.1039999999996,0.0,0.0,0.0,920.0408036495564,0,0,0,0,0],"exec":[0.0,582.74,574.62,556.3,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:7","execValue":[0.0,54396.3052687,53638.337738099995,51928.243506499995,0.0,0.0,0,0,0,0,0,0]},{"name":"Remoção de sinalização horizontal por microfesagem","unit":"m²","price":8.53199,"contractual":720.0,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,701.6561683769639,0,0,0,0,0],"exec":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:8","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Sinalização Horizontal com plástico à frio
+
+===== termo contractual @ 112370 =====
+ços","Sem serviços","Sem serviços"],"sourceId":"2453:5","execValue":[95317.9519644,301769.00012951996,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Faixa de sinalização horizontal provisória","unit":"m²","price":27.114375,"contractual":29248.77399999999,"base":29248.774,"plan":[647.6166,11167.205,17174.995000000003,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[906.572,10861.842,17480.36,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:6","execValue":[24581.1331725,294512.05717875,473969.036175,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Pintura de setas e zebrados - termpoplástico por extrsuão - e=3,0mm","unit":"m²","price":93.345755,"contractual":2657.753999999999,"base":1713.66,"plan":[0.0,0.0,1206.1039999999996,0.0,0.0,0.0,920.0408036495564,0,0,0,0,0],"exec":[0.0,582.74,574.62,556.3,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:7","execValue":[0.0,54396.3052687,53638.337738099995,51928.243506499995,0.0,0.0,0,0,0,0,0,0]},{"name":"Remoção de sinalização horizontal por microfesagem","unit":"m²","price":8.53199,"contractual":720.0,"base":0.0,"plan":[0.0,0.0,0.0,0.0,0.0,0.0,701.6561683769639,0,0,0,0,0],"exec":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:8","execValue":[0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0]},{"name":"Sinalização Horizontal com plástico à frio (metilmetacrilato tricomponente) (0,6mm)","unit":"un","price":82.398778,"contractual":7909.768849999993,"base":7909.774000000001,"plan":[1792.596,2550.708,2853.551999999999,0.0,0.0,0.0,0.0,0,0,0,0,0],"exec":[2505.51,2588.984,0.0,2815.28,0.0,0.0,0,0,0,0,0,0],"orders":["Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços","Sem serviços"],"sourceId":"2453:9","execValue":[206450.96226678,213329.117861552,0.0,231975.63172784,0.0,0.0,0,0,0,0,0,0]},{"name":"Tacha refletiva b
