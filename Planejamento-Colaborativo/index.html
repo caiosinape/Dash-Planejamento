@@ -30,7 +30,7 @@
     function validateCoreScript(html){
       var marker='<script>!async function(){';
       var start=html.indexOf(marker);
-      var end=html.lastIndexOf('</script>');
+      var end=html.lastIndexOf('<'+'/script>');
       if(start<0||end<=start)throw new Error('Script principal nao localizado para validacao');
       new Function(html.slice(start+8,end));
     }
