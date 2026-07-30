@@ -1,9 +1,0 @@
-Executar correção validada em 30/07/2026 15:55 BRT.
-Preservar integralmente Planejamento-Colaborativo/index-core.html.
-Planejado histórico: Qnt Realis. e R$ Realista.
-Executado histórico: Qtd. Executada e R$ Executado.
-Preço Unit: coluna E.
-Saldo inicial: Quant. Total JULHO 2026.
-Planejamento futuro: quantidade lançada x Preço Unit.
-RDO: Estudo Geral / Base BI Executado (2), somente quantidade.
-Validar 15 contratos, 650 itens e 18 registros de RDO.
