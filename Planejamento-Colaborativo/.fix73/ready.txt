@@ -1,0 +1,1 @@
+Executar correção estrutural, incorporar a carga validada do Modelo Cronograma v2 e validar o HTML original sem alterar o visual.
