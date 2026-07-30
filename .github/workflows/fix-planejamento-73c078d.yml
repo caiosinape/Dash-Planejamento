@@ -7,6 +7,7 @@ on:
     paths:
       - 'Planejamento-Colaborativo/.fix73/ready.txt'
       - 'tools/fix_planejamento_73.py'
+      - 'tools/run_fix_planejamento_73.py'
       - '.github/workflows/fix-planejamento-73c078d.yml'
   pull_request:
     branches:
@@ -14,6 +15,7 @@ on:
     paths:
       - 'Planejamento-Colaborativo/.fix73/ready.txt'
       - 'tools/fix_planejamento_73.py'
+      - 'tools/run_fix_planejamento_73.py'
       - '.github/workflows/fix-planejamento-73c078d.yml'
       - 'Planejamento-Colaborativo/index.html'
 
@@ -43,7 +45,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python tools/fix_planejamento_73.py
+          PYTHONPATH=tools python tools/run_fix_planejamento_73.py
 
       - name: Validar JavaScript
         shell: bash
