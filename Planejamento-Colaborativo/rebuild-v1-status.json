@@ -1,0 +1,7 @@
+{
+  "status": "build-failed",
+  "stage": "construction",
+  "exitCode": 1,
+  "logTail": "Traceback (most recent call last):\n  File \"/home/runner/work/Dash-Planejamento/Dash-Planejamento/tools/run_fix_planejamento_73.py\", line 193, in <module>\n    rows = load_overrides_compatible()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/Dash-Planejamento/Dash-Planejamento/tools/run_fix_planejamento_73.py\", line 151, in load_overrides_compatible\n    rows = _find_override_rows(payload)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/Dash-Planejamento/Dash-Planejamento/tools/run_fix_planejamento_73.py\", line 100, in _find_override_rows\n    compact = _decode_compact_matrix(value)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/Dash-Planejamento/Dash-Planejamento/tools/run_fix_planejamento_73.py\", line 63, in _decode_compact_matrix\n    raise RuntimeError(\nRuntimeError: Campo plan inválido em 2453 - DER PR, item Cilindro delimitador tipo I (ABNT 16658): esperados 12 meses\n",
+  "htmlPublished": false
+}
