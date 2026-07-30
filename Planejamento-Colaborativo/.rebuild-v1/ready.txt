@@ -1,1 +1,0 @@
-Reexecutar reconstruindo integralmente o contractData com os 650 itens oficiais.
