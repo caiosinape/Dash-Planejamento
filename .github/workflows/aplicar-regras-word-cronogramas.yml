@@ -1,0 +1,152 @@
+name: Aplicar Regras do Word nos Cronogramas
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/aplicar-regras-word-cronogramas.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Aplicar regras financeiras e de saldo
+        shell: python
+        run: |
+          import base64
+          import gzip
+          import json
+          import re
+          from datetime import datetime
+          from pathlib import Path
+          from zoneinfo import ZoneInfo
+
+          html_path = Path("Cronogramas Planejamento/index.html")
+          html = html_path.read_text(encoding="utf-8")
+
+          match = re.search(r"(?m)^\s*var contractData=(\{.*\});\s*$", html)
+          if not match:
+              raise RuntimeError("contractData não encontrado")
+          data = json.loads(match.group(1))
+
+          encoded = Path("Cronogramas Planejamento/initial-balances-word.b64").read_text(encoding="ascii").strip()
+          balances = json.loads(gzip.decompress(base64.b64decode(encoded)).decode("utf-8"))
+          matched = 0
+          for items in data.values():
+              for item in items:
+                  source_id = item.get("sourceId")
+                  if source_id in balances:
+                      item["initialBalance"] = balances[source_id]
+                      matched += 1
+                  else:
+                      item.setdefault("initialBalance", 0)
+
+          compact = json.dumps(data, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
+          html = html[:match.start()] + "    var contractData=" + compact + ";" + html[match.end():]
+
+          def replace_function(name, body):
+              nonlocal_html = None
+              pattern = rf"function {re.escape(name)}\([^\n]*?\)\{{.*?(?=\n    function )"
+              updated, count = re.subn(pattern, body.rstrip(), html, count=1, flags=re.S)
+              if count != 1:
+                  raise RuntimeError(f"Função {name} não localizada")
+              return updated
+
+          replacements = {
+              "plannedValue": '''function plannedValue(m){
+      if(m>5)return 0;
+      return filtered(true).reduce(function(s,i){return s+Number(i.plan[m]||0)*Number(i.price||0)},0)
+    }''',
+              "executedValue": '''function executedValue(m){
+      if(m>5)return 0;
+      return filtered(true).reduce(function(s,i){return s+executedQty(i,m)*Number(i.price||0)},0)
+    }''',
+              "balanceUpdated": '''function balanceUpdated(item,startMonth){
+      var balance=Number(item.initialBalance||0),endMonth=Math.min(startMonth+3,12);
+      for(var m=executionStartMonth;m<endMonth;m++){
+        balance-=isClosed(m)?executedQty(item,m):Number(item.plan[m]||0)
+      }
+      return balance
+    }''',
+              "remainingBalance": '''function remainingBalance(item){return Number(item.initialBalance||0)-executedSinceModelBase(item)}''',
+              "consumedQuantity": '''function consumedQuantity(item){return Math.max(0,Number(item.contractual||0)-remainingBalance(item))}'''
+          }
+          for name, body in replacements.items():
+              pattern = rf"function {re.escape(name)}\([^\n]*?\)\{{.*?(?=\n    function )"
+              html, count = re.subn(pattern, body.rstrip(), html, count=1, flags=re.S)
+              if count != 1:
+                  raise RuntimeError(f"Função {name} não localizada")
+
+          old_horizon = 'for(var n=m;n<Math.min(m+3,12);n++)if(plannedValue(n)>0)horizon++;'
+          new_horizon = 'for(var n=m;n<Math.min(m+3,12);n++)if(filtered(true).some(function(i){return Number(i.plan[n]||0)>0}))horizon++;'
+          if old_horizon not in html:
+              raise RuntimeError("Regra do horizonte não localizada")
+          html = html.replace(old_horizon, new_horizon, 1)
+
+          html = html.replace(
+              'Quantidade planejada × preço unitário do recorte',
+              'R$ Realista × Preço Unit. · janeiro a junho',
+              1,
+          )
+          html = html.replace(
+              'Fonte: Base BI Executado (2)</small>',
+              'R$ Executado × Preço Unit. · janeiro a junho</small>',
+              1,
+          )
+          html = html.replace(
+              'Saldo anterior − consumo da janela de 3 meses',
+              'Saldo inicial da coluna J − planejado; mês fechado usa executado',
+          )
+
+          now = datetime.now(ZoneInfo("America/Sao_Paulo"))
+          stamp = now.strftime("%d/%m/%Y %H:%M")
+          html = re.sub(r"Atualização: \d{2}/\d{2}/\d{4} \d{2}:\d{2}", f"Atualização: {stamp}", html, count=1)
+          html = re.sub(r"Atualizado em \d{2}/\d{2}/\d{4} \d{2}:\d{2}", f"Atualizado em {stamp}", html, count=1)
+
+          html_path.write_text(html, encoding="utf-8")
+          print(f"Saldos da coluna J associados: {matched}")
+          print(f"Atualização: {stamp}")
+
+      - name: Validar regras
+        shell: python
+        run: |
+          import json
+          import re
+          from pathlib import Path
+
+          html = Path("Cronogramas Planejamento/index.html").read_text(encoding="utf-8")
+          required = [
+              'if(m>5)return 0;',
+              'R$ Realista × Preço Unit. · janeiro a junho',
+              'R$ Executado × Preço Unit. · janeiro a junho',
+              'Number(item.initialBalance||0)',
+              'm<endMonth',
+              'isClosed(m)?executedQty(item,m):Number(item.plan[m]||0)',
+          ]
+          for value in required:
+              if value not in html:
+                  raise SystemExit(f"Validação ausente: {value}")
+          match = re.search(r"(?m)^\s*var contractData=(\{.*\});\s*$", html)
+          data = json.loads(match.group(1))
+          items = [item for rows in data.values() for item in rows]
+          if sum(1 for item in items if "initialBalance" in item) < 600:
+              raise SystemExit("Saldos iniciais não incorporados")
+          if not any(abs(float(item.get("initialBalance") or 0)) > 0 for item in items):
+              raise SystemExit("Saldos iniciais estão zerados")
+          print("Regras do Word validadas com sucesso")
+
+      - name: Publicar
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "Cronogramas Planejamento/index.html"
+          git commit -m "Atualiza cards gráfico e saldo conforme Word" || exit 0
+          git push
