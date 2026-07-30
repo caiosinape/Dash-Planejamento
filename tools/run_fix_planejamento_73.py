@@ -4,42 +4,39 @@ import base64
 import gzip
 import json
 import os
+import re
 import subprocess
 from pathlib import Path
 
 import fix_planejamento_73 as fix
 
-MONTH_ALIASES = {
-    "jan": 0, "janeiro": 0, "fev": 1, "fevereiro": 1, "mar": 2,
-    "marco": 2, "março": 2, "abr": 3, "abril": 3, "mai": 4,
-    "maio": 4, "jun": 5, "junho": 5, "jul": 6, "julho": 6,
-    "ago": 7, "agosto": 7, "set": 8, "setembro": 8, "out": 9,
-    "outubro": 9, "nov": 10, "novembro": 10, "dez": 11, "dezembro": 11,
-}
+MONTHS = {"jan":0,"janeiro":0,"fev":1,"fevereiro":1,"mar":2,"marco":2,"março":2,"abr":3,"abril":3,"mai":4,"maio":4,"jun":5,"junho":5,"jul":6,"julho":6,"ago":7,"agosto":7,"set":8,"setembro":8,"out":9,"outubro":9,"nov":10,"novembro":10,"dez":11,"dezembro":11}
+
+
+def contract_code(value):
+    match = re.search(r"\b(\d{4})\b", str(value or ""))
+    if not match:
+        raise RuntimeError(f"Código de contrato não encontrado em {value!r}")
+    return match.group(1)
 
 
 def month_index(key):
     text = str(key).strip().lower()
-    if text in MONTH_ALIASES:
-        return MONTH_ALIASES[text]
+    if text in MONTHS:
+        return MONTHS[text]
     try:
         number = int(text)
     except ValueError:
         return None
-    if 0 <= number <= 11:
-        return number
-    if 1 <= number <= 12:
-        return number - 1
-    return None
+    return number if 0 <= number <= 11 else number - 1 if 1 <= number <= 12 else None
 
 
 def compact_months(values, field, contract, name):
-    """None preserva o histórico; escalares representam julho."""
     if isinstance(values, str):
         text = values.strip()
         if text.startswith("[") or text.startswith("{"):
             values = json.loads(text)
-        elif "|" in text or ";" in text or "," in text:
+        elif any(sep in text for sep in ("|", ";", ",")):
             sep = "|" if "|" in text else ";" if ";" in text else ","
             values = [part.strip() for part in text.split(sep)]
         else:
@@ -51,20 +48,18 @@ def compact_months(values, field, contract, name):
         for key, value in values.items():
             index = month_index(key)
             if index is None:
-                raise RuntimeError(f"Chave mensal inválida em {contract} | {name} | {field}: {key!r}")
+                raise RuntimeError(f"Chave mensal inválida: {contract} | {name} | {field} | {key!r}")
             result[index] = value
         return result
     if isinstance(values, (list, tuple)):
         if len(values) > 12:
-            raise RuntimeError(f"Série mensal maior que 12 em {contract} | {name} | {field}")
+            raise RuntimeError(f"Série maior que 12: {contract} | {name} | {field}")
         return list(values) + [None] * (12 - len(values))
     if values is None or isinstance(values, (int, float, bool)):
         result = [None] * 12
         result[6] = values
         return result
-    raise RuntimeError(
-        f"Formato mensal inválido em {contract} | {name} | {field}: {type(values).__name__}"
-    )
+    raise RuntimeError(f"Formato mensal inválido: {contract} | {name} | {field}")
 
 
 def load_payload():
@@ -82,61 +77,63 @@ def load_overrides_compatible():
     if not isinstance(contracts, dict) or not isinstance(metadata, dict):
         raise RuntimeError("Formato c/m da carga não encontrado")
     rows = []
-    for contract, compact_rows in contracts.items():
+    for label, compact_rows in contracts.items():
+        code = contract_code(label)
         if not isinstance(compact_rows, list):
-            raise RuntimeError(f"Contrato sem lista de itens: {contract}")
+            raise RuntimeError(f"Contrato sem itens: {label}")
         for row_index, compact in enumerate(compact_rows):
             if not isinstance(compact, list) or len(compact) != 10:
-                raise RuntimeError(f"Linha inválida em {contract}, posição {row_index + 1}")
+                raise RuntimeError(f"Linha inválida em {label}, posição {row_index + 1}")
             name, occurrence, price, balance, base, plan, plan_value, executed, executed_value, orders = compact
             rows.append({
-                "contract": contract,
+                "contractCode": code,
+                "contractLabel": label,
                 "rowIndex": row_index,
                 "name": name,
                 "occurrence": int(occurrence),
                 "price": float(price or 0),
                 "balance": float(balance or 0),
                 "base": float(base or 0),
-                "plan": compact_months(plan, "plan", contract, name),
-                "planValue": compact_months(plan_value, "planValue", contract, name),
-                "exec": compact_months(executed, "exec", contract, name),
-                "execValue": compact_months(executed_value, "execValue", contract, name),
-                "orders": compact_months(orders, "orders", contract, name),
+                "plan": compact_months(plan, "plan", label, name),
+                "planValue": compact_months(plan_value, "planValue", label, name),
+                "exec": compact_months(executed, "exec", label, name),
+                "execValue": compact_months(executed_value, "execValue", label, name),
+                "orders": compact_months(orders, "orders", label, name),
             })
     if len(contracts) != 15 or len(rows) != 650:
         raise RuntimeError(f"Carga divergente: {len(contracts)} contratos e {len(rows)} itens")
     return rows
 
 
-def merge_series(existing, incoming, fill_value):
+def merge_series(existing, incoming, fill):
     base = list(existing) if isinstance(existing, list) else []
-    base = (base + [fill_value] * 12)[:12]
+    base = (base + [fill] * 12)[:12]
     for index, value in enumerate(incoming):
         if value is not None:
             base[index] = value
     return base
 
 
-def merge_model_by_order(structural):
+def merge_model_by_code_and_order(structural):
     contracts = fix.extract_js_value(structural, "contractData")
+    target_by_code = {contract_code(label): (label, rows) for label, rows in contracts.items()}
     overrides = load_overrides_compatible()
     grouped = {}
     for row in overrides:
-        grouped.setdefault(row["contract"], []).append(row)
+        grouped.setdefault(row["contractCode"], []).append(row)
+    if set(grouped) != set(target_by_code):
+        missing = sorted(set(grouped) - set(target_by_code))
+        extra = sorted(set(target_by_code) - set(grouped))
+        raise RuntimeError(f"Códigos de contrato divergentes. Sem destino={missing}; sem carga={extra}")
 
-    if set(grouped) != set(contracts):
-        raise RuntimeError("Contratos da carga e do HTML-base são diferentes")
-
-    for contract, incoming_rows in grouped.items():
-        target_rows = contracts[contract]
+    for code, incoming_rows in grouped.items():
+        target_label, target_rows = target_by_code[code]
         if len(target_rows) != len(incoming_rows):
-            raise RuntimeError(
-                f"Quantidade de itens divergente em {contract}: HTML={len(target_rows)}, carga={len(incoming_rows)}"
-            )
+            raise RuntimeError(f"Itens divergentes no contrato {code}: HTML={len(target_rows)}, carga={len(incoming_rows)}")
         for incoming in incoming_rows:
             index = incoming["rowIndex"]
             target = target_rows[index]
-            target.setdefault("sourceId", f"{contract}|{index + 1:04d}")
+            target.setdefault("sourceId", f"{code}|{index + 1:04d}")
             target["price"] = incoming["price"]
             target["balance"] = incoming["balance"]
             target["base"] = incoming["base"]
@@ -151,41 +148,20 @@ def merge_model_by_order(structural):
     item_count = sum(len(rows) for rows in contracts.values())
     if contract_count != 15 or item_count != 650:
         raise RuntimeError(f"Validação estrutural divergente: {contract_count} contratos, {item_count} itens")
-
     structural = fix.replace_js_value(structural, "contractData", contracts)
     structural = fix.replace_js_value(structural, "rdoData", [])
-    metadata = {
-        "source": "Modelo Cronograma Base de Dados v2",
-        "sheet": "Planilha1",
-        "contracts": 15,
-        "items": 650,
-        "years": [2026],
-        "monthsLoaded": [0, 1, 2, 3, 4, 5, 6],
-        "rdo": "aguardando vínculo definitivo",
-    }
-    structural = structural.replace(
-        "var rdoData=[];",
-        "var rdoData=[];var modelV2Metadata=" + json.dumps(metadata, ensure_ascii=False, separators=(",", ":")) + ";",
-        1,
-    )
+    metadata = {"source":"Modelo Cronograma Base de Dados v2","sheet":"Planilha1","contracts":15,"items":650,"years":[2026],"monthsLoaded":[0,1,2,3,4,5,6],"rdo":"aguardando vínculo definitivo"}
+    structural = structural.replace("var rdoData=[];", "var rdoData=[];var modelV2Metadata=" + json.dumps(metadata, ensure_ascii=False, separators=(",", ":")) + ";", 1)
     return structural, contract_count, item_count, len(overrides)
 
 
 fix.load_overrides = load_overrides_compatible
-fix.merge_model = merge_model_by_order
+fix.merge_model = merge_model_by_code_and_order
 rows = load_overrides_compatible()
 
 if os.environ.get("DECODE_ONLY") == "1":
-    audit = {
-        "status": "decoded-and-validated",
-        "contracts": len({row["contract"] for row in rows}),
-        "items": len(rows),
-        "monthsPerSeries": 12,
-        "htmlModified": False,
-    }
-    Path("Planejamento-Colaborativo/direct-overrides-decoded-audit.json").write_text(
-        json.dumps(audit, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
+    audit = {"status":"decoded-and-validated","contracts":len({row["contractCode"] for row in rows}),"items":len(rows),"monthsPerSeries":12,"htmlModified":False}
+    Path("Planejamento-Colaborativo/direct-overrides-decoded-audit.json").write_text(json.dumps(audit, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(audit, ensure_ascii=False, indent=2))
 else:
     fix.main()
