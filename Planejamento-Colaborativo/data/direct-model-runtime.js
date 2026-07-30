@@ -50,7 +50,7 @@
   function loadOverrides(){
     if(dataPromise)return dataPromise;
     dataPromise=Promise.all([0,1,2,3,4,5,6,7].map(function(i){
-      return nativeFetch('data/direct-overrides.part'+i+'?v=resilient20260730',{cache:'no-store'})
+      return nativeFetch('data/direct-overrides.part'+i+'?v=audit20260730',{cache:'no-store'})
         .then(function(response){
           if(!response.ok)throw new Error('Bloco de dados '+i+' indisponível ('+response.status+')');
           return response.text();
@@ -90,9 +90,9 @@
       target.sourceId=row.sourceId;
       target.unit=row.unit;
       target.price=Number(row.price||0);
+      target.contractual=Number(row.contractual||0);
       target.base=Number(row.base||0);
       target.balance=Number(row.balance||0);
-      target.contractual=Number(row.base||0)+Number(row.balance||0);
       target.plan=(row.plan||[]).slice();
       target.planValue=(row.planValue||[]).slice();
       target.exec=(row.exec||[]).slice();
