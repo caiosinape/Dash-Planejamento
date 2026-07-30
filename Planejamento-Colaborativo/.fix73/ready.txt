@@ -1,1 +1,1 @@
-Executar somente o diagnóstico da estrutura compactada c/m. Não alterar o HTML, não aplicar correções e não publicar na main. Gerar direct-overrides-shape.json e concluir com sucesso.
+Decodificar a estrutura compactada c/m, validar exatamente 15 contratos e 650 itens, conferir os totais mensais de janeiro a junho e não alterar o HTML.
