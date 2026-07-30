@@ -1,7 +1,7 @@
 {
   "status": "build-failed",
-  "stage": "construction",
+  "stage": "script-extraction",
   "exitCode": 1,
-  "logTail": "Traceback (most recent call last):\n  File \"/home/runner/work/Dash-Planejamento/Dash-Planejamento/tools/run_fix_planejamento_73.py\", line 182, in <module>\n    fix.main()\n  File \"/home/runner/work/Dash-Planejamento/Dash-Planejamento/tools/fix_planejamento_73.py\", line 413, in main\n    dashboard = apply_corrections(dashboard, embedded_source)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/Dash-Planejamento/Dash-Planejamento/tools/fix_planejamento_73.py\", line 259, in apply_corrections\n    dashboard = replace_once(\n                ^^^^^^^^^^^^^\n  File \"/home/runner/work/Dash-Planejamento/Dash-Planejamento/tools/fix_planejamento_73.py\", line 71, in replace_once\n    raise RuntimeError(f\"{label}: esperado 1 vínculo, encontrado {count}\")\nRuntimeError: OS na janela de três meses: esperado 1 vínculo, encontrado 0\n",
+  "logTail": "{\n  \"status\": \"corrigido e validado estruturalmente\",\n  \"visualBase\": \"73c078d3780f21911bbf5a5dbb3f280bbf7f4f22\",\n  \"source\": \"Modelo Cronograma Base de Dados v2 incorporado\",\n  \"contracts\": 15,\n  \"items\": 650,\n  \"overrides\": 650,\n  \"rdo\": \"aguardando último vínculo\",\n  \"checks\": {\n    \"visual_base_preserved\": true,\n    \"structural_fetch_removed\": true,\n    \"root_fetch_removed\": true,\n    \"undefined_reference_removed\": true,\n    \"plan_value_enabled\": true,\n    \"dynamic_os_enabled\": true,\n    \"year_filter_enabled\": true,\n    \"weekly_equal_split\": true,\n    \"error_boundary_enabled\": true,\n    \"old_local_storage_removed\": true,\n    \"contracts\": 15,\n    \"items\": 650,\n    \"rdo\": \"vínculo definitivo pendente\"\n  },\n  \"sha256\": \"8e02d728385f2c94952765d84e54bcc5fc6368cd85f80d8d04f51741017a362d\"\n}\nScript principal não encontrado\n",
   "htmlPublished": false
 }
