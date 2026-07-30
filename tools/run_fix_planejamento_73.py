@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+import copy
 import gzip
 import json
 import os
@@ -114,47 +115,55 @@ def merge_series(existing, incoming, fill):
     return base
 
 
-def merge_model_by_code_and_order(structural):
-    contracts = fix.extract_js_value(structural, "contractData")
-    target_by_code = {contract_code(label): (label, rows) for label, rows in contracts.items()}
+def merge_model_rebuilding_contracts(structural):
+    old_contracts = fix.extract_js_value(structural, "contractData")
+    target_label_by_code = {contract_code(label): label for label in old_contracts}
+
+    match_lookup = {}
+    for label, rows in old_contracts.items():
+        code = contract_code(label)
+        for row in rows:
+            match_lookup.setdefault((code, fix.normalize(row.get("name"))), []).append(row)
+
     overrides = load_overrides_compatible()
     grouped = {}
     for row in overrides:
         grouped.setdefault(row["contractCode"], []).append(row)
 
-    missing_targets = sorted(set(grouped) - set(target_by_code))
-    if missing_targets:
-        raise RuntimeError(f"Contratos sem destino no HTML-base: {missing_targets}")
-
-    official_codes = set(grouped)
-    for code, (label, _) in list(target_by_code.items()):
-        if code not in official_codes:
-            contracts.pop(label, None)
-    target_by_code = {contract_code(label): (label, rows) for label, rows in contracts.items()}
-
+    new_contracts = {}
+    occurrence_cursor = {}
     for code, incoming_rows in grouped.items():
-        target_label, target_rows = target_by_code[code]
-        if len(target_rows) != len(incoming_rows):
-            raise RuntimeError(f"Itens divergentes no contrato {code}: HTML={len(target_rows)}, carga={len(incoming_rows)}")
+        label = target_label_by_code.get(code, incoming_rows[0]["contractLabel"])
+        built_rows = []
         for incoming in incoming_rows:
-            index = incoming["rowIndex"]
-            target = target_rows[index]
-            target.setdefault("sourceId", f"{code}|{index + 1:04d}")
-            target["price"] = incoming["price"]
-            target["balance"] = incoming["balance"]
-            target["base"] = incoming["base"]
-            target["contractual"] = incoming["base"] + incoming["balance"]
-            target["plan"] = merge_series(target.get("plan"), incoming["plan"], 0)
-            target["planValue"] = merge_series(target.get("planValue"), incoming["planValue"], 0)
-            target["exec"] = merge_series(target.get("exec"), incoming["exec"], 0)
-            target["execValue"] = merge_series(target.get("execValue"), incoming["execValue"], 0)
-            target["orders"] = merge_series(target.get("orders"), incoming["orders"], "")
+            key = (code, fix.normalize(incoming["name"]))
+            position = occurrence_cursor.get(key, 0)
+            candidates = match_lookup.get(key, [])
+            source = copy.deepcopy(candidates[position]) if position < len(candidates) else {}
+            occurrence_cursor[key] = position + 1
 
-    contract_count = len(contracts)
-    item_count = sum(len(rows) for rows in contracts.values())
+            source["name"] = incoming["name"]
+            source.setdefault("unit", "UN")
+            source["contractKey"] = label
+            source["sourceId"] = f"{code}|{incoming['rowIndex'] + 1:04d}"
+            source["price"] = incoming["price"]
+            source["balance"] = incoming["balance"]
+            source["base"] = incoming["base"]
+            source["contractual"] = incoming["base"] + incoming["balance"]
+            source["plan"] = merge_series(source.get("plan"), incoming["plan"], 0)
+            source["planValue"] = merge_series(source.get("planValue"), incoming["planValue"], 0)
+            source["exec"] = merge_series(source.get("exec"), incoming["exec"], 0)
+            source["execValue"] = merge_series(source.get("execValue"), incoming["execValue"], 0)
+            source["orders"] = merge_series(source.get("orders"), incoming["orders"], "")
+            built_rows.append(source)
+        new_contracts[label] = built_rows
+
+    contract_count = len(new_contracts)
+    item_count = sum(len(rows) for rows in new_contracts.values())
     if contract_count != 15 or item_count != 650:
         raise RuntimeError(f"Validação estrutural divergente: {contract_count} contratos, {item_count} itens")
-    structural = fix.replace_js_value(structural, "contractData", contracts)
+
+    structural = fix.replace_js_value(structural, "contractData", new_contracts)
     structural = fix.replace_js_value(structural, "rdoData", [])
     metadata = {"source":"Modelo Cronograma Base de Dados v2","sheet":"Planilha1","contracts":15,"items":650,"years":[2026],"monthsLoaded":[0,1,2,3,4,5,6],"rdo":"aguardando vínculo definitivo"}
     structural = structural.replace("var rdoData=[];", "var rdoData=[];var modelV2Metadata=" + json.dumps(metadata, ensure_ascii=False, separators=(",", ":")) + ";", 1)
@@ -162,7 +171,7 @@ def merge_model_by_code_and_order(structural):
 
 
 fix.load_overrides = load_overrides_compatible
-fix.merge_model = merge_model_by_code_and_order
+fix.merge_model = merge_model_rebuilding_contracts
 rows = load_overrides_compatible()
 
 if os.environ.get("DECODE_ONLY") == "1":
