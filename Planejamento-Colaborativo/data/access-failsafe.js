@@ -46,8 +46,10 @@
     form.addEventListener('submit',function(event){
       var input=document.getElementById('accessEmail');
       var value=String(input&&input.value||'').trim().toLowerCase();
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
       if(!validEmail(value)){
-        event.preventDefault();
         if(input){
           input.setCustomValidity('Informe um e-mail valido.');
           input.reportValidity();
@@ -56,16 +58,24 @@
         return;
       }
 
-      setTimeout(function(){
-        var gate=document.getElementById('accessGate');
-        var stillBlocked=gate&&!gate.hidden&&document.body.classList.contains('access-pending');
-        if(stillBlocked)releaseAccess(value);
-      },150);
-    },false);
+      releaseAccess(value);
+
+      var primary=form.onsubmit;
+      if(typeof primary==='function'){
+        try{
+          primary.call(form,{preventDefault:function(){},currentTarget:form,target:form});
+        }catch(error){
+          console.error('[SINAPE] Falha no manipulador principal de acesso:',error);
+        }
+      }
+    },true);
   }
 
   function boot(){
     bind();
+    var stored='';
+    try{stored=String(sessionStorage.getItem('sinape:planning:access-email:v1')||'').trim().toLowerCase();}catch(error){}
+    if(validEmail(stored))releaseAccess(stored);
     var attempts=0;
     var timer=setInterval(function(){
       bind();
