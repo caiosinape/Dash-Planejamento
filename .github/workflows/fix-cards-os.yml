@@ -1,4 +1,4 @@
-name: Restaurar carregador e corrigir acesso
+name: Corrigir acesso direto no HTML
 on:
   push:
     paths: ['.github/workflows/fix-cards-os.yml']
@@ -6,91 +6,35 @@ on:
 permissions:
   contents: write
 jobs:
-  repair:
+  fix:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Restaurar carregador valido
-        run: |
-          git checkout e97e5293f589351d2292d2b834363cb41ed64c0f -- Planejamento-Colaborativo/data/direct-model-runtime.js
-      - name: Adicionar correcao de acesso independente
-        shell: python
-        run: |
-          from pathlib import Path
-          p=Path('Planejamento-Colaborativo/data/direct-model-runtime.js')
-          t=p.read_text(encoding='utf-8')
-          patch=r'''
-
-(function(){
-  'use strict';
-  function txt(el){return String(el&&el.textContent||'').trim().toLowerCase();}
-  function findGate(){
-    var all=[].slice.call(document.querySelectorAll('body *'));
-    for(var i=0;i<all.length;i++){
-      var e=all[i];
-      if(txt(e).indexOf('acessar o dashboard')>=0){
-        var n=e;
-        while(n&&n!==document.body){
-          var s=getComputedStyle(n);
-          if(s.position==='fixed'||s.position==='absolute')return n;
-          n=n.parentElement;
-        }
-      }
-    }
-    return null;
-  }
-  function enter(email){
-    email=String(email||'').trim().toLowerCase();
-    if(!email)return false;
-    try{localStorage.setItem('sinape_dashboard_email',email);sessionStorage.setItem('sinape_dashboard_email',email);}catch(e){}
-    var gate=findGate();
-    if(gate){gate.style.display='none';gate.setAttribute('aria-hidden','true');}
-    document.documentElement.setAttribute('data-dashboard-access','granted');
-    document.body.style.overflow='auto';
-    return true;
-  }
-  function bind(){
-    var email=document.querySelector('input[type="email"]');
-    var buttons=[].slice.call(document.querySelectorAll('button,input[type="submit"]'));
-    var button=buttons.find(function(b){return txt(b)==='continuar'||String(b.value||'').trim().toLowerCase()==='continuar';});
-    if(button){
-      button.type='button';
-      button.addEventListener('click',function(ev){ev.preventDefault();enter(email&&email.value);},true);
-    }
-    if(email){email.addEventListener('keydown',function(ev){if(ev.key==='Enter'){ev.preventDefault();enter(email.value);}},true);}
-    var saved='';try{saved=sessionStorage.getItem('sinape_dashboard_email')||localStorage.getItem('sinape_dashboard_email')||'';}catch(e){}
-    if(saved)enter(saved);
-    setTimeout(function(){
-      var gate=findGate();
-      if(gate&&!button){gate.style.display='none';document.body.style.overflow='auto';}
-    },4000);
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true});else bind();
-})();
-'''
-          if 'data-dashboard-access' not in t:
-              t += patch
-          p.write_text(t,encoding='utf-8')
-      - name: Atualizar cache no HTML
+      - name: Inserir desbloqueio inline
         shell: python
         run: |
           from pathlib import Path
           p=Path('Planejamento-Colaborativo/index.html')
           t=p.read_text(encoding='utf-8')
-          import re
-          t,n=re.subn(r'data/direct-model-runtime\.js\?v=[^"\']+','data/direct-model-runtime.js?v=accessfix20260731',t,count=1)
-          if n!=1: raise SystemExit('Carregador nao localizado no HTML')
+          marker='SINAPE_ACCESS_BYPASS_V3'
+          patch=r'''<script id="SINAPE_ACCESS_BYPASS_V3">(function(){function tx(e){return String((e&&(e.textContent||e.value))||'').trim().toLowerCase()}function gate(){var a=[].slice.call(document.querySelectorAll('body *'));for(var i=0;i<a.length;i++){if(tx(a[i]).indexOf('acessar o dashboard')>=0){var n=a[i];while(n&&n!==document.body){var s=getComputedStyle(n);if(s.position==='fixed'||s.position==='absolute'||(n.offsetWidth>400&&n.offsetHeight>300))return n;n=n.parentElement}}}return null}function open(){var g=gate();if(g){g.style.setProperty('display','none','important');g.style.setProperty('visibility','hidden','important');g.style.setProperty('pointer-events','none','important');g.setAttribute('aria-hidden','true')}document.documentElement.setAttribute('data-dashboard-access','granted');document.body.style.setProperty('overflow','auto','important');[].slice.call(document.querySelectorAll('main,[role="main"],.dashboard,.app,.page,.content')).forEach(function(e){e.style.removeProperty('display');e.style.removeProperty('visibility');e.hidden=false})}function bind(){var b=[].slice.call(document.querySelectorAll('button,input[type="submit"],input[type="button"]')).find(function(e){return tx(e)==='continuar'});var m=document.querySelector('input[type="email"],input[placeholder*="sinape" i]');if(b){b.type='button';b.onclick=function(e){e&&e.preventDefault();try{localStorage.setItem('sinape_dashboard_email',String(m&&m.value||'visualizacao@sinape.com.br').trim().toLowerCase())}catch(x){}open();return false}}if(m)m.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();open()}},true);var saved='';try{saved=localStorage.getItem('sinape_dashboard_email')||''}catch(x){}if(saved)open();setTimeout(function(){if(gate())open()},1500);setTimeout(function(){if(gate())open()},4000)}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true});else bind();window.addEventListener('load',bind,{once:true})})();</script>'''
+          if marker not in t:
+              t=t.replace('</head>',patch+'</head>',1)
           p.write_text(t,encoding='utf-8')
       - name: Validar
         run: |
-          node --check Planejamento-Colaborativo/data/direct-model-runtime.js
-          grep -q 'data-dashboard-access' Planejamento-Colaborativo/data/direct-model-runtime.js
-          grep -q 'accessfix20260731' Planejamento-Colaborativo/index.html
+          grep -q 'SINAPE_ACCESS_BYPASS_V3' Planejamento-Colaborativo/index.html
+          python - <<'PY'
+          from pathlib import Path
+          t=Path('Planejamento-Colaborativo/index.html').read_text(encoding='utf-8')
+          assert t.count('SINAPE_ACCESS_BYPASS_V3')==1
+          assert t.rstrip().endswith('</html>')
+          assert not any(x in t for x in ('<<<<<<<','=======','>>>>>>>'))
+          print('HTML de acesso validado')
+          PY
       - name: Publicar
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add Planejamento-Colaborativo/index.html Planejamento-Colaborativo/data/direct-model-runtime.js
-          git diff --cached --quiet || (git commit -m 'Corrige fluxo de acesso e restaura carregador do dashboard' && git push)
+          git add Planejamento-Colaborativo/index.html
+          git diff --cached --quiet || (git commit -m 'Remove bloqueio da tela de acesso' && git push)
