@@ -1,0 +1,121 @@
+name: Atualizar dados no HTML original
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  atualizar:
+    if: ${{ !contains(github.event.head_commit.message, '[dados-atualizados]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install openpyxl
+      - name: Baixar planilhas corretas
+        run: |
+          curl -fL 'https://sdmntprbrazilsouth.oaiusercontent.com/files/00000000-3640-820e-b4c3-073b1c6f7200/raw?se=2026-07-31T18:53:26Z&sp=r&sv=2026-02-06&sr=b&scid=5f2f6f83-a589-50cb-a846-c23f94e408a4&skoid=db6dad9e-03ee-465b-aef6-ce0f63a161dc&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-07-31T13:21:02Z&ske=2026-08-02T13:21:02Z&sks=b&skv=2026-02-06&sig=OI%2BFFurNH8uAXlhprImeLydTC8ENRZ3419/2/maNUTE%3D' -o /tmp/estudo.xlsx
+          curl -fL 'https://sdmntprbrazilsouth.oaiusercontent.com/files/00000000-a4d8-820e-ac6e-3c55a86a6b29/raw?se=2026-07-31T18:53:33Z&sp=r&sv=2026-02-06&sr=b&scid=cd7b612d-34b4-5db1-a62c-188256db5615&skoid=db6dad9e-03ee-465b-aef6-ce0f63a161dc&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-07-31T02:20:04Z&ske=2026-08-02T02:20:04Z&sks=b&skv=2026-02-06&sig=moVu7tdx7T7mwCJAm62ByB4LUSmbHsBj7zp7RpV7EJk%3D' -o /tmp/modelo.xlsx
+      - name: Substituir somente contractData e rdoData
+        shell: python
+        run: |
+          import openpyxl,json,re,unicodedata,datetime
+          from collections import defaultdict
+          from pathlib import Path
+          def n(v):
+              try:return float(v or 0)
+              except:return 0.0
+          def norm(s):
+              s='' if s is None else str(s)
+              s=unicodedata.normalize('NFKD',s).encode('ascii','ignore').decode().lower()
+              return re.sub(r'\s+',' ',re.sub(r'[^a-z0-9]+',' ',s)).strip()
+          def repl(text,name,value):
+              mark='var '+name+'='
+              p=text.find(mark)
+              if p<0: raise RuntimeError(name+' nao encontrado')
+              q=p+len(mark); op=text[q]; cl='}' if op=='{' else ']'; depth=0; ins=False; esc=False
+              for i in range(q,len(text)):
+                  ch=text[i]
+                  if ins:
+                      if esc: esc=False
+                      elif ch=='\\': esc=True
+                      elif ch=='"': ins=False
+                  elif ch=='"': ins=True
+                  elif ch==op: depth+=1
+                  elif ch==cl:
+                      depth-=1
+                      if depth==0:
+                          return text[:q]+json.dumps(value,ensure_ascii=False,separators=(',',':'))+text[i+1:]
+              raise RuntimeError(name+' incompleto')
+          wb=openpyxl.load_workbook('/tmp/modelo.xlsx',data_only=True,read_only=True)
+          ws=wb['Planilha1']; contracts={}; lookup={}; code_to_contract={}
+          for ridx,row in enumerate(ws.iter_rows(min_row=4,values_only=True),4):
+              code,contract,item=row[0],row[1],row[2]
+              if not contract or not item: continue
+              contract=str(contract).strip(); contract_num=contract.split(' - ')[0]; item=str(item).strip()
+              code_s=str(int(code)) if isinstance(code,(int,float)) and float(code).is_integer() else str(code).strip()
+              code_to_contract[code_s]=contract_num
+              plan=[0.0]*12; exe=[0.0]*12; exev=[0.0]*12; orders=['Sem serviços']*12
+              for m,start in enumerate([14,19,24,29,34,39]):
+                  plan[m]=n(row[start]); exe[m]=n(row[start+2]); exev[m]=n(row[start+3]); orders[m]=str(row[start+4] or 'Sem serviços').strip()
+              rec={'sourceId':f'{contract_num}|{ridx}','name':item,'unit':str(row[3] or '').strip(),'price':n(row[4]),'contractual':n(row[9]),'base':n(row[11]),'plan':plan,'exec':exe,'execValue':exev,'orders':orders}
+              contracts.setdefault(contract,[]).append(rec); lookup[(contract_num,norm(item))]=rec
+          wb.close()
+          wb2=openpyxl.load_workbook('/tmp/estudo.xlsx',data_only=True,read_only=True)
+          fam=defaultdict(list)
+          for row in wb2['De Para 2'].iter_rows(min_row=2,max_col=3,values_only=True):
+              obra,service,family=row
+              if not obra or not service or not family: continue
+              raw=str(int(obra)) if isinstance(obra,(int,float)) and float(obra).is_integer() else str(obra).strip()
+              obra_s=raw[-4:] if raw.startswith('2') and len(raw)>4 else raw
+              rec=lookup.get((obra_s,norm(service)))
+              if rec: fam[(obra_s,norm(family))].append(rec)
+          ws2=wb2['Base BI Executado']; headers={}; rdo=[]; by_num={k.split(' - ')[0]:v for k,v in contracts.items()}
+          for ridx,row in enumerate(ws2.iter_rows(values_only=True),1):
+              if ridx==4:
+                  headers={c:row[c-1] for c in range(5,len(row)+1)}
+                  continue
+              if ridx<5: continue
+              obra,periodo,obs=row[0],row[1],row[2]
+              if obra in (None,'') or periodo in (None,''): continue
+              raw=str(int(obra)) if isinstance(obra,(int,float)) and float(obra).is_integer() else str(obra).strip()
+              contract_num=code_to_contract.get(raw,'2'+raw if '2'+raw in by_num else raw)
+              items=by_num.get(contract_num)
+              if not items: continue
+              if isinstance(periodo,datetime.datetime): dt=periodo
+              elif isinstance(periodo,datetime.date): dt=datetime.datetime.combine(periodo,datetime.time())
+              else:
+                  try: dt=datetime.datetime.strptime(str(periodo),'%d/%m/%Y')
+                  except: continue
+              for c,service in headers.items():
+                  if not service or c-1>=len(row): continue
+                  qty=n(row[c-1])
+                  if qty==0: continue
+                  cand=fam.get((contract_num,norm(service)),[]); rec=cand[0] if cand else None
+                  if not rec:
+                      tok=set(norm(service).split()); scored=[(len(tok & set(norm(x['name']).split())),x) for x in items]
+                      scored=[x for x in scored if x[0]>0]; rec=max(scored,key=lambda x:x[0])[1] if scored else items[0]
+                  rdo.append({'contract':contract_num,'month':dt.month-1,'itemId':rec['sourceId'],'observation':str(obs or '').strip(),'service':str(service).strip(),'unit':rec['unit'],'quantity':qty,'value':qty*rec['price'],'date':dt.strftime('%Y-%m-%d')})
+          wb2.close()
+          key=next(k for k in contracts if k.startswith('2465 - ')); it=contracts[key]
+          unique=sum(1 for x in it if any(x['plan'][m]>0 for m in range(6)))
+          planned=sum(x['plan'][m]*x['price'] for x in it for m in range(6))
+          executed=sum(x['execValue'][m] for x in it for m in range(6))
+          assert unique==23, unique
+          assert abs(planned-6166806.5074)<1, planned
+          assert abs(executed-7052007.8173)<1, executed
+          src=Path('Cronogramas Planejamento/index.html')
+          text=src.read_text(encoding='utf-8')
+          text=repl(text,'contractData',contracts)
+          text=repl(text,'rdoData',rdo)
+          src.write_text(text,encoding='utf-8')
+          panel=Path('Planejamento-Colaborativo/index.html')
+          p=panel.read_text(encoding='utf-8').replace('Base BI Executado (2)','Base BI Executado')
+          panel.write_text(p,encoding='utf-8')
+          print({'itens':unique,'planejado':planned,'executado':executed,'rdo':len(rdo)})
+      - name: Publicar sem alterar o layout
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add 'Cronogramas Planejamento/index.html' 'Planejamento-Colaborativo/index.html'
+          git commit -m 'Atualiza dados corretos no HTML original [dados-atualizados]'
+          git push
