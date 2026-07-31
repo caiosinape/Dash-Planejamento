@@ -37,7 +37,7 @@ jobs:
       })
     }'''
           text, n = re.subn(r'    function filtered\(applyStatus\)\{.*?\n    \}', filtered_new, text, count=1, flags=re.S)
-          if n != 1:
+          if n == 0 and 'function filtered(applyStatus,filterMonth)' not in text:
               raise RuntimeError('Nao foi possivel localizar filtered()')
 
           text = text.replace(
@@ -65,14 +65,16 @@ jobs:
         '<article class="card '+(horizon<2?"red":horizon<3?"amber":"green")+'"><div class="card-label">Horizonte de frentes</div><strong>'+horizon+' de 3</strong><small>Meses com programação na janela móvel</small><div class="mini-status '+(horizon<2?"danger":horizon<3?"warn":"")+'"><i></i>'+(horizon===3?"Janela completa":"Revisar próximas frentes")+'</div></article>'
     }'''
           text, n = re.subn(r'    function renderCards\(\)\{.*?\n    \}\n    function renderMonthChart', cards_new+'\n    function renderMonthChart', text, count=1, flags=re.S)
-          if n != 1:
+          if n == 0 and '<div class="card-label">Itens do Contrato</div>' not in text:
               raise RuntimeError('Nao foi possivel localizar renderCards()')
 
           os_new = r'''    function renderOS(){
       var m=activeMonth(),entries=[];
       if(month<0){
-        filtered(true,m).forEach(function(item){
+        items.forEach(function(item){
           months.forEach(function(_,mi){
+            if(os!=="Todas"&&!hasOrder(item,mi))return;
+            if(statusFilter&&osStatus(item,mi)!==statusFilter)return;
             var p=Number(item.plan[mi]||0),e=executedQty(item,mi);
             if(p>0||e>0||hasOrder(item,mi))entries.push({item:item,month:mi})
           })
@@ -91,16 +93,42 @@ jobs:
       }).join(""):'<tr><td colspan="6" style="text-align:center;color:#687986;padding:24px">Nenhuma Ordem de Serviço prevista neste recorte.</td></tr>'
     }'''
           text, n = re.subn(r'    function renderOS\(\)\{.*?\n    \}\n    function printOS', os_new+'\n    function printOS', text, count=1, flags=re.S)
-          if n != 1:
+          if n == 0 and 'Sem Ordem de Serviço informada para o período' not in text:
               raise RuntimeError('Nao foi possivel localizar renderOS()')
 
           path.write_text(text, encoding='utf-8')
 
-      - name: Validar alteracoes
+      - name: Varredura estatica
         run: |
-          grep -q 'Itens do Contrato' 'Cronogramas Planejamento/index.html'
-          grep -q 'Sem Ordem de Serviço informada para o período' 'Cronogramas Planejamento/index.html'
-          grep -q 'filtered(true,m)' 'Cronogramas Planejamento/index.html'
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('Cronogramas Planejamento/index.html')
+          t=p.read_text(encoding='utf-8')
+          checks={
+            'HTML fechado': t.rstrip().endswith('</html>'),
+            'Script fechado': t.count('<script') == t.count('</script>'),
+            'Cards corrigidos': 'Itens do Contrato' in t,
+            'OS mensal': 'Sem Ordem de Serviço informada para o período' in t,
+            'Filtro por mês': 'filtered(true,m)' in t,
+            'Sem merge conflict': not any(x in t for x in ('<<<<<<<','=======','>>>>>>>')),
+            'IDs principais únicos': all(len(re.findall(r'id=["\']'+re.escape(i)+r'["\']',t))==1 for i in ('contractFilter','monthFilter','cards','osRows')),
+          }
+          failed=[k for k,v in checks.items() if not v]
+          print('\n'.join(f'{k}: {"OK" if v else "FALHA"}' for k,v in checks.items()))
+          if failed: raise SystemExit('Falhas: '+', '.join(failed))
+          PY
+
+      - name: Validar JavaScript
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          t=Path('Cronogramas Planejamento/index.html').read_text(encoding='utf-8')
+          scripts=re.findall(r'<script[^>]*>(.*?)</script>',t,re.S)
+          Path('/tmp/dashboard.js').write_text('\n'.join(scripts),encoding='utf-8')
+          PY
+          node --check /tmp/dashboard.js
 
       - name: Publicar correcao
         run: |
@@ -110,6 +138,6 @@ jobs:
           if git diff --cached --quiet; then
             echo 'Nenhuma alteracao necessaria.'
           else
-            git commit -m 'Corrige cards, filtros e ordens de servico'
+            git commit -m 'Corrige cards filtros ordens de servico e valida dashboard'
             git push
           fi
