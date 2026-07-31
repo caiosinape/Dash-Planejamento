@@ -1,4 +1,4 @@
-name: Reconstruir Planejamento Colaborativo
+name: Restaurar Planejamento Colaborativo Estavel
 on:
   issues:
     types: [opened]
@@ -6,128 +6,53 @@ on:
 permissions:
   contents: write
 jobs:
-  rebuild:
-    if: contains(github.event.issue.title, '[reconstruir-planejamento]') || github.event_name == 'workflow_dispatch'
+  restore:
+    if: contains(github.event.issue.title, '[restaurar-planejamento-estavel]') || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Restaurar visual aprovado e incorporar dados
+      - name: Restaurar visual aprovado
+        run: |
+          git fetch origin planejamento-colaborativo-fix-73c078d
+          git show origin/planejamento-colaborativo-fix-73c078d:Planejamento-Colaborativo/index.html > /tmp/index.html
+      - name: Remover tela de acesso fisicamente
         shell: python
         run: |
           from pathlib import Path
-          import json, re, subprocess
-
-          def git_show(ref, path):
-              return subprocess.check_output(['git','show',f'{ref}:{path}'], text=True, encoding='utf-8')
-
-          def extract_var(source, name):
-              marker='var '+name+'='
-              start=source.find(marker)
-              if start < 0:
-                  raise RuntimeError(f'Base {name} não encontrada')
-              value_start=start+len(marker)
-              opening=source[value_start]
-              closing='}' if opening=='{' else ']'
-              depth=0; quoted=False; escaped=False
-              for i in range(value_start,len(source)):
-                  ch=source[i]
-                  if quoted:
-                      if escaped: escaped=False
-                      elif ch=='\\': escaped=True
-                      elif ch=='"': quoted=False
-                  elif ch=='"': quoted=True
-                  elif ch==opening: depth+=1
-                  elif ch==closing:
-                      depth-=1
-                      if depth==0:
-                          return json.loads(source[value_start:i+1])
-              raise RuntimeError(f'Base {name} incompleta')
-
-          stable=git_show('origin/planejamento-colaborativo-fix-73c078d','Planejamento-Colaborativo/index.html')
-          source=Path('Cronogramas Planejamento/index.html').read_text(encoding='utf-8')
-          contracts=extract_var(source,'contractData')
-          rdo=extract_var(source,'rdoData')
-
-          # Recalcula execução diretamente do RDO, sem runtime externo.
-          for items in contracts.values():
-              for item in items:
-                  item['exec']=[0]*12
-                  item['execValue']=[0]*12
-          for row in rdo:
-              code=str(row.get('contract','')).strip()
-              month=int(row.get('month',-1))
-              if not 0 <= month < 12: continue
-              key=next((k for k in contracts if str(k).split(' - ')[0]==code),None)
-              if not key: continue
-              item_id=str(row.get('itemId','')).strip()
-              candidates=[i for i in contracts[key] if str(i.get('sourceId','')).strip()==item_id]
-              if not candidates:
-                  candidates=[i for i in contracts[key] if str(i.get('sourceId','')).strip().endswith(item_id)]
-              if not candidates: continue
-              item=candidates[0]
-              item['exec'][month]+=float(row.get('quantity') or 0)
-              item['execValue'][month]+=float(row.get('value') or 0)
-
-          # Remove integralmente a tela de acesso e qualquer carregador externo.
-          stable=re.sub(r'<section class="access-gate".*?</section>','',stable,count=1,flags=re.S)
-          stable=stable.replace('<body class="access-pending">','<body>')
-          stable=re.sub(r'<script id="SINAPE_ACCESS_BYPASS_V[0-9]+">.*?</script>','',stable,flags=re.S)
-          stable=re.sub(r'<script src="data/direct-model-runtime\.js\?v=[^"]+"></script>','',stable)
-
-          # Torna o HTML autônomo: elimina fetch de outro HTML e injeta as bases no próprio arquivo.
-          prefix_pattern=r'<script>!async function\(\)\{var e=await fetch\("\.\./Cronogramas%20Planejamento/index\.html".*?var r=\['
-          stable,n=re.subn(prefix_pattern,'<script>!function(){var r=[',stable,count=1,flags=re.S)
-          if n!=1:
-              raise RuntimeError('Bootstrap remoto não localizado')
-          stable=stable.replace('var j=t("contractData")','var j='+json.dumps(contracts,ensure_ascii=False,separators=(',',':')),1)
-          stable=stable.replace('var O=t("rdoData")','var O='+json.dumps(rdo,ensure_ascii=False,separators=(',',':')),1)
-
-          # Garante que nenhuma dependência remota da base permaneça.
-          if 'fetch("../Cronogramas%20Planejamento/index.html"' in stable:
-              raise RuntimeError('Fetch remoto ainda presente')
-          if 'accessGate' in stable or 'access-pending' in stable:
-              raise RuntimeError('Tela de acesso ainda presente')
-
-          # Validação funcional do contrato 2465 em junho/2026.
-          key2465=next((k for k in contracts if str(k).split(' - ')[0]=='2465'),None)
-          if not key2465: raise RuntimeError('Contrato 2465 ausente')
-          items=contracts[key2465]
-          planned_items=sum(1 for i in items if float((i.get('plan') or [0]*12)[5] or 0)>0)
-          planned_value=sum(float((i.get('plan') or [0]*12)[5] or 0)*float(i.get('price') or 0) for i in items)
-          executed_value=sum(float((i.get('execValue') or [0]*12)[5] or 0) for i in items)
-          print({'planned_items':planned_items,'planned_value':planned_value,'executed_value':executed_value})
-          if planned_items<=0 or planned_value<=0 or executed_value<=0:
-              raise RuntimeError('Validação 2465/junho falhou')
-
+          import re
+          t=Path('/tmp/index.html').read_text(encoding='utf-8')
+          t,n=re.subn(r'<section class="access-gate".*?</section>','',t,count=1,flags=re.S)
+          if n!=1: raise SystemExit('Tela de acesso nao localizada')
+          t=t.replace('<body class="access-pending">','<body>',1)
+          t=re.sub(r'<script id="SINAPE_ACCESS_BYPASS_V[0-9]+">.*?</script>','',t,flags=re.S)
+          t=re.sub(r'<script src="data/direct-model-runtime\.js\?v=[^"]+"></script>','',t)
+          if 'accessGate' in t or 'access-pending' in t: raise SystemExit('Bloqueio de acesso ainda presente')
+          Path('Planejamento-Colaborativo/index.html').write_text(t,encoding='utf-8')
           Path('Planejamento-Colaborativo-Homologacao').mkdir(exist_ok=True)
-          Path('Planejamento-Colaborativo-Homologacao/index.html').write_text(stable,encoding='utf-8')
-          Path('Planejamento-Colaborativo/index.html').write_text(stable,encoding='utf-8')
-
+          Path('Planejamento-Colaborativo-Homologacao/index.html').write_text(t,encoding='utf-8')
       - name: Validar HTML e JavaScript
         run: |
           python - <<'PY'
           from pathlib import Path
           import re
-          for path in ['Planejamento-Colaborativo-Homologacao/index.html','Planejamento-Colaborativo/index.html']:
-              t=Path(path).read_text(encoding='utf-8')
+          for f in ['Planejamento-Colaborativo/index.html','Planejamento-Colaborativo-Homologacao/index.html']:
+              t=Path(f).read_text(encoding='utf-8')
               assert t.rstrip().endswith('</html>')
               assert 'accessGate' not in t
               assert 'access-pending' not in t
-              assert 'direct-model-runtime.js' not in t
-              assert 'fetch("../Cronogramas%20Planejamento/index.html"' not in t
-              assert '2465' in t
-              assert 'contractFilter' in t and 'monthFilter' in t and 'cards' in t
+              assert 'contractFilter' in t
+              assert 'monthFilter' in t
+              assert 'planningViewport' in t
+              assert 'rdoContent' in t
               scripts=re.findall(r'<script[^>]*>(.*?)</script>',t,re.S)
               Path('/tmp/app.js').write_text('\n'.join(scripts),encoding='utf-8')
           PY
           node --check /tmp/app.js
-
-      - name: Publicar homologação e principal
+      - name: Publicar versao estavel
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add Planejamento-Colaborativo/index.html Planejamento-Colaborativo-Homologacao/index.html
-          git diff --cached --quiet || (git commit -m 'Reconstrói dashboard autônomo sem tela de acesso' && git push)
+          git diff --cached --quiet || (git commit -m 'Restaura dashboard estavel sem tela de acesso' && git push)
