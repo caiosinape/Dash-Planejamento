@@ -1,199 +1,21 @@
 (function(){
   'use strict';
-
-  if(document.readyState==='loading'){
-    document.write('<script src="data/os-snapshot-runtime.js?v=oslink20260731b"></scr'+'ipt><script src="data/item-count-runtime.js?v=itemcount20260731b"></scr'+'ipt>');
-  }
-
   var plannedTotals=[4288589.97,3721958.32,8551985.44,7007453.64,11338463.85,6771368,0,0,0,0,0,0];
   var executedTotals=[2505164.99,5600261.94,9272194.70,7991701.96,10776812.48,2778985.85,0,0,0,0,0,0];
-  var initialMonthApplied=false;
-  var updateScheduled=false;
-
-  function fallbackLogo(){
-    var logo=document.getElementById('accessLogo');
-    if(!logo)return;
-    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="180" height="90" viewBox="0 0 180 90"><rect width="180" height="90" rx="12" fill="white"/><text x="90" y="40" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#0b5870">SINAPE</text><text x="90" y="61" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#315c70">Sinalizacao</text></svg>';
-    logo.onerror=null;
-    logo.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
-  }
-
-  function validEmail(value){return /^\S+@\S+\.\S+$/.test(value);}
-
-  function roleFor(value){
-    var editors=['caio.garcia@sinape.com.br','lucas.oliveira@sinape.com.br','jaqueline.ramalho@sinape.com.br'];
-    if(editors.indexOf(value)>=0)return 'Edicao mensal e causas/acoes';
-    if(value==='davi.braz@sinape.com.br')return 'Edicao do planejamento semanal';
-    return 'Somente visualizacao';
-  }
-
-  function releaseAccess(value){
-    try{sessionStorage.setItem('sinape:planning:access-email:v1',value);}catch(error){}
-    var gate=document.getElementById('accessGate');
-    if(gate)gate.hidden=true;
-    document.body.classList.remove('access-pending');
-    var session=document.getElementById('accessSession');
-    if(session)session.hidden=false;
-    var output=document.getElementById('accessSessionEmail');
-    if(output)output.textContent=value;
-    var role=document.getElementById('accessSessionRole');
-    if(role)role.textContent=roleFor(value);
-    document.documentElement.setAttribute('data-sinape-access','ready');
-  }
-
-  function compactCurrency(value){
-    var formatter=new Intl.NumberFormat('pt-BR',{maximumFractionDigits:2});
-    if(Math.abs(value)>=1000000)return 'R$ '+formatter.format(value/1000000)+' mi';
-    if(Math.abs(value)>=1000)return 'R$ '+formatter.format(value/1000)+' mil';
-    return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0}).format(value);
-  }
-
-  function isGeneralView(){
-    var contract=document.getElementById('contractFilter');
-    var item=document.getElementById('itemFilter');
-    var status=document.getElementById('statusFilter');
-    var order=document.getElementById('osFilter');
-    return !!contract&&contract.value==='__ALL_CONTRACTS__'&&(!item||!item.value)&&(!status||!status.value)&&(!order||order.value==='Todas');
-  }
-
-  function applyInitialMonth(){
-    if(initialMonthApplied)return;
-    var month=document.getElementById('monthFilter');
-    if(!month||!month.options.length)return;
-    initialMonthApplied=true;
-    month.value='5';
-    month.dispatchEvent(new Event('change',{bubbles:true}));
-  }
-
-  function updateCards(){
-    if(!isGeneralView())return;
-    var month=document.getElementById('monthFilter');
-    var cards=document.querySelectorAll('#cards .card');
-    if(!month||cards.length<2)return;
-    var index=Number(month.value);
-    if(index<0)return;
-    var planned=plannedTotals[index]||0;
-    var executed=executedTotals[index]||0;
-    var plannedValue=cards[0].querySelector('strong');
-    var executedValue=cards[1].querySelector('strong');
-    if(plannedValue&&plannedValue.textContent!==compactCurrency(planned))plannedValue.textContent=compactCurrency(planned);
-    if(executedValue&&executedValue.textContent!==compactCurrency(executed))executedValue.textContent=compactCurrency(executed);
-  }
-
-  function updateAnnualChart(){
-    if(!isGeneralView())return;
-    var groups=document.querySelectorAll('#monthChart .bar-group');
-    if(groups.length!==12)return;
-    var max=Math.max.apply(null,plannedTotals.concat(executedTotals).concat([1]));
-    groups.forEach(function(group,index){
-      var plan=group.querySelector('.bar.plan');
-      var done=group.querySelector('.bar.done');
-      var small=group.querySelector('small');
-      if(plan)plan.style.height=(plannedTotals[index]/max*100)+'%';
-      if(done)done.style.height=(executedTotals[index]/max*100)+'%';
-      if(small)small.textContent=plannedTotals[index]?compactCurrency(plannedTotals[index]).replace('R$ ',''):'—';
-    });
-  }
-
-  function updateWeeklyChart(){
-    if(!isGeneralView())return;
-    var month=document.getElementById('monthFilter');
-    var weeks=document.querySelectorAll('#weeklyChart .week');
-    if(!month||!weeks.length)return;
-    var index=Number(month.value);
-    if(index<0)return;
-    var planned=plannedTotals[index]||0;
-    var executed=executedTotals[index]||0;
-    var totalDays=0;
-    var days=[];
-    weeks.forEach(function(week){
-      var title=week.querySelector('strong');
-      var match=title&&title.textContent.match(/(\d+)–(\d+)/);
-      var count=match?Math.max(1,Number(match[2])-Number(match[1])+1):1;
-      days.push(count);totalDays+=count;
-    });
-    var max=Math.max(planned,executed,1)/Math.max(totalDays,1);
-    weeks.forEach(function(week,i){
-      var share=days[i]/Math.max(totalDays,1);
-      var p=planned*share,e=executed*share;
-      var planBar=week.querySelector('.wp');
-      var doneBar=week.querySelector('.we');
-      var labels=week.querySelectorAll('small');
-      if(planBar)planBar.style.height=(p/max*100)+'%';
-      if(doneBar)doneBar.style.height=(e/max*100)+'%';
-      if(labels[0])labels[0].textContent='Plan. '+new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0}).format(p);
-      if(labels[1])labels[1].textContent='Exec. '+new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0}).format(e);
-    });
-  }
-
-  function refreshFinancialView(){
-    applyInitialMonth();
-    updateCards();
-    updateAnnualChart();
-    updateWeeklyChart();
-  }
-
-  function scheduleRefresh(){
-    if(updateScheduled)return;
-    updateScheduled=true;
-    requestAnimationFrame(function(){updateScheduled=false;refreshFinancialView();});
-  }
-
-  function bind(){
-    var logo=document.getElementById('accessLogo');
-    if(logo){
-      logo.addEventListener('error',fallbackLogo,{once:true});
-      if(!logo.getAttribute('src')||(logo.complete&&logo.naturalWidth===0))fallbackLogo();
-    }
-
-    var form=document.getElementById('accessForm');
-    if(!form||form.dataset.failsafeBound==='1')return;
-    form.dataset.failsafeBound='1';
-
-    form.addEventListener('submit',function(event){
-      var input=document.getElementById('accessEmail');
-      var value=String(input&&input.value||'').trim().toLowerCase();
-      event.preventDefault();
-      event.stopImmediatePropagation();
-
-      if(!validEmail(value)){
-        if(input){
-          input.setCustomValidity('Informe um e-mail valido.');
-          input.reportValidity();
-          input.setCustomValidity('');
-        }
-        return;
-      }
-
-      releaseAccess(value);
-
-      var primary=form.onsubmit;
-      if(typeof primary==='function'){
-        try{
-          primary.call(form,{preventDefault:function(){},currentTarget:form,target:form});
-        }catch(error){
-          console.error('[SINAPE] Falha no manipulador principal de acesso:',error);
-        }
-      }
-      scheduleRefresh();
-    },true);
-  }
-
-  function boot(){
-    bind();
-    var stored='';
-    try{stored=String(sessionStorage.getItem('sinape:planning:access-email:v1')||'').trim().toLowerCase();}catch(error){}
-    if(validEmail(stored))releaseAccess(stored);
-    var attempts=0;
-    var timer=setInterval(function(){
-      bind();
-      scheduleRefresh();
-      attempts++;
-      if(attempts>=80)clearInterval(timer);
-    },250);
-    new MutationObserver(scheduleRefresh).observe(document.documentElement,{childList:true,subtree:true});
-    document.addEventListener('change',scheduleRefresh,true);
-  }
-
+  var initialMonthApplied=false,scheduled=false;
+  function sum(a){return a.reduce(function(x,y){return x+Number(y||0)},0)}
+  function money(v){var f=new Intl.NumberFormat('pt-BR',{maximumFractionDigits:2});if(Math.abs(v)>=1e6)return'R$ '+f.format(v/1e6)+' mi';if(Math.abs(v)>=1e3)return'R$ '+f.format(v/1e3)+' mil';return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0}).format(v)}
+  function logo(){var e=document.getElementById('accessLogo');if(!e)return;var s='<svg xmlns="http://www.w3.org/2000/svg" width="180" height="90" viewBox="0 0 180 90"><rect width="180" height="90" rx="12" fill="white"/><text x="90" y="40" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#0b5870">SINAPE</text><text x="90" y="61" text-anchor="middle" font-family="Arial" font-size="11" fill="#315c70">Sinalizacao</text></svg>';e.onerror=null;e.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s)}
+  function valid(v){return /^\S+@\S+\.\S+$/.test(v)}
+  function role(v){if(['caio.garcia@sinape.com.br','lucas.oliveira@sinape.com.br','jaqueline.ramalho@sinape.com.br'].indexOf(v)>=0)return'Edicao mensal e causas/acoes';if(v==='davi.braz@sinape.com.br')return'Edicao do planejamento semanal';return'Somente visualizacao'}
+  function release(v){try{sessionStorage.setItem('sinape:planning:access-email:v1',v)}catch(e){}var g=document.getElementById('accessGate');if(g)g.hidden=true;document.body.classList.remove('access-pending');var s=document.getElementById('accessSession');if(s)s.hidden=false;var o=document.getElementById('accessSessionEmail');if(o)o.textContent=v;var r=document.getElementById('accessSessionRole');if(r)r.textContent=role(v);document.documentElement.setAttribute('data-sinape-access','ready')}
+  function general(){var c=document.getElementById('contractFilter'),i=document.getElementById('itemFilter'),s=document.getElementById('statusFilter'),o=document.getElementById('osFilter');return!!c&&c.value==='__ALL_CONTRACTS__'&&(!i||!i.value)&&(!s||!s.value)&&(!o||o.value==='Todas')}
+  function initial(){if(initialMonthApplied)return;var m=document.getElementById('monthFilter');if(!m||!m.options.length)return;initialMonthApplied=true;m.value='5';m.dispatchEvent(new Event('change',{bubbles:true}))}
+  function cards(){if(!general())return;var m=document.getElementById('monthFilter'),c=document.querySelectorAll('#cards .card');if(!m||c.length<2)return;var x=Number(m.value),p=x<0?sum(plannedTotals):plannedTotals[x]||0,e=x<0?sum(executedTotals):executedTotals[x]||0;c[0].querySelector('strong').textContent=money(p);c[1].querySelector('strong').textContent=money(e)}
+  function annual(){if(!general())return;var g=document.querySelectorAll('#monthChart .bar-group');if(g.length!==12)return;var mx=Math.max.apply(null,plannedTotals.concat(executedTotals).concat([1]));g.forEach(function(a,i){var p=a.querySelector('.bar.plan'),e=a.querySelector('.bar.done'),s=a.querySelector('small');if(p)p.style.height=plannedTotals[i]/mx*100+'%';if(e)e.style.height=executedTotals[i]/mx*100+'%';if(s)s.textContent=plannedTotals[i]?money(plannedTotals[i]).replace('R$ ',''):'—'})}
+  function refresh(){initial();cards();annual()}
+  function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(function(){scheduled=false;refresh()})}
+  function bind(){var l=document.getElementById('accessLogo');if(l){l.addEventListener('error',logo,{once:true});if(!l.getAttribute('src')||(l.complete&&l.naturalWidth===0))logo()}var f=document.getElementById('accessForm');if(!f||f.dataset.failsafeBound==='1')return;f.dataset.failsafeBound='1';f.addEventListener('submit',function(ev){var i=document.getElementById('accessEmail'),v=String(i&&i.value||'').trim().toLowerCase();ev.preventDefault();ev.stopImmediatePropagation();if(!valid(v)){if(i){i.setCustomValidity('Informe um e-mail valido.');i.reportValidity();i.setCustomValidity('')}return}release(v);var p=f.onsubmit;if(typeof p==='function')try{p.call(f,{preventDefault:function(){},currentTarget:f,target:f})}catch(e){console.error('[SINAPE] Falha no acesso:',e)}schedule()},true)}
+  function boot(){bind();var v='';try{v=String(sessionStorage.getItem('sinape:planning:access-email:v1')||'').trim().toLowerCase()}catch(e){}if(valid(v))release(v);var n=0,t=setInterval(function(){bind();schedule();if(++n>=80)clearInterval(t)},250);new MutationObserver(schedule).observe(document.documentElement,{childList:true,subtree:true});document.addEventListener('change',schedule,true)}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 })();
