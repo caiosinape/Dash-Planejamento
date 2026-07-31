@@ -1,6 +1,10 @@
 (function(){
   'use strict';
 
+  if(document.readyState==='loading'){
+    document.write('<script src="data/os-snapshot-runtime.js?v=oslink20260731b"></scr'+'ipt><script src="data/item-count-runtime.js?v=itemcount20260731b"></scr'+'ipt>');
+  }
+
   var plannedTotals=[4288589.97,3721958.32,8551985.44,7007453.64,11338463.85,6771368,0,0,0,0,0,0];
   var executedTotals=[2505164.99,5600261.94,9272194.70,7991701.96,10776812.48,2778985.85,0,0,0,0,0,0];
   var initialMonthApplied=false;
