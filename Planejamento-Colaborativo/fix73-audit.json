@@ -1,0 +1,25 @@
+{
+  "status": "corrigido e validado estruturalmente",
+  "visualBase": "73c078d3780f21911bbf5a5dbb3f280bbf7f4f22",
+  "source": "Modelo Cronograma Base de Dados v2 incorporado",
+  "contracts": 15,
+  "items": 650,
+  "overrides": 650,
+  "rdo": "aguardando último vínculo",
+  "checks": {
+    "visual_base_preserved": true,
+    "structural_fetch_removed": true,
+    "root_fetch_removed": true,
+    "undefined_reference_removed": true,
+    "plan_value_enabled": true,
+    "dynamic_os_enabled": true,
+    "year_filter_enabled": true,
+    "weekly_equal_split": true,
+    "error_boundary_enabled": true,
+    "old_local_storage_removed": true,
+    "contracts": 15,
+    "items": 650,
+    "rdo": "vínculo definitivo pendente"
+  },
+  "sha256": "8e02d728385f2c94952765d84e54bcc5fc6368cd85f80d8d04f51741017a362d"
+}
