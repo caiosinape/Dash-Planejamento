@@ -1,4 +1,4 @@
-name: Publicar base atualizada no Planejamento Colaborativo
+name: Restaurar integridade do Planejamento Colaborativo
 on:
   push:
     paths: ['.github/workflows/fix-cards-os.yml']
@@ -6,38 +6,23 @@ on:
 permissions:
   contents: write
 jobs:
-  publish:
+  restore:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Inserir modulo de dados antes do painel
-        shell: python
+        with:
+          fetch-depth: 0
+      - name: Restaurar bloco de dados parcialmente alterado
         run: |
-          from pathlib import Path
-          p=Path('Planejamento-Colaborativo/index.html')
-          t=p.read_text(encoding='utf-8')
-          loader='<script src="data/direct-model-runtime.js?v=financefix20260731"></script>'
-          marker='<script>!async function(){'
-          if marker not in t: raise SystemExit('Script principal nao localizado')
-          while loader in t: t=t.replace(loader,'')
-          t=t.replace(marker,loader+marker,1)
-          if t.index(loader)>t.index(marker): raise SystemExit('Ordem de carregamento incorreta')
-          p.write_text(t,encoding='utf-8')
-      - name: Validar arquivos da base
+          git checkout 0ce951ad8e479bbf3ed553778665cef093824f5e -- Planejamento-Colaborativo/data/direct-overrides.part0
+      - name: Validar pacote atual
         run: |
-          test -f Planejamento-Colaborativo/data/direct-model-runtime.js
+          test -s Planejamento-Colaborativo/data/direct-model-runtime.js
           for i in 0 1 2 3 4 5 6 7; do test -s Planejamento-Colaborativo/data/direct-overrides.part$i; done
           node --check Planejamento-Colaborativo/data/direct-model-runtime.js
-          grep -q 'Itens do Contrato' Planejamento-Colaborativo/index.html
-          grep -q 'data/direct-model-runtime.js?v=financefix20260731' Planejamento-Colaborativo/index.html
-      - name: Publicar
+      - name: Publicar restauracao
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add Planejamento-Colaborativo/index.html
-          if git diff --cached --quiet; then
-            echo 'Modulo ja estava carregado.'
-          else
-            git commit -m 'Ativa base atualizada no Planejamento Colaborativo'
-            git push
-          fi
+          git add Planejamento-Colaborativo/data/direct-overrides.part0
+          git diff --cached --quiet || (git commit -m 'Restaura integridade do pacote de dados' && git push)
