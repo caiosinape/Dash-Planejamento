@@ -1,4 +1,4 @@
-name: Restaurar e corrigir Planejamento Colaborativo
+name: Corrigir vinculo da base do Planejamento Colaborativo
 on:
   push:
     paths: ['.github/workflows/fix-cards-os.yml']
@@ -10,64 +10,70 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Restaurar HTML correto
-        run: |
-          git fetch origin planejamento-colaborativo-fix-73c078d
-          git show origin/planejamento-colaborativo-fix-73c078d:Planejamento-Colaborativo/index.html > Planejamento-Colaborativo/index.html
-      - name: Corrigir filtros cards e ordens de servico
+      - name: Validar dados do contrato 2465 em junho
         shell: python
         run: |
           from pathlib import Path
-          import re
+          import base64, gzip, json
+          parts=[]
+          for i in range(8):
+              p=Path(f'Planejamento-Colaborativo/data/direct-overrides.part{i}')
+              if not p.exists(): raise SystemExit(f'Bloco ausente: {p}')
+              parts.append(p.read_text(encoding='utf-8'))
+          raw=base64.b64decode(''.join(parts).replace('\n','').replace('\r','').replace(' ',''))
+          rows=json.loads(gzip.decompress(raw).decode('utf-8'))
+          contract=[r for r in rows if str(r.get('contract','')).split(' - ')[0]=='2465']
+          month=5
+          planned_items=[r for r in contract if float((r.get('plan') or [0]*12)[month] or 0)>0]
+          planned_value=sum(float((r.get('plan') or [0]*12)[month] or 0)*float(r.get('price') or 0) for r in contract)
+          executed_value=sum(float((r.get('exec') or [0]*12)[month] or 0)*float(r.get('price') or 0) for r in contract)
+          executed_qty=sum(float((r.get('exec') or [0]*12)[month] or 0) for r in contract)
+          print({'rows_2465':len(contract),'planned_items_june':len(planned_items),'planned_value_june':planned_value,'executed_qty_june':executed_qty,'executed_value_june':executed_value})
+          if not contract: raise SystemExit('Contrato 2465 nao encontrado na base atualizada')
+          if not planned_items or planned_value<=0: raise SystemExit('Planejado de junho do contrato 2465 esta zerado na base')
+          if executed_qty<=0 or executed_value<=0: raise SystemExit('Executado de junho do contrato 2465 esta zerado na base')
+      - name: Carregar base atualizada antes do painel
+        shell: python
+        run: |
+          from pathlib import Path
           p=Path('Planejamento-Colaborativo/index.html')
           t=p.read_text(encoding='utf-8')
-
-          old='function oe(e){var t=V();return q.filter(function(n){return!(m&&R(n)!==m||"Todas"!==s&&n.orders.indexOf(p)<0||!1!==e&&u&&re(n,t)!==u)})}'
-          new='function oe(e){var t=V();return q.filter(function(n){var a=c<0?n.orders.some(function(e){e=String(e||"").trim();return e&&e!=="Sem serviços"&&e!=="Sem servicos"}):function(e){e=String(n.orders[t]||"").trim();return e&&e!=="Sem serviços"&&e!=="Sem servicos"}();return!(m&&R(n)!==m||"Todas"!==s&&!a||!1!==e&&u&&re(n,t)!==u)})}'
-          if old not in t: raise SystemExit('Filtro principal nao localizado')
-          t=t.replace(old,new,1)
-
-          old_card='<article class="card '+"'"+'+(a.some(function(t){return"Urgente"===re(t,e)})?"red":"amber")+'+"'"+'"><div class="card-label">Itens planejados do contrato</div><strong>'+"'"+'+a.length+'+"'"+'</strong><small>Itens com quantidade planejada no mês operacional</small><div class="mini-status '+"'"+'+(a.some(function(t){return"Urgente"===re(t,e)})?"danger":"warn")+'+"'"+'"><i></i>'+"'"+'+a.filter(function(t){return"Urgente"===re(t,e)}).length+'+"'"+' urgentes</div></article>'
-          new_card='<article class="card '+"'"+'+(a.some(function(t){return"Urgente"===re(t,e)})?"red":"amber")+'+"'"+'"><div class="card-label">Itens do Contrato</div><strong>'+"'"+'+Array.from(new Set(oe(!1).map(function(t){return R(t)}))).length+'+"'"+'</strong><small>Itens contratuais únicos do filtro selecionado</small><div class="mini-status '+"'"+'+(a.some(function(t){return"Urgente"===re(t,e)})?"danger":"warn")+'+"'"+'"><i></i>'+"'"+'+a.length+'+"'"+' planejados no período</div></article>'
-          if old_card not in t: raise SystemExit('Card de itens nao localizado')
-          t=t.replace(old_card,new_card,1)
-
-          pattern=r'function\(\)\{var e,t=V\(\);e=c<0\?oe\(!0\).*?\}\(\),function\(\)\{var e=V\(\),t=F\(\),n=\{\};'
-          repl='''function(){var e=V(),t=[];if(c<0){oe(!0).forEach(function(n){r.forEach(function(a,i){var d=Number(n.plan[i]||0),l=W(n,i),s=String(n.orders[i]||"").trim();if(d>0||l>0||s&&s!=="Sem serviços"&&s!=="Sem servicos")t.push({item:n,month:i})})})}else oe(!0).forEach(function(n){var a=Number(n.plan[e]||0),r=W(n,e),o=String(n.orders[e]||"").trim();if(a>0||r>0||o&&o!=="Sem serviços"&&o!=="Sem servicos")t.push({item:n,month:e})});document.getElementById("osTitle").textContent=c<0?"Ordens de Serviço planejadas em 2026":"O que deve ser executado em "+o[e]+"/2026",document.getElementById("osRows").innerHTML=t.length?t.map(function(t,n){var a=t.item,i=t.month,d=Number(a.plan[i]||0),l=W(a,i),s=re(a,i),u=String(a.orders[i]||"").trim();u&&u!=="Sem serviços"&&u!=="Sem servicos"||(u="Sem Ordem de Serviço informada para o período");var m=function(e,t){var n=_(e,t),a=[];return te(t).forEach(function(t){var r=n[t.week];r&&(Number(r.quantity)>0||r.order)&&a.push("Sem. "+t.week+": "+P.format(Number(r.quantity)||0)+" "+e.unit+(r.order?" · "+r.order:""))}),a.join(" | ")}(a,i),p=m?u+" | "+m:u;return'<tr><td><span class="os-code">OS-'+String(n+1).padStart(2,"0")+'</span></td><td><strong>'+D(a.name)+"</strong><small>"+(L===C?"Contrato "+D(H(a))+" · ":"")+o[i]+"/2026</small></td><td><strong>"+P.format(d)+"</strong> "+D(a.unit)+"</td><td><strong>"+P.format(l)+"</strong> "+D(a.unit)+'</td><td><span class="status-pill '+se(s)+'"><i></i>'+s+"</span></td><td>"+D(p)+"</td></tr>"}).join(""):'<tr><td colspan="6" style="text-align:center;color:#687986;padding:24px">Nenhuma Ordem de Serviço prevista neste recorte.</td></tr>'}(),function(){var e=V(),t=F(),n={};'''
-          t,n=re.subn(pattern,repl,t,count=1,flags=re.S)
-          if n!=1: raise SystemExit('Bloco de OS nao localizado')
-
-          if not t.endswith('</html>') and not t.endswith('</html>\n'): raise SystemExit('HTML incompleto')
-          if any(x in t for x in ('<<<<<<<','=======','>>>>>>>')): raise SystemExit('Conflito de merge encontrado')
+          loader='<script src="data/direct-model-runtime.js?v=financefix20260731"></script>'
+          marker='<script>!async function(){'
+          if loader not in t:
+              if marker not in t: raise SystemExit('Script principal nao localizado')
+              t=t.replace(marker,loader+marker,1)
+          if t.index(loader)>t.index(marker): raise SystemExit('Modulo de dados carregado depois do painel')
           p.write_text(t,encoding='utf-8')
-      - name: Validar HTML e JavaScript
+      - name: Validar integridade
         run: |
           python - <<'PY'
           from pathlib import Path
           import re
           t=Path('Planejamento-Colaborativo/index.html').read_text(encoding='utf-8')
           checks={
-            'HTML correto': 'Planejamento x Executado' not in t and 'Planejado x Executado' in t,
-            'Card correto': 'Itens do Contrato' in t,
-            'OS mensal': 'Sem Ordem de Serviço informada para o período' in t,
-            'OS sequencial': 'String(n+1).padStart(2,"0")' in t,
-            'Filtro mensal': 'n.orders[t]' in t,
-            'Tela de acesso': 'accessGate' in t,
+            'Modulo de dados': t.count('data/direct-model-runtime.js?v=financefix20260731')==1,
+            'Ordem de carregamento': t.index('data/direct-model-runtime.js')<t.index('<script>!async function(){'),
+            'Contrato': 'contractFilter' in t,
+            'Card planejado': 'Valor planejado' in t,
+            'Card executado': 'Valor executado' in t,
+            'Card itens': 'Itens do Contrato' in t,
             'Plano de execucao': 'planningViewport' in t,
+            'Ordens de servico': 'osRows' in t,
             'RDO': 'rdoContent' in t,
+            'Sem conflitos': not any(x in t for x in ('<<<<<<<','=======','>>>>>>>')),
           }
-          bad=[k for k,v in checks.items() if not v]
           print('\n'.join(k+': '+('OK' if v else 'FALHA') for k,v in checks.items()))
+          bad=[k for k,v in checks.items() if not v]
           if bad: raise SystemExit(', '.join(bad))
-          scripts=re.findall(r'<script[^>]*>(.*?)</script>',t,re.S)
-          Path('/tmp/app.js').write_text('\n'.join(scripts),encoding='utf-8')
+          inline=re.findall(r'<script>(.*?)</script>',t,re.S)
+          Path('/tmp/app.js').write_text('\n'.join(inline),encoding='utf-8')
           PY
           node --check /tmp/app.js
-      - name: Publicar no mesmo link
+          node --check Planejamento-Colaborativo/data/direct-model-runtime.js
+      - name: Publicar correcao
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add Planejamento-Colaborativo/index.html
-          git diff --cached --quiet || (git commit -m 'Restaura visual correto e corrige filtros cards e OS' && git push)
+          git diff --cached --quiet || (git commit -m 'Corrige vinculo da base e valores do contrato 2465' && git push)
