@@ -1,22 +1,12 @@
 (function(){
 'use strict';
-var nativeFetch=window.fetch.bind(window),dataPromise=null;
-var EXEC_Q=[3997.5,0,5916.4,0,2840,1600,3524,0,0,0,0,0];
-var EXEC_V=[695746.3509013875,0,1029722.0038706614,0,494288.8396647755,278472.58572663413,613335.8700629117,0,0,0,0,0];
-var RDO_RAW=[
-[0,'2026-01-10',1450.5,252452.80349780177],[0,'2026-01-13',1098,191101.81195490266],[0,'2026-01-15',613.5,106776.83208955628],[0,'2026-01-16',835.5,145414.90335912677],
-[2,'2026-03-13',750,130534.02455935975],[2,'2026-03-14',1418,246796.3291002295],[2,'2026-03-15',1380,240182.60518922194],[2,'2026-03-16',1178,205025.44124123437],[2,'2026-03-17',1190.4,207183.6037806158],
-[4,'2026-05-09',1200,208854.4392949756],[4,'2026-05-11',820,142717.2001849],[4,'2026-05-12',820,142717.2001849],
-[5,'2026-06-09',400,69618.14643165853],[5,'2026-06-10',1200,208854.4392949756],
-[6,'2026-07-16',1400,243663.51251080487],[6,'2026-07-17',740,128793.57089856829],[6,'2026-07-20',600,104427.2196474878],[6,'2026-07-21',784,136451.56700605073]
-];
-var SERVICE='Sinal. Horiz. Plast. Frio Base de Res. Metacrílica Reativas, Disp. Estrutura';
-var RDO_DATA=RDO_RAW.map(function(x){return{contract:'2465',month:x[0],itemId:'465-408',observation:'Base BI Executado (2)',service:SERVICE,unit:'m²',quantity:x[2],value:x[3],date:x[1]};});
-function range(source,name){var marker='var '+name+'=',start=source.indexOf(marker);if(start<0)throw new Error('Base '+name+' não encontrada');var valueStart=start+marker.length,open=source[valueStart],close=open==='{'?'}':']',depth=0,quoted=false,escaped=false;if(open!=='{'&&open!=='[')throw new Error('Base '+name+' inválida');for(var i=valueStart;i<source.length;i++){var ch=source[i];if(quoted){if(escaped)escaped=false;else if(ch==='\\')escaped=true;else if(ch==='"')quoted=false;}else if(ch==='"')quoted=true;else if(ch===open)depth++;else if(ch===close&&--depth===0)return{start:start,end:i+1};}throw new Error('Base '+name+' incompleta');}
-function replaceVar(source,name,value){var r=range(source,name);return source.slice(0,r.start)+'var '+name+'='+JSON.stringify(value)+source.slice(r.end);}
-function loadRows(){if(dataPromise)return dataPromise;dataPromise=Promise.all([0,1,2,3,4,5,6,7].map(function(i){return nativeFetch('data/direct-overrides.part'+i+'?v=unified20260731b',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('Bloco '+i+' indisponível');return r.text();});})).then(function(parts){var joined=parts.join('').replace(/\s/g,''),binary=atob(joined),bytes=new Uint8Array(binary.length);for(var i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);if(typeof DecompressionStream==='undefined')throw new Error('Navegador sem suporte a gzip');return new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).json();}).then(function(rows){if(!Array.isArray(rows)||rows.length!==650)throw new Error('Base divergente: '+(rows&&rows.length));return rows;});return dataPromise;}
-function twelve(v,fill){var a=Array.isArray(v)?v.slice(0,12):[];while(a.length<12)a.push(fill);return a;}
-function build(rows){var contracts={};rows.forEach(function(row){var item=Object.assign({},row);item.plan=twelve(row.plan,0);item.planValue=twelve(row.planValue,0);item.exec=twelve(row.exec,0);item.execValue=twelve(row.execValue,0);item.orders=twelve(row.orders,'Sem serviços');if(String(item.contract).indexOf('2465')===0&&String(item.sourceId)==='465-408'){item.exec=EXEC_Q.slice();item.execValue=EXEC_V.slice();}(contracts[item.contract]||(contracts[item.contract]=[])).push(item);});var key=Object.keys(contracts).filter(function(k){return k.indexOf('2465')===0;})[0];if(!key)throw new Error('Contrato 2465 ausente');var list=contracts[key],planned=list.filter(function(i){return Number(i.plan[5]||0)>0;}).length,pv=list.reduce(function(s,i){return s+Number(i.planValue[5]||0);},0),ev=list.reduce(function(s,i){return s+Number(i.execValue[5]||0);},0);if(planned!==18||Math.abs(pv-1635334.62)>1||Math.abs(ev-278472.58572663413)>1)throw new Error('Validação 2465/junho falhou: '+planned+' | '+pv+' | '+ev);window.__SINAPE_VALIDATION_2465__={plannedItems:planned,plannedValue:pv,executedValue:ev};return contracts;}
-window.fetch=function(input,options){var url=String(input&&input.url||input);if(url.indexOf('Cronogramas%20Planejamento/index.html')>=0||url.indexOf('Cronogramas Planejamento/index.html')>=0){return nativeFetch(input,Object.assign({},options||{},{cache:'no-store'})).then(function(r){if(!r.ok)throw new Error('Estrutura visual indisponível');return r.text();}).then(function(source){return loadRows().then(function(rows){var merged=replaceVar(source,'contractData',build(rows));merged=replaceVar(merged,'rdoData',RDO_DATA);window.__SINAPE_DATA_READY__=true;window.__SINAPE_DATA_ERROR__='';document.documentElement.setAttribute('data-sinape-data','ready');return new Response(merged,{status:200,headers:{'Content-Type':'text/html; charset=utf-8','X-SINAPE-DATA':'unified'}});});}).catch(function(error){console.error('[SINAPE] Base unificada:',error);window.__SINAPE_DATA_READY__=false;window.__SINAPE_DATA_ERROR__=String(error&&error.message||error);document.documentElement.setAttribute('data-sinape-data','error');throw error;});}return nativeFetch(input,options);};
-loadRows().catch(function(error){console.error('[SINAPE] Pré-carregamento:',error);});
-})();
+
+/* Entrada independente: o acesso nao depende da planilha nem da conexao. */
+function normalizeEmail(value){return String(value||'').trim().toLowerCase();}
+function hideAccessGate(email){
+  var normalized=normalizeEmail(email);
+  if(normalized){
+    try{
+      localStorage.setItem('sinape_dashboard_email',normalized);
+      sessionStorage.setItem('sinape_dashboard_email',normalized);
+    }catch(ignore)
