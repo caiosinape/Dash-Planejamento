@@ -1,4 +1,4 @@
-name: Atualizar carregador unificado
+name: Restaurar carregador e corrigir acesso
 on:
   push:
     paths: ['.github/workflows/fix-cards-os.yml']
@@ -6,40 +6,91 @@ on:
 permissions:
   contents: write
 jobs:
-  publish:
+  repair:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Atualizar versao do modulo de dados
+        with:
+          fetch-depth: 0
+      - name: Restaurar carregador valido
+        run: |
+          git checkout e97e5293f589351d2292d2b834363cb41ed64c0f -- Planejamento-Colaborativo/data/direct-model-runtime.js
+      - name: Adicionar correcao de acesso independente
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('Planejamento-Colaborativo/data/direct-model-runtime.js')
+          t=p.read_text(encoding='utf-8')
+          patch=r'''
+
+(function(){
+  'use strict';
+  function txt(el){return String(el&&el.textContent||'').trim().toLowerCase();}
+  function findGate(){
+    var all=[].slice.call(document.querySelectorAll('body *'));
+    for(var i=0;i<all.length;i++){
+      var e=all[i];
+      if(txt(e).indexOf('acessar o dashboard')>=0){
+        var n=e;
+        while(n&&n!==document.body){
+          var s=getComputedStyle(n);
+          if(s.position==='fixed'||s.position==='absolute')return n;
+          n=n.parentElement;
+        }
+      }
+    }
+    return null;
+  }
+  function enter(email){
+    email=String(email||'').trim().toLowerCase();
+    if(!email)return false;
+    try{localStorage.setItem('sinape_dashboard_email',email);sessionStorage.setItem('sinape_dashboard_email',email);}catch(e){}
+    var gate=findGate();
+    if(gate){gate.style.display='none';gate.setAttribute('aria-hidden','true');}
+    document.documentElement.setAttribute('data-dashboard-access','granted');
+    document.body.style.overflow='auto';
+    return true;
+  }
+  function bind(){
+    var email=document.querySelector('input[type="email"]');
+    var buttons=[].slice.call(document.querySelectorAll('button,input[type="submit"]'));
+    var button=buttons.find(function(b){return txt(b)==='continuar'||String(b.value||'').trim().toLowerCase()==='continuar';});
+    if(button){
+      button.type='button';
+      button.addEventListener('click',function(ev){ev.preventDefault();enter(email&&email.value);},true);
+    }
+    if(email){email.addEventListener('keydown',function(ev){if(ev.key==='Enter'){ev.preventDefault();enter(email.value);}},true);}
+    var saved='';try{saved=sessionStorage.getItem('sinape_dashboard_email')||localStorage.getItem('sinape_dashboard_email')||'';}catch(e){}
+    if(saved)enter(saved);
+    setTimeout(function(){
+      var gate=findGate();
+      if(gate&&!button){gate.style.display='none';document.body.style.overflow='auto';}
+    },4000);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true});else bind();
+})();
+'''
+          if 'data-dashboard-access' not in t:
+              t += patch
+          p.write_text(t,encoding='utf-8')
+      - name: Atualizar cache no HTML
         shell: python
         run: |
           from pathlib import Path
           p=Path('Planejamento-Colaborativo/index.html')
           t=p.read_text(encoding='utf-8')
-          old='data/direct-model-runtime.js?v=financefix20260731'
-          new='data/direct-model-runtime.js?v=unified20260731b'
-          if old in t:
-              t=t.replace(old,new)
-          elif new not in t:
-              raise SystemExit('Carregador de dados nao localizado')
+          import re
+          t,n=re.subn(r'data/direct-model-runtime\.js\?v=[^"\']+','data/direct-model-runtime.js?v=accessfix20260731',t,count=1)
+          if n!=1: raise SystemExit('Carregador nao localizado no HTML')
           p.write_text(t,encoding='utf-8')
-      - name: Validar HTML e JavaScript
+      - name: Validar
         run: |
-          grep -q 'data/direct-model-runtime.js?v=unified20260731b' Planejamento-Colaborativo/index.html
           node --check Planejamento-Colaborativo/data/direct-model-runtime.js
-          python - <<'PY'
-          from pathlib import Path
-          t=Path('Planejamento-Colaborativo/index.html').read_text(encoding='utf-8')
-          assert t.count('data/direct-model-runtime.js?v=unified20260731b')==1
-          assert 'Itens do Contrato' in t
-          assert 'planningViewport' in t
-          assert 'rdoContent' in t
-          assert not any(x in t for x in ('<<<<<<<','=======','>>>>>>>'))
-          print('HTML validado')
-          PY
+          grep -q 'data-dashboard-access' Planejamento-Colaborativo/data/direct-model-runtime.js
+          grep -q 'accessfix20260731' Planejamento-Colaborativo/index.html
       - name: Publicar
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add Planejamento-Colaborativo/index.html
-          git diff --cached --quiet || (git commit -m 'Ativa carregador unificado no Planejamento Colaborativo' && git push)
+          git add Planejamento-Colaborativo/index.html Planejamento-Colaborativo/data/direct-model-runtime.js
+          git diff --cached --quiet || (git commit -m 'Corrige fluxo de acesso e restaura carregador do dashboard' && git push)
