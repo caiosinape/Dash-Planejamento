@@ -1,4 +1,4 @@
-name: Restaurar integridade do Planejamento Colaborativo
+name: Atualizar carregador unificado
 on:
   push:
     paths: ['.github/workflows/fix-cards-os.yml']
@@ -6,23 +6,40 @@ on:
 permissions:
   contents: write
 jobs:
-  restore:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Restaurar bloco de dados parcialmente alterado
+      - name: Atualizar versao do modulo de dados
+        shell: python
         run: |
-          git checkout 0ce951ad8e479bbf3ed553778665cef093824f5e -- Planejamento-Colaborativo/data/direct-overrides.part0
-      - name: Validar pacote atual
+          from pathlib import Path
+          p=Path('Planejamento-Colaborativo/index.html')
+          t=p.read_text(encoding='utf-8')
+          old='data/direct-model-runtime.js?v=financefix20260731'
+          new='data/direct-model-runtime.js?v=unified20260731b'
+          if old in t:
+              t=t.replace(old,new)
+          elif new not in t:
+              raise SystemExit('Carregador de dados nao localizado')
+          p.write_text(t,encoding='utf-8')
+      - name: Validar HTML e JavaScript
         run: |
-          test -s Planejamento-Colaborativo/data/direct-model-runtime.js
-          for i in 0 1 2 3 4 5 6 7; do test -s Planejamento-Colaborativo/data/direct-overrides.part$i; done
+          grep -q 'data/direct-model-runtime.js?v=unified20260731b' Planejamento-Colaborativo/index.html
           node --check Planejamento-Colaborativo/data/direct-model-runtime.js
-      - name: Publicar restauracao
+          python - <<'PY'
+          from pathlib import Path
+          t=Path('Planejamento-Colaborativo/index.html').read_text(encoding='utf-8')
+          assert t.count('data/direct-model-runtime.js?v=unified20260731b')==1
+          assert 'Itens do Contrato' in t
+          assert 'planningViewport' in t
+          assert 'rdoContent' in t
+          assert not any(x in t for x in ('<<<<<<<','=======','>>>>>>>'))
+          print('HTML validado')
+          PY
+      - name: Publicar
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add Planejamento-Colaborativo/data/direct-overrides.part0
-          git diff --cached --quiet || (git commit -m 'Restaura integridade do pacote de dados' && git push)
+          git add Planejamento-Colaborativo/index.html
+          git diff --cached --quiet || (git commit -m 'Ativa carregador unificado no Planejamento Colaborativo' && git push)
