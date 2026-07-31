@@ -1,4 +1,4 @@
-name: Corrigir dashboard
+name: Restaurar e corrigir Planejamento Colaborativo
 on:
   push:
     paths: ['.github/workflows/fix-cards-os.yml']
@@ -10,41 +10,64 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Corrigir e validar
+        with:
+          fetch-depth: 0
+      - name: Restaurar HTML correto
+        run: |
+          git fetch origin planejamento-colaborativo-fix-73c078d
+          git show origin/planejamento-colaborativo-fix-73c078d:Planejamento-Colaborativo/index.html > Planejamento-Colaborativo/index.html
+      - name: Corrigir filtros cards e ordens de servico
         shell: python
         run: |
           from pathlib import Path
           import re
-          p=Path('Cronogramas Planejamento/index.html')
+          p=Path('Planejamento-Colaborativo/index.html')
           t=p.read_text(encoding='utf-8')
-          def sub(pattern,repl,label):
-            global t
-            t,n=re.subn(pattern,repl,t,count=1,flags=re.S)
-            if n!=1: raise SystemExit('Falha em '+label)
-          sub(r'    function filtered\(applyStatus\)\{.*?\n    \}', '''    function hasOrder(item,m){var x=String((item.orders&&item.orders[m])||"").trim();return x&&x!=="Sem serviços"&&x!=="Sem servicos"}\n    function filtered(applyStatus,filterMonth){var m=typeof filterMonth==="number"?filterMonth:activeMonth();return items.filter(function(item){if(os!=="Todas"&&!hasOrder(item,m))return false;if(applyStatus!==false&&statusFilter&&osStatus(item,m)!==statusFilter)return false;return true})\n    }''','filtered')
-          t=t.replace('function executedValue(m){return filtered(false).reduce(function(s,i){return s+executedQty(i,m)*i.price},0)}','function executedValue(m){return filtered(true,m).reduce(function(s,i){return s+executedQty(i,m)*i.price},0)}')
-          t=t.replace('function plannedValue(m){return filtered(false).reduce(function(s,i){return s+Number(i.plan[m]||0)*i.price},0)}','function plannedValue(m){return filtered(true,m).reduce(function(s,i){return s+Number(i.plan[m]||0)*i.price},0)}')
-          t=t.replace('function plannedItems(){var m=activeMonth();return filtered(true).filter(function(i){return Number(i.plan[m]||0)>0})}','function plannedItems(){var m=activeMonth();if(month<0)return filtered(true,m).filter(function(i){return i.plan.some(function(v){return Number(v||0)>0})});return filtered(true,m).filter(function(i){return Number(i.plan[m]||0)>0})}')
-          cards='''    function renderCards(){var m=activeMonth(),p=month<0?allPlanned():plannedValue(m),e=month<0?allExecuted():executedValue(m),rows=plannedItems(),horizon=0,uniqueItems=Array.from(new Set(rows.map(function(i){return itemContractCode(i)+"|"+i.name}))).length,urgent=rows.filter(function(i){return osStatus(i,m)==="Urgente"}).length;for(var n=m;n<Math.min(m+3,12);n++)if(plannedValue(n)>0)horizon++;document.getElementById("cards").innerHTML='<article class="card"><div class="card-label">Valor planejado</div><strong>'+moneyShort(p)+'</strong><small>Recorte filtrado por contrato e mês</small><div class="mini-status"><i></i>'+uniqueItems+' itens</div></article>'+'<article class="card green"><div class="card-label">Valor executado</div><strong>'+moneyShort(e)+'</strong><small>Recorte filtrado por contrato e mês</small><div class="mini-status '+(e?'':'warn')+'"><i></i>'+(e?'Dados carregados':'Sem execução no recorte')+'</div></article>'+'<article class="card '+(urgent?'red':'amber')+'"><div class="card-label">Itens do Contrato</div><strong>'+uniqueItems+'</strong><small>Itens contratuais únicos planejados no período</small><div class="mini-status '+(urgent?'danger':'warn')+'"><i></i>'+urgent+' urgentes</div></article>'+'<article class="card '+(horizon<2?'red':horizon<3?'amber':'green')+'"><div class="card-label">Horizonte de frentes</div><strong>'+horizon+' de 3</strong><small>Meses programados na janela móvel</small><div class="mini-status '+(horizon<2?'danger':horizon<3?'warn':'')+'"><i></i>'+(horizon===3?'Janela completa':'Revisar próximas frentes')+'</div></article>'\n    }'''
-          sub(r'    function renderCards\(\)\{.*?\n    \}\n    function renderMonthChart',cards+'\n    function renderMonthChart','cards')
-          ros='''    function renderOS(){var m=activeMonth(),entries=[];if(month<0){items.forEach(function(i){months.forEach(function(_,mi){if(os!=="Todas"&&!hasOrder(i,mi))return;if(statusFilter&&osStatus(i,mi)!==statusFilter)return;var p=Number(i.plan[mi]||0),e=executedQty(i,mi);if(p>0||e>0||hasOrder(i,mi))entries.push({item:i,month:mi})})})}else{filtered(true,m).forEach(function(i){var p=Number(i.plan[m]||0),e=executedQty(i,m);if(p>0||e>0||hasOrder(i,m))entries.push({item:i,month:m})})}document.getElementById("osTitle").textContent=month<0?"Ordens de Serviço planejadas em 2026":"O que deve ser executado em "+fullMonths[m]+"/2026";document.getElementById("osRows").innerHTML=entries.length?entries.map(function(x,k){var i=x.item,mi=x.month,p=Number(i.plan[mi]||0),e=executedQty(i,mi),s=osStatus(i,mi),w=String((i.orders&&i.orders[mi])||"").trim();if(!w||w==="Sem serviços"||w==="Sem servicos")w="Sem Ordem de Serviço informada para o período";return '<tr><td><span class="os-code">OS-'+String(k+1).padStart(2,"0")+'</span></td><td><strong>'+esc(i.name)+'</strong><small>'+(activeContract===ALL_CONTRACTS?'Contrato '+esc(itemContractCode(i))+' · ':'')+fullMonths[mi]+'/2026</small></td><td><strong>'+num.format(p)+'</strong> '+esc(i.unit)+'</td><td><strong>'+num.format(e)+'</strong> '+esc(i.unit)+'</td><td><span class="status-pill '+statusClass(s)+'"><i></i>'+s+'</span></td><td>'+esc(w)+'</td></tr>'}).join(""):'<tr><td colspan="6" style="text-align:center;color:#687986;padding:24px">Nenhuma Ordem de Serviço prevista neste recorte.</td></tr>'\n    }'''
-          sub(r'    function renderOS\(\)\{.*?\n    \}\n    function printOS',ros+'\n    function printOS','OS')
-          if not t.rstrip().endswith('</html>') or any(x in t for x in ('<<<<<<<','>>>>>>>')): raise SystemExit('HTML invalido')
-          for i in ('contractFilter','monthFilter','cards','osRows'):
-            if len(re.findall(r'id=["\']'+i+r'["\']',t))!=1: raise SystemExit('ID invalido: '+i)
+
+          old='function oe(e){var t=V();return q.filter(function(n){return!(m&&R(n)!==m||"Todas"!==s&&n.orders.indexOf(p)<0||!1!==e&&u&&re(n,t)!==u)})}'
+          new='function oe(e){var t=V();return q.filter(function(n){var a=c<0?n.orders.some(function(e){e=String(e||"").trim();return e&&e!=="Sem serviços"&&e!=="Sem servicos"}):function(e){e=String(n.orders[t]||"").trim();return e&&e!=="Sem serviços"&&e!=="Sem servicos"}();return!(m&&R(n)!==m||"Todas"!==s&&!a||!1!==e&&u&&re(n,t)!==u)})}'
+          if old not in t: raise SystemExit('Filtro principal nao localizado')
+          t=t.replace(old,new,1)
+
+          old_card='<article class="card '+"'"+'+(a.some(function(t){return"Urgente"===re(t,e)})?"red":"amber")+'+"'"+'"><div class="card-label">Itens planejados do contrato</div><strong>'+"'"+'+a.length+'+"'"+'</strong><small>Itens com quantidade planejada no mês operacional</small><div class="mini-status '+"'"+'+(a.some(function(t){return"Urgente"===re(t,e)})?"danger":"warn")+'+"'"+'"><i></i>'+"'"+'+a.filter(function(t){return"Urgente"===re(t,e)}).length+'+"'"+' urgentes</div></article>'
+          new_card='<article class="card '+"'"+'+(a.some(function(t){return"Urgente"===re(t,e)})?"red":"amber")+'+"'"+'"><div class="card-label">Itens do Contrato</div><strong>'+"'"+'+Array.from(new Set(oe(!1).map(function(t){return R(t)}))).length+'+"'"+'</strong><small>Itens contratuais únicos do filtro selecionado</small><div class="mini-status '+"'"+'+(a.some(function(t){return"Urgente"===re(t,e)})?"danger":"warn")+'+"'"+'"><i></i>'+"'"+'+a.length+'+"'"+' planejados no período</div></article>'
+          if old_card not in t: raise SystemExit('Card de itens nao localizado')
+          t=t.replace(old_card,new_card,1)
+
+          pattern=r'function\(\)\{var e,t=V\(\);e=c<0\?oe\(!0\).*?\}\(\),function\(\)\{var e=V\(\),t=F\(\),n=\{\};'
+          repl='''function(){var e=V(),t=[];if(c<0){oe(!0).forEach(function(n){r.forEach(function(a,i){var d=Number(n.plan[i]||0),l=W(n,i),s=String(n.orders[i]||"").trim();if(d>0||l>0||s&&s!=="Sem serviços"&&s!=="Sem servicos")t.push({item:n,month:i})})})}else oe(!0).forEach(function(n){var a=Number(n.plan[e]||0),r=W(n,e),o=String(n.orders[e]||"").trim();if(a>0||r>0||o&&o!=="Sem serviços"&&o!=="Sem servicos")t.push({item:n,month:e})});document.getElementById("osTitle").textContent=c<0?"Ordens de Serviço planejadas em 2026":"O que deve ser executado em "+o[e]+"/2026",document.getElementById("osRows").innerHTML=t.length?t.map(function(t,n){var a=t.item,i=t.month,d=Number(a.plan[i]||0),l=W(a,i),s=re(a,i),u=String(a.orders[i]||"").trim();u&&u!=="Sem serviços"&&u!=="Sem servicos"||(u="Sem Ordem de Serviço informada para o período");var m=function(e,t){var n=_(e,t),a=[];return te(t).forEach(function(t){var r=n[t.week];r&&(Number(r.quantity)>0||r.order)&&a.push("Sem. "+t.week+": "+P.format(Number(r.quantity)||0)+" "+e.unit+(r.order?" · "+r.order:""))}),a.join(" | ")}(a,i),p=m?u+" | "+m:u;return'<tr><td><span class="os-code">OS-'+String(n+1).padStart(2,"0")+'</span></td><td><strong>'+D(a.name)+"</strong><small>"+(L===C?"Contrato "+D(H(a))+" · ":"")+o[i]+"/2026</small></td><td><strong>"+P.format(d)+"</strong> "+D(a.unit)+"</td><td><strong>"+P.format(l)+"</strong> "+D(a.unit)+'</td><td><span class="status-pill '+se(s)+'"><i></i>'+s+"</span></td><td>"+D(p)+"</td></tr>"}).join(""):'<tr><td colspan="6" style="text-align:center;color:#687986;padding:24px">Nenhuma Ordem de Serviço prevista neste recorte.</td></tr>'}(),function(){var e=V(),t=F(),n={};'''
+          t,n=re.subn(pattern,repl,t,count=1,flags=re.S)
+          if n!=1: raise SystemExit('Bloco de OS nao localizado')
+
+          if not t.endswith('</html>') and not t.endswith('</html>\n'): raise SystemExit('HTML incompleto')
+          if any(x in t for x in ('<<<<<<<','=======','>>>>>>>')): raise SystemExit('Conflito de merge encontrado')
           p.write_text(t,encoding='utf-8')
-      - name: Validar JavaScript
+      - name: Validar HTML e JavaScript
         run: |
           python - <<'PY'
           from pathlib import Path
           import re
-          t=Path('Cronogramas Planejamento/index.html').read_text(encoding='utf-8')
-          Path('/tmp/app.js').write_text('\n'.join(re.findall(r'<script[^>]*>(.*?)</script>',t,re.S)),encoding='utf-8')
+          t=Path('Planejamento-Colaborativo/index.html').read_text(encoding='utf-8')
+          checks={
+            'HTML correto': 'Planejamento x Executado' not in t and 'Planejado x Executado' in t,
+            'Card correto': 'Itens do Contrato' in t,
+            'OS mensal': 'Sem Ordem de Serviço informada para o período' in t,
+            'OS sequencial': 'String(n+1).padStart(2,"0")' in t,
+            'Filtro mensal': 'n.orders[t]' in t,
+            'Tela de acesso': 'accessGate' in t,
+            'Plano de execucao': 'planningViewport' in t,
+            'RDO': 'rdoContent' in t,
+          }
+          bad=[k for k,v in checks.items() if not v]
+          print('\n'.join(k+': '+('OK' if v else 'FALHA') for k,v in checks.items()))
+          if bad: raise SystemExit(', '.join(bad))
+          scripts=re.findall(r'<script[^>]*>(.*?)</script>',t,re.S)
+          Path('/tmp/app.js').write_text('\n'.join(scripts),encoding='utf-8')
           PY
           node --check /tmp/app.js
-      - name: Publicar
+      - name: Publicar no mesmo link
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add 'Cronogramas Planejamento/index.html'
-          git diff --cached --quiet || (git commit -m 'Corrige dashboard e valida filtros' && git push)
+          git add Planejamento-Colaborativo/index.html
+          git diff --cached --quiet || (git commit -m 'Restaura visual correto e corrige filtros cards e OS' && git push)
