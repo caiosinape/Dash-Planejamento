@@ -101,6 +101,13 @@
     return dataPromise;
   }
 
+  function zeroFuture(values,fill){
+    var result=Array.isArray(values)?values.slice(0,12):Array(12).fill(fill);
+    while(result.length<12)result.push(fill);
+    for(var month=6;month<12;month++)result[month]=fill;
+    return result;
+  }
+
   function mergeSource(source,rows){
     if(typeof source!=='string'||source.length<1000)throw new Error('Estrutura-base vazia ou incompleta');
     var contracts=extractVar(source,'contractData');
@@ -136,17 +143,18 @@
       target.contractual=Number(row.contractual||0);
       target.base=Number(row.base||0);
       target.balance=Number(row.balance||0);
-      target.plan=row.plan.slice();
-      target.planValue=row.planValue.slice();
-      target.exec=row.exec.slice();
-      target.execValue=row.execValue.slice();
-      target.orders=row.orders.slice();
+      target.plan=zeroFuture(row.plan,0);
+      target.planValue=zeroFuture(row.planValue,0);
+      target.exec=zeroFuture(row.exec,0);
+      target.execValue=zeroFuture(row.execValue,0);
+      target.orders=zeroFuture(row.orders,'Sem serviços');
       matched++;
     });
 
     if(matched!==650)throw new Error('Itens vinculados divergentes: '+matched);
     var merged=replaceVar(source,'contractData',contracts);
     extractVar(merged,'contractData');
+    window.__SINAPE_PLANEJADO_EXECUTADO_SNAPSHOT__={items:matched,monthsWithData:6,futureMonthsZeroed:6,source:'Modelo Cronograma Base de Dados v2.xlsx'};
     return merged;
   }
 
@@ -163,7 +171,7 @@
           window.__SINAPE_DATA_ERROR__='';
           document.documentElement.setAttribute('data-sinape-data','ready');
           window.dispatchEvent(new CustomEvent('sinape:data-ready',{detail:{rows:rows.length}}));
-          return new Response(merged,{status:200,headers:{'Content-Type':'text/html; charset=utf-8','X-SINAPE-DATA':'ready'}});
+          return new Response(merged,{status:200,headers:{'Content-Type':'text/html; charset=utf-8','X-SINAPE-DATA':'ready','X-SINAPE-SNAPSHOT':'20260731'}});
         }).catch(function(error){
           console.error('[SINAPE] Falha ao aplicar base atualizada:',error);
           window.__SINAPE_DATA_READY__=false;
