@@ -2157,6 +2157,32 @@
         font-size: 8px;
         font-weight: 900;
       }
+      .commit-planning-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 10px;
+        padding: 12px 14px;
+        border: 1px solid #bfd0d9;
+        border-radius: 9px;
+        background: #f7fafb;
+      }
+      .commit-planning-bar strong { color: var(--petrol); font-size: 12px; }
+      .commit-planning-bar small { display: block; margin-top: 3px; color: var(--muted); }
+      .commit-planning-bar button {
+        border: 0;
+        border-radius: 7px;
+        padding: 10px 16px;
+        background: #d97706;
+        color: #fff;
+        font-size: 9px;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+      .commit-planning-bar button:disabled { opacity: .55; cursor: not-allowed; }
+      .commit-planning-bar.is-locked { border-color: #9ac8ae; background: #eef8f1; }
+      .commit-planning-bar.is-locked button { background: #2f7d4d; }
       .action-row-actions {
         display: flex;
         gap: 5px;
@@ -2715,6 +2741,7 @@
           >
         </div>
         <article class="panel">
+          <div class="commit-planning-bar" id="commitPlanningBar"></div>
           <div class="planning-viewport" id="planningViewport">
             <table class="planning-table">
               <thead id="planningHead"></thead>
@@ -2986,7 +3013,7 @@
           g = "sinape:planning:monthly:v3-modelo-v2",
           v = "sinape:planning:weekly:v2",
           h = "sinape:planning:actions:v2",
-          migrationLucasJulyKey = "sinape:planning:migration:lucas:july-2026:v1",
+          migrationLucasJulyKey = "sinape:planning:migration:lucas:july-2026:v2",
           b = sessionStorage.getItem(f) || "",
           y = [
             "caio.garcia@sinape.com.br",
@@ -2994,11 +3021,7 @@
             "jaqueline.ramalho@sinape.com.br",
             "davi.braz@sinape.com.br",
           ],
-          yM = [
-            "caio.garcia@sinape.com.br",
-            "lucas.oliveira@sinape.com.br",
-            "jaqueline.ramalho@sinape.com.br",
-          ],
+          yM = y.slice(),
           yW = y.slice(),
           SB = window.supabase.createClient(
             "https://rwnzezvwvsitqqcmdtii.supabase.co",
@@ -3024,6 +3047,7 @@
           E = S(v, {}),
           I = S(h, []),
           CB = {},
+          PL = {},
           B = [],
           k = null;
         window.SINAPE_SB = SB;
@@ -60407,7 +60431,9 @@
           return e.length > 1 ? e.slice(1).join(" - ") : String(L);
         }
         function H(e) {
-          return String(e.contractKey || L).split(" - ")[0];
+          var source = String((e && e.sourceId) || "");
+          if (source.indexOf("|") > 0) return source.split("|")[0];
+          return String((e && e.contractKey) || L).split(" - ")[0];
         }
         function R(e) {
           return String(e.sourceId || (e.contractKey || L) + "|" + e.name);
@@ -60449,7 +60475,7 @@
           );
         }
         function U(e, t) {
-          return yM.indexOf(b) >= 0 && !J(t, e);
+          return yM.indexOf(b) >= 0 && !J(t, e) && !isPlanningLocked(H(e), t);
         }
         function K() {
           return yM.indexOf(b) >= 0;
@@ -60459,7 +60485,8 @@
             yW.indexOf(b) >= 0 &&
             t >= 7 &&
             Number(e.plan[t] || 0) > 0 &&
-            !J(t, e)
+            !J(t, e) &&
+            !isPlanningLocked(H(e), t)
           );
         }
         function Q(e) {
@@ -60537,40 +60564,53 @@
             onConflict: "contrato,item_id,ano,mes",
           });
           if (result.error) throw result.error;
-          var history = rows.map(function (row) {
-            return {
-              contrato: row.contrato,
-              item_id: row.item_id,
-              tipo_planejamento: "mensal",
-              ano: row.ano,
-              mes: row.mes,
-              semana: null,
-              campo_alterado: "quantidade_planejada",
-              valor_anterior: "recuperado_do_navegador",
-              valor_novo: String(row.quantidade_planejada),
-              usuario_email: b,
-            };
+          var verification = await SB.from("planejamento_mensal")
+            .select("contrato,item_id,ano,mes")
+            .eq("ano", 2026)
+            .eq("mes", 7)
+            .in("contrato", contracts);
+          if (verification.error) throw verification.error;
+          var savedKeys = new Set(
+            (verification.data || []).map(function (row) {
+              return [row.contrato, row.item_id, row.ano, row.mes].join("|");
+            }),
+          );
+          var missing = rows.filter(function (row) {
+            return !savedKeys.has(
+              [row.contrato, row.item_id, row.ano, row.mes].join("|"),
+            );
           });
-          var hres = await SB.from("historico_planejamento").insert(history);
-          if (hres.error) throw hres.error;
+          if (missing.length)
+            throw new Error(
+              missing.length +
+                " item(ns) não foram confirmados na base compartilhada. A recuperação não foi marcada como concluída.",
+            );
           N(migrationLucasJulyKey, {
             completedAt: new Date().toISOString(),
             user: b,
             records: rows.length,
             contracts: contracts,
           });
-          await qRemote();
+          await qRemote(true);
           xe();
           return { records: rows.length, contracts: contracts.length };
         }
-        async function qRemote() {
+        async function qRemote(strict) {
           try {
+            var nextPL = {};
             var a = await SB.from("planejamento_mensal").select(
               "contrato,item_id,ano,mes,quantidade_planejada,ordem_servico,atualizado_por,atualizado_em",
-            );
+            ).order("atualizado_em", { ascending: true });
             if (a.error) throw a.error;
             (a.data || []).forEach(function (row) {
               if (Number(row.ano) !== 2026) return;
+              if (String(row.item_id) === "__CRAVADO__") {
+                nextPL[String(row.contrato) + "|" + (Number(row.mes) - 1)] = {
+                  user: row.atualizado_por || "",
+                  at: row.atualizado_em || "",
+                };
+                return;
+              }
               if (String(row.item_id) === "__COMPORTAMENTO_CONTRATO__") {
                 CB[String(row.contrato)] = {
                   text: row.ordem_servico || "",
@@ -60582,10 +60622,10 @@
               var month = Number(row.mes) - 1;
               Object.keys(j).forEach(function (key) {
                 (j[key] || []).forEach(function (it) {
-                  if (
-                    H(it) === String(row.contrato) &&
-                    String(it.sourceId || it.name) === String(row.item_id)
-                  ) {
+                  var rowContract = String(row.contrato) === C
+                    ? String(row.item_id || "").split("|")[0]
+                    : String(row.contrato);
+                  if (H(it) === rowContract && String(it.sourceId || it.name) === String(row.item_id)) {
                     it.plan[month] = Number(row.quantidade_planejada) || 0;
                     it.orders[month] = row.ordem_servico || "Sem serviços";
                     var rk = R(it);
@@ -60600,9 +60640,10 @@
                 });
               });
             });
+            PL = nextPL;
             var wq = await SB.from("planejamento_semanal").select(
               "contrato,item_id,ano,mes,semana,quantidade_planejada,atualizado_por,atualizado_em",
-            );
+            ).order("atualizado_em", { ascending: true });
             if (wq.error) throw wq.error;
             (wq.data || []).forEach(function (row) {
               if (Number(row.ano) !== 2026) return;
@@ -60628,7 +60669,88 @@
             });
           } catch (err) {
             console.error("Falha ao carregar planejamento compartilhado", err);
+            if (strict) throw err;
           }
+        }
+        function isPlanningLocked(contract, month) {
+          return !!PL[String(contract) + "|" + Number(month)];
+        }
+        async function verifyMonthlyRemote(it, month, qty, order) {
+          var check = await SB.from("planejamento_mensal")
+            .select("contrato,item_id,ano,mes,quantidade_planejada,ordem_servico,atualizado_por,atualizado_em")
+            .eq("contrato", H(it))
+            .eq("item_id", String(it.sourceId || it.name))
+            .eq("ano", 2026)
+            .eq("mes", month + 1)
+            .maybeSingle();
+          if (check.error) throw check.error;
+          if (!check.data || Number(check.data.quantidade_planejada) !== Number(qty) || String(check.data.ordem_servico || "") !== String(order || ""))
+            throw new Error("A base não confirmou o valor gravado. O planejamento não foi considerado salvo.");
+          return check.data;
+        }
+        async function commitPlanningMonth(contract, month) {
+          var now = new Date().toISOString();
+          var payload = {
+            contrato: String(contract), item_id: "__CRAVADO__",
+            descricao_item: "Planejamento mensal cravado", unidade: "status",
+            ano: 2026, mes: month + 1, quantidade_planejada: 1,
+            ordem_servico: "CRAVADO", atualizado_por: b, atualizado_em: now,
+          };
+          var result = await SB.from("planejamento_mensal").upsert(payload, { onConflict: "contrato,item_id,ano,mes" });
+          if (result.error) throw result.error;
+          var check = await SB.from("planejamento_mensal")
+            .select("contrato,item_id,ano,mes,atualizado_por,atualizado_em")
+            .eq("contrato", String(contract)).eq("item_id", "__CRAVADO__")
+            .eq("ano", 2026).eq("mes", month + 1).maybeSingle();
+          if (check.error) throw check.error;
+          if (!check.data) throw new Error("A base não confirmou o fechamento do mês.");
+          PL[String(contract) + "|" + month] = { user: check.data.atualizado_por || b, at: check.data.atualizado_em || now };
+        }
+        function renderCommitPlanningBar() {
+          var bar = document.getElementById("commitPlanningBar");
+          if (!bar) return;
+          var month = V(), contract = L === C ? "" : F(), lock = contract ? PL[contract + "|" + month] : null;
+          if (!contract) {
+            bar.className = "commit-planning-bar";
+            bar.innerHTML = '<div><strong>Cravar planejamento mensal</strong><small>Selecione um contrato para consolidar o mês ' + D(o[month]) + '/2026.</small></div><button type="button" disabled>CRAVAR</button>';
+            return;
+          }
+          if (lock) {
+            bar.className = "commit-planning-bar is-locked";
+            bar.innerHTML = '<div><strong>Planejamento cravado · ' + D(contract) + ' · ' + D(o[month]) + '/2026</strong><small>Consolidado por ' + D(lock.user || "usuário") + (lock.at ? ' em ' + D(new Date(lock.at).toLocaleString("pt-BR")) : '') + '. Edição bloqueada para todos.</small></div><button type="button" disabled>✓ CRAVADO</button>';
+            return;
+          }
+          var allowed = yM.indexOf(b) >= 0 && !J(month, q[0]);
+          bar.className = "commit-planning-bar";
+          bar.innerHTML = '<div><strong>Cravar ' + D(o[month]) + '/2026 · Contrato ' + D(contract) + '</strong><small>Salve os itens antes. Depois de cravar, o mês fica bloqueado para todos os usuários.</small></div><button type="button" id="commitPlanningMonth" ' + (allowed ? "" : "disabled") + '>CRAVAR</button>';
+          if (allowed) document.getElementById("commitPlanningMonth").onclick = async function () {
+            if (!confirm("Confirma o CRAVAMENTO de " + o[month] + "/2026 do contrato " + contract + "? Após confirmar, ninguém poderá editar esse planejamento.")) return;
+            var btn = this; btn.disabled = true;
+            try {
+              await commitPlanningMonth(contract, month);
+              await qRemote(true);
+              xe();
+              alert("Planejamento cravado e confirmado na base compartilhada.");
+            } catch (err) {
+              console.error(err); btn.disabled = false;
+              alert("Não foi possível cravar: " + (err.message || err));
+            }
+          };
+        }
+        var sharedRefreshTimer = null;
+        async function refreshSharedPlanning() {
+          var active = document.activeElement;
+          if (active && /^(INPUT|TEXTAREA|SELECT)$/.test(active.tagName)) return;
+          try {
+            await qRemote(true);
+            xe();
+          } catch (err) {
+            console.error("Falha ao sincronizar dados compartilhados", err);
+          }
+        }
+        function scheduleSharedRefresh() {
+          clearTimeout(sharedRefreshTimer);
+          sharedRefreshTimer = setTimeout(refreshSharedPlanning, 500);
         }
         async function saveContractBehaviorRemote(contract, text, previous) {
           var now = new Date().toISOString();
@@ -60740,7 +60862,7 @@
             "</small>" +
             (canEdit
               ? '<button type="button" id="saveContractBehavior">Salvar comportamento</button>'
-              : '<span class="hint">Somente Caio, Lucas e Jaqueline podem editar.</span>') +
+              : '<span class="hint">Somente os quatro usuários autorizados podem editar.</span>') +
             "</div>";
           if (canEdit) {
             document.getElementById("saveContractBehavior").onclick =
@@ -60786,6 +60908,7 @@
             onConflict: "contrato,item_id,ano,mes",
           });
           if (r.error) throw r.error;
+          await verifyMonthlyRemote(it, month, qty, order);
           var hres = await SB.from("historico_planejamento").insert({
             contrato: H(it),
             item_id: String(it.sourceId || it.name),
@@ -60798,7 +60921,7 @@
             valor_novo: String(qty),
             usuario_email: b,
           });
-          if (hres.error) throw hres.error;
+          if (hres.error) console.warn("Planejamento salvo; histórico indisponível", hres.error);
         }
         async function saveWeeklyRemote(it, month, rows, previous) {
           var payload = Object.keys(rows).map(function (wk) {
@@ -60817,6 +60940,14 @@
             onConflict: "contrato,item_id,ano,mes,semana",
           });
           if (r.error) throw r.error;
+          var verify = await SB.from("planejamento_semanal")
+            .select("semana,quantidade_planejada")
+            .eq("contrato", H(it)).eq("item_id", String(it.sourceId || it.name))
+            .eq("ano", 2026).eq("mes", month + 1);
+          if (verify.error) throw verify.error;
+          var confirmed = new Map((verify.data || []).map(function (z) { return [Number(z.semana), Number(z.quantidade_planejada)]; }));
+          var missing = payload.filter(function (z) { return confirmed.get(Number(z.semana)) !== Number(z.quantidade_planejada); });
+          if (missing.length) throw new Error("A base não confirmou toda a distribuição semanal.");
           var hist = payload.map(function (z) {
             return {
               contrato: z.contrato,
@@ -60832,7 +60963,7 @@
             };
           });
           var hres = await SB.from("historico_planejamento").insert(hist);
-          if (hres.error) throw hres.error;
+          if (hres.error) console.warn("Planejamento semanal salvo; histórico indisponível", hres.error);
         }
         function _(e, t) {
           var n = R(e);
@@ -62166,6 +62297,7 @@
                   }));
             })(),
             fe(),
+            renderCommitPlanningBar(),
             ye(),
             (function () {
               var e = V(),
@@ -62673,6 +62805,15 @@
           we(),
           await qRemote(),
           xe());
+        SB.channel("planejamento-colaborativo-v3")
+          .on("postgres_changes", { event: "*", schema: "public", table: "planejamento_mensal" }, scheduleSharedRefresh)
+          .on("postgres_changes", { event: "*", schema: "public", table: "planejamento_semanal" }, scheduleSharedRefresh)
+          .subscribe();
+        document.addEventListener("visibilitychange", function () {
+          if (!document.hidden) scheduleSharedRefresh();
+        });
+        window.addEventListener("focus", scheduleSharedRefresh);
+        setInterval(function () { if (!document.hidden) refreshSharedPlanning(); }, 30000);
         await SB.auth.signOut();
         sessionStorage.removeItem(f);
         b = "";
