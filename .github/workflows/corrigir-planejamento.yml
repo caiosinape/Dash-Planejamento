@@ -1,0 +1,79 @@
+name: Corrigir dados planejamento
+on:
+  push:
+    paths:
+      - 'Planejamento-Colaborativo/.payload/run'
+permissions:
+  contents: write
+jobs:
+  corrigir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Corrigir mapa e executado
+        shell: bash
+        run: |
+          python - <<'PYCODE'
+          import json, unicodedata, re
+          from pathlib import Path
+          ROOT = Path("Planejamento-Colaborativo")
+          mapa_path = ROOT / "mapa-itens.json"
+          exec_path = ROOT / "executado.json"
+          fixes = json.loads("{\"2450|bloco semaforico para pedestre com 2 dois modulos focais de 200mm a led compreendendo foco verde siga boneco e foco vermelho pare mao espalm\":\"2450|39\",\"2450|bloco semaforico principal com 3 tres modulos focais de 300mm de diametro a led cobre focos anteparo borrachas de vedacao e suportes de fixacao\":\"2450|37\",\"2450|bloco semaforico repetidor com 3 tres modulos focais de 200mm de diametro a led cobre focos anteparo borrachas de vedacao e suportes de fixacao\":\"2450|38\",\"2450|botao de comando tipo cogumelo para uso em botoeira fornecimento\":\"2450|94\",\"2450|botoeira para travessia de pedestres conforme especificacao da cet rio fornecimento\":\"2450|40\",\"2450|braco projetado de aco para sustentacao de semaforo e placa ate 3m2 tres metros quadrados galvanizado a fogo para fixacao em coluna conico continu\":\"2450|71\",\"2450|cabo de cobre 750v secao de 2x6mm2 pvc 70oc fornecimento\":\"2450|35\",\"2450|cabo de cobre flexivel 750v secao de 2x1 5mm2 pvc 70oc fornecimento\":\"2450|36\",\"2450|cabo para alimentacao de semaforo secao de 4x1 5mm2 conforme especificacao da cet rio fornecimento e instalacao\":\"2450|49\",\"2450|cabo para alimentacao de semaforo secao de 7x1 5mm2 conforme especificacao da cet rio fornecimento e instalacao\":\"2450|50\",\"2450|caminhao carroceria fixa capacidade de 3 5t equipado com plataforma elevatoria pantografica hidraulica com motorista operador e um ajudante materi\":\"2450|32\",\"2450|cobre foco para uso em lente de 200 mm de diametro fornecimento\":\"2450|90\",\"2450|cobre foco para uso em lente de 200 mm quadrada fornecimento\":\"2450|91\",\"2450|cobre foco para uso em lente de 300 mm de diametro fornecimento\":\"2450|89\",\"2450|concreto betuminoso usinado a quente para camada de rolamento de acordo com as especificacoes da pcrj exclusive transporte da usina para a pista e\":\"2450|18\",\"2450|concreto simples dosado racionalmente para uma resistencia minima caracteristica a compressao de 11mpa inclusive materiais preparo lancamento colo\":\"2450|25\",\"2450|demolicao com equipamento de ar comprimido de passeio cimentado com espessura ate 10cm\":\"2450|10\",\"2450|demolicao com equipamento de ar comprimido de pavimentacao de concreto asfaltico com 5cm\":\"2450|12\",\"2450|demolicao com equipamento de ar comprimido de pisos ou pavimento de concreto simples\":\"2450|11\",\"2450|desmonte manual de bloco de material de 3a categoria\":\"2450|3\",\"2450|eletricista inclusive encargos sociais\":\"2450|14\",\"2450|escavacao manual de vala a frio em material de 2a categoria\":\"2450|2\",\"2450|escavacao manual de vala em material de 1a categoria\":\"2450|1\",\"2450|espalhamento manual e compactacao mecanica de concreto asfaltico usinado a quente ou de pre misturado exclusive fornecimento de todos os materiais\":\"2450|19\",\"2450|fita isolante comum de 19 mm x 20 m\":\"2450|85\",\"2450|imprimacao de base de pavimentacao conforme caderno de encargos pcrj\":\"2450|17\",\"2450|linha de duto espiral flexivel em polietileno de alta densidade tipo kanalex ou similar diametro de 75mm 3 lancado diretamente ao solo com com\":\"2450|30\",\"2450|modulo focal a led para bloco para bloco de pedestre com formato boneco na cor verde fornecimento\":\"2450|66\",\"2450|modulo focal a led para bloco para bloco de pedestre com formato mao espalmada na cor vermelha fornecimento\":\"2450|67\",\"2450|modulo focal a led para bloco principal de 300mm na cor amarela fornecimento\":\"2450|63\",\"2450|modulo focal a led para bloco principal de 300mm na cor verde fornecimento\":\"2450|64\",\"2450|modulo focal a led para bloco principal de 300mm na cor vermelha fornecimento\":\"2450|65\",\"2450|modulo focal a led para bloco repetidor de 200mm na cor amarela fornecimento\":\"2450|60\",\"2450|modulo focal a led para bloco repetidor de 200mm na cor verde fornecimento\":\"2450|61\",\"2450|modulo focal a led para bloco repetidor de 200mm na cor vermelha fornecimento\":\"2450|62\",\"2450|piso cimento com 1 5 cm esspessura sobre base existente\":\"2450|26\",\"2450|piso de pedra portuguesa branca e preta em faixa assentada sobre mistura de cimento e saibro no traco 1 5 inclusive acerto do terreno fornecimento\":\"2450|27\",\"2450|plantio de grama em placas\":\"2450|24\",\"2450|reaterro de vala com po de pedra compactado manualmente inclusive fornecimento do material\":\"2450|5\",\"2450|reaterro de vala compactado a maco em camadas de 30cm de espessura maxima\":\"2450|4\",\"2450|recomposicao de pavimentacao de pedra portuguesa assentada com farofa de cimento e saibro no traco 1 5 inclusive fornecimento do material para rejun\":\"2450|28\",\"2450|remocao manual de passeio de pedra portuguesa\":\"2450|8\",\"2450|suporte basculante para fixacao de bloco principal em braco projetado de 101 6 mm\":\"2450|87\",\"2450|suporte de fixacao simples para coluna de aco conica continua tipo 1 fornecimento\":\"2450|88\",\"2474|caminhao com carroceria fixa no toco capacidade de 7 5t inclusive motorista\":\"2474|1\",\"2474|camioneta tipo pick up com cabine dupla diesel tracao 4x4 com sinalizador giroflex sirene radio incl motorista ci\":\"2474|4\",\"2474|camioneta tipo pick up com cabine dupla diesel tracao 4x4 com sinalizador giroflex sirene radio incl motorista cp\":\"2474|3\",\"2474|mao de obra de encarregado em servico de conservacao de estradas incl uniforme ferram sinaliz alimentacao e transporte\":\"2474|1\",\"2474|mao de obra de engenheiro ou arquiteto senior inclusiveencargos sociais\":\"2474|5\",\"2474|mao de obra de oficial pedreiro carpint pint jardin em serv conserv estr incl unifor ferram sinal aliment tr\":\"2474|2\",\"2474|mao de obra de servente em serv de conservacao de estradas incl uniforme ferramenta sinalizacao alimentacao etransporte\":\"2474|4\",\"2474|operador de transito inclusive leis sociais\":\"2474|3\",\"2474|veiculo de passeio 5 passageiros 4 portas motor bicombustivel gasolina e alcool de 1 6 litros com\":\"2474|6\",\"2474|veiculo de passeio 5 passageiros 4 portas motor bicombustivel gasolina e alcool de 1 6 litros com ar condicionado direcao hidraulica e vidros dia\":\"2474|5\"}")
+          def norm(s):
+              s = "" if s is None else str(s)
+              s = unicodedata.normalize("NFKD", s)
+              s = "".join(c for c in s if not unicodedata.combining(c))
+              s = s.lower().replace("º"," ").replace("°"," ").replace("²","2").replace("³","3")
+              s = re.sub(r"[^a-z0-9]+", " ", s)
+              return re.sub(r"\s+", " ", s).strip()
+          mapa = json.loads(mapa_path.read_text(encoding="utf-8"))
+          for key, item_id in fixes.items():
+              if key not in mapa["vinculos"]:
+                  raise SystemExit(f"Chave ausente no mapa: {key}")
+              mapa["vinculos"][key]["itemId"] = item_id
+          mapa["versao"] = 4
+          mapa["status"] = "ATIVO"
+          mapa["quantidadePendencias"] = 0
+          mapa["quantidadeVinculos"] = len(mapa["vinculos"])
+          mapa["fonte"] = "Mapa oficial corrigido e validado em 2026-08-04"
+          data = json.loads(exec_path.read_text(encoding="utf-8"))
+          regs = data["registros"] if isinstance(data, dict) else data
+          if len(regs) != 4292:
+              raise SystemExit(f"Quantidade inesperada: {len(regs)}")
+          missing=[]
+          for r in regs:
+              key=f"{str(r.get('contract','')).strip()}|{norm(r.get('service',''))}"
+              link=mapa["vinculos"].get(key)
+              if not link:
+                  missing.append(key)
+                  continue
+              r["itemId"]=link["itemId"]
+              r["unit"]=link.get("unit","")
+              r["observation"]=link.get("observation","")
+          if missing:
+              raise SystemExit(f"Sem vinculo: {len(set(missing))} - {sorted(set(missing))[:5]}")
+          bad=[r for r in regs if not re.fullmatch(r"\d+\|\d+", str(r.get("itemId","")))]
+          if bad:
+              raise SystemExit(f"itemId invalido: {len(bad)}")
+          support=[r for r in regs if str(r.get("contract"))=="2465" and norm(r.get("service"))=="suporte madeira tratada 0 10 x 0 10 m"]
+          if not support or any(r.get("itemId")!="2465|384" for r in support) or sum(float(r.get("quantity") or 0) for r in support)<=0:
+              raise SystemExit("Validacao 2465|384 falhou")
+          if isinstance(data, dict):
+              data["quantidadeRegistros"]=len(regs)
+              data["registros"]=regs
+          else:
+              data=regs
+          mapa_path.write_text(json.dumps(mapa,ensure_ascii=False,indent=2),encoding="utf-8")
+          exec_path.write_text(json.dumps(data,ensure_ascii=False,indent=2),encoding="utf-8")
+          print("OK",len(regs),len(mapa["vinculos"]))
+          PYCODE
+      - name: Publicar correção
+        shell: bash
+        run: |
+          git config user.name 'Planejamento Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          rm -rf Planejamento-Colaborativo/.payload
+          git add Planejamento-Colaborativo/mapa-itens.json Planejamento-Colaborativo/executado.json Planejamento-Colaborativo/.payload
+          git commit -m 'Corrige todos os vínculos executados sem perda de dados'
+          git push
