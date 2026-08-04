@@ -2092,6 +2092,23 @@
         font-size: 7px;
         font-weight: 900;
       }
+      .access-recover {
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        background: #f6b800;
+        color: #173f35;
+        border-radius: 10px;
+        padding: 8px 12px;
+        font: inherit;
+        font-weight: 800;
+        cursor: pointer;
+      }
+      .access-recover[hidden] {
+        display: none;
+      }
+      .access-recover:disabled {
+        cursor: wait;
+        opacity: 0.65;
+      }
       .inline-actions {
         margin-top: 12px;
         border-top: 1px solid var(--line);
@@ -2472,6 +2489,14 @@
               <strong id="accessSessionEmail"></strong>
               <small id="accessSessionRole"></small>
             </div>
+            <button
+              class="access-recover"
+              id="recoverLucasJuly"
+              type="button"
+              hidden
+            >
+              Recuperar lançamentos de julho
+            </button>
             <button class="access-logout" id="accessLogout" type="button">
               Sair
             </button>
@@ -2961,6 +2986,7 @@
           g = "sinape:planning:monthly:v3-modelo-v2",
           v = "sinape:planning:weekly:v2",
           h = "sinape:planning:actions:v2",
+          migrationLucasJulyKey = "sinape:planning:migration:lucas:july-2026:v1",
           b = sessionStorage.getItem(f) || "",
           y = [
             "caio.garcia@sinape.com.br",
@@ -60451,7 +60477,91 @@
             : yM.indexOf(b) >= 0 &&
               (role = "Edição do planejamento mensal e semanal"),
             (document.getElementById("accessSessionRole").textContent = role),
+            (document.getElementById("recoverLucasJuly").hidden =
+              b !== "lucas.oliveira@sinape.com.br" ||
+              S(migrationLucasJulyKey, false) ||
+              !legacyLucasJulyRows().length),
             xe());
+        }
+        function legacyLucasJulyRows() {
+          var rows = [];
+          Object.keys(j).forEach(function (contractKey) {
+            (j[contractKey] || []).forEach(function (it) {
+              var itemId = String(it.sourceId || it.name),
+                saved = x[itemId] && x[itemId][6];
+              if (!saved) return;
+              var qty = Number(saved.quantity);
+              if (!Number.isFinite(qty)) return;
+              rows.push({
+                contrato: H(it),
+                item_id: itemId,
+                descricao_item: it.name,
+                unidade: it.unit || "",
+                ano: 2026,
+                mes: 7,
+                quantidade_planejada: qty,
+                ordem_servico: saved.order || "Sem serviços",
+                atualizado_por: b,
+                atualizado_em: new Date().toISOString(),
+              });
+            });
+          });
+          return rows;
+        }
+        async function recoverLucasJuly() {
+          var rows = legacyLucasJulyRows();
+          if (!rows.length)
+            throw new Error(
+              "Nenhum lançamento local de julho/2026 foi encontrado neste navegador.",
+            );
+          var contracts = Array.from(
+            new Set(
+              rows.map(function (row) {
+                return row.contrato;
+              }),
+            ),
+          );
+          if (
+            !confirm(
+              "Foram encontrados " +
+                rows.length +
+                " itens locais de julho/2026 em " +
+                contracts.length +
+                " contrato(s): " +
+                contracts.join(", ") +
+                ". Deseja enviá-los para a base compartilhada?",
+            )
+          )
+            return false;
+          var result = await SB.from("planejamento_mensal").upsert(rows, {
+            onConflict: "contrato,item_id,ano,mes",
+          });
+          if (result.error) throw result.error;
+          var history = rows.map(function (row) {
+            return {
+              contrato: row.contrato,
+              item_id: row.item_id,
+              tipo_planejamento: "mensal_migracao_local",
+              ano: row.ano,
+              mes: row.mes,
+              semana: null,
+              campo_alterado: "quantidade_planejada",
+              valor_anterior: "recuperado_do_navegador",
+              valor_novo: String(row.quantidade_planejada),
+              usuario_email: b,
+            };
+          });
+          var hres = await SB.from("historico_planejamento").insert(history);
+          if (hres.error) throw hres.error;
+          N(migrationLucasJulyKey, {
+            completedAt: new Date().toISOString(),
+            user: b,
+            records: rows.length,
+            contracts: contracts,
+          });
+          await qRemote();
+          xe();
+          return { records: rows.length, contracts: contracts.length };
         }
         async function qRemote() {
           try {
@@ -62421,6 +62531,28 @@
               document.getElementById("accessEmail").focus();
             }, 0);
           }),
+          (document.getElementById("recoverLucasJuly").onclick =
+            async function () {
+              var btn = this;
+              btn.disabled = !0;
+              try {
+                var result = await recoverLucasJuly();
+                if (result !== false) {
+                  btn.hidden = !0;
+                  alert(
+                    result.records +
+                      " itens de julho/2026, de " +
+                      result.contracts +
+                      " contrato(s), foram recuperados e compartilhados.",
+                  );
+                }
+              } catch (err) {
+                console.error(err);
+                alert("Não foi possível recuperar os lançamentos: " + (err.message || err));
+              } finally {
+                btn.disabled = !1;
+              }
+            }),
           (document.getElementById("osFilter").onchange = function () {
             ((s = this.value), xe());
           }),
