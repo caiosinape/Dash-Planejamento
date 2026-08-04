@@ -1,319 +1,12 @@
 {
-  "versao": 1,
-  "geradoEm": "2026-08-04T11:00:00-03:00",
-  "fonte": "executado.json validado em 2026-08-04",
+  "versao": 2,
+  "geradoEm": "2026-08-04T11:19:06-03:00",
+  "fonte": "Index22 validado + mapa anterior, somente vinculos numericos comprovados",
   "criterioChave": "contract|service_normalized",
-  "normalizacao": "remove acentos, converte para minusculas, troca hifens especiais e remove pontuacao",
-  "quantidadeVinculos": 277,
+  "quantidadeVinculos": 207,
+  "quantidadePendencias": 70,
+  "status": "BLOQUEADO_PARA_AUTOMACAO_ENQUANTO_HOUVER_PENDENCIAS",
   "vinculos": {
-    "2450|bloco semaforico para pedestre com 2 dois modulos focais de 200mm a led compreendendo foco verde siga boneco e foco vermelho pare mao espalm": {
-      "contract": "2450",
-      "service": "Bloco semaforico para pedestre com 2 (dois) modulos focais de 200mm a led, compreendendo foco verde \"Siga\" (boneco) e foco vermelho \"Pare\" (mao espalm",
-      "itemId": "2450|Bloco semaforico para pedestre com 2 (dois) modulos focais de 200mm a led, compreendendo foco verde \"Siga\" (boneco) e foco vermelho \"Pare\" (mao espalm",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|bloco semaforico principal com 3 tres modulos focais de 300mm de diametro a led cobre focos anteparo borrachas de vedacao e suportes de fixacao": {
-      "contract": "2450",
-      "service": "Bloco semaforico principal com 3 (tres) modulos focais de 300mm de diametro a led, cobre-focos, anteparo, borrachas de vedacao e suportes de fixacao,",
-      "itemId": "2450|Bloco semaforico principal com 3 (tres) modulos focais de 300mm de diametro a led, cobre-focos, anteparo, borrachas de vedacao e suportes de fixacao,",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|bloco semaforico repetidor com 3 tres modulos focais de 200mm de diametro a led cobre focos anteparo borrachas de vedacao e suportes de fixacao": {
-      "contract": "2450",
-      "service": "Bloco semaforico repetidor com 3 (tres) modulos focais de 200mm de diametro a led, cobre-focos, anteparo, borrachas de vedacao e suportes de fixacao,",
-      "itemId": "2450|Bloco semaforico repetidor com 3 (tres) modulos focais de 200mm de diametro a led, cobre-focos, anteparo, borrachas de vedacao e suportes de fixacao,",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|botao de comando tipo cogumelo para uso em botoeira fornecimento": {
-      "contract": "2450",
-      "service": "Botão de comando tipo cogumelo para uso em botoeira. Fornecimento.",
-      "itemId": "2450|Botão de comando tipo cogumelo para uso em botoeira. Fornecimento.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|botoeira para travessia de pedestres conforme especificacao da cet rio fornecimento": {
-      "contract": "2450",
-      "service": "Botoeira para travessia de pedestres conforme especificacao da CET-RIO. Fornecimento.",
-      "itemId": "2450|Botoeira para travessia de pedestres conforme especificacao da CET-RIO. Fornecimento.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|braco projetado de aco para sustentacao de semaforo e placa ate 3m2 tres metros quadrados galvanizado a fogo para fixacao em coluna conico continu": {
-      "contract": "2450",
-      "service": "Braco projetado de aco para sustentacao de semaforo e placa ate 3m2 (tres metros quadrados), galvanizado a fogo; para fixacao em coluna conico continu",
-      "itemId": "2450|Braco projetado de aco para sustentacao de semaforo e placa ate 3m2 (tres metros quadrados), galvanizado a fogo; para fixacao em coluna conico continu",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|cabo de cobre 750v secao de 2x6mm2 pvc 70oc fornecimento": {
-      "contract": "2450",
-      "service": "Cabo de cobre, 750V, secao de 2x6mm2, PVC/ 70oC. Fornecimento.",
-      "itemId": "2450|Cabo de cobre, 750V, secao de 2x6mm2, PVC/ 70oC. Fornecimento.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|cabo de cobre flexivel 750v secao de 2x1 5mm2 pvc 70oc fornecimento": {
-      "contract": "2450",
-      "service": "Cabo de cobre flexivel, 750V, secao de 2x1,5mm2, PVC/ 70oC. Fornecimento",
-      "itemId": "2450|Cabo de cobre flexivel, 750V, secao de 2x1,5mm2, PVC/ 70oC. Fornecimento",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|cabo para alimentacao de semaforo secao de 4x1 5mm2 conforme especificacao da cet rio fornecimento e instalacao": {
-      "contract": "2450",
-      "service": "Cabo para alimentacao de semaforo, secao de 4x1,5mm2, conforme especificacao da CET-RIO. Fornecimento e instalacao.",
-      "itemId": "2450|Cabo para alimentacao de semaforo, secao de 4x1,5mm2, conforme especificacao da CET-RIO. Fornecimento e instalacao.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|cabo para alimentacao de semaforo secao de 7x1 5mm2 conforme especificacao da cet rio fornecimento e instalacao": {
-      "contract": "2450",
-      "service": "Cabo para alimentacao de semaforo, secao de 7x1,5mm2, conforme especificacao da CET-RIO. Fornecimento e instalacao.",
-      "itemId": "2450|Cabo para alimentacao de semaforo, secao de 7x1,5mm2, conforme especificacao da CET-RIO. Fornecimento e instalacao.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|caminhao carroceria fixa capacidade de 3 5t equipado com plataforma elevatoria pantografica hidraulica com motorista operador e um ajudante materi": {
-      "contract": "2450",
-      "service": "Caminhao Carroceria fixa, capacidade de 3,5t, equipado com plataforma elevatoria pantografica hidraulica, com motorista operador e um ajudante, materi",
-      "itemId": "2450|Caminhao Carroceria fixa, capacidade de 3,5t, equipado com plataforma elevatoria pantografica hidraulica, com motorista operador e um ajudante, materi",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|cobre foco para uso em lente de 200 mm de diametro fornecimento": {
-      "contract": "2450",
-      "service": "Cobre-Foco para uso em lente de 200 mm de diâmetro. Fornecimento.",
-      "itemId": "2450|Cobre-Foco para uso em lente de 200 mm de diâmetro. Fornecimento.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|cobre foco para uso em lente de 200 mm quadrada fornecimento": {
-      "contract": "2450",
-      "service": "Cobre-Foco para uso em lente de 200 mm quadrada. Fornecimento.",
-      "itemId": "2450|Cobre-Foco para uso em lente de 200 mm quadrada. Fornecimento.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|cobre foco para uso em lente de 300 mm de diametro fornecimento": {
-      "contract": "2450",
-      "service": "Cobre-Foco para uso em lente de 300 mm de diâmetro. Fornecimento.",
-      "itemId": "2450|Cobre-Foco para uso em lente de 300 mm de diâmetro. Fornecimento.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|concreto betuminoso usinado a quente para camada de rolamento de acordo com as especificacoes da pcrj exclusive transporte da usina para a pista e": {
-      "contract": "2450",
-      "service": "Concreto betuminoso usinado a quente, para camada de rolamento, de acordo com as especificacoes da PCRJ; exclusive transporte da usina para a pista e",
-      "itemId": "2450|Concreto betuminoso usinado a quente, para camada de rolamento, de acordo com as especificacoes da PCRJ; exclusive transporte da usina para a pista e",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|concreto simples dosado racionalmente para uma resistencia minima caracteristica a compressao de 11mpa inclusive materiais preparo lancamento colo": {
-      "contract": "2450",
-      "service": "Concreto simples dosado racionalmente para uma resistencia minima caracteristica a compressao de 11MPa, inclusive materiais, preparo, lancamento, colo",
-      "itemId": "2450|Concreto simples dosado racionalmente para uma resistencia minima caracteristica a compressao de 11MPa, inclusive materiais, preparo, lancamento, colo",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|demolicao com equipamento de ar comprimido de passeio cimentado com espessura ate 10cm": {
-      "contract": "2450",
-      "service": "Demolicao, com equipamento de ar comprimido, de passeio cimentado com espessura ate 10cm",
-      "itemId": "2450|Demolicao, com equipamento de ar comprimido, de passeio cimentado com espessura ate 10cm",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|demolicao com equipamento de ar comprimido de pavimentacao de concreto asfaltico com 5cm": {
-      "contract": "2450",
-      "service": "Demolicao, com equipamento de ar comprimido, de pavimentacao de concreto asfaltico, com 5cm",
-      "itemId": "2450|Demolicao, com equipamento de ar comprimido, de pavimentacao de concreto asfaltico, com 5cm",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|demolicao com equipamento de ar comprimido de pisos ou pavimento de concreto simples": {
-      "contract": "2450",
-      "service": "Demolicao, com equipamento de ar comprimido, de pisos ou pavimento de concreto simples",
-      "itemId": "2450|Demolicao, com equipamento de ar comprimido, de pisos ou pavimento de concreto simples",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|desmonte manual de bloco de material de 3a categoria": {
-      "contract": "2450",
-      "service": "Desmonte manual de bloco de material de 3a categoria",
-      "itemId": "2450|Desmonte manual de bloco de material de 3a categoria",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|eletricista inclusive encargos sociais": {
-      "contract": "2450",
-      "service": "Eletricista (inclusive encargos sociais).",
-      "itemId": "2450|Eletricista (inclusive encargos sociais).",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|escavacao manual de vala a frio em material de 2a categoria": {
-      "contract": "2450",
-      "service": "Escavacao manual de vala a frio em material de 2a categoria",
-      "itemId": "2450|Escavacao manual de vala a frio em material de 2a categoria",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|escavacao manual de vala em material de 1a categoria": {
-      "contract": "2450",
-      "service": "Escavacao manual de vala em material de 1a categoria",
-      "itemId": "2450|Escavacao manual de vala em material de 1a categoria",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|espalhamento manual e compactacao mecanica de concreto asfaltico usinado a quente ou de pre misturado exclusive fornecimento de todos os materiais": {
-      "contract": "2450",
-      "service": "Espalhamento manual e compactacao mecanica de concreto asfaltico usinado a quente, ou de pre-misturado, exclusive fornecimento de todos os materiais",
-      "itemId": "2450|Espalhamento manual e compactacao mecanica de concreto asfaltico usinado a quente, ou de pre-misturado, exclusive fornecimento de todos os materiais",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|fita isolante comum de 19 mm x 20 m": {
-      "contract": "2450",
-      "service": "Fita isolante comum, de 19 mm x 20 m",
-      "itemId": "2450|Fita isolante comum, de 19 mm x 20 m",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|imprimacao de base de pavimentacao conforme caderno de encargos pcrj": {
-      "contract": "2450",
-      "service": "Imprimacao de base de pavimentacao, conforme Caderno de Encargos - PCRJ.",
-      "itemId": "2450|Imprimacao de base de pavimentacao, conforme Caderno de Encargos - PCRJ.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|linha de duto espiral flexivel em polietileno de alta densidade tipo kanalex ou similar diametro de 75mm 3 lancado diretamente ao solo com com": {
-      "contract": "2450",
-      "service": "Linha de duto espiral flexivel em polietileno de alta densidade, tipo Kanalex ou similar, diametro de 75mm (3\" ), lancado diretamente ao solo com com",
-      "itemId": "2450|Linha de duto espiral flexivel em polietileno de alta densidade, tipo Kanalex ou similar, diametro de 75mm (3\" ), lancado diretamente ao solo com com",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|modulo focal a led para bloco para bloco de pedestre com formato boneco na cor verde fornecimento": {
-      "contract": "2450",
-      "service": "Modulo focal a LED para bloco para bloco de pedestre com formato boneco na cor verde. Fornecimento",
-      "itemId": "2450|Modulo focal a LED para bloco para bloco de pedestre com formato boneco na cor verde. Fornecimento",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|modulo focal a led para bloco para bloco de pedestre com formato mao espalmada na cor vermelha fornecimento": {
-      "contract": "2450",
-      "service": "Modulo focal a LED para bloco para bloco de pedestre com formato mao espalmada na cor vermelha. Fornecimento.",
-      "itemId": "2450|Modulo focal a LED para bloco para bloco de pedestre com formato mao espalmada na cor vermelha. Fornecimento.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|modulo focal a led para bloco principal de 300mm na cor amarela fornecimento": {
-      "contract": "2450",
-      "service": "Modulo focal a LED para bloco principal de 300mm na cor amarela. Fornecimento",
-      "itemId": "2450|Modulo focal a LED para bloco principal de 300mm na cor amarela. Fornecimento",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|modulo focal a led para bloco principal de 300mm na cor verde fornecimento": {
-      "contract": "2450",
-      "service": "Modulo focal a LED para bloco principal de 300mm na cor verde. Fornecimento",
-      "itemId": "2450|Modulo focal a LED para bloco principal de 300mm na cor verde. Fornecimento",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|modulo focal a led para bloco principal de 300mm na cor vermelha fornecimento": {
-      "contract": "2450",
-      "service": "Modulo focal a LED para  bloco principal de 300mm na cor vermelha. Fornecimento",
-      "itemId": "2450|Modulo focal a LED para  bloco principal de 300mm na cor vermelha. Fornecimento",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|modulo focal a led para bloco repetidor de 200mm na cor amarela fornecimento": {
-      "contract": "2450",
-      "service": "Modulo focal a LED para bloco repetidor de 200mm na cor amarela. Fornecimento",
-      "itemId": "2450|Modulo focal a LED para bloco repetidor de 200mm na cor amarela. Fornecimento",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|modulo focal a led para bloco repetidor de 200mm na cor verde fornecimento": {
-      "contract": "2450",
-      "service": "Modulo focal a LED para bloco repetidor de 200mm na cor verde. Fornecimento",
-      "itemId": "2450|Modulo focal a LED para bloco repetidor de 200mm na cor verde. Fornecimento",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|modulo focal a led para bloco repetidor de 200mm na cor vermelha fornecimento": {
-      "contract": "2450",
-      "service": "Modulo focal a LED para bloco repetidor de 200mm na cor vermelha. Fornecimento",
-      "itemId": "2450|Modulo focal a LED para bloco repetidor de 200mm na cor vermelha. Fornecimento",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|piso cimento com 1 5 cm esspessura sobre base existente": {
-      "contract": "2450",
-      "service": "Piso cimento, com 1,5 cm esspessura, sobre base existente",
-      "itemId": "2450|Piso cimento, com 1,5 cm esspessura, sobre base existente",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|piso de pedra portuguesa branca e preta em faixa assentada sobre mistura de cimento e saibro no traco 1 5 inclusive acerto do terreno fornecimento": {
-      "contract": "2450",
-      "service": "Piso de pedra portuguesa branca e preta, em faixa assentada sobre mistura de cimento e saibro no traco 1:5, inclusive acerto do terreno. Fornecimento",
-      "itemId": "2450|Piso de pedra portuguesa branca e preta, em faixa assentada sobre mistura de cimento e saibro no traco 1:5, inclusive acerto do terreno. Fornecimento",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|plantio de grama em placas": {
-      "contract": "2450",
-      "service": "Plantio de grama em placas",
-      "itemId": "2450|Plantio de grama em placas",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|reaterro de vala com po de pedra compactado manualmente inclusive fornecimento do material": {
-      "contract": "2450",
-      "service": "Reaterro de vala, com po-de-pedra, compactado manualmente, inclusive fornecimento do material.",
-      "itemId": "2450|Reaterro de vala, com po-de-pedra, compactado manualmente, inclusive fornecimento do material.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|reaterro de vala compactado a maco em camadas de 30cm de espessura maxima": {
-      "contract": "2450",
-      "service": "Reaterro de vala, compactado a maco, em camadas de 30cm de espessura maxima",
-      "itemId": "2450|Reaterro de vala, compactado a maco, em camadas de 30cm de espessura maxima",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|recomposicao de pavimentacao de pedra portuguesa assentada com farofa de cimento e saibro no traco 1 5 inclusive fornecimento do material para rejun": {
-      "contract": "2450",
-      "service": "Recomposicao de pavimentacao de pedra portuguesa, assentada com farofa de cimento e saibro no traco 1:5, inclusive fornecimento do material para rejun",
-      "itemId": "2450|Recomposicao de pavimentacao de pedra portuguesa, assentada com farofa de cimento e saibro no traco 1:5, inclusive fornecimento do material para rejun",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|remocao manual de passeio de pedra portuguesa": {
-      "contract": "2450",
-      "service": "Remoção manual de passeio de pedra portuguesa",
-      "itemId": "2450|Remoção manual de passeio de pedra portuguesa",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|suporte basculante para fixacao de bloco principal em braco projetado de 101 6 mm": {
-      "contract": "2450",
-      "service": "Suporte basculante para fixação de bloco principal em braço projetado de 101,6 mm",
-      "itemId": "2450|Suporte basculante para fixação de bloco principal em braço projetado de 101,6 mm",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2450|suporte de fixacao simples para coluna de aco conica continua tipo 1 fornecimento": {
-      "contract": "2450",
-      "service": "Suporte de fixação simples para coluna de aço conica continua tipo 1. Fornecimento",
-      "itemId": "2450|Suporte de fixação simples para coluna de aço conica continua tipo 1. Fornecimento",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
     "2453|defensa metalica c espacador e calco nivel de contencao h1aw4 15": {
       "contract": "2453",
       "service": "Defensa metálica c/ espaçador e calço nível de contenção H1AW4 15º",
@@ -524,13 +217,6 @@
       "unit": "m",
       "observation": "Registro da aba Executado"
     },
-    "2459|fornecimento e implantacao de placa em aluminio composto espessura de 3 0 mm modulada aerea pelicula retrorrefletiva tipo x si sinal impresso": {
-      "contract": "2459",
-      "service": "Fornecimento e implantação de placa em alumínio composto, espessura de 3,0 mm, modulada, aérea - película retrorrefletiva tipo X + SI (Sinal Impresso",
-      "itemId": "2459|Fornecimento e implantação de placa em alumínio composto, espessura de 3,0 mm, modulada, aérea - película retrorrefletiva tipo X + SI (Sinal Impresso",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
     "2459|fornecimento e implantacao de suporte polimerico ecologico macico quadrado de 8 cm para placa de sinalizacao": {
       "contract": "2459",
       "service": "Fornecimento e implantação de suporte polimérico ecológico maciço quadrado de 8 cm para placa de sinalização",
@@ -564,13 +250,6 @@
       "service": "Tacha refletiva metálica com um pino - bidirecional -  refletivo tipo III - fornecimento e colocação",
       "itemId": "2459|93",
       "unit": "un",
-      "observation": "Registro da aba Executado"
-    },
-    "2459|terminal absorvedor de energia certificado segundo a abnt nbr 15 486 2016 especificado conforme nchrp 350 nivel de ensaio 2 70 km h ou en 1317 niv": {
-      "contract": "2459",
-      "service": "Terminal absorvedor de energia, certificado segundo a ABNT NBR 15.486:2016, especificado conforme NCHRP 350 nível de ensaio 2 (70 km/h) ou EN 1317 nív",
-      "itemId": "2459|Terminal absorvedor de energia, certificado segundo a ABNT NBR 15.486:2016, especificado conforme NCHRP 350 nível de ensaio 2 (70 km/h) ou EN 1317 nív",
-      "unit": "",
       "observation": "Registro da aba Executado"
     },
     "2460|administracao local demonstrar analiticamente toda a equipe e sua permanencia": {
@@ -1126,76 +805,6 @@
       "unit": "unid",
       "observation": "Registro da aba Executado"
     },
-    "2474|caminhao com carroceria fixa no toco capacidade de 7 5t inclusive motorista": {
-      "contract": "2474",
-      "service": "CAMINHAO  COM  CARROCERIA  FIXA,  NO  TOCO,  CAPACIDADE  DE  7,5T,INCLUSIVE MOTORISTA",
-      "itemId": "2474|CAMINHAO  COM  CARROCERIA  FIXA,  NO  TOCO,  CAPACIDADE  DE  7,5T,INCLUSIVE MOTORISTA",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2474|camioneta tipo pick up com cabine dupla diesel tracao 4x4 com sinalizador giroflex sirene radio incl motorista ci": {
-      "contract": "2474",
-      "service": "CAMIONETA  TIPO  \"PICK  UP\",  COM  CABINE  DUPLA,DIESEL,  TRAçãO  4X4, COM SINALIZADOR,GIROFLEX, SIRENE RADIO,INCL. MOTORISTA (CI)",
-      "itemId": "2474|CAMIONETA  TIPO  \"PICK  UP\",  COM  CABINE  DUPLA,DIESEL,  TRAçãO  4X4, COM SINALIZADOR,GIROFLEX, SIRENE RADIO,INCL. MOTORISTA (CI)",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2474|camioneta tipo pick up com cabine dupla diesel tracao 4x4 com sinalizador giroflex sirene radio incl motorista cp": {
-      "contract": "2474",
-      "service": "CAMIONETA  TIPO \"PICK UP\", COM  CABINE  DUPLA, DIESEL, TRAçãO  4X4, COM SINALIZADOR,GIROFLEX, SIRENE RADIO,INCL. MOTORISTA (CP)",
-      "itemId": "2474|CAMIONETA  TIPO \"PICK UP\", COM  CABINE  DUPLA, DIESEL, TRAçãO  4X4, COM SINALIZADOR,GIROFLEX, SIRENE RADIO,INCL. MOTORISTA (CP)",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2474|mao de obra de encarregado em servico de conservacao de estradas incl uniforme ferram sinaliz alimentacao e transporte": {
-      "contract": "2474",
-      "service": "MAO  DE  OBRA  DE  ENCARREGADO  EM  SERVICO  DE  CONSERVACAO  DE ESTRADAS,    INCL.   UNIFORME,   FERRAM.,    SINALIZ.,   ALIMENTACAO    E TRANSPORTE",
-      "itemId": "2474|MAO  DE  OBRA  DE  ENCARREGADO  EM  SERVICO  DE  CONSERVACAO  DE ESTRADAS,    INCL.   UNIFORME,   FERRAM.,    SINALIZ.,   ALIMENTACAO    E TRANSPORTE",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2474|mao de obra de engenheiro ou arquiteto senior inclusiveencargos sociais": {
-      "contract": "2474",
-      "service": "MAO-DE-OBRA   DE   ENGENHEIRO   OU   ARQUITETO   SENIOR,   INCLUSIVEENCARGOS SOCIAIS",
-      "itemId": "2474|MAO-DE-OBRA   DE   ENGENHEIRO   OU   ARQUITETO   SENIOR,   INCLUSIVEENCARGOS SOCIAIS",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2474|mao de obra de oficial pedreiro carpint pint jardin em serv conserv estr incl unifor ferram sinal aliment tr": {
-      "contract": "2474",
-      "service": "MAO  DE  OBRA  DE  OFICIAL  (PEDREIRO,  CARPINT.,  PINT.,  JARDIN.)  EM SERV.    CONSERV.ESTR.,    INCL.UNIFOR.,    FERRAM.,    SINAL.,    ALIMENT. TR",
-      "itemId": "2474|MAO  DE  OBRA  DE  OFICIAL  (PEDREIRO,  CARPINT.,  PINT.,  JARDIN.)  EM SERV.    CONSERV.ESTR.,    INCL.UNIFOR.,    FERRAM.,    SINAL.,    ALIMENT. TR",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2474|mao de obra de servente em serv de conservacao de estradas incl uniforme ferramenta sinalizacao alimentacao etransporte": {
-      "contract": "2474",
-      "service": "MAO DE OBRA DE SERVENTE EM SERV. DE CONSERVACAO DE ESTRADAS, INCL.    UNIFORME,     FERRAMENTA,     SINALIZACAO,     ALIMENTACAO     ETRANSPORTE",
-      "itemId": "2474|MAO DE OBRA DE SERVENTE EM SERV. DE CONSERVACAO DE ESTRADAS, INCL.    UNIFORME,     FERRAMENTA,     SINALIZACAO,     ALIMENTACAO     ETRANSPORTE",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2474|operador de transito inclusive leis sociais": {
-      "contract": "2474",
-      "service": "OPERADOR DE TRANSITO, INCLUSIVE LEIS SOCIAIS",
-      "itemId": "2474|OPERADOR DE TRANSITO, INCLUSIVE LEIS SOCIAIS",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2474|veiculo de passeio 5 passageiros 4 portas motor bicombustivel gasolina e alcool de 1 6 litros com": {
-      "contract": "2474",
-      "service": "VEICULO     DE     PASSEIO,     5     PASSAGEIROS,     4     PORTAS,     MOTOR BICOMBUSTIVEL    (GASOLINA    E   ALCOOL)    DE   1,6   LITROS,   COM",
-      "itemId": "2474|VEICULO     DE     PASSEIO,     5     PASSAGEIROS,     4     PORTAS,     MOTOR BICOMBUSTIVEL    (GASOLINA    E   ALCOOL)    DE   1,6   LITROS,   COM",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2474|veiculo de passeio 5 passageiros 4 portas motor bicombustivel gasolina e alcool de 1 6 litros com ar condicionado direcao hidraulica e vidros dia": {
-      "contract": "2474",
-      "service": "VEICULO DE PASSEIO,5 PASSAGEIROS,4  PORTAS,MOTOR  BICOMBUSTIVEL (GASOLINA E ALCOOL) DE 1,6 LITROS,COM AR CONDICIONADO, DIRECAO HIDRAULICA E VIDROS DIA",
-      "itemId": "2474|VEICULO DE PASSEIO,5 PASSAGEIROS,4  PORTAS,MOTOR  BICOMBUSTIVEL (GASOLINA E ALCOOL) DE 1,6 LITROS,COM AR CONDICIONADO, DIRECAO HIDRAULICA E VIDROS DIA",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
     "2475|equipe por administracao pintura 1 diurno noturno sabado": {
       "contract": "2475",
       "service": "Equipe por Administração Pintura 1 - Diurno/Noturno - Sábado.",
@@ -1284,104 +893,6 @@
       "contract": "2476",
       "service": "Sinalização horizontal mecanica acrilica agua (PROVISÓRIA)",
       "itemId": "2476|548",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2478|assentamento de coluna de aco conica continua tipo i para ate 4 quatro bracos projetados capazes de sustentar cada um semaforo e placa de 3m2 tres metros quadrados fixada por chumbadores engastados em fundacao de concreto exclusive fundacao exclusive fornecimento da coluna": {
-      "contract": "2478",
-      "service": "ASSENTAMENTO DE COLUNA DE AÇO CÔNICA CONTÍNUA TIPO I PARA ATE 4 (QUATRO) BRACOS PROJETADOS CAPAZES DE SUSTENTAR, CADA UM, SEMÁFORO E PLACA DE 3M2 (TRÊS METROS QUADRADOS) FIXADA POR CHUMBADORES ENGASTADOS EM FUNDAÇÃO DE CONCRETO, EXCLUSIVE FUNDAÇÃO, EXCLUSIVE FORNECIMENTO DA COLUNA.",
-      "itemId": "2478|ASSENTAMENTO DE COLUNA DE AÇO CÔNICA CONTÍNUA TIPO I PARA ATE 4 (QUATRO) BRACOS PROJETADOS CAPAZES DE SUSTENTAR, CADA UM, SEMÁFORO E PLACA DE 3M2 (TRÊS METROS QUADRADOS) FIXADA POR CHUMBADORES ENGASTADOS EM FUNDAÇÃO DE CONCRETO, EXCLUSIVE FUNDAÇÃO, EXCLUSIVE FORNECIMENTO DA COLUNA.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2478|bloco semaforico para pedestre com 2 dois modulos focais de 200mm a led compreendendo foco verde siga boneco e foco vermelho pare mao espalmada com borrachas de vedacao e suportes de fixacao conforme especificacao da cet rio fornecimento": {
-      "contract": "2478",
-      "service": "BLOCO SEMAFÓRICO PARA PEDESTRE COM 2 (DOIS) MÓDULOS FOCAIS DE 200MM A LED, COMPREENDENDO FOCO VERDE \"SIGA\" (BONECO) E FOCO VERMELHO \"PARE\" (MÃO ESPALMADA) COM BORRACHAS DE VEDAÇÃO E SUPORTES DE FIXAÇÃO, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO.",
-      "itemId": "2478|BLOCO SEMAFÓRICO PARA PEDESTRE COM 2 (DOIS) MÓDULOS FOCAIS DE 200MM A LED, COMPREENDENDO FOCO VERDE \"SIGA\" (BONECO) E FOCO VERMELHO \"PARE\" (MÃO ESPALMADA) COM BORRACHAS DE VEDAÇÃO E SUPORTES DE FIXAÇÃO, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2478|bloco semaforico repetidor com 3 tres modulos focais de 200mm de diametro a led cobre focos anteparo borrachas de vedacao e suportes de fixacao conforme especificacao da cet rio fornecimento": {
-      "contract": "2478",
-      "service": "BLOCO SEMAFÓRICO REPETIDOR COM 3 (TRÊS) MÓDULOS FOCAIS DE 200MM DE DIÂMETRO A LED, COBRE-FOCOS, ANTEPARO, BORRACHAS DE VEDAÇÃO E SUPORTES DE FIXAÇÃO, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO.",
-      "itemId": "2478|BLOCO SEMAFÓRICO REPETIDOR COM 3 (TRÊS) MÓDULOS FOCAIS DE 200MM DE DIÂMETRO A LED, COBRE-FOCOS, ANTEPARO, BORRACHAS DE VEDAÇÃO E SUPORTES DE FIXAÇÃO, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2478|braco projetado de aco para sustentacao de semaforo e placa ate 3m2 tres metros quadrados galvanizado a fogo para fixacao em coluna conico continua tipo i projecao de 3 70m tres metros e setenta centimetros diametro junto a flange de 123mm cento e vinte e tres milimetros conforme especifi": {
-      "contract": "2478",
-      "service": "BRAÇO PROJETADO DE AÇO PARA SUSTENTAÇÃO DE SEMÁFORO E PLACA ATÉ 3M2 (TRÊS METROS QUADRADOS), GALVANIZADO A FOGO; PARA FIXAÇÃO EM COLUNA CÔNICO CONTÍNUA TIPO I, PROJEÇÃO DE 3,70M (TRÊS METROS E SETENTA CENTÍMETROS); DIÂMETRO JUNTO A FLANGE DE 123MM (CENTO E VINTE E TRÊS MILÍMETROS); CONFORME ESPECIFI",
-      "itemId": "2478|BRAÇO PROJETADO DE AÇO PARA SUSTENTAÇÃO DE SEMÁFORO E PLACA ATÉ 3M2 (TRÊS METROS QUADRADOS), GALVANIZADO A FOGO; PARA FIXAÇÃO EM COLUNA CÔNICO CONTÍNUA TIPO I, PROJEÇÃO DE 3,70M (TRÊS METROS E SETENTA CENTÍMETROS); DIÂMETRO JUNTO A FLANGE DE 123MM (CENTO E VINTE E TRÊS MILÍMETROS); CONFORME ESPECIFI",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2478|braco projetado de aco para sustentacao de semaforo e placa ate 3m2 tres metros quadrados galvanizado a fogo para fixacao em coluna conico continua tipo i projecao de 4 70m quatro metros e setenta centimetros diametro junto a flange de 123mm cento e vinte e tres milimetros conforme especi": {
-      "contract": "2478",
-      "service": "BRAÇO PROJETADO DE AÇO PARA SUSTENTAÇÃO DE SEMÁFORO E PLACA ATÉ 3M2 (TRÊS METROS QUADRADOS), GALVANIZADO A FOGO; PARA FIXAÇÃO EM COLUNA CÔNICO CONTÍNUA TIPO I, PROJEÇÃO DE 4,70M (QUATRO METROS E SETENTA CENTÍMETROS); DIÂMETRO JUNTO A FLANGE DE 123MM (CENTO E VINTE E TRÊS MILÍMETROS); CONFORME ESPECI",
-      "itemId": "2478|BRAÇO PROJETADO DE AÇO PARA SUSTENTAÇÃO DE SEMÁFORO E PLACA ATÉ 3M2 (TRÊS METROS QUADRADOS), GALVANIZADO A FOGO; PARA FIXAÇÃO EM COLUNA CÔNICO CONTÍNUA TIPO I, PROJEÇÃO DE 4,70M (QUATRO METROS E SETENTA CENTÍMETROS); DIÂMETRO JUNTO A FLANGE DE 123MM (CENTO E VINTE E TRÊS MILÍMETROS); CONFORME ESPECI",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2478|cabo de cobre flexivel 750v secao de 2x1 5mm2 pvc 70oc fornecimento": {
-      "contract": "2478",
-      "service": "CABO DE COBRE FLEXÍVEL, 750V, SEÇÃO DE 2X1,5MM2, PVC/ 70OC. FORNECIMENTO.",
-      "itemId": "2478|CABO DE COBRE FLEXÍVEL, 750V, SEÇÃO DE 2X1,5MM2, PVC/ 70OC. FORNECIMENTO.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2478|cabo de cobre flexivel 750v secao de 2x10mm2 pvc 70oc fornecimento": {
-      "contract": "2478",
-      "service": "CABO DE COBRE FLEXÍVEL, 750V, SEÇÃO DE 2X10MM2, PVC/ 70OC. FORNECIMENTO.",
-      "itemId": "2478|CABO DE COBRE FLEXÍVEL, 750V, SEÇÃO DE 2X10MM2, PVC/ 70OC. FORNECIMENTO.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2478|cabo para alimentacao de semaforo secao de 4x1 5mm2 conforme especificacao da cet rio fornecimento e instalacao": {
-      "contract": "2478",
-      "service": "CABO PARA ALIMENTAÇÃO DE SEMÁFORO, SEÇÃO DE 4X1,5MM2, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO E INSTALAÇÃO.",
-      "itemId": "2478|CABO PARA ALIMENTAÇÃO DE SEMÁFORO, SEÇÃO DE 4X1,5MM2, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO E INSTALAÇÃO.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2478|cabo para alimentacao de semaforo secao de 7x1 5mm2 conforme especificacao da cet rio fornecimento e instalacao": {
-      "contract": "2478",
-      "service": "CABO PARA ALIMENTAÇÃO DE SEMÁFORO, SEÇÃO DE 7X1,5MM2, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO E INSTALACAO.",
-      "itemId": "2478|CABO PARA ALIMENTAÇÃO DE SEMÁFORO, SEÇÃO DE 7X1,5MM2, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO E INSTALACAO.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2478|coluna de aco conica continua tipo i para ate 4 quatro bracos projetados capazes de sustentar cada um semaforo e placa de 3m2 tres metros quadrados coluna galvanizada a fogo altura util total de 5 00m cinco metros diametro na base igual a 187mm cento e oitenta e sete milimetros confor": {
-      "contract": "2478",
-      "service": "COLUNA DE AÇO, CÔNICA CONTÍNUA TIPO I PARA ATE 4 (QUATRO) BRAÇOS PROJETADOS CAPAZES DE SUSTENTAR, CADA UM, SEMÁFORO E PLACA DE 3M2 (TRÊS METROS QUADRADOS); COLUNA GALVANIZADA A FOGO; ALTURA ÚTIL TOTAL DE 5,00M (CINCO METROS); DIÂMETRO NA BASE IGUAL A 187MM (CENTO E OITENTA E SETE MILÍMETROS); CONFOR",
-      "itemId": "2478|COLUNA DE AÇO, CÔNICA CONTÍNUA TIPO I PARA ATE 4 (QUATRO) BRAÇOS PROJETADOS CAPAZES DE SUSTENTAR, CADA UM, SEMÁFORO E PLACA DE 3M2 (TRÊS METROS QUADRADOS); COLUNA GALVANIZADA A FOGO; ALTURA ÚTIL TOTAL DE 5,00M (CINCO METROS); DIÂMETRO NA BASE IGUAL A 187MM (CENTO E OITENTA E SETE MILÍMETROS); CONFOR",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2478|controlador eletronico semaforico de trafego de 4 fases": {
-      "contract": "2478",
-      "service": "CONTROLADOR ELETRÔNICO SEMAFÓRICO DE TRÁFEGO DE 4 FASES.",
-      "itemId": "2478|CONTROLADOR ELETRÔNICO SEMAFÓRICO DE TRÁFEGO DE 4 FASES.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2478|instalacao e teste de funcionamento de botoeira": {
-      "contract": "2478",
-      "service": "INSTALAÇÃO E TESTE DE FUNCIONAMENTO DE BOTOEIRA.",
-      "itemId": "2478|INSTALAÇÃO E TESTE DE FUNCIONAMENTO DE BOTOEIRA.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2478|linha de duto espiral flexivel em polietileno de alta densidade tipo kanalex ou similar diametro de 50mm 2 lancado diretamente ao solo com com arame guia galvanizado revestido em pvc inclusive emendas e tamponamento exclusive escavacao e reaterro": {
-      "contract": "2478",
-      "service": "LINHA DE DUTO ESPIRAL FLEXÍVEL EM POLIETILENO DE ALTA DENSIDADE, TIPO KANALEX OU SIMILAR, DIÂMETRO DE 50MM (2\" ), LANÇADO DIRETAMENTE AO SOLO COM COM ARAME-GUIA GALVANIZADO REVESTIDO EM PVC, INCLUSIVE EMENDAS E TAMPONAMENTO, EXCLUSIVE ESCAVAÇÃO E REATERRO.",
-      "itemId": "2478|LINHA DE DUTO ESPIRAL FLEXÍVEL EM POLIETILENO DE ALTA DENSIDADE, TIPO KANALEX OU SIMILAR, DIÂMETRO DE 50MM (2\" ), LANÇADO DIRETAMENTE AO SOLO COM COM ARAME-GUIA GALVANIZADO REVESTIDO EM PVC, INCLUSIVE EMENDAS E TAMPONAMENTO, EXCLUSIVE ESCAVAÇÃO E REATERRO.",
-      "unit": "",
-      "observation": "Registro da aba Executado"
-    },
-    "2478|poste tipo s5 simples de 4 de diametro conforme especificacao da cet rio fornecimento": {
-      "contract": "2478",
-      "service": "POSTE TIPO S5, SIMPLES, DE 4\" DE DIÂMETRO. CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO.",
-      "itemId": "2478|POSTE TIPO S5, SIMPLES, DE 4\" DE DIÂMETRO. CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO.",
       "unit": "",
       "observation": "Registro da aba Executado"
     },
@@ -1945,5 +1456,357 @@
       "unit": "",
       "observation": "Registro da aba Executado"
     }
-  }
+  },
+  "pendencias": [
+    {
+      "contract": "2450",
+      "service": "Bloco semaforico para pedestre com 2 (dois) modulos focais de 200mm a led, compreendendo foco verde \"Siga\" (boneco) e foco vermelho \"Pare\" (mao espalm",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Bloco semaforico principal com 3 (tres) modulos focais de 300mm de diametro a led, cobre-focos, anteparo, borrachas de vedacao e suportes de fixacao,",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Bloco semaforico repetidor com 3 (tres) modulos focais de 200mm de diametro a led, cobre-focos, anteparo, borrachas de vedacao e suportes de fixacao,",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Botão de comando tipo cogumelo para uso em botoeira. Fornecimento.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Botoeira para travessia de pedestres conforme especificacao da CET-RIO. Fornecimento.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Braco projetado de aco para sustentacao de semaforo e placa ate 3m2 (tres metros quadrados), galvanizado a fogo; para fixacao em coluna conico continu",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Cabo de cobre, 750V, secao de 2x6mm2, PVC/ 70oC. Fornecimento.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Cabo de cobre flexivel, 750V, secao de 2x1,5mm2, PVC/ 70oC. Fornecimento",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Cabo para alimentacao de semaforo, secao de 4x1,5mm2, conforme especificacao da CET-RIO. Fornecimento e instalacao.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Cabo para alimentacao de semaforo, secao de 7x1,5mm2, conforme especificacao da CET-RIO. Fornecimento e instalacao.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Caminhao Carroceria fixa, capacidade de 3,5t, equipado com plataforma elevatoria pantografica hidraulica, com motorista operador e um ajudante, materi",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Cobre-Foco para uso em lente de 200 mm de diâmetro. Fornecimento.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Cobre-Foco para uso em lente de 200 mm quadrada. Fornecimento.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Cobre-Foco para uso em lente de 300 mm de diâmetro. Fornecimento.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Concreto betuminoso usinado a quente, para camada de rolamento, de acordo com as especificacoes da PCRJ; exclusive transporte da usina para a pista e",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Concreto simples dosado racionalmente para uma resistencia minima caracteristica a compressao de 11MPa, inclusive materiais, preparo, lancamento, colo",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Demolicao, com equipamento de ar comprimido, de passeio cimentado com espessura ate 10cm",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Demolicao, com equipamento de ar comprimido, de pavimentacao de concreto asfaltico, com 5cm",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Demolicao, com equipamento de ar comprimido, de pisos ou pavimento de concreto simples",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Desmonte manual de bloco de material de 3a categoria",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Eletricista (inclusive encargos sociais).",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Escavacao manual de vala a frio em material de 2a categoria",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Escavacao manual de vala em material de 1a categoria",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Espalhamento manual e compactacao mecanica de concreto asfaltico usinado a quente, ou de pre-misturado, exclusive fornecimento de todos os materiais",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Fita isolante comum, de 19 mm x 20 m",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Imprimacao de base de pavimentacao, conforme Caderno de Encargos - PCRJ.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Linha de duto espiral flexivel em polietileno de alta densidade, tipo Kanalex ou similar, diametro de 75mm (3\" ), lancado diretamente ao solo com com",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Modulo focal a LED para bloco para bloco de pedestre com formato boneco na cor verde. Fornecimento",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Modulo focal a LED para bloco para bloco de pedestre com formato mao espalmada na cor vermelha. Fornecimento.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Modulo focal a LED para bloco principal de 300mm na cor amarela. Fornecimento",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Modulo focal a LED para bloco principal de 300mm na cor verde. Fornecimento",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Modulo focal a LED para  bloco principal de 300mm na cor vermelha. Fornecimento",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Modulo focal a LED para bloco repetidor de 200mm na cor amarela. Fornecimento",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Modulo focal a LED para bloco repetidor de 200mm na cor verde. Fornecimento",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Modulo focal a LED para bloco repetidor de 200mm na cor vermelha. Fornecimento",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Piso cimento, com 1,5 cm esspessura, sobre base existente",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Piso de pedra portuguesa branca e preta, em faixa assentada sobre mistura de cimento e saibro no traco 1:5, inclusive acerto do terreno. Fornecimento",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Plantio de grama em placas",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Reaterro de vala, com po-de-pedra, compactado manualmente, inclusive fornecimento do material.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Reaterro de vala, compactado a maco, em camadas de 30cm de espessura maxima",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Recomposicao de pavimentacao de pedra portuguesa, assentada com farofa de cimento e saibro no traco 1:5, inclusive fornecimento do material para rejun",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Remoção manual de passeio de pedra portuguesa",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Suporte basculante para fixação de bloco principal em braço projetado de 101,6 mm",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2450",
+      "service": "Suporte de fixação simples para coluna de aço conica continua tipo 1. Fornecimento",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2459",
+      "service": "Fornecimento e implantação de placa em alumínio composto, espessura de 3,0 mm, modulada, aérea - película retrorrefletiva tipo X + SI (Sinal Impresso",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2459",
+      "service": "Terminal absorvedor de energia, certificado segundo a ABNT NBR 15.486:2016, especificado conforme NCHRP 350 nível de ensaio 2 (70 km/h) ou EN 1317 nív",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2474",
+      "service": "CAMINHAO  COM  CARROCERIA  FIXA,  NO  TOCO,  CAPACIDADE  DE  7,5T,INCLUSIVE MOTORISTA",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2474",
+      "service": "CAMIONETA  TIPO  \"PICK  UP\",  COM  CABINE  DUPLA,DIESEL,  TRAçãO  4X4, COM SINALIZADOR,GIROFLEX, SIRENE RADIO,INCL. MOTORISTA (CI)",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2474",
+      "service": "CAMIONETA  TIPO \"PICK UP\", COM  CABINE  DUPLA, DIESEL, TRAçãO  4X4, COM SINALIZADOR,GIROFLEX, SIRENE RADIO,INCL. MOTORISTA (CP)",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2474",
+      "service": "MAO  DE  OBRA  DE  ENCARREGADO  EM  SERVICO  DE  CONSERVACAO  DE ESTRADAS,    INCL.   UNIFORME,   FERRAM.,    SINALIZ.,   ALIMENTACAO    E TRANSPORTE",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2474",
+      "service": "MAO-DE-OBRA   DE   ENGENHEIRO   OU   ARQUITETO   SENIOR,   INCLUSIVEENCARGOS SOCIAIS",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2474",
+      "service": "MAO  DE  OBRA  DE  OFICIAL  (PEDREIRO,  CARPINT.,  PINT.,  JARDIN.)  EM SERV.    CONSERV.ESTR.,    INCL.UNIFOR.,    FERRAM.,    SINAL.,    ALIMENT. TR",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2474",
+      "service": "MAO DE OBRA DE SERVENTE EM SERV. DE CONSERVACAO DE ESTRADAS, INCL.    UNIFORME,     FERRAMENTA,     SINALIZACAO,     ALIMENTACAO     ETRANSPORTE",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2474",
+      "service": "OPERADOR DE TRANSITO, INCLUSIVE LEIS SOCIAIS",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2474",
+      "service": "VEICULO     DE     PASSEIO,     5     PASSAGEIROS,     4     PORTAS,     MOTOR BICOMBUSTIVEL    (GASOLINA    E   ALCOOL)    DE   1,6   LITROS,   COM",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2474",
+      "service": "VEICULO DE PASSEIO,5 PASSAGEIROS,4  PORTAS,MOTOR  BICOMBUSTIVEL (GASOLINA E ALCOOL) DE 1,6 LITROS,COM AR CONDICIONADO, DIRECAO HIDRAULICA E VIDROS DIA",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2478",
+      "service": "ASSENTAMENTO DE COLUNA DE AÇO CÔNICA CONTÍNUA TIPO I PARA ATE 4 (QUATRO) BRACOS PROJETADOS CAPAZES DE SUSTENTAR, CADA UM, SEMÁFORO E PLACA DE 3M2 (TRÊS METROS QUADRADOS) FIXADA POR CHUMBADORES ENGASTADOS EM FUNDAÇÃO DE CONCRETO, EXCLUSIVE FUNDAÇÃO, EXCLUSIVE FORNECIMENTO DA COLUNA.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2478",
+      "service": "BLOCO SEMAFÓRICO PARA PEDESTRE COM 2 (DOIS) MÓDULOS FOCAIS DE 200MM A LED, COMPREENDENDO FOCO VERDE \"SIGA\" (BONECO) E FOCO VERMELHO \"PARE\" (MÃO ESPALMADA) COM BORRACHAS DE VEDAÇÃO E SUPORTES DE FIXAÇÃO, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2478",
+      "service": "BLOCO SEMAFÓRICO REPETIDOR COM 3 (TRÊS) MÓDULOS FOCAIS DE 200MM DE DIÂMETRO A LED, COBRE-FOCOS, ANTEPARO, BORRACHAS DE VEDAÇÃO E SUPORTES DE FIXAÇÃO, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2478",
+      "service": "BRAÇO PROJETADO DE AÇO PARA SUSTENTAÇÃO DE SEMÁFORO E PLACA ATÉ 3M2 (TRÊS METROS QUADRADOS), GALVANIZADO A FOGO; PARA FIXAÇÃO EM COLUNA CÔNICO CONTÍNUA TIPO I, PROJEÇÃO DE 3,70M (TRÊS METROS E SETENTA CENTÍMETROS); DIÂMETRO JUNTO A FLANGE DE 123MM (CENTO E VINTE E TRÊS MILÍMETROS); CONFORME ESPECIFI",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2478",
+      "service": "BRAÇO PROJETADO DE AÇO PARA SUSTENTAÇÃO DE SEMÁFORO E PLACA ATÉ 3M2 (TRÊS METROS QUADRADOS), GALVANIZADO A FOGO; PARA FIXAÇÃO EM COLUNA CÔNICO CONTÍNUA TIPO I, PROJEÇÃO DE 4,70M (QUATRO METROS E SETENTA CENTÍMETROS); DIÂMETRO JUNTO A FLANGE DE 123MM (CENTO E VINTE E TRÊS MILÍMETROS); CONFORME ESPECI",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2478",
+      "service": "CABO DE COBRE FLEXÍVEL, 750V, SEÇÃO DE 2X1,5MM2, PVC/ 70OC. FORNECIMENTO.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2478",
+      "service": "CABO DE COBRE FLEXÍVEL, 750V, SEÇÃO DE 2X10MM2, PVC/ 70OC. FORNECIMENTO.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2478",
+      "service": "CABO PARA ALIMENTAÇÃO DE SEMÁFORO, SEÇÃO DE 4X1,5MM2, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO E INSTALAÇÃO.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2478",
+      "service": "CABO PARA ALIMENTAÇÃO DE SEMÁFORO, SEÇÃO DE 7X1,5MM2, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO E INSTALACAO.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2478",
+      "service": "COLUNA DE AÇO, CÔNICA CONTÍNUA TIPO I PARA ATE 4 (QUATRO) BRAÇOS PROJETADOS CAPAZES DE SUSTENTAR, CADA UM, SEMÁFORO E PLACA DE 3M2 (TRÊS METROS QUADRADOS); COLUNA GALVANIZADA A FOGO; ALTURA ÚTIL TOTAL DE 5,00M (CINCO METROS); DIÂMETRO NA BASE IGUAL A 187MM (CENTO E OITENTA E SETE MILÍMETROS); CONFOR",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2478",
+      "service": "CONTROLADOR ELETRÔNICO SEMAFÓRICO DE TRÁFEGO DE 4 FASES.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2478",
+      "service": "INSTALAÇÃO E TESTE DE FUNCIONAMENTO DE BOTOEIRA.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2478",
+      "service": "LINHA DE DUTO ESPIRAL FLEXÍVEL EM POLIETILENO DE ALTA DENSIDADE, TIPO KANALEX OU SIMILAR, DIÂMETRO DE 50MM (2\" ), LANÇADO DIRETAMENTE AO SOLO COM COM ARAME-GUIA GALVANIZADO REVESTIDO EM PVC, INCLUSIVE EMENDAS E TAMPONAMENTO, EXCLUSIVE ESCAVAÇÃO E REATERRO.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    },
+    {
+      "contract": "2478",
+      "service": "POSTE TIPO S5, SIMPLES, DE 4\" DE DIÂMETRO. CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO.",
+      "motivo": "Sem itemId numerico comprovado no Index22 ou na base de cronograma disponível"
+    }
+  ]
 }
