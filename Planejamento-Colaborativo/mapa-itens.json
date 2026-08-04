@@ -1,11 +1,11 @@
 {
-  "versao": 3,
-  "geradoEm": "2026-08-04T11:30:00-03:00",
-  "fonte": "Mapa validado + referências oficiais dos contratos",
+  "versao": 4,
+  "geradoEm": "2026-08-04T12:04:00-03:00",
+  "fonte": "Mapa v3 corrigido; referências oficiais convertidas para IDs numéricos estáveis",
   "criterioChave": "contract|service_normalized",
   "quantidadeVinculos": 277,
   "quantidadePendencias": 0,
-  "status": "PRONTO_PARA_TESTE",
+  "status": "ATIVO",
   "vinculos": {
     "2453|defensa metalica c espacador e calco nivel de contencao h1aw4 15": {
       "contract": "2453",
@@ -1459,7 +1459,7 @@
     "2450|bloco semaforico para pedestre com 2 dois modulos focais de 200mm a led compreendendo foco verde siga boneco e foco vermelho pare mao espalm": {
       "contract": "2450",
       "service": "Bloco semaforico para pedestre com 2 (dois) modulos focais de 200mm a led, compreendendo foco verde \"Siga\" (boneco) e foco vermelho \"Pare\" (mao espalm",
-      "itemId": "2450|00.000.001.039",
+      "itemId": "2450|39",
       "unit": "un",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.039",
@@ -1469,7 +1469,7 @@
     "2450|bloco semaforico principal com 3 tres modulos focais de 300mm de diametro a led cobre focos anteparo borrachas de vedacao e suportes de fixacao": {
       "contract": "2450",
       "service": "Bloco semaforico principal com 3 (tres) modulos focais de 300mm de diametro a led, cobre-focos, anteparo, borrachas de vedacao e suportes de fixacao,",
-      "itemId": "2450|00.000.001.037",
+      "itemId": "2450|37",
       "unit": "un",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.037",
@@ -1479,7 +1479,7 @@
     "2450|bloco semaforico repetidor com 3 tres modulos focais de 200mm de diametro a led cobre focos anteparo borrachas de vedacao e suportes de fixacao": {
       "contract": "2450",
       "service": "Bloco semaforico repetidor com 3 (tres) modulos focais de 200mm de diametro a led, cobre-focos, anteparo, borrachas de vedacao e suportes de fixacao,",
-      "itemId": "2450|00.000.001.038",
+      "itemId": "2450|38",
       "unit": "un",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.038",
@@ -1489,7 +1489,7 @@
     "2450|botao de comando tipo cogumelo para uso em botoeira fornecimento": {
       "contract": "2450",
       "service": "Botão de comando tipo cogumelo para uso em botoeira. Fornecimento.",
-      "itemId": "2450|00.000.001.094",
+      "itemId": "2450|94",
       "unit": "pç",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.094",
@@ -1499,7 +1499,7 @@
     "2450|botoeira para travessia de pedestres conforme especificacao da cet rio fornecimento": {
       "contract": "2450",
       "service": "Botoeira para travessia de pedestres conforme especificacao da CET-RIO. Fornecimento.",
-      "itemId": "2450|00.000.001.040",
+      "itemId": "2450|40",
       "unit": "un",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.040",
@@ -1509,7 +1509,7 @@
     "2450|braco projetado de aco para sustentacao de semaforo e placa ate 3m2 tres metros quadrados galvanizado a fogo para fixacao em coluna conico continu": {
       "contract": "2450",
       "service": "Braco projetado de aco para sustentacao de semaforo e placa ate 3m2 (tres metros quadrados), galvanizado a fogo; para fixacao em coluna conico continu",
-      "itemId": "2450|00.000.001.071",
+      "itemId": "2450|71",
       "unit": "un",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.071",
@@ -1519,7 +1519,7 @@
     "2450|cabo de cobre 750v secao de 2x6mm2 pvc 70oc fornecimento": {
       "contract": "2450",
       "service": "Cabo de cobre, 750V, secao de 2x6mm2, PVC/ 70oC. Fornecimento.",
-      "itemId": "2450|00.000.001.035",
+      "itemId": "2450|35",
       "unit": "m",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.035",
@@ -1529,7 +1529,7 @@
     "2450|cabo de cobre flexivel 750v secao de 2x1 5mm2 pvc 70oc fornecimento": {
       "contract": "2450",
       "service": "Cabo de cobre flexivel, 750V, secao de 2x1,5mm2, PVC/ 70oC. Fornecimento",
-      "itemId": "2450|00.000.001.036",
+      "itemId": "2450|36",
       "unit": "m",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.036",
@@ -1539,7 +1539,7 @@
     "2450|cabo para alimentacao de semaforo secao de 4x1 5mm2 conforme especificacao da cet rio fornecimento e instalacao": {
       "contract": "2450",
       "service": "Cabo para alimentacao de semaforo, secao de 4x1,5mm2, conforme especificacao da CET-RIO. Fornecimento e instalacao.",
-      "itemId": "2450|00.000.001.049",
+      "itemId": "2450|49",
       "unit": "m",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.049",
@@ -1549,7 +1549,7 @@
     "2450|cabo para alimentacao de semaforo secao de 7x1 5mm2 conforme especificacao da cet rio fornecimento e instalacao": {
       "contract": "2450",
       "service": "Cabo para alimentacao de semaforo, secao de 7x1,5mm2, conforme especificacao da CET-RIO. Fornecimento e instalacao.",
-      "itemId": "2450|00.000.001.050",
+      "itemId": "2450|50",
       "unit": "m",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.050",
@@ -1559,7 +1559,7 @@
     "2450|caminhao carroceria fixa capacidade de 3 5t equipado com plataforma elevatoria pantografica hidraulica com motorista operador e um ajudante materi": {
       "contract": "2450",
       "service": "Caminhao Carroceria fixa, capacidade de 3,5t, equipado com plataforma elevatoria pantografica hidraulica, com motorista operador e um ajudante, materi",
-      "itemId": "2450|00.000.001.032",
+      "itemId": "2450|32",
       "unit": "h",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.032",
@@ -1569,7 +1569,7 @@
     "2450|cobre foco para uso em lente de 200 mm de diametro fornecimento": {
       "contract": "2450",
       "service": "Cobre-Foco para uso em lente de 200 mm de diâmetro. Fornecimento.",
-      "itemId": "2450|00.000.001.090",
+      "itemId": "2450|90",
       "unit": "pç",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.090",
@@ -1579,7 +1579,7 @@
     "2450|cobre foco para uso em lente de 200 mm quadrada fornecimento": {
       "contract": "2450",
       "service": "Cobre-Foco para uso em lente de 200 mm quadrada. Fornecimento.",
-      "itemId": "2450|00.000.001.091",
+      "itemId": "2450|91",
       "unit": "pç",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.091",
@@ -1589,7 +1589,7 @@
     "2450|cobre foco para uso em lente de 300 mm de diametro fornecimento": {
       "contract": "2450",
       "service": "Cobre-Foco para uso em lente de 300 mm de diâmetro. Fornecimento.",
-      "itemId": "2450|00.000.001.089",
+      "itemId": "2450|89",
       "unit": "pç",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.089",
@@ -1599,7 +1599,7 @@
     "2450|concreto betuminoso usinado a quente para camada de rolamento de acordo com as especificacoes da pcrj exclusive transporte da usina para a pista e": {
       "contract": "2450",
       "service": "Concreto betuminoso usinado a quente, para camada de rolamento, de acordo com as especificacoes da PCRJ; exclusive transporte da usina para a pista e",
-      "itemId": "2450|00.000.001.018",
+      "itemId": "2450|18",
       "unit": "t",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.018",
@@ -1609,7 +1609,7 @@
     "2450|concreto simples dosado racionalmente para uma resistencia minima caracteristica a compressao de 11mpa inclusive materiais preparo lancamento colo": {
       "contract": "2450",
       "service": "Concreto simples dosado racionalmente para uma resistencia minima caracteristica a compressao de 11MPa, inclusive materiais, preparo, lancamento, colo",
-      "itemId": "2450|00.000.001.025",
+      "itemId": "2450|25",
       "unit": "m³",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.025",
@@ -1619,7 +1619,7 @@
     "2450|demolicao com equipamento de ar comprimido de passeio cimentado com espessura ate 10cm": {
       "contract": "2450",
       "service": "Demolicao, com equipamento de ar comprimido, de passeio cimentado com espessura ate 10cm",
-      "itemId": "2450|00.000.001.010",
+      "itemId": "2450|10",
       "unit": "m²",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.010",
@@ -1629,7 +1629,7 @@
     "2450|demolicao com equipamento de ar comprimido de pavimentacao de concreto asfaltico com 5cm": {
       "contract": "2450",
       "service": "Demolicao, com equipamento de ar comprimido, de pavimentacao de concreto asfaltico, com 5cm",
-      "itemId": "2450|00.000.001.012",
+      "itemId": "2450|12",
       "unit": "m²",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.012",
@@ -1639,7 +1639,7 @@
     "2450|demolicao com equipamento de ar comprimido de pisos ou pavimento de concreto simples": {
       "contract": "2450",
       "service": "Demolicao, com equipamento de ar comprimido, de pisos ou pavimento de concreto simples",
-      "itemId": "2450|00.000.001.011",
+      "itemId": "2450|11",
       "unit": "m³",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.011",
@@ -1649,7 +1649,7 @@
     "2450|desmonte manual de bloco de material de 3a categoria": {
       "contract": "2450",
       "service": "Desmonte manual de bloco de material de 3a categoria",
-      "itemId": "2450|00.000.001.003",
+      "itemId": "2450|3",
       "unit": "m³",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.003",
@@ -1659,7 +1659,7 @@
     "2450|eletricista inclusive encargos sociais": {
       "contract": "2450",
       "service": "Eletricista (inclusive encargos sociais).",
-      "itemId": "2450|00.000.001.014",
+      "itemId": "2450|14",
       "unit": "h",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.014",
@@ -1669,7 +1669,7 @@
     "2450|escavacao manual de vala a frio em material de 2a categoria": {
       "contract": "2450",
       "service": "Escavacao manual de vala a frio em material de 2a categoria",
-      "itemId": "2450|00.000.001.002",
+      "itemId": "2450|2",
       "unit": "m³",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.002",
@@ -1679,7 +1679,7 @@
     "2450|escavacao manual de vala em material de 1a categoria": {
       "contract": "2450",
       "service": "Escavacao manual de vala em material de 1a categoria",
-      "itemId": "2450|00.000.001.001",
+      "itemId": "2450|1",
       "unit": "m³",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.001",
@@ -1689,7 +1689,7 @@
     "2450|espalhamento manual e compactacao mecanica de concreto asfaltico usinado a quente ou de pre misturado exclusive fornecimento de todos os materiais": {
       "contract": "2450",
       "service": "Espalhamento manual e compactacao mecanica de concreto asfaltico usinado a quente, ou de pre-misturado, exclusive fornecimento de todos os materiais",
-      "itemId": "2450|00.000.001.019",
+      "itemId": "2450|19",
       "unit": "t",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.019",
@@ -1699,7 +1699,7 @@
     "2450|fita isolante comum de 19 mm x 20 m": {
       "contract": "2450",
       "service": "Fita isolante comum, de 19 mm x 20 m",
-      "itemId": "2450|00.000.001.085",
+      "itemId": "2450|85",
       "unit": "h",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.085",
@@ -1709,7 +1709,7 @@
     "2450|imprimacao de base de pavimentacao conforme caderno de encargos pcrj": {
       "contract": "2450",
       "service": "Imprimacao de base de pavimentacao, conforme Caderno de Encargos - PCRJ.",
-      "itemId": "2450|00.000.001.017",
+      "itemId": "2450|17",
       "unit": "m²",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.017",
@@ -1719,7 +1719,7 @@
     "2450|linha de duto espiral flexivel em polietileno de alta densidade tipo kanalex ou similar diametro de 75mm 3 lancado diretamente ao solo com com": {
       "contract": "2450",
       "service": "Linha de duto espiral flexivel em polietileno de alta densidade, tipo Kanalex ou similar, diametro de 75mm (3\" ), lancado diretamente ao solo com com",
-      "itemId": "2450|00.000.001.030",
+      "itemId": "2450|30",
       "unit": "m",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.030",
@@ -1729,7 +1729,7 @@
     "2450|modulo focal a led para bloco para bloco de pedestre com formato boneco na cor verde fornecimento": {
       "contract": "2450",
       "service": "Modulo focal a LED para bloco para bloco de pedestre com formato boneco na cor verde. Fornecimento",
-      "itemId": "2450|00.000.001.066",
+      "itemId": "2450|66",
       "unit": "un",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.066",
@@ -1739,7 +1739,7 @@
     "2450|modulo focal a led para bloco para bloco de pedestre com formato mao espalmada na cor vermelha fornecimento": {
       "contract": "2450",
       "service": "Modulo focal a LED para bloco para bloco de pedestre com formato mao espalmada na cor vermelha. Fornecimento.",
-      "itemId": "2450|00.000.001.067",
+      "itemId": "2450|67",
       "unit": "un",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.067",
@@ -1749,7 +1749,7 @@
     "2450|modulo focal a led para bloco principal de 300mm na cor amarela fornecimento": {
       "contract": "2450",
       "service": "Modulo focal a LED para bloco principal de 300mm na cor amarela. Fornecimento",
-      "itemId": "2450|00.000.001.063",
+      "itemId": "2450|63",
       "unit": "un",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.063",
@@ -1759,7 +1759,7 @@
     "2450|modulo focal a led para bloco principal de 300mm na cor verde fornecimento": {
       "contract": "2450",
       "service": "Modulo focal a LED para bloco principal de 300mm na cor verde. Fornecimento",
-      "itemId": "2450|00.000.001.064",
+      "itemId": "2450|64",
       "unit": "un",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.064",
@@ -1769,7 +1769,7 @@
     "2450|modulo focal a led para bloco principal de 300mm na cor vermelha fornecimento": {
       "contract": "2450",
       "service": "Modulo focal a LED para  bloco principal de 300mm na cor vermelha. Fornecimento",
-      "itemId": "2450|00.000.001.065",
+      "itemId": "2450|65",
       "unit": "un",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.065",
@@ -1779,7 +1779,7 @@
     "2450|modulo focal a led para bloco repetidor de 200mm na cor amarela fornecimento": {
       "contract": "2450",
       "service": "Modulo focal a LED para bloco repetidor de 200mm na cor amarela. Fornecimento",
-      "itemId": "2450|00.000.001.060",
+      "itemId": "2450|60",
       "unit": "un",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.060",
@@ -1789,7 +1789,7 @@
     "2450|modulo focal a led para bloco repetidor de 200mm na cor verde fornecimento": {
       "contract": "2450",
       "service": "Modulo focal a LED para bloco repetidor de 200mm na cor verde. Fornecimento",
-      "itemId": "2450|00.000.001.061",
+      "itemId": "2450|61",
       "unit": "un",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.061",
@@ -1799,7 +1799,7 @@
     "2450|modulo focal a led para bloco repetidor de 200mm na cor vermelha fornecimento": {
       "contract": "2450",
       "service": "Modulo focal a LED para bloco repetidor de 200mm na cor vermelha. Fornecimento",
-      "itemId": "2450|00.000.001.062",
+      "itemId": "2450|62",
       "unit": "un",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.062",
@@ -1809,7 +1809,7 @@
     "2450|piso cimento com 1 5 cm esspessura sobre base existente": {
       "contract": "2450",
       "service": "Piso cimento, com 1,5 cm esspessura, sobre base existente",
-      "itemId": "2450|00.000.001.026",
+      "itemId": "2450|26",
       "unit": "m²",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.026",
@@ -1819,7 +1819,7 @@
     "2450|piso de pedra portuguesa branca e preta em faixa assentada sobre mistura de cimento e saibro no traco 1 5 inclusive acerto do terreno fornecimento": {
       "contract": "2450",
       "service": "Piso de pedra portuguesa branca e preta, em faixa assentada sobre mistura de cimento e saibro no traco 1:5, inclusive acerto do terreno. Fornecimento",
-      "itemId": "2450|00.000.001.027",
+      "itemId": "2450|27",
       "unit": "m²",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.027",
@@ -1829,7 +1829,7 @@
     "2450|plantio de grama em placas": {
       "contract": "2450",
       "service": "Plantio de grama em placas",
-      "itemId": "2450|00.000.001.024",
+      "itemId": "2450|24",
       "unit": "m²",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.024",
@@ -1839,7 +1839,7 @@
     "2450|reaterro de vala com po de pedra compactado manualmente inclusive fornecimento do material": {
       "contract": "2450",
       "service": "Reaterro de vala, com po-de-pedra, compactado manualmente, inclusive fornecimento do material.",
-      "itemId": "2450|00.000.001.005",
+      "itemId": "2450|5",
       "unit": "m³",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.005",
@@ -1849,7 +1849,7 @@
     "2450|reaterro de vala compactado a maco em camadas de 30cm de espessura maxima": {
       "contract": "2450",
       "service": "Reaterro de vala, compactado a maco, em camadas de 30cm de espessura maxima",
-      "itemId": "2450|00.000.001.004",
+      "itemId": "2450|4",
       "unit": "m³",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.004",
@@ -1859,7 +1859,7 @@
     "2450|recomposicao de pavimentacao de pedra portuguesa assentada com farofa de cimento e saibro no traco 1 5 inclusive fornecimento do material para rejun": {
       "contract": "2450",
       "service": "Recomposicao de pavimentacao de pedra portuguesa, assentada com farofa de cimento e saibro no traco 1:5, inclusive fornecimento do material para rejun",
-      "itemId": "2450|00.000.001.028",
+      "itemId": "2450|28",
       "unit": "m²",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.028",
@@ -1869,7 +1869,7 @@
     "2450|remocao manual de passeio de pedra portuguesa": {
       "contract": "2450",
       "service": "Remoção manual de passeio de pedra portuguesa",
-      "itemId": "2450|00.000.001.008",
+      "itemId": "2450|8",
       "unit": "m²",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.008",
@@ -1879,7 +1879,7 @@
     "2450|suporte basculante para fixacao de bloco principal em braco projetado de 101 6 mm": {
       "contract": "2450",
       "service": "Suporte basculante para fixação de bloco principal em braço projetado de 101,6 mm",
-      "itemId": "2450|00.000.001.087",
+      "itemId": "2450|87",
       "unit": "rolo",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.087",
@@ -1889,7 +1889,7 @@
     "2450|suporte de fixacao simples para coluna de aco conica continua tipo 1 fornecimento": {
       "contract": "2450",
       "service": "Suporte de fixação simples para coluna de aço conica continua tipo 1. Fornecimento",
-      "itemId": "2450|00.000.001.088",
+      "itemId": "2450|88",
       "unit": "pç",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.088",
@@ -1919,7 +1919,7 @@
     "2474|caminhao com carroceria fixa no toco capacidade de 7 5t inclusive motorista": {
       "contract": "2474",
       "service": "CAMINHAO  COM  CARROCERIA  FIXA,  NO  TOCO,  CAPACIDADE  DE  7,5T,INCLUSIVE MOTORISTA",
-      "itemId": "2474|00.000.002.002+00.000.002.001",
+      "itemId": "2474|1",
       "unit": "h",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.002.002+00.000.002.001",
@@ -1929,7 +1929,7 @@
     "2474|camioneta tipo pick up com cabine dupla diesel tracao 4x4 com sinalizador giroflex sirene radio incl motorista ci": {
       "contract": "2474",
       "service": "CAMIONETA  TIPO  \"PICK  UP\",  COM  CABINE  DUPLA,DIESEL,  TRAçãO  4X4, COM SINALIZADOR,GIROFLEX, SIRENE RADIO,INCL. MOTORISTA (CI)",
-      "itemId": "2474|00.000.002.004",
+      "itemId": "2474|4",
       "unit": "h",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.002.004",
@@ -1939,7 +1939,7 @@
     "2474|camioneta tipo pick up com cabine dupla diesel tracao 4x4 com sinalizador giroflex sirene radio incl motorista cp": {
       "contract": "2474",
       "service": "CAMIONETA  TIPO \"PICK UP\", COM  CABINE  DUPLA, DIESEL, TRAçãO  4X4, COM SINALIZADOR,GIROFLEX, SIRENE RADIO,INCL. MOTORISTA (CP)",
-      "itemId": "2474|00.000.002.003",
+      "itemId": "2474|3",
       "unit": "h",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.002.003",
@@ -1949,7 +1949,7 @@
     "2474|mao de obra de encarregado em servico de conservacao de estradas incl uniforme ferram sinaliz alimentacao e transporte": {
       "contract": "2474",
       "service": "MAO  DE  OBRA  DE  ENCARREGADO  EM  SERVICO  DE  CONSERVACAO  DE ESTRADAS,    INCL.   UNIFORME,   FERRAM.,    SINALIZ.,   ALIMENTACAO    E TRANSPORTE",
-      "itemId": "2474|00.000.001.001",
+      "itemId": "2474|1",
       "unit": "h",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.001",
@@ -1959,7 +1959,7 @@
     "2474|mao de obra de engenheiro ou arquiteto senior inclusiveencargos sociais": {
       "contract": "2474",
       "service": "MAO-DE-OBRA   DE   ENGENHEIRO   OU   ARQUITETO   SENIOR,   INCLUSIVEENCARGOS SOCIAIS",
-      "itemId": "2474|00.000.001.005",
+      "itemId": "2474|5",
       "unit": "mês",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.005",
@@ -1969,7 +1969,7 @@
     "2474|mao de obra de oficial pedreiro carpint pint jardin em serv conserv estr incl unifor ferram sinal aliment tr": {
       "contract": "2474",
       "service": "MAO  DE  OBRA  DE  OFICIAL  (PEDREIRO,  CARPINT.,  PINT.,  JARDIN.)  EM SERV.    CONSERV.ESTR.,    INCL.UNIFOR.,    FERRAM.,    SINAL.,    ALIMENT. TR",
-      "itemId": "2474|00.000.001.002",
+      "itemId": "2474|2",
       "unit": "h",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.002",
@@ -1979,7 +1979,7 @@
     "2474|mao de obra de servente em serv de conservacao de estradas incl uniforme ferramenta sinalizacao alimentacao etransporte": {
       "contract": "2474",
       "service": "MAO DE OBRA DE SERVENTE EM SERV. DE CONSERVACAO DE ESTRADAS, INCL.    UNIFORME,     FERRAMENTA,     SINALIZACAO,     ALIMENTACAO     ETRANSPORTE",
-      "itemId": "2474|00.000.001.004",
+      "itemId": "2474|4",
       "unit": "h",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.004",
@@ -1989,7 +1989,7 @@
     "2474|operador de transito inclusive leis sociais": {
       "contract": "2474",
       "service": "OPERADOR DE TRANSITO, INCLUSIVE LEIS SOCIAIS",
-      "itemId": "2474|00.000.001.003",
+      "itemId": "2474|3",
       "unit": "h",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.001.003",
@@ -1999,7 +1999,7 @@
     "2474|veiculo de passeio 5 passageiros 4 portas motor bicombustivel gasolina e alcool de 1 6 litros com": {
       "contract": "2474",
       "service": "VEICULO     DE     PASSEIO,     5     PASSAGEIROS,     4     PORTAS,     MOTOR BICOMBUSTIVEL    (GASOLINA    E   ALCOOL)    DE   1,6   LITROS,   COM",
-      "itemId": "2474|00.000.002.006",
+      "itemId": "2474|6",
       "unit": "h",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.002.006",
@@ -2009,7 +2009,7 @@
     "2474|veiculo de passeio 5 passageiros 4 portas motor bicombustivel gasolina e alcool de 1 6 litros com ar condicionado direcao hidraulica e vidros dia": {
       "contract": "2474",
       "service": "VEICULO DE PASSEIO,5 PASSAGEIROS,4  PORTAS,MOTOR  BICOMBUSTIVEL (GASOLINA E ALCOOL) DE 1,6 LITROS,COM AR CONDICIONADO, DIRECAO HIDRAULICA E VIDROS DIA",
-      "itemId": "2474|00.000.002.005",
+      "itemId": "2474|5",
       "unit": "h",
       "observation": "Registro da aba Executado",
       "sourceReference": "00.000.002.005",
