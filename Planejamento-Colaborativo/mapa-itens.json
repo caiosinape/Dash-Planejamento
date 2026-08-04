@@ -1,0 +1,1949 @@
+{
+  "versao": 1,
+  "geradoEm": "2026-08-04T11:00:00-03:00",
+  "fonte": "executado.json validado em 2026-08-04",
+  "criterioChave": "contract|service_normalized",
+  "normalizacao": "remove acentos, converte para minusculas, troca hifens especiais e remove pontuacao",
+  "quantidadeVinculos": 277,
+  "vinculos": {
+    "2450|bloco semaforico para pedestre com 2 dois modulos focais de 200mm a led compreendendo foco verde siga boneco e foco vermelho pare mao espalm": {
+      "contract": "2450",
+      "service": "Bloco semaforico para pedestre com 2 (dois) modulos focais de 200mm a led, compreendendo foco verde \"Siga\" (boneco) e foco vermelho \"Pare\" (mao espalm",
+      "itemId": "2450|Bloco semaforico para pedestre com 2 (dois) modulos focais de 200mm a led, compreendendo foco verde \"Siga\" (boneco) e foco vermelho \"Pare\" (mao espalm",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|bloco semaforico principal com 3 tres modulos focais de 300mm de diametro a led cobre focos anteparo borrachas de vedacao e suportes de fixacao": {
+      "contract": "2450",
+      "service": "Bloco semaforico principal com 3 (tres) modulos focais de 300mm de diametro a led, cobre-focos, anteparo, borrachas de vedacao e suportes de fixacao,",
+      "itemId": "2450|Bloco semaforico principal com 3 (tres) modulos focais de 300mm de diametro a led, cobre-focos, anteparo, borrachas de vedacao e suportes de fixacao,",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|bloco semaforico repetidor com 3 tres modulos focais de 200mm de diametro a led cobre focos anteparo borrachas de vedacao e suportes de fixacao": {
+      "contract": "2450",
+      "service": "Bloco semaforico repetidor com 3 (tres) modulos focais de 200mm de diametro a led, cobre-focos, anteparo, borrachas de vedacao e suportes de fixacao,",
+      "itemId": "2450|Bloco semaforico repetidor com 3 (tres) modulos focais de 200mm de diametro a led, cobre-focos, anteparo, borrachas de vedacao e suportes de fixacao,",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|botao de comando tipo cogumelo para uso em botoeira fornecimento": {
+      "contract": "2450",
+      "service": "Botão de comando tipo cogumelo para uso em botoeira. Fornecimento.",
+      "itemId": "2450|Botão de comando tipo cogumelo para uso em botoeira. Fornecimento.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|botoeira para travessia de pedestres conforme especificacao da cet rio fornecimento": {
+      "contract": "2450",
+      "service": "Botoeira para travessia de pedestres conforme especificacao da CET-RIO. Fornecimento.",
+      "itemId": "2450|Botoeira para travessia de pedestres conforme especificacao da CET-RIO. Fornecimento.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|braco projetado de aco para sustentacao de semaforo e placa ate 3m2 tres metros quadrados galvanizado a fogo para fixacao em coluna conico continu": {
+      "contract": "2450",
+      "service": "Braco projetado de aco para sustentacao de semaforo e placa ate 3m2 (tres metros quadrados), galvanizado a fogo; para fixacao em coluna conico continu",
+      "itemId": "2450|Braco projetado de aco para sustentacao de semaforo e placa ate 3m2 (tres metros quadrados), galvanizado a fogo; para fixacao em coluna conico continu",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|cabo de cobre 750v secao de 2x6mm2 pvc 70oc fornecimento": {
+      "contract": "2450",
+      "service": "Cabo de cobre, 750V, secao de 2x6mm2, PVC/ 70oC. Fornecimento.",
+      "itemId": "2450|Cabo de cobre, 750V, secao de 2x6mm2, PVC/ 70oC. Fornecimento.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|cabo de cobre flexivel 750v secao de 2x1 5mm2 pvc 70oc fornecimento": {
+      "contract": "2450",
+      "service": "Cabo de cobre flexivel, 750V, secao de 2x1,5mm2, PVC/ 70oC. Fornecimento",
+      "itemId": "2450|Cabo de cobre flexivel, 750V, secao de 2x1,5mm2, PVC/ 70oC. Fornecimento",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|cabo para alimentacao de semaforo secao de 4x1 5mm2 conforme especificacao da cet rio fornecimento e instalacao": {
+      "contract": "2450",
+      "service": "Cabo para alimentacao de semaforo, secao de 4x1,5mm2, conforme especificacao da CET-RIO. Fornecimento e instalacao.",
+      "itemId": "2450|Cabo para alimentacao de semaforo, secao de 4x1,5mm2, conforme especificacao da CET-RIO. Fornecimento e instalacao.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|cabo para alimentacao de semaforo secao de 7x1 5mm2 conforme especificacao da cet rio fornecimento e instalacao": {
+      "contract": "2450",
+      "service": "Cabo para alimentacao de semaforo, secao de 7x1,5mm2, conforme especificacao da CET-RIO. Fornecimento e instalacao.",
+      "itemId": "2450|Cabo para alimentacao de semaforo, secao de 7x1,5mm2, conforme especificacao da CET-RIO. Fornecimento e instalacao.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|caminhao carroceria fixa capacidade de 3 5t equipado com plataforma elevatoria pantografica hidraulica com motorista operador e um ajudante materi": {
+      "contract": "2450",
+      "service": "Caminhao Carroceria fixa, capacidade de 3,5t, equipado com plataforma elevatoria pantografica hidraulica, com motorista operador e um ajudante, materi",
+      "itemId": "2450|Caminhao Carroceria fixa, capacidade de 3,5t, equipado com plataforma elevatoria pantografica hidraulica, com motorista operador e um ajudante, materi",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|cobre foco para uso em lente de 200 mm de diametro fornecimento": {
+      "contract": "2450",
+      "service": "Cobre-Foco para uso em lente de 200 mm de diâmetro. Fornecimento.",
+      "itemId": "2450|Cobre-Foco para uso em lente de 200 mm de diâmetro. Fornecimento.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|cobre foco para uso em lente de 200 mm quadrada fornecimento": {
+      "contract": "2450",
+      "service": "Cobre-Foco para uso em lente de 200 mm quadrada. Fornecimento.",
+      "itemId": "2450|Cobre-Foco para uso em lente de 200 mm quadrada. Fornecimento.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|cobre foco para uso em lente de 300 mm de diametro fornecimento": {
+      "contract": "2450",
+      "service": "Cobre-Foco para uso em lente de 300 mm de diâmetro. Fornecimento.",
+      "itemId": "2450|Cobre-Foco para uso em lente de 300 mm de diâmetro. Fornecimento.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|concreto betuminoso usinado a quente para camada de rolamento de acordo com as especificacoes da pcrj exclusive transporte da usina para a pista e": {
+      "contract": "2450",
+      "service": "Concreto betuminoso usinado a quente, para camada de rolamento, de acordo com as especificacoes da PCRJ; exclusive transporte da usina para a pista e",
+      "itemId": "2450|Concreto betuminoso usinado a quente, para camada de rolamento, de acordo com as especificacoes da PCRJ; exclusive transporte da usina para a pista e",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|concreto simples dosado racionalmente para uma resistencia minima caracteristica a compressao de 11mpa inclusive materiais preparo lancamento colo": {
+      "contract": "2450",
+      "service": "Concreto simples dosado racionalmente para uma resistencia minima caracteristica a compressao de 11MPa, inclusive materiais, preparo, lancamento, colo",
+      "itemId": "2450|Concreto simples dosado racionalmente para uma resistencia minima caracteristica a compressao de 11MPa, inclusive materiais, preparo, lancamento, colo",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|demolicao com equipamento de ar comprimido de passeio cimentado com espessura ate 10cm": {
+      "contract": "2450",
+      "service": "Demolicao, com equipamento de ar comprimido, de passeio cimentado com espessura ate 10cm",
+      "itemId": "2450|Demolicao, com equipamento de ar comprimido, de passeio cimentado com espessura ate 10cm",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|demolicao com equipamento de ar comprimido de pavimentacao de concreto asfaltico com 5cm": {
+      "contract": "2450",
+      "service": "Demolicao, com equipamento de ar comprimido, de pavimentacao de concreto asfaltico, com 5cm",
+      "itemId": "2450|Demolicao, com equipamento de ar comprimido, de pavimentacao de concreto asfaltico, com 5cm",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|demolicao com equipamento de ar comprimido de pisos ou pavimento de concreto simples": {
+      "contract": "2450",
+      "service": "Demolicao, com equipamento de ar comprimido, de pisos ou pavimento de concreto simples",
+      "itemId": "2450|Demolicao, com equipamento de ar comprimido, de pisos ou pavimento de concreto simples",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|desmonte manual de bloco de material de 3a categoria": {
+      "contract": "2450",
+      "service": "Desmonte manual de bloco de material de 3a categoria",
+      "itemId": "2450|Desmonte manual de bloco de material de 3a categoria",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|eletricista inclusive encargos sociais": {
+      "contract": "2450",
+      "service": "Eletricista (inclusive encargos sociais).",
+      "itemId": "2450|Eletricista (inclusive encargos sociais).",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|escavacao manual de vala a frio em material de 2a categoria": {
+      "contract": "2450",
+      "service": "Escavacao manual de vala a frio em material de 2a categoria",
+      "itemId": "2450|Escavacao manual de vala a frio em material de 2a categoria",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|escavacao manual de vala em material de 1a categoria": {
+      "contract": "2450",
+      "service": "Escavacao manual de vala em material de 1a categoria",
+      "itemId": "2450|Escavacao manual de vala em material de 1a categoria",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|espalhamento manual e compactacao mecanica de concreto asfaltico usinado a quente ou de pre misturado exclusive fornecimento de todos os materiais": {
+      "contract": "2450",
+      "service": "Espalhamento manual e compactacao mecanica de concreto asfaltico usinado a quente, ou de pre-misturado, exclusive fornecimento de todos os materiais",
+      "itemId": "2450|Espalhamento manual e compactacao mecanica de concreto asfaltico usinado a quente, ou de pre-misturado, exclusive fornecimento de todos os materiais",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|fita isolante comum de 19 mm x 20 m": {
+      "contract": "2450",
+      "service": "Fita isolante comum, de 19 mm x 20 m",
+      "itemId": "2450|Fita isolante comum, de 19 mm x 20 m",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|imprimacao de base de pavimentacao conforme caderno de encargos pcrj": {
+      "contract": "2450",
+      "service": "Imprimacao de base de pavimentacao, conforme Caderno de Encargos - PCRJ.",
+      "itemId": "2450|Imprimacao de base de pavimentacao, conforme Caderno de Encargos - PCRJ.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|linha de duto espiral flexivel em polietileno de alta densidade tipo kanalex ou similar diametro de 75mm 3 lancado diretamente ao solo com com": {
+      "contract": "2450",
+      "service": "Linha de duto espiral flexivel em polietileno de alta densidade, tipo Kanalex ou similar, diametro de 75mm (3\" ), lancado diretamente ao solo com com",
+      "itemId": "2450|Linha de duto espiral flexivel em polietileno de alta densidade, tipo Kanalex ou similar, diametro de 75mm (3\" ), lancado diretamente ao solo com com",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|modulo focal a led para bloco para bloco de pedestre com formato boneco na cor verde fornecimento": {
+      "contract": "2450",
+      "service": "Modulo focal a LED para bloco para bloco de pedestre com formato boneco na cor verde. Fornecimento",
+      "itemId": "2450|Modulo focal a LED para bloco para bloco de pedestre com formato boneco na cor verde. Fornecimento",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|modulo focal a led para bloco para bloco de pedestre com formato mao espalmada na cor vermelha fornecimento": {
+      "contract": "2450",
+      "service": "Modulo focal a LED para bloco para bloco de pedestre com formato mao espalmada na cor vermelha. Fornecimento.",
+      "itemId": "2450|Modulo focal a LED para bloco para bloco de pedestre com formato mao espalmada na cor vermelha. Fornecimento.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|modulo focal a led para bloco principal de 300mm na cor amarela fornecimento": {
+      "contract": "2450",
+      "service": "Modulo focal a LED para bloco principal de 300mm na cor amarela. Fornecimento",
+      "itemId": "2450|Modulo focal a LED para bloco principal de 300mm na cor amarela. Fornecimento",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|modulo focal a led para bloco principal de 300mm na cor verde fornecimento": {
+      "contract": "2450",
+      "service": "Modulo focal a LED para bloco principal de 300mm na cor verde. Fornecimento",
+      "itemId": "2450|Modulo focal a LED para bloco principal de 300mm na cor verde. Fornecimento",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|modulo focal a led para bloco principal de 300mm na cor vermelha fornecimento": {
+      "contract": "2450",
+      "service": "Modulo focal a LED para  bloco principal de 300mm na cor vermelha. Fornecimento",
+      "itemId": "2450|Modulo focal a LED para  bloco principal de 300mm na cor vermelha. Fornecimento",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|modulo focal a led para bloco repetidor de 200mm na cor amarela fornecimento": {
+      "contract": "2450",
+      "service": "Modulo focal a LED para bloco repetidor de 200mm na cor amarela. Fornecimento",
+      "itemId": "2450|Modulo focal a LED para bloco repetidor de 200mm na cor amarela. Fornecimento",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|modulo focal a led para bloco repetidor de 200mm na cor verde fornecimento": {
+      "contract": "2450",
+      "service": "Modulo focal a LED para bloco repetidor de 200mm na cor verde. Fornecimento",
+      "itemId": "2450|Modulo focal a LED para bloco repetidor de 200mm na cor verde. Fornecimento",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|modulo focal a led para bloco repetidor de 200mm na cor vermelha fornecimento": {
+      "contract": "2450",
+      "service": "Modulo focal a LED para bloco repetidor de 200mm na cor vermelha. Fornecimento",
+      "itemId": "2450|Modulo focal a LED para bloco repetidor de 200mm na cor vermelha. Fornecimento",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|piso cimento com 1 5 cm esspessura sobre base existente": {
+      "contract": "2450",
+      "service": "Piso cimento, com 1,5 cm esspessura, sobre base existente",
+      "itemId": "2450|Piso cimento, com 1,5 cm esspessura, sobre base existente",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|piso de pedra portuguesa branca e preta em faixa assentada sobre mistura de cimento e saibro no traco 1 5 inclusive acerto do terreno fornecimento": {
+      "contract": "2450",
+      "service": "Piso de pedra portuguesa branca e preta, em faixa assentada sobre mistura de cimento e saibro no traco 1:5, inclusive acerto do terreno. Fornecimento",
+      "itemId": "2450|Piso de pedra portuguesa branca e preta, em faixa assentada sobre mistura de cimento e saibro no traco 1:5, inclusive acerto do terreno. Fornecimento",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|plantio de grama em placas": {
+      "contract": "2450",
+      "service": "Plantio de grama em placas",
+      "itemId": "2450|Plantio de grama em placas",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|reaterro de vala com po de pedra compactado manualmente inclusive fornecimento do material": {
+      "contract": "2450",
+      "service": "Reaterro de vala, com po-de-pedra, compactado manualmente, inclusive fornecimento do material.",
+      "itemId": "2450|Reaterro de vala, com po-de-pedra, compactado manualmente, inclusive fornecimento do material.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|reaterro de vala compactado a maco em camadas de 30cm de espessura maxima": {
+      "contract": "2450",
+      "service": "Reaterro de vala, compactado a maco, em camadas de 30cm de espessura maxima",
+      "itemId": "2450|Reaterro de vala, compactado a maco, em camadas de 30cm de espessura maxima",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|recomposicao de pavimentacao de pedra portuguesa assentada com farofa de cimento e saibro no traco 1 5 inclusive fornecimento do material para rejun": {
+      "contract": "2450",
+      "service": "Recomposicao de pavimentacao de pedra portuguesa, assentada com farofa de cimento e saibro no traco 1:5, inclusive fornecimento do material para rejun",
+      "itemId": "2450|Recomposicao de pavimentacao de pedra portuguesa, assentada com farofa de cimento e saibro no traco 1:5, inclusive fornecimento do material para rejun",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|remocao manual de passeio de pedra portuguesa": {
+      "contract": "2450",
+      "service": "Remoção manual de passeio de pedra portuguesa",
+      "itemId": "2450|Remoção manual de passeio de pedra portuguesa",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|suporte basculante para fixacao de bloco principal em braco projetado de 101 6 mm": {
+      "contract": "2450",
+      "service": "Suporte basculante para fixação de bloco principal em braço projetado de 101,6 mm",
+      "itemId": "2450|Suporte basculante para fixação de bloco principal em braço projetado de 101,6 mm",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2450|suporte de fixacao simples para coluna de aco conica continua tipo 1 fornecimento": {
+      "contract": "2450",
+      "service": "Suporte de fixação simples para coluna de aço conica continua tipo 1. Fornecimento",
+      "itemId": "2450|Suporte de fixação simples para coluna de aço conica continua tipo 1. Fornecimento",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|defensa metalica c espacador e calco nivel de contencao h1aw4 15": {
+      "contract": "2453",
+      "service": "Defensa metálica c/ espaçador e calço nível de contenção H1AW4 15º",
+      "itemId": "2453|46",
+      "unit": "m",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|faixa de sinalizacao horizontal c tinta resina acrilica base agua": {
+      "contract": "2453",
+      "service": "Faixa de sinalização horizontal c/ tinta resina acrílica base água",
+      "itemId": "2453|9",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|faixa de sinalizacao horizontal c tinta resina acrilica base solvente": {
+      "contract": "2453",
+      "service": "Faixa de sinalização horizontal c/ tinta resina acrílica base solvente",
+      "itemId": "2453|10",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|faixa de sinalizacao horizontal provisoria": {
+      "contract": "2453",
+      "service": "Faixa de sinalização horizontal provisória",
+      "itemId": "2453|11",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|fornec e implant de placas de sinalizacao mod em acm no solo com pelicula tipo i prismatica": {
+      "contract": "2453",
+      "service": "Fornec. e Implant. de placas de sinalização mod. em ACM, no solo com película tipo I - Prismática",
+      "itemId": "2453|26",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|fornec e implant de placas de sinalizacao mod em acm no solo com pelicula tipo iii": {
+      "contract": "2453",
+      "service": "Fornec. e Implant. de placas de sinalização mod. em ACM, no solo com película tipo III",
+      "itemId": "2453|27",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|fornec e implant de placas de sinalizacao simples em acm no solo com pelicula tipo i prismatica": {
+      "contract": "2453",
+      "service": "Fornec. e Implant. de placas de sinalização simples em ACM, no solo com película tipo I - Prismática",
+      "itemId": "2453|30",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|fornec e implant de placas de sinalizacao simples em acm no solo com pelicula tipo iii": {
+      "contract": "2453",
+      "service": "Fornec. e Implant. de placas de sinalização simples em ACM, no solo com película tipo III",
+      "itemId": "2453|31",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|fornec e inst de terminal absorv de energia para veloc 80 km h de acordo com nbr 15486 2016": {
+      "contract": "2453",
+      "service": "Fornec. e Inst. de terminal absorv. de energia, para veloc. 80 km/h, de acordo com NBR 15486-2016",
+      "itemId": "2453|50",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|fornecimento e implantacao de dispositivo refletivo para defensas": {
+      "contract": "2453",
+      "service": "Fornecimento e Implantação de dispositivo Refletivo para defensas",
+      "itemId": "2453|48",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|fornecimento instalacao de suporte ecologico colapsivel 80 x 80mm para placa de sinalizacao": {
+      "contract": "2453",
+      "service": "Fornecimento Instalação de Suporte Ecológico colapsível 80 x 80mm para Placa de Sinalização",
+      "itemId": "2453|35",
+      "unit": "m",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|pintura de setas e zebrados termpoplastico por extrsuao e 3 0mm": {
+      "contract": "2453",
+      "service": "Pintura de setas e zebrados - termpoplástico por extrsuão - e=3,0mm",
+      "itemId": "2453|12",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|projeto executivo de seguranca viaria": {
+      "contract": "2453",
+      "service": "Projeto Executivo de Segurança Viária",
+      "itemId": "2453|57",
+      "unit": "km",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|refletivo em pelicula tipo iii para suporte de defensa 0 10x0 25m 0 025m": {
+      "contract": "2453",
+      "service": "Refletivo em Película tipo III para suporte de defensa (0,10x0,25m) - 0,025m²",
+      "itemId": "2453|51",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|remocao de placa de sinalizacao c transporte": {
+      "contract": "2453",
+      "service": "Remoção de placa de sinalização c/ transporte",
+      "itemId": "2453|37",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|servico de apoio a operacao de sinalizacao": {
+      "contract": "2453",
+      "service": "Serviço de apoio a Operação de sinalização",
+      "itemId": "2453|56",
+      "unit": "h",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|sinalizacao horizontal com plastico a frio metilmetacrilato tricomponente 0 6mm": {
+      "contract": "2453",
+      "service": "Sinalização Horizontal com plástico à frio (metilmetacrilato tricomponente) (0,6mm)",
+      "itemId": "2453|14",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|suporte metalico galv fogo perfil c 110x70x25x2 00mm h 4 00m": {
+      "contract": "2453",
+      "service": "Suporte metálico galv. fogo perfil \"C\" 110x70x25x2,00mm, h=4,00m",
+      "itemId": "2453|42",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|suporte metalico galv fogo perfil c 250x85x25x2 70mm h 5 00m": {
+      "contract": "2453",
+      "service": "Suporte metálico galv. fogo perfil \"C\" 250x85x25x2,70mm, h=5,00m",
+      "itemId": "2453|43",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|tacha refletiva bidirecional tipo ii abnt 14636 2013": {
+      "contract": "2453",
+      "service": "Tacha refletiva bidirecional - tipo II (ABNT - 14636/2013)",
+      "itemId": "2453|16",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|tacha refletiva bidirecional tipo iii ou iv abnt 14636 2013": {
+      "contract": "2453",
+      "service": "Tacha refletiva bidirecional - tipo III ou IV (ABNT - 14636/2013)",
+      "itemId": "2453|15",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|tacha refletiva monodirecional tipo iii ou iv abnt 14636 2013": {
+      "contract": "2453",
+      "service": "Tacha refletiva monodirecional - tipo III ou IV (ABNT - 14636/2013)",
+      "itemId": "2453|17",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|tachao refletivo bidirecional": {
+      "contract": "2453",
+      "service": "Tachão refletivo bidirecional",
+      "itemId": "2453|19",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2453|tachao refletivo monodirecional": {
+      "contract": "2453",
+      "service": "Tachão refletivo monodirecional",
+      "itemId": "2453|20",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2456|carregamento e descarregamento de portico": {
+      "contract": "2456",
+      "service": "Carregamento e Descarregamento de Pórtico",
+      "itemId": "2456|75",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2456|fornecimento de portico com vao de 12 50 m": {
+      "contract": "2456",
+      "service": "Fornecimento de Pórtico com vão de 12,50 m",
+      "itemId": "2456|63",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2456|montagem de portico": {
+      "contract": "2456",
+      "service": "Montagem de Pórtico",
+      "itemId": "2456|69",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2456|preparacao de base para portico": {
+      "contract": "2456",
+      "service": "Preparação de base para pórtico",
+      "itemId": "2456|67",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2456|transporte de portico": {
+      "contract": "2456",
+      "service": "Transporte de Pórtico",
+      "itemId": "2456|77",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2459|dispositivo de contencao longitudinal certificado segundo a abnt nbr 15486 2016 tipo n2 a w2 defensa metalica fornecimento e implantacao": {
+      "contract": "2459",
+      "service": "Dispositivo de contenção longitudinal, certificado segundo a ABNT NBR 15486:2016, tipo (N2 A W2) - Defensa Metálica - Fornecimento e Implantação",
+      "itemId": "2459|127",
+      "unit": "m",
+      "observation": "Registro da aba Executado"
+    },
+    "2459|fornecimento e implantacao de placa em aluminio composto espessura de 3 0 mm modulada aerea pelicula retrorrefletiva tipo x si sinal impresso": {
+      "contract": "2459",
+      "service": "Fornecimento e implantação de placa em alumínio composto, espessura de 3,0 mm, modulada, aérea - película retrorrefletiva tipo X + SI (Sinal Impresso",
+      "itemId": "2459|Fornecimento e implantação de placa em alumínio composto, espessura de 3,0 mm, modulada, aérea - película retrorrefletiva tipo X + SI (Sinal Impresso",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2459|fornecimento e implantacao de suporte polimerico ecologico macico quadrado de 8 cm para placa de sinalizacao": {
+      "contract": "2459",
+      "service": "Fornecimento e implantação de suporte polimérico ecológico maciço quadrado de 8 cm para placa de sinalização",
+      "itemId": "2459|105",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2459|pintura de faixa tinta base acrilica emulsionada em agua espessura de 0 4 mm": {
+      "contract": "2459",
+      "service": "Pintura de faixa - tinta base acrílica emulsionada em água - espessura de 0,4 mm",
+      "itemId": "2459|89",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2459|pintura de faixa tinta base acrilica emulsionada em agua espessura de 0 5 mm": {
+      "contract": "2459",
+      "service": "Pintura de faixa - tinta base acrílica emulsionada em água - espessura de 0,5 mm",
+      "itemId": "2459|88",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2459|pintura de setas e zebrados tinta base acrilica espessura de 0 6 mm": {
+      "contract": "2459",
+      "service": "Pintura de setas e zebrados - tinta base acrílica - espessura de 0,6 mm",
+      "itemId": "2459|91",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2459|tacha refletiva metalica com um pino bidirecional refletivo tipo iii fornecimento e colocacao": {
+      "contract": "2459",
+      "service": "Tacha refletiva metálica com um pino - bidirecional -  refletivo tipo III - fornecimento e colocação",
+      "itemId": "2459|93",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2459|terminal absorvedor de energia certificado segundo a abnt nbr 15 486 2016 especificado conforme nchrp 350 nivel de ensaio 2 70 km h ou en 1317 niv": {
+      "contract": "2459",
+      "service": "Terminal absorvedor de energia, certificado segundo a ABNT NBR 15.486:2016, especificado conforme NCHRP 350 nível de ensaio 2 (70 km/h) ou EN 1317 nív",
+      "itemId": "2459|Terminal absorvedor de energia, certificado segundo a ABNT NBR 15.486:2016, especificado conforme NCHRP 350 nível de ensaio 2 (70 km/h) ou EN 1317 nív",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2460|administracao local demonstrar analiticamente toda a equipe e sua permanencia": {
+      "contract": "2460",
+      "service": "Administracao local (Demonstrar analíticamente toda a equipe e sua permanência)",
+      "itemId": "2460|282",
+      "unit": "mês",
+      "observation": "Registro da aba Executado"
+    },
+    "2460|canteiro de obras": {
+      "contract": "2460",
+      "service": "Canteiro de obras",
+      "itemId": "2460|283",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2460|fornecimento e implantacao de placa em aco pelicula iii si sinal impresso digital c overlay br legal 02": {
+      "contract": "2460",
+      "service": "Fornecimento e implantação de placa em aço - película III + SI (Sinal Impresso Digital c/ Overlay) (BR Legal 02)",
+      "itemId": "2460|256",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2460|fornecimento e implantacao de placa em aluminio composto espessura de 3 0 mm pelicula retrorrefletiva tipo iii si sinal impresso digital c ove": {
+      "contract": "2460",
+      "service": "Fornecimento e implantação de placa em alumínio composto, espessura de 3,0 mm. - película retrorrefletiva tipo III + SI (Sinal Impresso Digital c/ Ove",
+      "itemId": "2460|257",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2460|manutencao do canteiro e alojamento": {
+      "contract": "2460",
+      "service": "Manutenção do Canteiro e Alojamento",
+      "itemId": "2460|282",
+      "unit": "mês",
+      "observation": "Registro da aba Executado"
+    },
+    "2460|manutencao recomposicao de sinalizacao pintura de faixa com tinta acrilica emulsionada em agua espessura de 0 5 mm": {
+      "contract": "2460",
+      "service": "Manutenção/recomposição de sinalização - pintura de faixa com tinta acrílica emulsionada em água - espessura de 0,5 mm",
+      "itemId": "2460|245",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2460|remocao de tacha": {
+      "contract": "2460",
+      "service": "Remoção de tacha",
+      "itemId": "2460|249",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2460|suporte polimerico ecologico macico colapsivel quadrado de 8 cm para placa de sinalizacao fornecimento e implantacao": {
+      "contract": "2460",
+      "service": "Suporte polimérico ecológico maciço colapsível quadrado de 8 cm para placa de sinalização - fornecimento e implantação",
+      "itemId": "2460|259",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2460|tacha refletiva em plastico injetado bidirecional tipo ii com um pino fornecimento e colocacao": {
+      "contract": "2460",
+      "service": "Tacha refletiva em plástico injetado - bidirecional tipo II - com um pino - fornecimento e colocação",
+      "itemId": "2460|217",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2463|administracao local manutencao do canteiro de obras": {
+      "contract": "2463",
+      "service": "Administração Local / Manutenção do Canteiro de obras",
+      "itemId": "2463|291",
+      "unit": "%",
+      "observation": "Registro da aba Executado"
+    },
+    "2463|capina manual": {
+      "contract": "2463",
+      "service": "Capina manual",
+      "itemId": "2463|350",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2463|cone plastico para canalizacao de transito 75 cm nbr 15071 flexivel 2 faixas refletivas tipo iii nbr 14644 utilizacao de 150 ciclos fornecim": {
+      "contract": "2463",
+      "service": "Cone plástico para canalização de trânsito 75 cm (NBR 15071) flexível - 2 faixas refletivas tipo III (NBR 14644) - utilização de 150 ciclos - fornecim",
+      "itemId": "2463|371",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2463|dispositivo de contencao longitudinal certificado segundo a abnt nbr 15486 2016 tipo h1 a w2 defensa metalica fornecimento e implantacao": {
+      "contract": "2463",
+      "service": "Dispositivo de contenção longitudinal, certificado segundo a ABNT NBR 15486:2016, tipo (H1 A W2) - Defensa Metálica - Fornecimento e Implantação",
+      "itemId": "2463|321",
+      "unit": "m",
+      "observation": "Registro da aba Executado"
+    },
+    "2463|limpeza de placa de sinalizacao": {
+      "contract": "2463",
+      "service": "Limpeza de placa de sinalização",
+      "itemId": "2463|342",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2463|manutencao recomposicao de sinalizacao pintura de faixa com tinta acrilica emulsionada em agua espessura de 0 5 mm": {
+      "contract": "2463",
+      "service": "Manutenção/recomposição de sinalização - pintura de faixa com tinta acrílica emulsionada em água - espessura de 0,5 mm",
+      "itemId": "2463|326",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2463|manutencao recomposicao pintura de faixa plastico a frio tricomponente a base de resinas metacrilicas espessura de 0 6 mm aspersao": {
+      "contract": "2463",
+      "service": "Manutenção/recomposição - pintura de faixa - plástico a frio tricomponente à base de resinas metacrílicas - espessura de 0,6 mm - aspersão",
+      "itemId": "2463|329",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2463|operacao de sinalizacao por bandeirola de tecido ou com placa metalica": {
+      "contract": "2463",
+      "service": "Operação de sinalização por bandeirola de tecido ou com placa metálica",
+      "itemId": "2463|369",
+      "unit": "h",
+      "observation": "Registro da aba Executado"
+    },
+    "2463|pintura de faixa plastico a frio tipo i espessura de 0 6 mm aspersao": {
+      "contract": "2463",
+      "service": "Pintura de faixa - plástico a frio tipo I - espessura de 0,6 mm - aspersão?",
+      "itemId": "2463|302",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2463|remocao de tachas e tachoes": {
+      "contract": "2463",
+      "service": "Remoção de tachas e tachões",
+      "itemId": "2463|332",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2463|tacha refletiva bidirecional tipo iii fornecimento e colocacao": {
+      "contract": "2463",
+      "service": "Tacha refletiva - bidirecional tipo III - fornecimento e colocação",
+      "itemId": "2463|334",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|colocacao de placa em suporte de madeira ou metalico solo": {
+      "contract": "2465",
+      "service": "Colocação de Placa em Suporte de Madeira ou Metálico - Solo",
+      "itemId": "2465|398",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|equipe para servicos de conservacao": {
+      "contract": "2465",
+      "service": "Equipe para Serviços de Conservação",
+      "itemId": "2465|383",
+      "unit": "equip/dia",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|forn transp inst defensa metalica h1aw4 simples preco 2 tam": {
+      "contract": "2465",
+      "service": "Forn. Transp. Inst. Defensa Metálica H1AW4 Simples (Preço 2° TAM)",
+      "itemId": "2465|387",
+      "unit": "m",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|fornec instal balizador p barreira rigida c pelicula gt gt": {
+      "contract": "2465",
+      "service": "Fornec. Instal. Balizador P/ Barreira Rígida C/ Película GT+GT",
+      "itemId": "2465|404",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|fornec instal conj transicao de defensa metalica p barreira de concreto c lam tripla": {
+      "contract": "2465",
+      "service": "Fornec. Instal. Conj. Transição de Defensa Metálica P/ Barreira de Concreto C/ Lâm Tripla",
+      "itemId": "2465|406",
+      "unit": "conjunto",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|fornec instal delineador termoplastico p defensa metalica tipo iii pelicula ai": {
+      "contract": "2465",
+      "service": "Fornec. Instal. Delineador Termoplástico P/ Defensa Metálica Tipo III - Película AI",
+      "itemId": "2465|403",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|fornecimento e aplicacao de material termoplastico de altorelevo": {
+      "contract": "2465",
+      "service": "Fornecimento e Aplicação de Material Termoplástico de Altorelevo",
+      "itemId": "2465|395",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|fornecimento e transporte de placa de aco gt gt": {
+      "contract": "2465",
+      "service": "Fornecimento e Transporte de Placa de Aço GT+GT",
+      "itemId": "2465|399",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|fornecimento e transporte inst term absorv energia 100 km h simples": {
+      "contract": "2465",
+      "service": "Fornecimento e Transporte Inst.Term. Absorv. Energia 100 Km/h Simples.",
+      "itemId": "2465|389",
+      "unit": "conjunto",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|fornecimento e transporte inst term absorv energia 70 80 km h simples": {
+      "contract": "2465",
+      "service": "Fornecimento e Transporte Inst.Term. Absorv. Energia 70/80 Km/h Simples.",
+      "itemId": "2465|388",
+      "unit": "conjunto",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|oper e manutencao de canteiro tipo i 0 875": {
+      "contract": "2465",
+      "service": "Oper. e Manutenção de Canteiro Tipo I (0,875%)",
+      "itemId": "2465|379",
+      "unit": "global",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|remocao de tacha refletiva": {
+      "contract": "2465",
+      "service": "Remoção de Tacha Refletiva",
+      "itemId": "2465|400",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|renov material termoplastico aspersao": {
+      "contract": "2465",
+      "service": "Renov. Material Termoplástico Aspersão",
+      "itemId": "2465|393",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|retirada de placa de solo em suporte de madeira ou metalico": {
+      "contract": "2465",
+      "service": "Retirada de Placa de Solo em Suporte de Madeira ou Metálico",
+      "itemId": "2465|396",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|sinal horiz plast frio base de res metacrilica reativas disp estrutura": {
+      "contract": "2465",
+      "service": "Sinal. Horiz. Plast. Frio Base de Res. Metacrílica Reativas, Disp. Estrutura",
+      "itemId": "2465|408",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|sinalizacao horizontal acrilica a base de agua": {
+      "contract": "2465",
+      "service": "Sinalização Horizontal Acrílica a Base de Agua",
+      "itemId": "2465|392",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|sinalizacao horizontal acrilica amarela a base de epoxi emulsionada em agua": {
+      "contract": "2465",
+      "service": "Sinalização Horizontal Acrílica Amarela a Base de Epóxi emulsionada em Agua",
+      "itemId": "2465|407",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|sinalizacao horizontal acrilica branca a base de epoxi emulsionada em agua": {
+      "contract": "2465",
+      "service": "Sinalização Horizontal Acrílica Branca a Base de Epoxi Emulsionada em Agua",
+      "itemId": "2465|401",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|substituicao de defensa semi maleavel": {
+      "contract": "2465",
+      "service": "Substituição de Defensa Semi-Maleável",
+      "itemId": "2465|386",
+      "unit": "m",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|suporte de perfil metalico galvanizado": {
+      "contract": "2465",
+      "service": "Suporte de Perfil Metálico Galvanizado",
+      "itemId": "2465|385",
+      "unit": "kg",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|suporte de placa de solo ecologico e colapsivel 100x100mm": {
+      "contract": "2465",
+      "service": "Suporte de Placa de Solo Ecológico e Colapsível 100x100mm",
+      "itemId": "2465|409",
+      "unit": "m",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|suporte madeira tratada 0 10 x 0 10 m": {
+      "contract": "2465",
+      "service": "Suporte Madeira Tratada 0,10 x 0,10 m",
+      "itemId": "2465|384",
+      "unit": "m",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|tacha refletiva bidirecional tipo iii ou iv abnt vidro ou prismatica": {
+      "contract": "2465",
+      "service": "Tacha Refletiva Bidirecional Tipo III ou IV ABNT (Vidro ou Prismática)",
+      "itemId": "2465|391",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|tacha refletiva monodirecional tipo iii ou iv abnt vidro ou prismatica": {
+      "contract": "2465",
+      "service": "Tacha Refletiva Monodirecional Tipo III ou IV ABNT (Vidro ou Prismática)",
+      "itemId": "2465|390",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|veiculo c capacidade p 4 pessoas 1 600cc cond e": {
+      "contract": "2465",
+      "service": "Veículo C/ Capacidade P/4 Pessoas 1.600CC Cond. E",
+      "itemId": "2465|414",
+      "unit": "km",
+      "observation": "Registro da aba Executado"
+    },
+    "2465|veiculo c capacidade p 4 pessoas 1 600cc cond f": {
+      "contract": "2465",
+      "service": "Veículo C/ Capacidade P/4 Pessoas 1.600CC Cond. F",
+      "itemId": "2465|415",
+      "unit": "veic.mens",
+      "observation": "Registro da aba Executado"
+    },
+    "2468|acrilica automatica": {
+      "contract": "2468",
+      "service": "Acrílica  Automática",
+      "itemId": "2468|417",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2468|acrilica manual": {
+      "contract": "2468",
+      "service": "Acrílica  Manual",
+      "itemId": "2468|418",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2468|fornecimento e implantacao de cilindro delimitador tipo ii": {
+      "contract": "2468",
+      "service": "Fornecimento e implantação de cilindro delimitador Tipo II",
+      "itemId": "2468|433",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2468|laminado elastoplastico retrorre etivo e 1 50mm": {
+      "contract": "2468",
+      "service": "Laminado Elastoplástico Retrorre?etivo e= 1,50mm",
+      "itemId": "2468|422",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2468|plastico a frio base de resinas metacrilicas reativas spray bicomponente": {
+      "contract": "2468",
+      "service": "Plástico a frio base de resinas metacrílicas reativas  spray (Bicomponente)",
+      "itemId": "2468|420",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2468|remocao de tachoes": {
+      "contract": "2468",
+      "service": "Remoção de Tachões",
+      "itemId": "2468|425",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2468|remocao sinalizacao horizontal": {
+      "contract": "2468",
+      "service": "Remoção Sinalização Horizontal",
+      "itemId": "2468|423",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2468|tachas bidirecionais material e implantacao": {
+      "contract": "2468",
+      "service": "Tachas Bidirecionais/material e implantação",
+      "itemId": "2468|428",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2468|tachas monodirecionais material e implantacao": {
+      "contract": "2468",
+      "service": "Tachas Monodirecionais/material e implantação",
+      "itemId": "2468|427",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2468|tachoes bidirecionais material e implantacao": {
+      "contract": "2468",
+      "service": "Tachões Bidirecionais/material e implantação",
+      "itemId": "2468|430",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2468|tachoes monodirecionais material e implantacao": {
+      "contract": "2468",
+      "service": "Tachões Monodirecionais/material e implantação",
+      "itemId": "2468|429",
+      "unit": "un",
+      "observation": "Registro da aba Executado"
+    },
+    "2468|termoplastico extrudado e 3 00mm": {
+      "contract": "2468",
+      "service": "Termoplástico ? Extrudado e= 3,00mm",
+      "itemId": "2468|419",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2468|termoplastico hot spray e 1 50mm": {
+      "contract": "2468",
+      "service": "Termoplástico - Hot Spray e= 1,50mm",
+      "itemId": "2468|421",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2470|sin horizontal implantacao de tacha bidirecional tipo i diurno": {
+      "contract": "2470",
+      "service": "Sin. horizontal  - Implantação de tacha bidirecional tipo I (Diurno)",
+      "itemId": "2470|450",
+      "unit": "Unid.",
+      "observation": "Registro da aba Executado"
+    },
+    "2470|sin horizontal implantacao de tacha bidirecional tipo i noturna": {
+      "contract": "2470",
+      "service": "Sin. horizontal  - Implantação de tacha bidirecional tipo I (Noturna)",
+      "itemId": "2470|451",
+      "unit": "Unid.",
+      "observation": "Registro da aba Executado"
+    },
+    "2470|sin horizontal implantacao de tacha monodirecional tipo ii diurno": {
+      "contract": "2470",
+      "service": "Sin. horizontal  - Implantação de tacha monodirecional tipo II (Diurno)",
+      "itemId": "2470|448",
+      "unit": "Unid.",
+      "observation": "Registro da aba Executado"
+    },
+    "2470|sin horizontal implantacao de tacha monodirecional tipo ii noturna": {
+      "contract": "2470",
+      "service": "Sin. horizontal  - Implantação de tacha monodirecional tipo II (Noturna)",
+      "itemId": "2470|449",
+      "unit": "Unid.",
+      "observation": "Registro da aba Executado"
+    },
+    "2470|sin horizontal padrao der sp 3 16 manual provisoria diurno": {
+      "contract": "2470",
+      "service": "Sin. horizontal - Padrão DER-SP (3.16) - Manual (provisória) (Diurno)",
+      "itemId": "2470|440",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2470|sin horizontal padrao der sp emulsionada em agua manual definitiva diurno": {
+      "contract": "2470",
+      "service": "Sin. horizontal - Padrão DER-SP (emulsionada em água) -        Manual (definitiva) (Diurno)",
+      "itemId": "2470|442",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2470|sin horizontal padrao der sp emulsionada em agua manual definitiva noturna": {
+      "contract": "2470",
+      "service": "Sin. horizontal - Padrão DER-SP (emulsionada em água) -        Manual (definitiva) (Noturna)",
+      "itemId": "2470|443",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2470|sin horizontal padrao der sp emulsionada em agua mecanica definitiva diurno": {
+      "contract": "2470",
+      "service": "Sin. horizontal  - Padrão DER-SP (emulsionada em água) -   Mecânica (definitiva) (Diurno)",
+      "itemId": "2470|438",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2470|sin horizontal padrao der sp emulsionada em agua mecanica definitiva noturna": {
+      "contract": "2470",
+      "service": "Sin. horizontal  - Padrão DER-SP (emulsionada em água) -   Mecânica (definitiva) (Noturna)",
+      "itemId": "2470|439",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2470|sinalizacao horizontal extrudado diurno": {
+      "contract": "2470",
+      "service": "Sinalização horizontal - Extrudado (Diurno)",
+      "itemId": "2470|446",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2473|equipe por administracao pintura 1 diurno noturno seg a sex": {
+      "contract": "2473",
+      "service": "Equipe por Administração Pintura 1 - Diurno/Noturno - Seg. à Sex.",
+      "itemId": "2473|483",
+      "unit": "dia",
+      "observation": "Registro da aba Executado"
+    },
+    "2473|equipe por administracao pintura 2 diurno noturno seg a sex": {
+      "contract": "2473",
+      "service": "Equipe por Administração Pintura 2 - Diurno/Noturno - Seg. à Sex.",
+      "itemId": "2473|484",
+      "unit": "dia",
+      "observation": "Registro da aba Executado"
+    },
+    "2473|forn e impl de tachas bidirecionais corpo b plastico injetado refletivo tipo ii": {
+      "contract": "2473",
+      "service": "Forn e impl de tachas bidirecionais - Corpo B (plástico injetado) - Refletivo Tipo II",
+      "itemId": "2473|468",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2473|forn e impl de tachas bidirecionais corpo c metalico refletivo tipo ii": {
+      "contract": "2473",
+      "service": "Forn e impl de tachas bidirecionais -  Corpo C (metálico)  - Refletivo Tipo II",
+      "itemId": "2473|472",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2473|forn e impl de tachas monodirecionais corpo b plastico injetado refletivo tipo ii": {
+      "contract": "2473",
+      "service": "Forn e impl de tachas monodirecionais - Corpo B (plástico injetado) - Refletivo Tipo II",
+      "itemId": "2473|467",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2473|forn e impl de tachas monodirecionais corpo c metalico refletivo tipo ii": {
+      "contract": "2473",
+      "service": "Forn e impl de tachas monodirecionais - Corpo C (metálico) - Refletivo Tipo II",
+      "itemId": "2473|471",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2473|fornecimento e aplicacao de pintura manual tinta acrilica base agua com epoxi branca amarela epx": {
+      "contract": "2473",
+      "service": "Fornecimento e aplicação de pintura manual - Tinta acrílica base água com Epoxi-Branca/Amarela (EPX)",
+      "itemId": "2473|457",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2473|fornecimento e aplicacao de pintura manual tinta termoplastica processo de extrusao": {
+      "contract": "2473",
+      "service": "Fornecimento e aplicação de pintura manual - Tinta Termoplástica - processo de extrusão",
+      "itemId": "2473|491",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2473|fornecimento e aplicacao de pintura mecanica tinta acrilica base agua com epoxi branca amarela epx": {
+      "contract": "2473",
+      "service": "Fornecimento e aplicação de pintura mecânica - Tinta acrílica base água com Epoxi- Branca/Amarela (EPX)",
+      "itemId": "2473|455",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2473|remocao de tachas ou tachoes refletivos": {
+      "contract": "2473",
+      "service": "Remoção de tachas ou tachões refletivos",
+      "itemId": "2473|478",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2474|caminhao com carroceria fixa no toco capacidade de 7 5t inclusive motorista": {
+      "contract": "2474",
+      "service": "CAMINHAO  COM  CARROCERIA  FIXA,  NO  TOCO,  CAPACIDADE  DE  7,5T,INCLUSIVE MOTORISTA",
+      "itemId": "2474|CAMINHAO  COM  CARROCERIA  FIXA,  NO  TOCO,  CAPACIDADE  DE  7,5T,INCLUSIVE MOTORISTA",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2474|camioneta tipo pick up com cabine dupla diesel tracao 4x4 com sinalizador giroflex sirene radio incl motorista ci": {
+      "contract": "2474",
+      "service": "CAMIONETA  TIPO  \"PICK  UP\",  COM  CABINE  DUPLA,DIESEL,  TRAçãO  4X4, COM SINALIZADOR,GIROFLEX, SIRENE RADIO,INCL. MOTORISTA (CI)",
+      "itemId": "2474|CAMIONETA  TIPO  \"PICK  UP\",  COM  CABINE  DUPLA,DIESEL,  TRAçãO  4X4, COM SINALIZADOR,GIROFLEX, SIRENE RADIO,INCL. MOTORISTA (CI)",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2474|camioneta tipo pick up com cabine dupla diesel tracao 4x4 com sinalizador giroflex sirene radio incl motorista cp": {
+      "contract": "2474",
+      "service": "CAMIONETA  TIPO \"PICK UP\", COM  CABINE  DUPLA, DIESEL, TRAçãO  4X4, COM SINALIZADOR,GIROFLEX, SIRENE RADIO,INCL. MOTORISTA (CP)",
+      "itemId": "2474|CAMIONETA  TIPO \"PICK UP\", COM  CABINE  DUPLA, DIESEL, TRAçãO  4X4, COM SINALIZADOR,GIROFLEX, SIRENE RADIO,INCL. MOTORISTA (CP)",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2474|mao de obra de encarregado em servico de conservacao de estradas incl uniforme ferram sinaliz alimentacao e transporte": {
+      "contract": "2474",
+      "service": "MAO  DE  OBRA  DE  ENCARREGADO  EM  SERVICO  DE  CONSERVACAO  DE ESTRADAS,    INCL.   UNIFORME,   FERRAM.,    SINALIZ.,   ALIMENTACAO    E TRANSPORTE",
+      "itemId": "2474|MAO  DE  OBRA  DE  ENCARREGADO  EM  SERVICO  DE  CONSERVACAO  DE ESTRADAS,    INCL.   UNIFORME,   FERRAM.,    SINALIZ.,   ALIMENTACAO    E TRANSPORTE",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2474|mao de obra de engenheiro ou arquiteto senior inclusiveencargos sociais": {
+      "contract": "2474",
+      "service": "MAO-DE-OBRA   DE   ENGENHEIRO   OU   ARQUITETO   SENIOR,   INCLUSIVEENCARGOS SOCIAIS",
+      "itemId": "2474|MAO-DE-OBRA   DE   ENGENHEIRO   OU   ARQUITETO   SENIOR,   INCLUSIVEENCARGOS SOCIAIS",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2474|mao de obra de oficial pedreiro carpint pint jardin em serv conserv estr incl unifor ferram sinal aliment tr": {
+      "contract": "2474",
+      "service": "MAO  DE  OBRA  DE  OFICIAL  (PEDREIRO,  CARPINT.,  PINT.,  JARDIN.)  EM SERV.    CONSERV.ESTR.,    INCL.UNIFOR.,    FERRAM.,    SINAL.,    ALIMENT. TR",
+      "itemId": "2474|MAO  DE  OBRA  DE  OFICIAL  (PEDREIRO,  CARPINT.,  PINT.,  JARDIN.)  EM SERV.    CONSERV.ESTR.,    INCL.UNIFOR.,    FERRAM.,    SINAL.,    ALIMENT. TR",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2474|mao de obra de servente em serv de conservacao de estradas incl uniforme ferramenta sinalizacao alimentacao etransporte": {
+      "contract": "2474",
+      "service": "MAO DE OBRA DE SERVENTE EM SERV. DE CONSERVACAO DE ESTRADAS, INCL.    UNIFORME,     FERRAMENTA,     SINALIZACAO,     ALIMENTACAO     ETRANSPORTE",
+      "itemId": "2474|MAO DE OBRA DE SERVENTE EM SERV. DE CONSERVACAO DE ESTRADAS, INCL.    UNIFORME,     FERRAMENTA,     SINALIZACAO,     ALIMENTACAO     ETRANSPORTE",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2474|operador de transito inclusive leis sociais": {
+      "contract": "2474",
+      "service": "OPERADOR DE TRANSITO, INCLUSIVE LEIS SOCIAIS",
+      "itemId": "2474|OPERADOR DE TRANSITO, INCLUSIVE LEIS SOCIAIS",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2474|veiculo de passeio 5 passageiros 4 portas motor bicombustivel gasolina e alcool de 1 6 litros com": {
+      "contract": "2474",
+      "service": "VEICULO     DE     PASSEIO,     5     PASSAGEIROS,     4     PORTAS,     MOTOR BICOMBUSTIVEL    (GASOLINA    E   ALCOOL)    DE   1,6   LITROS,   COM",
+      "itemId": "2474|VEICULO     DE     PASSEIO,     5     PASSAGEIROS,     4     PORTAS,     MOTOR BICOMBUSTIVEL    (GASOLINA    E   ALCOOL)    DE   1,6   LITROS,   COM",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2474|veiculo de passeio 5 passageiros 4 portas motor bicombustivel gasolina e alcool de 1 6 litros com ar condicionado direcao hidraulica e vidros dia": {
+      "contract": "2474",
+      "service": "VEICULO DE PASSEIO,5 PASSAGEIROS,4  PORTAS,MOTOR  BICOMBUSTIVEL (GASOLINA E ALCOOL) DE 1,6 LITROS,COM AR CONDICIONADO, DIRECAO HIDRAULICA E VIDROS DIA",
+      "itemId": "2474|VEICULO DE PASSEIO,5 PASSAGEIROS,4  PORTAS,MOTOR  BICOMBUSTIVEL (GASOLINA E ALCOOL) DE 1,6 LITROS,COM AR CONDICIONADO, DIRECAO HIDRAULICA E VIDROS DIA",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2475|equipe por administracao pintura 1 diurno noturno sabado": {
+      "contract": "2475",
+      "service": "Equipe por Administração Pintura 1 - Diurno/Noturno - Sábado.",
+      "itemId": "2475|529",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2475|equipe por administracao pintura 2 diurno noturno sabado": {
+      "contract": "2475",
+      "service": "Equipe por Administração Pintura 2 - Diurno/Noturno - Sábado.",
+      "itemId": "2475|530",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2475|forn e impl de tachas monodirecionais corpo b plastico injetado refletivo tipo ii": {
+      "contract": "2475",
+      "service": "Forn e impl de tachas monodirecionais - Corpo B (plástico injetado) - Refletivo Tipo II",
+      "itemId": "2475|511",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2475|fornecimento de tinta a base d agua": {
+      "contract": "2475",
+      "service": "Fornecimento de tinta a base d´agua",
+      "itemId": "2475|533",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2475|fornecimento e aplicacao de pintura manual tinta acrilica base agua branca amarela": {
+      "contract": "2475",
+      "service": "Fornecimento e aplicação de pintura manual - Tinta acrílica base água-Branca/Amarela",
+      "itemId": "2475|500",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2475|fornecimento e aplicacao de pintura manual tinta acrilica base agua com epoxi branca amarela epx": {
+      "contract": "2475",
+      "service": "Fornecimento e aplicação de pintura manual - Tinta acrílica base água com Epoxi-Branca/Amarela (EPX)",
+      "itemId": "2475|501",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2475|fornecimento e aplicacao de pintura mecanica tinta acrilica base agua branca amarela": {
+      "contract": "2475",
+      "service": "Fornecimento e aplicação de pintura mecânica - Tinta acrílica base água-Branca/Amarela",
+      "itemId": "2475|497",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2475|fornecimento e aplicacao de pintura mecanica tinta acrilica base agua com epoxi branca amarela epx": {
+      "contract": "2475",
+      "service": "Fornecimento e aplicação de pintura mecânica - Tinta acrílica base água com Epoxi- Branca/Amarela (EPX)",
+      "itemId": "2475|499",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2475|remocao de demarcacao por microfresagem": {
+      "contract": "2475",
+      "service": "Remoção de demarcação por microfresagem",
+      "itemId": "2475|523",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2475|remocao de tachas ou tachoes refletivos": {
+      "contract": "2475",
+      "service": "Remoção de tachas ou tachões refletivos",
+      "itemId": "2475|522",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2476|fornecimento e implantacao de tachas monodirecionais": {
+      "contract": "2476",
+      "service": "Fornecimento e implantação de tachas monodirecionais",
+      "itemId": "2476|540",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2476|sinalizacao horizontal manual acrilica agua definitiva": {
+      "contract": "2476",
+      "service": "Sinalização horizontal manual acrilica agua (DEFINITIVA)",
+      "itemId": "2476|545",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2476|sinalizacao horizontal mecanica acrilica agua provisoria": {
+      "contract": "2476",
+      "service": "Sinalização horizontal mecanica acrilica agua (PROVISÓRIA)",
+      "itemId": "2476|548",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2478|assentamento de coluna de aco conica continua tipo i para ate 4 quatro bracos projetados capazes de sustentar cada um semaforo e placa de 3m2 tres metros quadrados fixada por chumbadores engastados em fundacao de concreto exclusive fundacao exclusive fornecimento da coluna": {
+      "contract": "2478",
+      "service": "ASSENTAMENTO DE COLUNA DE AÇO CÔNICA CONTÍNUA TIPO I PARA ATE 4 (QUATRO) BRACOS PROJETADOS CAPAZES DE SUSTENTAR, CADA UM, SEMÁFORO E PLACA DE 3M2 (TRÊS METROS QUADRADOS) FIXADA POR CHUMBADORES ENGASTADOS EM FUNDAÇÃO DE CONCRETO, EXCLUSIVE FUNDAÇÃO, EXCLUSIVE FORNECIMENTO DA COLUNA.",
+      "itemId": "2478|ASSENTAMENTO DE COLUNA DE AÇO CÔNICA CONTÍNUA TIPO I PARA ATE 4 (QUATRO) BRACOS PROJETADOS CAPAZES DE SUSTENTAR, CADA UM, SEMÁFORO E PLACA DE 3M2 (TRÊS METROS QUADRADOS) FIXADA POR CHUMBADORES ENGASTADOS EM FUNDAÇÃO DE CONCRETO, EXCLUSIVE FUNDAÇÃO, EXCLUSIVE FORNECIMENTO DA COLUNA.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2478|bloco semaforico para pedestre com 2 dois modulos focais de 200mm a led compreendendo foco verde siga boneco e foco vermelho pare mao espalmada com borrachas de vedacao e suportes de fixacao conforme especificacao da cet rio fornecimento": {
+      "contract": "2478",
+      "service": "BLOCO SEMAFÓRICO PARA PEDESTRE COM 2 (DOIS) MÓDULOS FOCAIS DE 200MM A LED, COMPREENDENDO FOCO VERDE \"SIGA\" (BONECO) E FOCO VERMELHO \"PARE\" (MÃO ESPALMADA) COM BORRACHAS DE VEDAÇÃO E SUPORTES DE FIXAÇÃO, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO.",
+      "itemId": "2478|BLOCO SEMAFÓRICO PARA PEDESTRE COM 2 (DOIS) MÓDULOS FOCAIS DE 200MM A LED, COMPREENDENDO FOCO VERDE \"SIGA\" (BONECO) E FOCO VERMELHO \"PARE\" (MÃO ESPALMADA) COM BORRACHAS DE VEDAÇÃO E SUPORTES DE FIXAÇÃO, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2478|bloco semaforico repetidor com 3 tres modulos focais de 200mm de diametro a led cobre focos anteparo borrachas de vedacao e suportes de fixacao conforme especificacao da cet rio fornecimento": {
+      "contract": "2478",
+      "service": "BLOCO SEMAFÓRICO REPETIDOR COM 3 (TRÊS) MÓDULOS FOCAIS DE 200MM DE DIÂMETRO A LED, COBRE-FOCOS, ANTEPARO, BORRACHAS DE VEDAÇÃO E SUPORTES DE FIXAÇÃO, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO.",
+      "itemId": "2478|BLOCO SEMAFÓRICO REPETIDOR COM 3 (TRÊS) MÓDULOS FOCAIS DE 200MM DE DIÂMETRO A LED, COBRE-FOCOS, ANTEPARO, BORRACHAS DE VEDAÇÃO E SUPORTES DE FIXAÇÃO, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2478|braco projetado de aco para sustentacao de semaforo e placa ate 3m2 tres metros quadrados galvanizado a fogo para fixacao em coluna conico continua tipo i projecao de 3 70m tres metros e setenta centimetros diametro junto a flange de 123mm cento e vinte e tres milimetros conforme especifi": {
+      "contract": "2478",
+      "service": "BRAÇO PROJETADO DE AÇO PARA SUSTENTAÇÃO DE SEMÁFORO E PLACA ATÉ 3M2 (TRÊS METROS QUADRADOS), GALVANIZADO A FOGO; PARA FIXAÇÃO EM COLUNA CÔNICO CONTÍNUA TIPO I, PROJEÇÃO DE 3,70M (TRÊS METROS E SETENTA CENTÍMETROS); DIÂMETRO JUNTO A FLANGE DE 123MM (CENTO E VINTE E TRÊS MILÍMETROS); CONFORME ESPECIFI",
+      "itemId": "2478|BRAÇO PROJETADO DE AÇO PARA SUSTENTAÇÃO DE SEMÁFORO E PLACA ATÉ 3M2 (TRÊS METROS QUADRADOS), GALVANIZADO A FOGO; PARA FIXAÇÃO EM COLUNA CÔNICO CONTÍNUA TIPO I, PROJEÇÃO DE 3,70M (TRÊS METROS E SETENTA CENTÍMETROS); DIÂMETRO JUNTO A FLANGE DE 123MM (CENTO E VINTE E TRÊS MILÍMETROS); CONFORME ESPECIFI",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2478|braco projetado de aco para sustentacao de semaforo e placa ate 3m2 tres metros quadrados galvanizado a fogo para fixacao em coluna conico continua tipo i projecao de 4 70m quatro metros e setenta centimetros diametro junto a flange de 123mm cento e vinte e tres milimetros conforme especi": {
+      "contract": "2478",
+      "service": "BRAÇO PROJETADO DE AÇO PARA SUSTENTAÇÃO DE SEMÁFORO E PLACA ATÉ 3M2 (TRÊS METROS QUADRADOS), GALVANIZADO A FOGO; PARA FIXAÇÃO EM COLUNA CÔNICO CONTÍNUA TIPO I, PROJEÇÃO DE 4,70M (QUATRO METROS E SETENTA CENTÍMETROS); DIÂMETRO JUNTO A FLANGE DE 123MM (CENTO E VINTE E TRÊS MILÍMETROS); CONFORME ESPECI",
+      "itemId": "2478|BRAÇO PROJETADO DE AÇO PARA SUSTENTAÇÃO DE SEMÁFORO E PLACA ATÉ 3M2 (TRÊS METROS QUADRADOS), GALVANIZADO A FOGO; PARA FIXAÇÃO EM COLUNA CÔNICO CONTÍNUA TIPO I, PROJEÇÃO DE 4,70M (QUATRO METROS E SETENTA CENTÍMETROS); DIÂMETRO JUNTO A FLANGE DE 123MM (CENTO E VINTE E TRÊS MILÍMETROS); CONFORME ESPECI",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2478|cabo de cobre flexivel 750v secao de 2x1 5mm2 pvc 70oc fornecimento": {
+      "contract": "2478",
+      "service": "CABO DE COBRE FLEXÍVEL, 750V, SEÇÃO DE 2X1,5MM2, PVC/ 70OC. FORNECIMENTO.",
+      "itemId": "2478|CABO DE COBRE FLEXÍVEL, 750V, SEÇÃO DE 2X1,5MM2, PVC/ 70OC. FORNECIMENTO.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2478|cabo de cobre flexivel 750v secao de 2x10mm2 pvc 70oc fornecimento": {
+      "contract": "2478",
+      "service": "CABO DE COBRE FLEXÍVEL, 750V, SEÇÃO DE 2X10MM2, PVC/ 70OC. FORNECIMENTO.",
+      "itemId": "2478|CABO DE COBRE FLEXÍVEL, 750V, SEÇÃO DE 2X10MM2, PVC/ 70OC. FORNECIMENTO.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2478|cabo para alimentacao de semaforo secao de 4x1 5mm2 conforme especificacao da cet rio fornecimento e instalacao": {
+      "contract": "2478",
+      "service": "CABO PARA ALIMENTAÇÃO DE SEMÁFORO, SEÇÃO DE 4X1,5MM2, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO E INSTALAÇÃO.",
+      "itemId": "2478|CABO PARA ALIMENTAÇÃO DE SEMÁFORO, SEÇÃO DE 4X1,5MM2, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO E INSTALAÇÃO.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2478|cabo para alimentacao de semaforo secao de 7x1 5mm2 conforme especificacao da cet rio fornecimento e instalacao": {
+      "contract": "2478",
+      "service": "CABO PARA ALIMENTAÇÃO DE SEMÁFORO, SEÇÃO DE 7X1,5MM2, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO E INSTALACAO.",
+      "itemId": "2478|CABO PARA ALIMENTAÇÃO DE SEMÁFORO, SEÇÃO DE 7X1,5MM2, CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO E INSTALACAO.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2478|coluna de aco conica continua tipo i para ate 4 quatro bracos projetados capazes de sustentar cada um semaforo e placa de 3m2 tres metros quadrados coluna galvanizada a fogo altura util total de 5 00m cinco metros diametro na base igual a 187mm cento e oitenta e sete milimetros confor": {
+      "contract": "2478",
+      "service": "COLUNA DE AÇO, CÔNICA CONTÍNUA TIPO I PARA ATE 4 (QUATRO) BRAÇOS PROJETADOS CAPAZES DE SUSTENTAR, CADA UM, SEMÁFORO E PLACA DE 3M2 (TRÊS METROS QUADRADOS); COLUNA GALVANIZADA A FOGO; ALTURA ÚTIL TOTAL DE 5,00M (CINCO METROS); DIÂMETRO NA BASE IGUAL A 187MM (CENTO E OITENTA E SETE MILÍMETROS); CONFOR",
+      "itemId": "2478|COLUNA DE AÇO, CÔNICA CONTÍNUA TIPO I PARA ATE 4 (QUATRO) BRAÇOS PROJETADOS CAPAZES DE SUSTENTAR, CADA UM, SEMÁFORO E PLACA DE 3M2 (TRÊS METROS QUADRADOS); COLUNA GALVANIZADA A FOGO; ALTURA ÚTIL TOTAL DE 5,00M (CINCO METROS); DIÂMETRO NA BASE IGUAL A 187MM (CENTO E OITENTA E SETE MILÍMETROS); CONFOR",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2478|controlador eletronico semaforico de trafego de 4 fases": {
+      "contract": "2478",
+      "service": "CONTROLADOR ELETRÔNICO SEMAFÓRICO DE TRÁFEGO DE 4 FASES.",
+      "itemId": "2478|CONTROLADOR ELETRÔNICO SEMAFÓRICO DE TRÁFEGO DE 4 FASES.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2478|instalacao e teste de funcionamento de botoeira": {
+      "contract": "2478",
+      "service": "INSTALAÇÃO E TESTE DE FUNCIONAMENTO DE BOTOEIRA.",
+      "itemId": "2478|INSTALAÇÃO E TESTE DE FUNCIONAMENTO DE BOTOEIRA.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2478|linha de duto espiral flexivel em polietileno de alta densidade tipo kanalex ou similar diametro de 50mm 2 lancado diretamente ao solo com com arame guia galvanizado revestido em pvc inclusive emendas e tamponamento exclusive escavacao e reaterro": {
+      "contract": "2478",
+      "service": "LINHA DE DUTO ESPIRAL FLEXÍVEL EM POLIETILENO DE ALTA DENSIDADE, TIPO KANALEX OU SIMILAR, DIÂMETRO DE 50MM (2\" ), LANÇADO DIRETAMENTE AO SOLO COM COM ARAME-GUIA GALVANIZADO REVESTIDO EM PVC, INCLUSIVE EMENDAS E TAMPONAMENTO, EXCLUSIVE ESCAVAÇÃO E REATERRO.",
+      "itemId": "2478|LINHA DE DUTO ESPIRAL FLEXÍVEL EM POLIETILENO DE ALTA DENSIDADE, TIPO KANALEX OU SIMILAR, DIÂMETRO DE 50MM (2\" ), LANÇADO DIRETAMENTE AO SOLO COM COM ARAME-GUIA GALVANIZADO REVESTIDO EM PVC, INCLUSIVE EMENDAS E TAMPONAMENTO, EXCLUSIVE ESCAVAÇÃO E REATERRO.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2478|poste tipo s5 simples de 4 de diametro conforme especificacao da cet rio fornecimento": {
+      "contract": "2478",
+      "service": "POSTE TIPO S5, SIMPLES, DE 4\" DE DIÂMETRO. CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO.",
+      "itemId": "2478|POSTE TIPO S5, SIMPLES, DE 4\" DE DIÂMETRO. CONFORME ESPECIFICAÇÃO DA CET-RIO. FORNECIMENTO.",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2479|aplicacao de tinta bicomponente plastico a frio com fornecimento dos materiais 05 020 0020 9": {
+      "contract": "2479",
+      "service": "APLICAÇÃO DE TINTA BICOMPONENTE (PLÁSTICO A FRIO), COM FORNECIMENTO DOS MATERIAIS 05.020.0020-9",
+      "itemId": "2479|569",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2479|caminhao com carroceria fixa no toco capacidade de 7 5t inclusive motorista 19 004 0004 2": {
+      "contract": "2479",
+      "service": "CAMINHAO COM CARROCERIA FIXA,NO TOCO,CAPACIDADE DE 7,5T,INCLUSIVE MOTORISTA 19.004.0004-2",
+      "itemId": "2479|551",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2479|caminhao com carroceria fixa no toco capacidade de 7 5t inclusive motorista 19 004 0004 4": {
+      "contract": "2479",
+      "service": "CAMINHAO COM CARROCERIA FIXA,NO TOCO,CAPACIDADE DE 7,5T,INCLUSIVE MOTORISTA 19.004.0004-4",
+      "itemId": "2479|552",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2479|camioneta tipo pick up com cabine dupla e cacamba motor diesel de 2 8 litros direcao hidraulica tracao nas 4 rodas inclusive motorista e combustivel 19 004 0412 0": {
+      "contract": "2479",
+      "service": "CAMIONETA TIPO PICK-UP COM CABINE DUPLA E CACAMBA,MOTOR DIESEL DE 2,8 LITROS,DIRECAO HIDRAULICA,TRACAO NAS 4 RODAS,INCLUSIVE MOTORISTA E COMBUSTIVEL 19.004.0412-0",
+      "itemId": "2479|553",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2479|defensa metalica modelo semi maleavel simples galvanizada constituida de guia deslizante espacador calco plaqueta acessorios de aperto e poste com comprimento de 1 80m fornecimento 20 041 0002 0": {
+      "contract": "2479",
+      "service": "DEFENSA METALICA,MODELO SEMI-MALEAVEL SIMPLES, GALVANIZADA, CONSTITUIDA DE GUIA DESLIZANTE, ESPACADOR, CALCO, PLAQUETA, ACESSORIOS DE APERTO E POSTE COM COMPRIMENTO DE 1,80M .FORNECIMENTO 20.041.0002-0",
+      "itemId": "2479|566",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2479|defensa metalica modelo semi maleavel simples galvanizada constituida de guia deslizante espacador calco plaqueta acessorios de aperto e poste cravado por meio de compressao o comp 20 040 0002 0": {
+      "contract": "2479",
+      "service": "DEFENSA METALICA,MODELO SEMI-MALEAVEL SIMPLES,GALVANIZADA, CONSTITUIDA DE GUIA DESLIZANTE, ESPACADOR, CALCO, PLAQUETA, ACESSORIOS DE APERTO E POSTE CRAVADO POR MEIO DE COMPRESSAO. O COMP 20.040.0002-0",
+      "itemId": "2479|567",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2479|mao de obra de ajudante inclusive encargos sociais 05 105 0115 0": {
+      "contract": "2479",
+      "service": "MAO-DE-OBRA DE AJUDANTE,INCLUSIVE ENCARGOS SOCIAIS 05.105.0115-0",
+      "itemId": "2479|560",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2479|mao de obra de encarregado de obra inclusive encargos sociais 05 105 0127 0": {
+      "contract": "2479",
+      "service": "MAO-DE-OBRA DE ENCARREGADO DE OBRA,INCLUSIVE ENCARGOS SOCIAIS 05.105.0127-0",
+      "itemId": "2479|559",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2479|mao de obra de engenheiro ou arquiteto senior inclusive encargos sociais 05 105 0131 0": {
+      "contract": "2479",
+      "service": "MAO-DE-OBRA DE ENGENHEIRO OU ARQUITETO SENIOR,INCLUSIVE ENCARGOS SOCIAIS 05.105.0131-0",
+      "itemId": "2479|558",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2479|operador de transito inclusive leis sociais 05 105 0511 9": {
+      "contract": "2479",
+      "service": "OPERADOR DE TRANSITO, INCLUSIVE LEIS SOCIAIS 05.105.0511-9",
+      "itemId": "2479|561",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2479|tacha refletiva injetada em abs bidirecional medindo 100x100x19 5mm pino de aco para maior fixacao no pavimento e seus refletores poderao conter 23 ou 24 esferas de vidro lapidad 05 021 0095 0": {
+      "contract": "2479",
+      "service": "TACHA REFLETIVA INJETADA EM \"ABS\",BIDIRECIONAL,MEDINDO 100X100X19,5MM,PINO DE ACO PARA MAIOR FIXACAO NO PAVIMENTO E SEUS REFLETORES PODERAO CONTER:23 OU 24 ESFERAS DE VIDRO LAPIDAD 05.021.0095-0",
+      "itemId": "2479|565",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2479|tacha refletiva injetada em abs monodirecional medindo 100x100x19 5mm pino de aco para maior fixacao no pavimento e seus refletores poderao conter 23 ou 24 esferas de vidro lapid 05 021 0090 0": {
+      "contract": "2479",
+      "service": "TACHA REFLETIVA INJETADA EM \"ABS\",MONODIRECIONAL,MEDINDO 100X100X19,5MM,PINO DE ACO PARA MAIOR FIXACAO NO PAVIMENTO E SEUS REFLETORES PODERAO CONTER:23 OU 24 ESFERAS DE VIDRO LAPID 05.021.0090-0",
+      "itemId": "2479|564",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2479|veiculo de passeio 5 passageiros 4 portas motor bicombustivel gasolina e alcool de 1 6 litros com ar condicionado direcao hidraulica e vidros dianteiros eletricos inclusive motori 19 004 0040 2": {
+      "contract": "2479",
+      "service": "VEICULO DE PASSEIO,5 PASSAGEIROS,4 PORTAS,MOTOR BICOMBUSTIVEL (GASOLINA E ALCOOL)DE 1,6 LITROS,COM AR CONDICIONADO,DIRECAO HIDRAULICA E VIDROS DIANTEIROS ELETRICOS,INCLUSIVE MOTORI 19.004.0040-2",
+      "itemId": "2479|554",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2479|veiculo de passeio 5 passageiros 4 portas motor bicombustivel gasolina e alcool de 1 6 litros com ar condicionado direcao hidraulica e vidros dianteiros eletricos inclusive motori 19 004 0040 3": {
+      "contract": "2479",
+      "service": "VEICULO DE PASSEIO,5 PASSAGEIROS,4 PORTAS,MOTOR BICOMBUSTIVEL (GASOLINA E ALCOOL)DE 1,6 LITROS,COM AR CONDICIONADO,DIRECAO HIDRAULICA E VIDROS DIANTEIROS ELETRICOS,INCLUSIVE MOTORI 19.004.0040-3",
+      "itemId": "2479|555",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|assentamento de coluna de aco conica continua tipo i para ate 4 quatro bracos projetados capazes de sustentar cada um semaforo e placa de 3m2 tres metros quadrados fixada por chumbadores engastados em fundacao de concreto exclusive fundacao exclusive fornecimento da coluna": {
+      "contract": "2480",
+      "service": "Assentamento de coluna de aco conica continua tipo I para ate 4 (quatro) bracos projetados capazes de sustentar, cada um, semaforo e placa de 3m2 (tres metros quadrados) fixada por chumbadores engastados em fundacao de concreto, exclusive fundacao, exclusive fornecimento da coluna.",
+      "itemId": "2480|646",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|assentamento de poste simples de aco diametro maior que 4 inclusive abertura de furo fundacao e recomposicao do piso": {
+      "contract": "2480",
+      "service": "Assentamento de poste simples de aço, diâmetro maior que 4\", inclusive abertura de furo, fundação e recomposição do piso.",
+      "itemId": "2480|644",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|bloco de concreto armado medindo 0 60 x 0 60 x 1 00 m para uma coluna de aco conica continua para instalacao de ate 4 bracos projetados para sinalizacao": {
+      "contract": "2480",
+      "service": "Bloco de concreto armado medindo (0,60 x 0,60 x 1,00)m para uma coluna de aco conica continua para instalacao de ate 4 bracos projetados para sinalizacao.",
+      "itemId": "2480|648",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|bloco semaforico para pedestre com 2 dois modulos focais de 200mm a led compreendendo foco verde siga boneco e foco vermelho pare mao espalmada com borrachas de vedacao e suportes de fixacao conforme especificacao da cet rio fornecimento": {
+      "contract": "2480",
+      "service": "Bloco semaforico para pedestre com 2 (dois) modulos focais de 200mm a led, compreendendo foco verde \"Siga\" (boneco) e foco vermelho \"Pare\" (mao espalmada) com borrachas de vedacao e suportes de fixacao, conforme especificacao da CET RIO. Fornecimento.",
+      "itemId": "2480|611",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|bloco semaforico principal com 3 tres modulos focais de 300mm de diametro a led cobre focos anteparo borrachas de vedacao e suportes de fixacao conforme especificacao da cet rio fornecimento": {
+      "contract": "2480",
+      "service": "Bloco semaforico principal com 3 (tres) modulos focais de 300mm de diametro a led, cobre-focos, anteparo, borrachas de vedacao e suportes de fixacao, conforme especificacao da CET RIO. Fornecimento.",
+      "itemId": "2480|609",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|bloco semaforico repetidor com 3 tres modulos focais de 200mm de diametro a led cobre focos anteparo borrachas de vedacao e suportes de fixacao conforme especificacao da cet rio fornecimento": {
+      "contract": "2480",
+      "service": "Bloco semaforico repetidor com 3 (tres) modulos focais de 200mm de diametro a led, cobre-focos, anteparo, borrachas de vedacao e suportes de fixacao, conforme especificacao da CET RIO. Fornecimento.",
+      "itemId": "2480|610",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|botao de comando tipo cogumelo para uso em botoeira fornecimento desonerado": {
+      "contract": "2480",
+      "service": "Botão de comando tipo cogumelo para uso em botoeira. Fornecimento. (desonerado)",
+      "itemId": "2480|669",
+      "unit": "pç",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|botoeira para travessia de pedestres conforme especificacao da cet rio fornecimento": {
+      "contract": "2480",
+      "service": "Botoeira para travessia de pedestres conforme especificacao da CET-RIO. Fornecimento.",
+      "itemId": "2480|612",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|braco projetado de aco para sustentacao de semaforo e placa ate 3m2 tres metros quadrados galvanizado a fogo para fixacao em coluna conico continua tipo i projecao de 3 70m tres metros e setenta centimetros diametro junto a flange de 123mm cento e vinte e tres milimetros conforme especifi": {
+      "contract": "2480",
+      "service": "Braco projetado de aco para sustentacao de semaforo e placa ate 3m2 (tres metros quadrados), galvanizado a fogo; para fixacao em coluna conico continua tipo I, projecao de 3,70m (tres metros e setenta centimetros); diametro junto a flange de 123mm (cento e vinte e tres milimetros); conforme especifi",
+      "itemId": "2480|641",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|braco projetado de aco para sustentacao de semaforo e placa ate 3m2 tres metros quadrados galvanizado a fogo para fixacao em coluna conico continua tipo i projecao de 4 70m quatro metros e setenta centimetros diametro junto a flange de 123mm cento e vinte e tres milimetros conforme especi": {
+      "contract": "2480",
+      "service": "Braco projetado de aco para sustentacao de semaforo e placa ate 3m2 (tres metros quadrados), galvanizado a fogo; para fixacao em coluna conico continua tipo I, projecao de 4,70m (quatro metros e setenta centimetros); diametro junto a flange de 123mm (cento e vinte e tres milimetros); conforme especi",
+      "itemId": "2480|642",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|cabo de cobre 750v secao de 2x6mm2 pvc 70oc fornecimento": {
+      "contract": "2480",
+      "service": "Cabo de cobre, 750V, secao de 2x6mm2, PVC/ 70oC. Fornecimento.",
+      "itemId": "2480|607",
+      "unit": "m",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|cabo de cobre flexivel 750v secao de 2x1 5mm2 pvc 70oc fornecimento": {
+      "contract": "2480",
+      "service": "Cabo de cobre flexivel, 750V, secao de 2x1,5mm2, PVC/ 70oC. Fornecimento.",
+      "itemId": "2480|608",
+      "unit": "m",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|cabo para alimentacao de semaforo secao de 4x1 5mm2 conforme especificacao da cet rio fornecimento e instalacao": {
+      "contract": "2480",
+      "service": "Cabo para alimentacao de semaforo, secao de 4x1,5mm2, conforme especificacao da CET-RIO. Fornecimento e instalacao.",
+      "itemId": "2480|621",
+      "unit": "m",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|cabo para alimentacao de semaforo secao de 7x1 5mm2 conforme especificacao da cet rio fornecimento e instalacao": {
+      "contract": "2480",
+      "service": "Cabo para alimentacao de semaforo, secao de 7x1,5mm2, conforme especificacao da CET-RIO. Fornecimento e instalacao.",
+      "itemId": "2480|622",
+      "unit": "m",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|caixa de passagem com tampa articulada de ferro com trava tipo leve 600l 600mm de altura conforme especificacao cet rio fornecimento e assentamento": {
+      "contract": "2480",
+      "service": "Caixa de passagem com tampa articulada de ferro, com trava, tipo leve 600L-600mm de altura, conforme especificacao CET- RIO. Fornecimento e assentamento.",
+      "itemId": "2480|628",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|caminhao carroceria fixa capacidade de 3 5t equipado com plataforma elevatoria pantografica hidraulica com motorista operador e um ajudante material de operacao e material de manutencao com as seguintes especificacoes minimas motor diesel de 85cv plataforma com elevacao de ate 8 5m custo hor": {
+      "contract": "2480",
+      "service": "Caminhao Carroceria fixa, capacidade de 3,5t, equipado com plataforma elevatoria pantografica hidraulica, com motorista operador e um ajudante, material de operacao e material de manutencao, com as seguintes especificacoes minimas: motor diesel de 85CV, plataforma com elevacao de ate 8,5m. Custo hor",
+      "itemId": "2480|604",
+      "unit": "h",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|cobre foco para uso em lente de 200 mm de diametro fornecimento desonerado": {
+      "contract": "2480",
+      "service": "Cobre-Foco para uso em lente de 200 mm de diâmetro. Fornecimento. (desonerado)",
+      "itemId": "2480|665",
+      "unit": "pç",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|cobre foco para uso em lente de 200 mm quadrada fornecimento desonerado": {
+      "contract": "2480",
+      "service": "Cobre-Foco para uso em lente de 200 mm quadrada. Fornecimento. (desonerado)",
+      "itemId": "2480|666",
+      "unit": "pç",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|cobre foco para uso em lente de 300 mm de diametro fornecimento desonerado": {
+      "contract": "2480",
+      "service": "Cobre-Foco para uso em lente de 300 mm de diâmetro. Fornecimento. (desonerado)",
+      "itemId": "2480|664",
+      "unit": "pç",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|coluna de aco conica continua tipo i para ate 4 quatro bracos projetados capazes de sustentar cada um semaforo e placa de 3m2 tres metros quadrados coluna galvanizada a fogo altura util total de 5 00m cinco metros diametro na base igual a 187mm cento e oitenta e sete milimetros confor": {
+      "contract": "2480",
+      "service": "Coluna de aco, conica continua tipo I para ate 4 (quatro) bracos projetados capazes de sustentar, cada um, semaforo e placa de 3m2 (tres metros quadrados); coluna galvanizada a fogo; altura util total de 5,00m (cinco metros); diametro na base igual a 187mm (cento e oitenta e sete milimetros); confor",
+      "itemId": "2480|639",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|concreto betuminoso usinado a quente para camada de rolamento de acordo com as especificacoes da pcrj exclusive transporte da usina para a pista e espalhamento da mistura": {
+      "contract": "2480",
+      "service": "Concreto betuminoso usinado a quente, para camada de rolamento, de acordo com as especificacoes da PCRJ; exclusive transporte da usina para a pista e espalhamento da mistura.",
+      "itemId": "2480|589",
+      "unit": "t",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|concreto simples dosado racionalmente para uma resistencia minima caracteristica a compressao de 11mpa inclusive materiais preparo lancamento colocacao e adensamento exclusive transporte": {
+      "contract": "2480",
+      "service": "Concreto simples dosado racionalmente para uma resistencia minima caracteristica a compressao de 11MPa, inclusive materiais, preparo, lancamento, colocacao e adensamento, exclusive transporte.",
+      "itemId": "2480|596",
+      "unit": "m³",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|demolicao com equipamento de ar comprimido de passeio cimentado com espessura ate 10cm inclusive afastamento lateral dentro do canteiro de servicos": {
+      "contract": "2480",
+      "service": "Demolicao, com equipamento de ar comprimido, de passeio cimentado com espessura ate 10cm, inclusive afastamento lateral dentro do canteiro de servicos.",
+      "itemId": "2480|581",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|demolicao com equipamento de ar comprimido de pisos ou pavimento de concreto armado inclusive afastamento lateral dentro de canteiro de servicos": {
+      "contract": "2480",
+      "service": "Demolicao, com equipamento de ar comprimido, de pisos ou pavimento de concreto armado, inclusive afastamento lateral dentro de canteiro de servicos.",
+      "itemId": "2480|583",
+      "unit": "m³",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|demolicao com equipamento de ar comprimido de pisos ou pavimento de concreto simples inclusive afastamento lateral dentro de canteiro de servicos": {
+      "contract": "2480",
+      "service": "Demolicao, com equipamento de ar comprimido, de pisos ou pavimento de concreto simples, inclusive afastamento lateral dentro de canteiro de servicos.",
+      "itemId": "2480|582",
+      "unit": "m³",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|desmonte manual de bloco de material de 3a categoria rocha viva inclusive reducao a pedra de mao": {
+      "contract": "2480",
+      "service": "Desmonte manual de bloco de material de 3a categoria (rocha viva), inclusive reducao a pedra-de-mao.",
+      "itemId": "2480|573",
+      "unit": "m³",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|dispositivo antifurto tipo cone para coluna s5 conforme especificacao cet rio fornecimento": {
+      "contract": "2480",
+      "service": "Dispositivo antifurto tipo cone para coluna S5, conforme especificacao CET-Rio. Fornecimento.",
+      "itemId": "2480|657",
+      "unit": "pç",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|eletricista inclusive encargos sociais": {
+      "contract": "2480",
+      "service": "Eletricista (inclusive encargos sociais).",
+      "itemId": "2480|585",
+      "unit": "h",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|escavacao manual de vala a frio em material de 2a categoria moledo ou rocha decomposta ate 1 50m de profundidade exclusive escoramento e esgotamento": {
+      "contract": "2480",
+      "service": "Escavacao manual de vala a frio em material de 2a categoria (moledo ou rocha decomposta) ate 1,50m de profundidade, exclusive escoramento e esgotamento.",
+      "itemId": "2480|572",
+      "unit": "m³",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|escavacao manual de vala em material de 1a categoria areia argila ou picarra exclusive escoramento e esgotamento": {
+      "contract": "2480",
+      "service": "Escavacao manual de vala em material de 1a categoria (areia, argila ou picarra), exclusive escoramento e esgotamento.",
+      "itemId": "2480|571",
+      "unit": "m³",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|espalhamento manual e compactacao mecanica de concreto asfaltico usinado a quente ou de pre misturado exclusive fornecimento de todos os materiais": {
+      "contract": "2480",
+      "service": "Espalhamento manual e compactacao mecanica de concreto asfaltico usinado a quente, ou de pre-misturado, exclusive fornecimento de todos os materiais.",
+      "itemId": "2480|590",
+      "unit": "t",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|fita isolante auto fusao de 19 mm x 10 m fornecimento": {
+      "contract": "2480",
+      "service": "Fita isolante auto-fusão, de 19 mm x 10 m. Fornecimento.",
+      "itemId": "2480|656",
+      "unit": "rolo",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|fita isolante comum de 19 mm x 20 m fornecimento": {
+      "contract": "2480",
+      "service": "Fita isolante comum, de 19 mm x 20 m. Fornecimento.",
+      "itemId": "2480|655",
+      "unit": "rolo",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|fornecimento de poste tipo s5 simples de 4 de diametro conforme especificacao de cet rio": {
+      "contract": "2480",
+      "service": "Fornecimento de poste tipo S5, simples de 4\" de diâmetro, conforme especificação de CET-Rio.",
+      "itemId": "2480|643",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|imprimacao de base de pavimentacao conforme caderno de encargos pcrj": {
+      "contract": "2480",
+      "service": "Imprimacao de base de pavimentacao, conforme Caderno de Encargos - PCRJ.",
+      "itemId": "2480|588",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|linha de duto espiral flexivel em polietileno de alta densidade tipo kanalex ou similar diametro de 75mm 3 lancado diretamente ao solo com com arame guia galvanizado revestido em pvc inclusive emendas e tamponamento exclusive excavacao e reaterro": {
+      "contract": "2480",
+      "service": "Linha de duto espiral flexivel em polietileno de alta densidade, tipo Kanalex ou similar, diametro de 75mm (3\" ), lancado diretamente ao solo com com arame-guia galvanizado revestido em PVC, inclusive emendas e tamponamento, exclusive excavacao e reaterro.",
+      "itemId": "2480|602",
+      "unit": "m",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|locacao mensal de radio transmissor receptor": {
+      "contract": "2480",
+      "service": "Locacao mensal de radio transmissor-receptor.",
+      "itemId": "2480|649",
+      "unit": "un.mês",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|modulo focal a led para bloco para bloco de pedestre com formato boneco na cor verde fornecimento": {
+      "contract": "2480",
+      "service": "Modulo focal a LED para bloco para bloco de pedestre com formato boneco na cor verde. Fornecimento.",
+      "itemId": "2480|637",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|modulo focal a led para bloco para bloco de pedestre com formato mao espalmada na cor vermelha fornecimento": {
+      "contract": "2480",
+      "service": "Modulo focal a LED para bloco para bloco de pedestre com formato mao espalmada na cor vermelha. Fornecimento.",
+      "itemId": "2480|638",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|modulo focal a led para bloco principal de 300mm na cor amarela fornecimento": {
+      "contract": "2480",
+      "service": "Modulo focal a LED para bloco principal de 300mm na cor amarela. Fornecimento.",
+      "itemId": "2480|634",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|modulo focal a led para bloco principal de 300mm na cor verde fornecimento": {
+      "contract": "2480",
+      "service": "Modulo focal a LED para bloco principal de 300mm na cor verde. Fornecimento.",
+      "itemId": "2480|635",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|modulo focal a led para bloco principal de 300mm na cor vermelha fornecimento": {
+      "contract": "2480",
+      "service": "Modulo focal a LED para bloco principal de 300mm na cor vermelha. Fornecimento.",
+      "itemId": "2480|636",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|modulo focal a led para bloco repetidor de 200mm na cor amarela fornecimento": {
+      "contract": "2480",
+      "service": "Modulo focal a LED para bloco repetidor de 200mm na cor amarela. Fornecimento.",
+      "itemId": "2480|631",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|modulo focal a led para bloco repetidor de 200mm na cor verde fornecimento": {
+      "contract": "2480",
+      "service": "Modulo focal a LED para bloco repetidor de 200mm na cor verde. Fornecimento.",
+      "itemId": "2480|632",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|modulo focal a led para bloco repetidor de 200mm na cor vermelha fornecimento": {
+      "contract": "2480",
+      "service": "Modulo focal a LED para bloco repetidor de 200mm na cor vermelha. Fornecimento.",
+      "itemId": "2480|633",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|montagem de braco projetado de aco em coluna de aco conica continua tipo i assentada exclusive o fornecimento do braco": {
+      "contract": "2480",
+      "service": "Montagem de braco projetado de aco em coluna de aco conica continua tipo I assentada, exclusive o fornecimento do braco.",
+      "itemId": "2480|647",
+      "unit": "unid",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|piso cimento com 1 5 cm esspessura sobre base existente": {
+      "contract": "2480",
+      "service": "Piso cimento, com 1,5 cm esspessura, sobre base existente.",
+      "itemId": "2480|597",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|reaterro de vala com po de pedra compactado manualmente inclusive fornecimento do material": {
+      "contract": "2480",
+      "service": "Reaterro de vala, com po-de-pedra, compactado manualmente, inclusive fornecimento do material.",
+      "itemId": "2480|575",
+      "unit": "m³",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|reaterro de vala compactado a maco em camadas de 30cm de espessura maxima com material de boa qualidade": {
+      "contract": "2480",
+      "service": "Reaterro de vala, compactado a maco, em camadas de 30cm de espessura maxima, com material de boa qualidade.",
+      "itemId": "2480|574",
+      "unit": "m³",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|remocao manual de passeio de pedra portuguesa inclusive farofa ou colchao de assentamento com ate 5cm de espessura": {
+      "contract": "2480",
+      "service": "Remocao manual de passeio de pedra portuguesa, inclusive farofa ou colchao de assentamento com ate 5cm de espessura.",
+      "itemId": "2480|579",
+      "unit": "m²",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|secretaria inclusive encargos sociais": {
+      "contract": "2480",
+      "service": "Secretaria (inclusive encargos sociais).",
+      "itemId": "2480|653",
+      "unit": "h",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|suporte basculante para bloco semaforico fornecimento": {
+      "contract": "2480",
+      "service": "Suporte basculante para bloco semafórico. Fornecimento.",
+      "itemId": "2480|658",
+      "unit": "pç",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|suporte de fixacao basculante para braco projetado de coluna de aco conica continua tipo 1 fornecimento desonerado": {
+      "contract": "2480",
+      "service": "Suporte de fixação basculante para braço projetado de coluna de aço cônica contínua tipo 1. Fornecimento. (desonerado)",
+      "itemId": "2480|662",
+      "unit": "pç",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|suporte de fixacao simples para coluna de aco conica continua tipo 1 fornecimento desonerado": {
+      "contract": "2480",
+      "service": "Suporte de fixação simples para coluna de aço cônica contínua tipo 1. Fornecimento. (desonerado)",
+      "itemId": "2480|663",
+      "unit": "pç",
+      "observation": "Registro da aba Executado"
+    },
+    "2480|tecnico em eletronica ou eletrotecnica inclusive encargos sociais": {
+      "contract": "2480",
+      "service": "Tecnico em eletronica ou eletrotecnica (inclusive encargos sociais).",
+      "itemId": "2480|654",
+      "unit": "h",
+      "observation": "Registro da aba Executado"
+    },
+    "2483|pintura de faixa com termoplastico em alto relevo tipo i por extrusao relevo duplo com base faixa de pedestres branca largura 0 40m": {
+      "contract": "2483",
+      "service": "Pintura de faixa com termoplástico em alto relevo tipo I por extrusão - relevo duplo com base - Faixa de pedestres branca - Largura 0,40m",
+      "itemId": "2483|722",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2483|pintura de faixa com termoplastico em alto relevo tipo i por extrusao relevo duplo com base legendas e simbolos": {
+      "contract": "2483",
+      "service": "Pintura de faixa com termoplástico em alto relevo tipo I por extrusão - relevo duplo com base - Legendas e Símbolos",
+      "itemId": "2483|717",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2483|pintura de faixa com termoplastico em alto relevo tipo i por extrusao relevo duplo com base linha de de a preferencia ldp": {
+      "contract": "2483",
+      "service": "Pintura de faixa com termoplástico em alto relevo tipo I por extrusão - relevo duplo com base - Linha de Dê a Preferência (LDP)",
+      "itemId": "2483|719",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2483|pintura de faixa com termoplastico em alto relevo tipo i por extrusao relevo duplo com base linha de retencao branca lre": {
+      "contract": "2483",
+      "service": "Pintura de faixa com termoplástico em alto relevo tipo I por extrusão - relevo duplo com base - Linha de retenção branca (LRE)",
+      "itemId": "2483|718",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2483|pintura de faixa com termoplastico por aspersao espessura de 1 5 mm faixas de bordo amarela continua bordo ciclofaixa": {
+      "contract": "2483",
+      "service": "Pintura de faixa com termoplástico por aspersão - espessura de 1,5 mm - faixas de bordo amarela contínua (bordo ciclofaixa)",
+      "itemId": "2483|715",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2483|pintura de faixa com termoplastico por aspersao espessura de 1 5 mm faixas de bordo vermelha continua bordo ciclofaixa": {
+      "contract": "2483",
+      "service": "Pintura de faixa com termoplástico por aspersão - espessura de 1,5 mm - faixas de bordo vermelha contínua (bordo ciclofaixa)",
+      "itemId": "2483|716",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2483|pintura de faixa com termoplastico por aspersao espessura de 1 5 mm faixas de eixo amarelas tracejadas": {
+      "contract": "2483",
+      "service": "Pintura de faixa com termoplástico por aspersão - espessura de 1,5 mm - faixas de eixo amarelas tracejadas",
+      "itemId": "2483|713",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2483|pintura de faixa com termoplastico por aspersao espessura de 1 5 mm faixas de eixo brancas continuas": {
+      "contract": "2483",
+      "service": "Pintura de faixa com termoplástico por aspersão - espessura de 1,5 mm - faixas de eixo brancas contínuas",
+      "itemId": "2483|710",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2483|pintura de faixa com termoplastico por aspersao espessura de 1 5 mm faixas de eixo brancas tracejadas": {
+      "contract": "2483",
+      "service": "Pintura de faixa com termoplástico por aspersão - espessura de 1,5 mm - faixas de eixo brancas tracejadas",
+      "itemId": "2483|711",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2483|pintura de zebrados amarelo com termoplastico por extrusao espessura de 3 0 mm": {
+      "contract": "2483",
+      "service": "Pintura de zebrados (amarelo) com termoplástico por extrusão - espessura de 3,0 mm",
+      "itemId": "2483|724",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    },
+    "2483|tachao refletivo em resina sintetica bidirecional fornecimento e colocacao": {
+      "contract": "2483",
+      "service": "Tachão refletivo em resina sintética - bidirecional - fornecimento e colocação",
+      "itemId": "2483|727",
+      "unit": "",
+      "observation": "Registro da aba Executado"
+    }
+  }
+}
