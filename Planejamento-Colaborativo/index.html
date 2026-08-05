@@ -61098,7 +61098,7 @@
           var hres = await SB.from("historico_planejamento").insert({
             contrato: String(contract),
             item_id: "__COMPORTAMENTO_CONTRATO__",
-            tipo_planejamento: "comportamento_contrato",
+            tipo_planejamento: "mensal",
             ano: 2026,
             mes: 1,
             semana: null,
@@ -61107,7 +61107,11 @@
             valor_novo: String(text || ""),
             usuario_email: b,
           });
-          if (hres.error) throw hres.error;
+          if (hres.error)
+            console.warn(
+              "Comportamento salvo; histórico indisponível",
+              hres.error,
+            );
           CB[String(contract)] = { text: text, updatedBy: b, updatedAt: now };
         }
         function contractEndMonthIndex() {
