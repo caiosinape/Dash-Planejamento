@@ -1,0 +1,30 @@
+name: Sincronizar executado
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/30 * * * *'
+permissions:
+  contents: write
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install openpyxl requests
+      - name: Baixar Estudo Geral
+        env:
+          MS_TENANT_ID: ${{ secrets.MS_TENANT_ID }}
+          MS_CLIENT_ID: ${{ secrets.MS_CLIENT_ID }}
+          MS_CLIENT_SECRET: ${{ secrets.MS_CLIENT_SECRET }}
+          SHAREPOINT_FILE_URL: ${{ secrets.SHAREPOINT_FILE_URL }}
+        run: python Planejamento-Colaborativo/scripts/baixar_sharepoint.py /tmp/estudo.xlsx
+      - name: Gerar executado.json
+        run: python Planejamento-Colaborativo/scripts/gerar_executado.py /tmp/estudo.xlsx Planejamento-Colaborativo/mapeamento_itens.json Planejamento-Colaborativo/executado.json
+      - name: Publicar se mudou
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add Planejamento-Colaborativo/executado.json
+          git diff --cached --quiet || (git commit -m 'Atualiza executado pela aba Executado' && git push)
