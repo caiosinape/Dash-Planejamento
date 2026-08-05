@@ -1,0 +1,5538 @@
+[
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|4",
+    "name": "SINALIZAÇÃO HORIZONTAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|5",
+    "name": "Cilindro delimitador tipo I (ABNT 16658)",
+    "unit": "un",
+    "price": 207.93
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|6",
+    "name": "Cilindro delimitador tipo II (ABNT 16658)",
+    "unit": "un",
+    "price": 286.12
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|7",
+    "name": "Faixa de sinalização horizontal - termoplástico por aspersão - e=1,5mm",
+    "unit": "m²",
+    "price": 44
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|8",
+    "name": "Faixa de sinalização horizontal c/ termopl. em alto relevo aplic. por extrusão mecânica",
+    "unit": "m²",
+    "price": 105.97
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|9",
+    "name": "Faixa de sinalização horizontal c/ tinta resina acrílica base água",
+    "unit": "m²",
+    "price": 24.9
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|10",
+    "name": "Faixa de sinalização horizontal c/ tinta resina acrílica base solvente",
+    "unit": "m²",
+    "price": 27.12
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|11",
+    "name": "Faixa de sinalização horizontal provisória",
+    "unit": "m²",
+    "price": 18.75
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|12",
+    "name": "Pintura de setas e zebrados - termpoplástico por extrsuão - e=3,0mm",
+    "unit": "m²",
+    "price": 64.55
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|13",
+    "name": "Remoção de sinalização horizontal por microfesagem",
+    "unit": "m²",
+    "price": 5.9
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|14",
+    "name": "Sinalização Horizontal com plástico à frio (metilmetacrilato tricomponente) (0,6mm)",
+    "unit": "un",
+    "price": 56.98
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|15",
+    "name": "Tacha refletiva bidirecional - tipo III ou IV (ABNT - 14636/2013)",
+    "unit": "un",
+    "price": 31.08
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|16",
+    "name": "Tacha refletiva bidirecional - tipo II (ABNT - 14636/2013)",
+    "unit": "un",
+    "price": 24.6
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|17",
+    "name": "Tacha refletiva monodirecional - tipo III ou IV (ABNT - 14636/2013)",
+    "unit": "un",
+    "price": 27.4
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|18",
+    "name": "Tacha refletiva monodirecional - tipo II (ABNT - 14636/2013)",
+    "unit": "un",
+    "price": 22.77
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|19",
+    "name": "Tachão refletivo bidirecional",
+    "unit": "un",
+    "price": 38.4
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|20",
+    "name": "Tachão refletivo monodirecional",
+    "unit": "un",
+    "price": 37.12
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|22",
+    "name": "SINALIZAÇÃO VERTICAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|23",
+    "name": "Fornec. e Colocação de casca de pinus, inclusive apiloamento manual",
+    "unit": "m²",
+    "price": 10.45
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|24",
+    "name": "Fornec. e Implant. de placas de sinalização mod. em ACM, aérea com película tipo III",
+    "unit": "m²",
+    "price": 598.57
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|25",
+    "name": "Fornec. e Implant. de placas de sinalização mod. em ACM, com película tipo X",
+    "unit": "m²",
+    "price": 724.74
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|26",
+    "name": "Fornec. e Implant. de placas de sinalização mod. em ACM, no solo com película tipo I - Prismática",
+    "unit": "m²",
+    "price": 512.72
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|27",
+    "name": "Fornec. e Implant. de placas de sinalização mod. em ACM, no solo com película tipo III",
+    "unit": "m²",
+    "price": 625.63
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|28",
+    "name": "Fornec. e Implant. de placas de sinalização simples em ACM, aérea com película tipo III",
+    "unit": "m²",
+    "price": 543.76
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|29",
+    "name": "Fornec. e Implant. de placas de sinalização simples em ACM, aéres com película tipo X",
+    "unit": "m²",
+    "price": 769.65
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|30",
+    "name": "Fornec. e Implant. de placas de sinalização simples em ACM, no solo com película tipo I - Prismática",
+    "unit": "m²",
+    "price": 420.03
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|31",
+    "name": "Fornec. e Implant. de placas de sinalização simples em ACM, no solo com película tipo III",
+    "unit": "m²",
+    "price": 532.94
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|32",
+    "name": "Fornec. e Implant. de semi-pórtico met. Tipo I Cônico Contínuo, proj. de 5,50m - Área até 2,4m²",
+    "unit": "un",
+    "price": 14377.71
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|33",
+    "name": "Fornec. e Implant. de semi-pórtico met. Tipo II Cônico Contínuo Duplo, vão de 6,00m - Área até 9,0m²",
+    "unit": "un",
+    "price": 27929.04
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|34",
+    "name": "Fornec. e Implant. de semi-pórtico met. Tipo II Cônico Contínuo, vão de 6,50m - Área até 4,5m²",
+    "unit": "un",
+    "price": 21204.55
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|35",
+    "name": "Fornecimento Instalação de Suporte Ecológico colapsível 80 x 80mm para Placa de Sinalização",
+    "unit": "m",
+    "price": 166.79
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|36",
+    "name": "Pórtico simples 11,00 a 15,00m p/ placa até 24m² (exclusive placa)",
+    "unit": "un",
+    "price": 72342.6
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|37",
+    "name": "Remoção de placa de sinalização c/ transporte",
+    "unit": "m²",
+    "price": 59.4
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|38",
+    "name": "Remoção de pórtico c/ transporte",
+    "unit": "un",
+    "price": 1265.72
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|39",
+    "name": "Remoção de semi-pórtico c/ transporte",
+    "unit": "un",
+    "price": 840.68
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|40",
+    "name": "Semi-pórtico simples 6,00m p/ placa até 12m² (exclusive placa)",
+    "unit": "un",
+    "price": 36284.8
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|41",
+    "name": "Suporte metálico galv. fogo perfil \"C\" 110x70x25x2,00mm, h=3,00m",
+    "unit": "un",
+    "price": 544.75
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|42",
+    "name": "Suporte metálico galv. fogo perfil \"C\" 110x70x25x2,00mm, h=4,00m",
+    "unit": "un",
+    "price": 672.02
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|43",
+    "name": "Suporte metálico galv. fogo perfil \"C\" 250x85x25x2,70mm, h=5,00m",
+    "unit": "un",
+    "price": 1533.71
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|45",
+    "name": "DISPOSITIVOS DE SEGURANÇA",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|46",
+    "name": "Defensa metálica c/ espaçador e calço nível de contenção H1AW4 15º",
+    "unit": "m",
+    "price": 306.41
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|47",
+    "name": "Delineador refletivo para barreira rígida Tipo New Jersey",
+    "unit": "un",
+    "price": 10.88
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|48",
+    "name": "Fornecimento e Implantação de dispositivo Refletivo para defensas",
+    "unit": "un",
+    "price": 8.88
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|49",
+    "name": "Fornecimento e Instalação de módulo de transição p/defensa metálica, dupla/tripla onda, completo",
+    "unit": "un",
+    "price": 8135.35
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|50",
+    "name": "Fornec. e Inst. de terminal absorv. de energia, para veloc. 80 km/h, de acordo com NBR 15486-2016",
+    "unit": "un",
+    "price": 10047.13
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|51",
+    "name": "Refletivo em Película tipo III para suporte de defensa (0,10x0,25m) - 0,025m²",
+    "unit": "un",
+    "price": 14.72
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|52",
+    "name": "Remoção de defensa metálica inservível, inclusive transporte",
+    "unit": "m",
+    "price": 22.97
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|53",
+    "name": "Defensa simples semi-maleável c/ espaçador e calço",
+    "unit": "m",
+    "price": 369.75
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|55",
+    "name": "SERVIÇOS COMPLEMENTARES",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|56",
+    "name": "Serviço de apoio a Operação de sinalização",
+    "unit": "h",
+    "price": 167.94
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|57",
+    "name": "Projeto Executivo de Segurança Viária",
+    "unit": "km",
+    "price": 2545.9
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|59",
+    "name": "INOVAÇÃO",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|60",
+    "name": "Inovação Tecnólogica",
+    "unit": "gb",
+    "price": 197000
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|61",
+    "name": "MOBILIZAÇÃO E DESMOBILIZAÇÃO",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2453",
+    "contractKey": "2453 - DER PR",
+    "itemId": "2453|62",
+    "name": "Mobilização e Desmobiilzação (2,00%)",
+    "unit": "un",
+    "price": 260187.26
+  },
+  {
+    "contract": "2456",
+    "contractKey": "2456 - DETRAN CE",
+    "itemId": "2456|63",
+    "name": "Fornecimento de Pórtico com vão de 12,50 m",
+    "unit": "unid",
+    "price": 144910.04
+  },
+  {
+    "contract": "2456",
+    "contractKey": "2456 - DETRAN CE",
+    "itemId": "2456|64",
+    "name": "Fornecimento de Pórtico com vão de 15,90 m",
+    "unit": "unid",
+    "price": 146117.62
+  },
+  {
+    "contract": "2456",
+    "contractKey": "2456 - DETRAN CE",
+    "itemId": "2456|65",
+    "name": "Fornecimento de Semipórtico simples com vão de 7,20 m",
+    "unit": "unid",
+    "price": 71187.05
+  },
+  {
+    "contract": "2456",
+    "contractKey": "2456 - DETRAN CE",
+    "itemId": "2456|66",
+    "name": "Fornecimento de Semipórtico duplo com vão de 7,20 m",
+    "unit": "unid",
+    "price": 72225.58
+  },
+  {
+    "contract": "2456",
+    "contractKey": "2456 - DETRAN CE",
+    "itemId": "2456|67",
+    "name": "Preparação de base para pórtico",
+    "unit": "unid",
+    "price": 24966.16
+  },
+  {
+    "contract": "2456",
+    "contractKey": "2456 - DETRAN CE",
+    "itemId": "2456|68",
+    "name": "Preparação de base para semipórtico",
+    "unit": "unid",
+    "price": 12483.08
+  },
+  {
+    "contract": "2456",
+    "contractKey": "2456 - DETRAN CE",
+    "itemId": "2456|69",
+    "name": "Montagem de Pórtico",
+    "unit": "unid",
+    "price": 3504.89
+  },
+  {
+    "contract": "2456",
+    "contractKey": "2456 - DETRAN CE",
+    "itemId": "2456|70",
+    "name": "Montagem de Semipórtico",
+    "unit": "unid",
+    "price": 1752.45
+  },
+  {
+    "contract": "2456",
+    "contractKey": "2456 - DETRAN CE",
+    "itemId": "2456|71",
+    "name": "Remoção de Pórtico",
+    "unit": "unid",
+    "price": 2767.02
+  },
+  {
+    "contract": "2456",
+    "contractKey": "2456 - DETRAN CE",
+    "itemId": "2456|72",
+    "name": "Remoção de Semipórtico",
+    "unit": "unid",
+    "price": 1502.1
+  },
+  {
+    "contract": "2456",
+    "contractKey": "2456 - DETRAN CE",
+    "itemId": "2456|73",
+    "name": "Remoção de base",
+    "unit": "unid",
+    "price": 2301.41
+  },
+  {
+    "contract": "2456",
+    "contractKey": "2456 - DETRAN CE",
+    "itemId": "2456|74",
+    "name": "Reaterro de Fundação",
+    "unit": "unid",
+    "price": 242.56
+  },
+  {
+    "contract": "2456",
+    "contractKey": "2456 - DETRAN CE",
+    "itemId": "2456|75",
+    "name": "Carregamento e Descarregamento de Pórtico",
+    "unit": "unid",
+    "price": 965.39
+  },
+  {
+    "contract": "2456",
+    "contractKey": "2456 - DETRAN CE",
+    "itemId": "2456|76",
+    "name": "Carregamento e Descarregamento de Semipórtico",
+    "unit": "unid",
+    "price": 482.7
+  },
+  {
+    "contract": "2456",
+    "contractKey": "2456 - DETRAN CE",
+    "itemId": "2456|77",
+    "name": "Transporte de Pórtico",
+    "unit": "unid",
+    "price": 7.67
+  },
+  {
+    "contract": "2456",
+    "contractKey": "2456 - DETRAN CE",
+    "itemId": "2456|78",
+    "name": "Transporte de Semipórtico",
+    "unit": "unid",
+    "price": 6.5
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|79",
+    "name": "CANTEIRO DE OBRAS",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|80",
+    "name": "Instalação de canteiro de obras",
+    "unit": "un",
+    "price": 160893.61
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|81",
+    "name": "Administração Local / Manutenção do canteiro de obras",
+    "unit": "%",
+    "price": 9180183
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|82",
+    "name": "Mobilização e desmobilização",
+    "unit": "un",
+    "price": 7379.09
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|83",
+    "name": "Fornecimento e Instalação de 2 Placa de Obra Conforme Manual de Placas",
+    "unit": "m²",
+    "price": 546.27
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|85",
+    "name": "SINALIZAÇÃO HORIZONTAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|86",
+    "name": "Pintura de faixa - plástico a frio tipo I - espessura de 0,6 mm - aspersão​",
+    "unit": "m²",
+    "price": 51.64
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|87",
+    "name": "Pintura de faixa - termoplástico por aspersão - espessura de 1,5 mm",
+    "unit": "m²",
+    "price": 52.44
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|88",
+    "name": "Pintura de faixa - tinta base acrílica emulsionada em água - espessura de 0,5 mm",
+    "unit": "m²",
+    "price": 18.92
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|89",
+    "name": "Pintura de faixa - tinta base acrílica emulsionada em água - espessura de 0,4 mm",
+    "unit": "m²",
+    "price": 16.1
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|90",
+    "name": "Pintura de setas e zebrados - termoplástico por extrusão - espessura de 3,0 mm",
+    "unit": "m²",
+    "price": 95.56
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|91",
+    "name": "Pintura de setas e zebrados - tinta base acrílica - espessura de 0,6 mm",
+    "unit": "m²",
+    "price": 44.63
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|92",
+    "name": "Tacha refletiva metálica com um pino - monodirecional - refletivo tipo III - fornecimento e colocação",
+    "unit": "un",
+    "price": 30.75
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|93",
+    "name": "Tacha refletiva metálica com um pino - bidirecional - refletivo tipo III - fornecimento e colocação",
+    "unit": "un",
+    "price": 37.72
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|94",
+    "name": "Tacha refletiva monodirecional - refletivo tipo III - fornecimento e colocação",
+    "unit": "un",
+    "price": 18.87
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|95",
+    "name": "Tacha refletiva bidirecional - refletivo tipo III - fornecimento e colocação",
+    "unit": "un",
+    "price": 22.16
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|96",
+    "name": "Tachão refletivo bidirecional - fornecimento e colocacão",
+    "unit": "un",
+    "price": 43.89
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|97",
+    "name": "Tachão refletivo monodirecional - fornecimento e colocação",
+    "unit": "un",
+    "price": 42.76
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|98",
+    "name": "Delimitador de tráfego flexível com duas faixas refletivas D = 20 cm e H = 80 cm com chumbador",
+    "unit": "un",
+    "price": 238.57
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|99",
+    "name": "Pintura de faixa - termoplástico em alto relevo tipo II - relevo simples ranhurado - base",
+    "unit": "m²",
+    "price": 157.31
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|101",
+    "name": "SINALIZAÇÃO VERTICAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|102",
+    "name": "Fornecimento e impl de placa em aço - película III + SI (Sinal Impresso Digital c/ Overlay)",
+    "unit": "m²",
+    "price": 357.44
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|103",
+    "name": "Fornecimento e impl de placa em alumínio composto, espessura de 3,0 mm. - película retrorrefletiva tipo III + SI (Sinal Impresso Digital c/ Overlay)",
+    "unit": "m²",
+    "price": 558.39
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|104",
+    "name": "Fornecimento e implantação de placa em alumínio composto, espessura de 3,0 mm, modulada, aérea - película retrorrefletiva tipo X + SI (Sinal Impresso Digital c/ Overlay)",
+    "unit": "m²",
+    "price": 794.12
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|105",
+    "name": "Fornecimento e implantação de suporte polimérico ecológico maciço quadrado de 8 cm para placa de sinalização",
+    "unit": "un",
+    "price": 746.94
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|106",
+    "name": "Fornecimento e implantação de suporte polimérico ecológico maciço colapsível retangular de 7 x 15 cm para placa de sinalização",
+    "unit": "un",
+    "price": 1442.11
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|107",
+    "name": "Fornecimento e implantação de suporte polimérico ecológico maciço colapsível quadrado de 10 cm para placa de sinalização",
+    "unit": "un",
+    "price": 1193.49
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|108",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 2,00 x 1,00 m",
+    "unit": "un",
+    "price": 919.79
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|109",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 3,00 x 1,50 m",
+    "unit": "un",
+    "price": 1526.69
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|110",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 3,00 x 2,00 m",
+    "unit": "un",
+    "price": 1879.53
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|111",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 4,00 x 2,00 m",
+    "unit": "un",
+    "price": 2504.73
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|112",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 4,00 x 3,00 m",
+    "unit": "un",
+    "price": 3547.62
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|113",
+    "name": "Fornecimento e implantação de placa delineador em aço - 0,30 x 0,90 m - película retrorrefletiva tipo I + IV",
+    "unit": "un",
+    "price": 143.63
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|114",
+    "name": "Fornecimento e implantação de placa em aco - pelicula I + III",
+    "unit": "m²",
+    "price": 409.66
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|115",
+    "name": "Fornecimento e implantação de placa em alumínio composto, espessura de 3,0 mm, modulada, aérea - película retrorrefletiva tipo III + X",
+    "unit": "un",
+    "price": 792.66
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|116",
+    "name": "Fornecimento e implantação de placa em fibra - 3,00 x 2,00 m - película retrorrefletiva tipo I + III",
+    "unit": "un",
+    "price": 2030.22
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|117",
+    "name": "Fornecimento e implantação de suporte e travessa para placa de sinalizacao em madeira de lei tratada 8 x 8 cm",
+    "unit": "un",
+    "price": 129.42
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|118",
+    "name": "Pórtico metálico com vão de 15,9 m, vento de 35 m/s, área de exposição de até 23,85 m², tensão admissível solo > 200 kN/m² - areia e brita comerciais",
+    "unit": "un",
+    "price": 64610.04
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|119",
+    "name": "Semi-pórtico metálico com vão de 8,3 m, vento de 35 m/s, área de exposição de até 12,45 m², tensão admissível solo > 200 kN/m² - areia e brita comerciais",
+    "unit": "un",
+    "price": 41177.91
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|120",
+    "name": "Semi-pórtico duplo metálico com vão de 2 x 8,3 m, vento de 35 m/s, área de exposição de até 2 x 12,45 m², tensão admissível solo > 200 kN/m² - areia e brita comerciais",
+    "unit": "un",
+    "price": 59135.08
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|121",
+    "name": "Semi-pórtico duplo metálico com vão de 2 x 2,7 m, vento de 45 m/s, área de exposição de até 2 x 4,05 m², tensão admissível solo > 200 kN/m² - areia e brita comerciais",
+    "unit": "un",
+    "price": 46129.7
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|122",
+    "name": "Suporte metálico com braço projetado - Área de Exposição até 4,50 m² - Fornecimento e Implantação",
+    "unit": "un",
+    "price": 13079.09
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|124",
+    "name": "DISPOSITIVOS DE SEGURANÇA",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|125",
+    "name": "Dispositivo de contenção longitudinal, certificado segundo a ABNT NBR 15486:2016, tipo (H2 A W3) - Defensa Metálica - Fornecimento e Implantação",
+    "unit": "m",
+    "price": 840.69
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|126",
+    "name": "Dispositivo de contenção longitudinal, certificado segundo a ABNT NBR 15486:2016, tipo (H1 A W2) - Defensa Metálica - Fornecimento e Implantação",
+    "unit": "m",
+    "price": 397.99
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|127",
+    "name": "Dispositivo de contenção longitudinal, certificado segundo a ABNT NBR 15486:2016, tipo (N2 A W2) - Defensa Metálica - Fornecimento e Implantação",
+    "unit": "m",
+    "price": 341.01
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|128",
+    "name": "Defensa maleável simples - fornecimento e implantação",
+    "unit": "m",
+    "price": 427.87
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|129",
+    "name": "Defensa semimaleável simples - fornecimento e implantação",
+    "unit": "m",
+    "price": 280.02
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|130",
+    "name": "Terminal absorvedor de energia, certificado segundo a ABNT NBR 15.486:2016, especificado conforme NCHRP 350 nível de ensaio 2 (70 km/h) ou EN 1317 nível de ensaio 2 (80 km/h) – fornecimento e instalação",
+    "unit": "un",
+    "price": 11037.81
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|131",
+    "name": "Ancoragem de defensa semi-maleável simples - fornecimento e implantação",
+    "unit": "m",
+    "price": 335.01
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|132",
+    "name": "Ancoragem de defensa maleável simples - fornecimento e implantação",
+    "unit": "m",
+    "price": 492.39
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|133",
+    "name": "Terminal de ancoragem de defensa metálica em barreira New Jersey - fornecimento e implantação",
+    "unit": "un",
+    "price": 383.4
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|134",
+    "name": "Barreira de sinalização tipo III de direcionamento ou bloqueio - utilização de 10 vezes",
+    "unit": "un",
+    "price": 187.91
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|135",
+    "name": "Módulo de transição de defensa metálica para barreira rígida - fornecimento e implantação",
+    "unit": "un",
+    "price": 5591.72
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|136",
+    "name": "Fornecimento e colocação de dispositivo Refletivo para defensas em tangente",
+    "unit": "un",
+    "price": 57.5
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|137",
+    "name": "Fornecimento e colocação de Painel de Delineamento Refletivo para defensas em curvas",
+    "unit": "un",
+    "price": 106.93
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|139",
+    "name": "MANUTENÇÃO HORIZONTAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|140",
+    "name": "Manutenção/recomposição - pintura de faixa - plástico a frio tricomponente à base de resinas metacrílicas - espessura de 0,6 mm - aspersão",
+    "unit": "m²",
+    "price": 51.1
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|141",
+    "name": "Manutenção/recomposição - pintura de faixa - termoplástico por aspersão - espessura de 1,5 mm",
+    "unit": "m²",
+    "price": 51.26
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|142",
+    "name": "Manutenção/recomposição de sinalização - pintura de faixa com tinta acrílica emulsionada em água - espessura de 0,5 mm",
+    "unit": "m²",
+    "price": 18.03
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|143",
+    "name": "Tacha refletiva metálica com um pino - monodirecional - refletivo tipo III - fornecimento e colocação",
+    "unit": "un",
+    "price": 30.75
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|144",
+    "name": "Tacha refletiva metálica com um pino - bidirecional - refletivo tipo III - fornecimento e colocação",
+    "unit": "un",
+    "price": 37.72
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|145",
+    "name": "Tacha refletiva bidirecional - refletivo tipo III - fornecimento e colocação",
+    "unit": "un",
+    "price": 22.16
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|146",
+    "name": "Tacha refletiva monodirecional - refletivo tipo III - fornecimento e colocação",
+    "unit": "un",
+    "price": 18.87
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|147",
+    "name": "Tachão refletivo bidirecional - fornecimento e colocacão",
+    "unit": "un",
+    "price": 43.89
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|148",
+    "name": "Tachão refletivo monodirecional - fornecimento e colocação",
+    "unit": "un",
+    "price": 42.76
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|149",
+    "name": "Delimitador de tráfego flexível com duas faixas refletivas D = 20 cm e H = 80 cm com chumbador",
+    "unit": "un",
+    "price": 238.57
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|150",
+    "name": "Remoção de sinalização horizontal com maçarico",
+    "unit": "m²",
+    "price": 6.49
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|151",
+    "name": "Remoção de sinalização horizontal por fresagem",
+    "unit": "m²",
+    "price": 4.08
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|152",
+    "name": "Remoção de sinalização horizontal tipo pintura acrílica por jateamento abrasivo úmido com vidro - utilização de 3 vezes",
+    "unit": "m²",
+    "price": 70.49
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|153",
+    "name": "Remoção de tachas e tachões",
+    "unit": "un",
+    "price": 3.39
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|154",
+    "name": "Limpeza de tachas refletivas",
+    "unit": "un",
+    "price": 2.01
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|156",
+    "name": "MANUTENÇÃO VERTICAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|157",
+    "name": "Recomposição de placa de sinalização",
+    "unit": "m²",
+    "price": 35.59
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|158",
+    "name": "Remoção de placa de sinalização",
+    "unit": "m²",
+    "price": 19.2
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|159",
+    "name": "Limpeza de placa de sinalização",
+    "unit": "m²",
+    "price": 8.33
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|160",
+    "name": "Capina manual",
+    "unit": "m²",
+    "price": 0.98
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|161",
+    "name": "Fornecimento e implantação de placa em aço - película III + SI (Sinal Impresso Digital c/ Overlay)",
+    "unit": "m²",
+    "price": 357.44
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|162",
+    "name": "Fornecimento e implantação de placa em alumínio composto, espessura de 3,0 mm. - película retrorrefletiva tipo III + SI (Sinal Impresso Digital c/  Overlay)",
+    "unit": "m²",
+    "price": 558.39
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|163",
+    "name": "Fornecimento e implantação de placa em alumínio composto, espessura de 3,0 mm, modulada, aérea - película retrorrefletiva tipo X + SI (Sinal Impresso Digital c/ Overlay)",
+    "unit": "m²",
+    "price": 794.12
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|164",
+    "name": "Fornecimento e implantação de suporte polimérico ecológico maciço quadrado de 8 cm para placa de sinalização",
+    "unit": "un",
+    "price": 746.94
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|165",
+    "name": "Fornecimento e implantação de suporte polimérico ecológico maciço colapsível retangular de 7 x 15 cm para placa de sinalização",
+    "unit": "un",
+    "price": 1442.11
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|166",
+    "name": "Fornecimento e implantação de suporte polimérico ecológico maciço colapsível quadrado de 10 cm para placa de sinalização",
+    "unit": "un",
+    "price": 1193.49
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|167",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 2,00 x 1,00 m",
+    "unit": "un",
+    "price": 919.79
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|168",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 3,00 x 1,50 m",
+    "unit": "un",
+    "price": 1526.69
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|169",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 3,00 x 2,00 m",
+    "unit": "un",
+    "price": 1879.53
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|170",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 4,00 x 2,00 m",
+    "unit": "un",
+    "price": 2504.73
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|171",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 4,00 x 3,00 m",
+    "unit": "un",
+    "price": 3547.62
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|172",
+    "name": "Fornecimento e implantação de placa delineador em aço - 0,30 x 0,90 m - película retrorrefletiva tipo I + IV",
+    "unit": "un",
+    "price": 143.63
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|173",
+    "name": "Fornecimento e implantação de placa em aco - pelicula I + III",
+    "unit": "m²",
+    "price": 409.66
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|174",
+    "name": "Fornecimento e implantação de placa em alumínio composto, espessura de 3,0 mm, modulada, aérea - película retrorrefletiva tipo III + X",
+    "unit": "un",
+    "price": 792.66
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|175",
+    "name": "Fornecimento e implantação de placa em fibra - 3,00 x 2,00 m - película retrorrefletiva tipo I + III",
+    "unit": "un",
+    "price": 2030.22
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|176",
+    "name": "Fornecimento e implantação de suporte e travessa para placa de sinalizacao em madeira de lei tratada 8 x 8 cm",
+    "unit": "un",
+    "price": 129.42
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|177",
+    "name": "Pórtico metálico com vão de 15,9 m, vento de 35 m/s, área de exposição de até 23,85 m², tensão admissível solo > 200 kN/m² - areia e brita comerciais",
+    "unit": "un",
+    "price": 64610.04
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|178",
+    "name": "Semi-pórtico metálico com vão de 8,3 m, vento de 35 m/s, área de exposição de até 12,45 m², tensão admissível solo > 200 kN/m² - areia e brita comerciais",
+    "unit": "un",
+    "price": 41177.91
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|179",
+    "name": "Semi-pórtico duplo metálico com vão de 2 x 8,3 m, vento de 35 m/s, área de exposição de até 2 x 12,45 m², tensão admissível solo > 200 kN/m² - areia e brita comerciais",
+    "unit": "un",
+    "price": 59135.08
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|180",
+    "name": "Semi-pórtico duplo metálico com vão de 2 x 2,7 m, vento de 45 m/s, área de exposição de até 2 x 4,05 m², tensão admissível solo > 200 kN/m² - areia e brita comerciais",
+    "unit": "un",
+    "price": 46129.7
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|181",
+    "name": "Suporte metálico  com braço projetado  - Área de Exposição até 4,50 m² - Fornecimento e Implantação",
+    "unit": "un",
+    "price": 13079.09
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|183",
+    "name": "MANUTENÇÃO DISPOSITIVOS DE SEGURANÇA",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|184",
+    "name": "Recomposição de defensa metálica simples",
+    "unit": "m",
+    "price": 289.76
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|185",
+    "name": "Dispositivo de contenção longitudinal, certificado segundo a ABNT NBR 15486:2016, tipo (H2 A W3) - Defensa Metálica - Fornecimento e Implantação",
+    "unit": "m",
+    "price": 840.69
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|186",
+    "name": "Dispositivo de contenção longitudinal, certificado segundo a ABNT NBR 15486:2016, tipo (H1 A W2) - Defensa Metálica - Fornecimento e Implantação",
+    "unit": "m",
+    "price": 397.99
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|187",
+    "name": "Dispositivo de contenção longitudinal, certificado segundo a ABNT NBR 15486:2016, tipo (N2 A W2) - Defensa Metálica - Fornecimento e Implantação",
+    "unit": "m",
+    "price": 341.01
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|188",
+    "name": "Defensa maleável simples - fornecimento e implantação",
+    "unit": "m",
+    "price": 427.87
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|189",
+    "name": "Defensa semimaleável simples - fornecimento e implantação",
+    "unit": "m",
+    "price": 280.02
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|190",
+    "name": "Terminal absorvedor de energia, certificado segundo a ABNT NBR 15.486:2016, especificado conforme NCHRP 350 nível de ensaio 2 (70 km/h) ou EN 1317 nível de ensaio 2 (80 km/h) – fornecimento e instalação",
+    "unit": "un",
+    "price": 11037.81
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|191",
+    "name": "Terminal absorvedor de energia, certificado segundo a ABNT NBR 15.486:2016, especificado conforme NCHRP 350 nível de ensaio 3 (100 km/h) ou EN 1317 nível de ensaio 3 (100 km/h) - Fornecimento e instalação",
+    "unit": "un",
+    "price": 10449.52
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|192",
+    "name": "Ancoragem de defensa semi-maleável simples - fornecimento e implantação",
+    "unit": "m",
+    "price": 335.01
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|193",
+    "name": "Ancoragem de defensa maleável simples - fornecimento e implantação",
+    "unit": "m",
+    "price": 492.39
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|194",
+    "name": "Terminal de ancoragem de defensa metálica em barreira New Jersey - fornecimento e implantação",
+    "unit": "un",
+    "price": 383.4
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|195",
+    "name": "Barreira de sinalização tipo III de direcionamento ou bloqueio - utilização de 10 vezes",
+    "unit": "un",
+    "price": 187.91
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|196",
+    "name": "Módulo de transição de defensa metálica para barreira rígida - fornecimento e implantação",
+    "unit": "un",
+    "price": 5591.72
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|197",
+    "name": "Fornecimento e colocação de dispositivo Refletivo para defensas em tangente",
+    "unit": "un",
+    "price": 57.5
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|198",
+    "name": "Fornecimento e colocação de Painel de Delineamento Refletivo para defensas em curvas",
+    "unit": "un",
+    "price": 106.93
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|200",
+    "name": "OPERACIONAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|201",
+    "name": "Barreira plástica monobloco para canalização de trânsito medindo 101 x 50 x 55 cm - utilização de 10 vezes",
+    "unit": "und.",
+    "price": 134.52
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|202",
+    "name": "Placa de Advertência em Aço - Película retrorrefletiva tipo III + III - montada em suporte metálico móvel - Lado 0,80 m",
+    "unit": "und",
+    "price": 503.41
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|203",
+    "name": "Placa para sinalização de obras montada em cavalete metálico - 1,00 x 1,00 m",
+    "unit": "und",
+    "price": 50.75
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|204",
+    "name": "Placa de Regulamentação em Aço - Película retrorrefletiva tipo III + III - montada em suporte metálico móvel - D = 0,80 m",
+    "unit": "und",
+    "price": 447.03
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|205",
+    "name": "Placa de Advertência em Aço - Película retrorrefletiva tipo III + III - montada em suporte metálico móvel - L= 1,25 x 0,40 m",
+    "unit": "und",
+    "price": 445.94
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|206",
+    "name": "Placa de Advertência em Aço - Película retrorrefletiva tipo III + III - montada em suporte metálico móvel - L= 1,20 x 0,80 m",
+    "unit": "und",
+    "price": 634.76
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|207",
+    "name": "Placa de Advertência em Aço - Película retrorrefletiva tipo III + III - montada em suporte metálico móvel - L= 1,80 x 1,00 m",
+    "unit": "und",
+    "price": 979.57
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|208",
+    "name": "Fornecimento de cone de sinalização 75 cm (NBR 15071) flexível - 2 faixas refletivas tipo III (NBR 14644) - utilização de 5 vezes",
+    "unit": "un",
+    "price": 17.43
+  },
+  {
+    "contract": "2459",
+    "contractKey": "2459 - DNIT RJ",
+    "itemId": "2459|209",
+    "name": "Operação de sinalização por bandeirola de tecido ou com placa metálica",
+    "unit": "h",
+    "price": 29.11
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|210",
+    "name": "SINALIZAÇÃO HORIZONTAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|211",
+    "name": "Pintura de faixa - plástico a frio  tipo I - espessura de 0,6 mm - aspersão​",
+    "unit": "m²",
+    "price": 60.59
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|212",
+    "name": "Pintura de faixa - tinta base acrílica emulsionada em água - espessura de 0,5 mm",
+    "unit": "m²",
+    "price": 18.03
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|213",
+    "name": "Pintura de faixa - tinta base acrílica emulsionada em água - espessura de 0,4 mm",
+    "unit": "m²",
+    "price": 15.34
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|214",
+    "name": "Pintura de faixa com tinta acrílica ‐ espessura de 0,6 mm",
+    "unit": "m²",
+    "price": 37.17
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|215",
+    "name": "Pintura de setas e zebrados ‐ termoplástico por extrusão ‐ espessura de 1,50 mm",
+    "unit": "m²",
+    "price": 51.66
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|216",
+    "name": "Tacha Refletiva em plástico injetado ‐ bidirecional tipo IV ‐ c/ um pino ‐ fornec. e colocação",
+    "unit": "unid",
+    "price": 37.39
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|217",
+    "name": "Tacha refletiva em plástico injetado ‐ bidirecional tipo II ‐ com um pino ‐ fornecimento e colocação",
+    "unit": "unid",
+    "price": 27.14
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|218",
+    "name": "Delimitador de tráfego flexível com duas faixas refletivas D = 20 cm e H = 80 cm com chumbador",
+    "unit": "unid",
+    "price": 231.52
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|220",
+    "name": "SINALIZAÇÃO VERTICAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|221",
+    "name": "Fornecimento e implantação de placa em aço - película III + SI (Sinal Impresso Digital c/ Overlay)",
+    "unit": "m²",
+    "price": 667.46
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|222",
+    "name": "Fornec. e implant. de placa em alumínio composto, espessura de 3,0 mm. - película retrorrefletiva tipo III + SI (Sinal Impresso Digital c/  Overlay)",
+    "unit": "m²",
+    "price": 1256.12
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|223",
+    "name": "Fornec. e implant. de placa alumínio composto, esp. de 3,0 mm, mod. aérea - película retrorrefl tipo X + SI (Sinal Impresso Digital c/ Overlay)",
+    "unit": "m²",
+    "price": 1327.55
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|224",
+    "name": "Fornecimento e implantação de suporte polimérico ecológico maciço quadrado de 8 cm para placa de sinalização",
+    "unit": "un",
+    "price": 761.08
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|225",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 2,00 x 1,00 m",
+    "unit": "un",
+    "price": 972.41
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|226",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 3,00 x 1,50 m",
+    "unit": "un",
+    "price": 2100.08
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|227",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 3,00 x 2,00 m",
+    "unit": "un",
+    "price": 2807.28
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|228",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 4,00 x 2,00 m",
+    "unit": "un",
+    "price": 2895.38
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|229",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 4,00 x 3,00 m",
+    "unit": "un",
+    "price": 4600.88
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|230",
+    "name": "Suporte metálico  com braço projetado  - Área de Exposição até 4,50 m² - Fornecimento e Implantação",
+    "unit": "un",
+    "price": 19580.51
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|232",
+    "name": "DISPOSITIVOS DE SEGURANÇA",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|233",
+    "name": "Dispositivo de contenção longitudinal, certificado ABNT NBR 15486:2016, tipo (H1 A W2) - Defensa Metálica - Fornec. e Implantação",
+    "unit": "m",
+    "price": 412.02
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|234",
+    "name": "Dispositivo de contenção longitudinal, certificado ABNT NBR 15486:2016, tipo (N2 A W2) - Defensa Metálica - Fornec. e Implantação",
+    "unit": "m",
+    "price": 387.22
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|235",
+    "name": "Terminal absorvedor, certif. ABNT NBR 15.486:2016, NCHRP 350 nível ensaio 2 (70 km/h) ou EN 1317 nível ensaio 2 (80 km/h) – Fornec. e Inst.",
+    "unit": "un",
+    "price": 13509.08
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|236",
+    "name": "Terminal absorvedor, certif. ABNT NBR 15.486:2016, NCHRP 350 nível ensaio 3 (100 km/h) ou EN 1317 nível ensaio 3 (100 km/h) - Fornec. e Inst.",
+    "unit": "un",
+    "price": 13880.09
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|237",
+    "name": "Ancoragem de defensa semi-maleável simples - fornecimento e implantação",
+    "unit": "m",
+    "price": 416.83
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|238",
+    "name": "Terminal de ancoragem de defensa metálica em barreira New Jersey - fornecimento e implantação",
+    "unit": "un",
+    "price": 593.58
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|239",
+    "name": "Módulo de transição de defensa metálica para barreira rígida - fornecimento e implantação",
+    "unit": "un",
+    "price": 7193.23
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|240",
+    "name": "Fornecimento e colocação de dispositivo Refletivo para defensas em tangente",
+    "unit": "un",
+    "price": 44.99
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|241",
+    "name": "Fornecimento e colocação de Painel de Delineamento Refletivo para defensas em curvas",
+    "unit": "un",
+    "price": 45.02
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|243",
+    "name": "MANUTENÇÃO HORIZONTAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|244",
+    "name": "Manutenção/recomposição - pintura de faixa - plástico a frio tricomponente à base de resinas metacrílicas - espessura de 0,6 mm - aspersão",
+    "unit": "m²",
+    "price": 60.57
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|245",
+    "name": "Manutenção/recomposição de sinalização - pintura de faixa com tinta acrílica emulsionada em água - espessura de 0,5 mm",
+    "unit": "m²",
+    "price": 17.75
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|246",
+    "name": "Tacha refletiva em plástico injetado ‐ bidirecional tipo IV ‐ com um pino ‐ fornecimento e colocação",
+    "unit": "un",
+    "price": 37.39
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|247",
+    "name": "Tacha refletiva em plástico injetado ‐ bidirecional tipo II ‐ com um pino ‐ fornecimento e colocação",
+    "unit": "un",
+    "price": 27.14
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|248",
+    "name": "Delimitador de tráfego flexível com duas faixas refletivas D = 20 cm e H = 80 cm com chumbador",
+    "unit": "un",
+    "price": 231.52
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|249",
+    "name": "Remoção de tachas e tachões",
+    "unit": "un",
+    "price": 3.98
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|251",
+    "name": "MANUTENÇÃO VERTICAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|252",
+    "name": "Recomposição de placa de sinalização",
+    "unit": "m²",
+    "price": 33.79
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|253",
+    "name": "Remoção de placa de sinalização",
+    "unit": "m²",
+    "price": 19.81
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|254",
+    "name": "Limpeza de placa de sinalização",
+    "unit": "m²",
+    "price": 9
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|255",
+    "name": "Capina manual",
+    "unit": "m²",
+    "price": 0.74
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|256",
+    "name": "Fornecimento e implantação de placa em aço - película III + SI (Sinal Impresso Digital c/ Overlay)",
+    "unit": "m²",
+    "price": 667.46
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|257",
+    "name": "Fornec. e Impl. de placa em alumínio composto, espessura de 3,0 mm. - película retrorrefletiva tipo III + SI (Sinal Impresso Digital c/  Overlay)",
+    "unit": "m²",
+    "price": 1256.12
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|258",
+    "name": "Fornec. e Impl. de placa alumínio composto, esp. de 3,0 mm, mod., aérea - película retrorrefletiva tipo X + SI (Sinal Impresso Digital c/ Overlay)",
+    "unit": "m²",
+    "price": 1327.55
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|259",
+    "name": "Fornecimento e implantação de suporte polimérico ecológico maciço quadrado de 8 cm para placa de sinalização",
+    "unit": "un",
+    "price": 761.08
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|260",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 2,00 x 1,00 m",
+    "unit": "un",
+    "price": 972.41
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|261",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 3,00 x 1,50 m",
+    "unit": "un",
+    "price": 2100.08
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|262",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 3,00 x 2,00 m",
+    "unit": "un",
+    "price": 2807.28
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|263",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 4,00 x 2,00 m",
+    "unit": "un",
+    "price": 2895.38
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|264",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas ‐ 4,00 x 3,00 m",
+    "unit": "un",
+    "price": 4600.88
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|265",
+    "name": "Suporte metálico  com braço projetado  - Área de Exposição até 4,50 m² - Fornecimento e Implantação",
+    "unit": "un",
+    "price": 19580.51
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|267",
+    "name": "MANUTENÇÃO DISPOSITIVOS DE SEGURANÇA",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|268",
+    "name": "Remoção de defensa metálica",
+    "unit": "m",
+    "price": 21.52
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|269",
+    "name": "Defensa semimaleável simples ‐ fornecimento e implantação",
+    "unit": "m",
+    "price": 364.07
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|270",
+    "name": "Dispositivo de contenção longitudinal, certificado segundo a ABNT NBR 15486:2016, tipo (H1 A W2) - Defensa Metálica - Fornecimento e Implantação",
+    "unit": "m",
+    "price": 412.02
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|271",
+    "name": "Dispositivo de contenção longitudinal, certificado segundo a ABNT NBR 15486:2016, tipo (N2 A W2) - Defensa Metálica - Fornecimento e Implantação",
+    "unit": "m",
+    "price": 387.22
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|272",
+    "name": "Terminal absorvedor, certif. ABNT NBR 15.486:2016, NCHRP 350 nível ensaio 2 (70 km/h) ou EN 1317 nível ensaio 2 (80 km/h) – Fornec. e Inst.",
+    "unit": "un",
+    "price": 13509.08
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|273",
+    "name": "Terminal absorvedor, certif. ABNT NBR 15.486:2016, NCHRP 350 nível ensaio 3 (100 km/h) ou EN 1317 nível ensaio 3 (100 km/h) - Fornec. e Inst.",
+    "unit": "un",
+    "price": 13880.09
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|274",
+    "name": "Ancoragem de defensa semi-maleável simples - fornecimento e implantação",
+    "unit": "m",
+    "price": 416.83
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|275",
+    "name": "Terminal de ancoragem de defensa metálica em barreira New Jersey - fornecimento e implantação",
+    "unit": "un",
+    "price": 593.58
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|276",
+    "name": "Módulo de transição de defensa metálica para barreira rígida - fornecimento e implantação",
+    "unit": "un",
+    "price": 7193.23
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|277",
+    "name": "Fornecimento e colocação de dispositivo Refletivo para defensas em tangente",
+    "unit": "un",
+    "price": 44.99
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|278",
+    "name": "Fornecimento e colocação de Painel de Delineamento Refletivo para defensas em curvas",
+    "unit": "un",
+    "price": 45.02
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|280",
+    "name": "OPERACIONAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|281",
+    "name": "Administracao local",
+    "unit": "mês",
+    "price": 100398.7
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|282",
+    "name": "Manutenção do Canteiro e Alojamento",
+    "unit": "mês",
+    "price": 921.39
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|283",
+    "name": "Canteiro de obras ‐ Conserva rodoviária Canteiro de obras",
+    "unit": "un",
+    "price": 214287.96
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|284",
+    "name": "Mobilização e desmobilização de pessoal, conteineres e automotores",
+    "unit": "un",
+    "price": 36547.44
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|285",
+    "name": "Mobilização e desmobilização de máquinas e equipamentos pesados",
+    "unit": "un",
+    "price": 1772.49
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|286",
+    "name": "Fornecimento e Inst. de Placas de Obra, conforme padrão (4,00 x 2,00)",
+    "unit": "m²",
+    "price": 397.33
+  },
+  {
+    "contract": "2460",
+    "contractKey": "2460 - AGESUL",
+    "itemId": "2460|287",
+    "name": "Projeto Executivo de Segurança Viária",
+    "unit": "km",
+    "price": 2892.12
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|288",
+    "name": "CANTEIRO DE OBRAS",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|289",
+    "name": "Mobilização e desmobilização",
+    "unit": "und.",
+    "price": 13264.05
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|290",
+    "name": "Fornec. e Inst. de 2 Placas de Obra conf. Manual de Placas OBRAS (4,80 x 3,00) - Ref Sinapi",
+    "unit": "m²",
+    "price": 801.54
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|291",
+    "name": "Administração Local / Manutenção do Canteiro de obras",
+    "unit": "%",
+    "price": 4016710.47
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|292",
+    "name": "Instalação de Canteiro de Obras",
+    "unit": "und.",
+    "price": 329382.01
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|294",
+    "name": "SINALIZAÇÃO HORIZONTAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|295",
+    "name": "Pintura de faixa - tinta base acrílica emulsionada em água - espessura de 0,4 mm",
+    "unit": "m²",
+    "price": 17.73
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|296",
+    "name": "Pintura de faixa - tinta base acrílica emulsionada em água - espessura de 0,5 mm",
+    "unit": "m²",
+    "price": 20.69
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|297",
+    "name": "Pintura de faixa - termoplástico em alto relevo tipo II - relevo simples ranhurado - base",
+    "unit": "m²",
+    "price": 162.54
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|298",
+    "name": "Delimitador de tráfego flexível com duas faixas refletivas D = 20 cm e H = 80 cm com chumbador",
+    "unit": "un",
+    "price": 248.53
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|299",
+    "name": "Pintura de setas e zebrados - plástico a frio - espessura de 1,5 mm - plano",
+    "unit": "m²",
+    "price": 85.95
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|300",
+    "name": "Tacha refletiva monodirecional - refletivo tipo III - fornecimento e colocação",
+    "unit": "un",
+    "price": 34.95
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|301",
+    "name": "Tacha refletiva bidirecional - refletivo tipo III - fornecimento e colocação",
+    "unit": "un",
+    "price": 39.19
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|302",
+    "name": "Pintura de faixa - plástico a frio tipo I - espessura de 0,6 mm - aspersão​",
+    "unit": "m²",
+    "price": 67.99
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|304",
+    "name": "SINALIZAÇÃO VERTICAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|305",
+    "name": "Pórtico metálico com vão de 15,9 m, vento de 35 m/s, área de exposição de até 23,85 m², tensão admissível solo > 200 kN/m² - areia e brita comerciais",
+    "unit": "un",
+    "price": 108283.9
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|306",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 2,00 x 1,00 m",
+    "unit": "un",
+    "price": 1287.18
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|307",
+    "name": "Semi-pórtico metálico com vão de 8,3 m, vento de 35 m/s, área de exposição de até 12,45 m², tensão admissível solo > 200 kN/m² - areia e brita comerciais",
+    "unit": "un",
+    "price": 51700.34
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|308",
+    "name": "Semi-pórtico duplo metálico com vão de 2 x 8,3 m, vento de 35 m/s, área de exposição de até 2 x 12,45 m², tensão admissível solo > 200 kN/m² - areia e brita comerciais",
+    "unit": "un",
+    "price": 85097.43
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|309",
+    "name": "Fornecimento e implantação de placa em alumínio composto, espessura de 3,0 mm, modulada, aérea - película retrorrefletiva tipo X + SI (Sinal Impresso Digital c/ Overlay)",
+    "unit": "m²",
+    "price": 2025.02
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|310",
+    "name": "Suporte para placa de sinalização em madeira de lei tratada 8 x 8 cm - Fornec. e Implantação",
+    "unit": "un",
+    "price": 136.98
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|311",
+    "name": "Suporte metálico  com braço projetado  - Área de Exposição até 4,50 m² - Fornec. e Implantação",
+    "unit": "un",
+    "price": 23022.8
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|312",
+    "name": "Fornecimento e implantação de placa em alumínio composto, espessura de 3,0 mm. - película retrorrefletiva tipo III + SI (Sinal Impresso Digital c/  Overlay)",
+    "unit": "m²",
+    "price": 1527.45
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|313",
+    "name": "Fornecimento e implantação de placa em aço - película III + SI (Sinal Impresso Digital c/ Overlay)",
+    "unit": "m²",
+    "price": 727.99
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|315",
+    "name": "DISPOSITIVOS DE SEGURANÇA",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|316",
+    "name": "Terminal de ancoragem de defensa metálica em barreira New Jersey - Fornec. e Implantação",
+    "unit": "un",
+    "price": 653.33
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|317",
+    "name": "Módulo de transição de defensa metálica para barreira rígida - Fornecimento e Implantação",
+    "unit": "un",
+    "price": 8969.67
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|318",
+    "name": "Ancoragem de defensa semimaleável simples - Fornecimento e Implantação",
+    "unit": "m",
+    "price": 655.12
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|319",
+    "name": "Terminal absorvedor de energia, certificado segundo ABNT NBR 15.486:2016, especif. conf. NCHRP 350 nível de ensaio 3 (100 km/h) ou EN 1317 nível de ensaio 3 (100 km/h) - Fornec. e inst.",
+    "unit": "un",
+    "price": 16482.58
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|320",
+    "name": "Terminal absorvedor de energia, certificado segundo a ABNT NBR 15.486:2016, especif. conf. NCHRP 350 nível de ensaio 2 (70 km/h) ou EN 1317 nível de ensaio 2 (80 km/h) – forn. e inst.",
+    "unit": "un",
+    "price": 13789.33
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|321",
+    "name": "Dispositivo de contenção longitudinal, certificado segundo a ABNT NBR 15486:2016, tipo (H1 A W2) - Defensa Metálica - Fornecimento e Implantação",
+    "unit": "m",
+    "price": 432.51
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|322",
+    "name": "Fornecimento e colocação de dispositivo Refletivo para defensas em tangente",
+    "unit": "un",
+    "price": 79.97
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|323",
+    "name": "Fornecimento e colocação de Painel de Delineamento Refletivo para defensas em curvas",
+    "unit": "un",
+    "price": 253.54
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|325",
+    "name": "MANUTENÇÃO HORIZONTAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|326",
+    "name": "Manutenção/recomposição de sinalização - pintura de faixa com tinta acrílica emulsionada em água - espessura de 0,5 mm",
+    "unit": "m²",
+    "price": 20.36
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|327",
+    "name": "Remoção de sinalização horizontal com maçarico",
+    "unit": "m²",
+    "price": 3.78
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|328",
+    "name": "Cilindro flexível delimitador de tráfego c/ duas faixas refl. e chumbador - D = 20 cm e H = 80 cm",
+    "unit": "un",
+    "price": 248.53
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|329",
+    "name": "Manutenção/recomposição - pintura de faixa - plástico a frio tricomponente à base de resinas metacrílicas - espessura de 0,6 mm - aspersão",
+    "unit": "m²",
+    "price": 67.99
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|330",
+    "name": "Remoção de sinalização horizontal por fresagem",
+    "unit": "m²",
+    "price": 4.92
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|331",
+    "name": "Remoção de sinaliz. Horiz. pintura acrílica por jateamento abrasivo úmido c/ vidro - utiliz. de 3 vezes",
+    "unit": "m²",
+    "price": 63.21
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|332",
+    "name": "Remoção de tachas e tachões",
+    "unit": "un",
+    "price": 4.74
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|333",
+    "name": "Tacha refletiva - monodirecional tipo III - fornecimento e colocação",
+    "unit": "un",
+    "price": 34.95
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|334",
+    "name": "Tacha refletiva - bidirecional tipo III - fornecimento e colocação",
+    "unit": "un",
+    "price": 39.19
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|335",
+    "name": "Limpeza de tachas refletivas",
+    "unit": "un",
+    "price": 1.72
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|337",
+    "name": "MANUTENÇÃO VERTICAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|338",
+    "name": "Pórtico metálico com vão de 15,9 m, vento de 35 m/s e área de exposição de até 23,85 m² - fornecimento e implantação - areia e brita comerciais",
+    "unit": "un",
+    "price": 108283.9
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|339",
+    "name": "Fornecimento e implantação de suporte metálico galvanizado para placas - 2,00 x 1,00 m",
+    "unit": "un",
+    "price": 1287.18
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|340",
+    "name": "Semipórtico metálico com vão de 8,3 m, vento de 35 m/s e área de exposição de até 12,45 m² - fornecimento e implantação - areia e brita comerciais",
+    "unit": "un",
+    "price": 51700.34
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|341",
+    "name": "Suporte metálico  com braço projetado  - Área de Exposição até 4,50 m² - Fornecimento e Implantação",
+    "unit": "un",
+    "price": 23022.8
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|342",
+    "name": "Limpeza de placa de sinalização",
+    "unit": "m²",
+    "price": 10.72
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|343",
+    "name": "Suporte duplo metálico galvanizado para placas - 3,00 x 1,50 m - fornecimento e implantação",
+    "unit": "un",
+    "price": 2780.61
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|344",
+    "name": "Suporte duplo metálico galvanizado para placas - 3,00 x 2,00 m - fornecimento e implantação",
+    "unit": "un",
+    "price": 3736.1
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|345",
+    "name": "Suporte duplo metálico galvanizado para placas - 4,00 x 2,00 m - fornecimento e implantação",
+    "unit": "un",
+    "price": 3846.56
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|346",
+    "name": "Suporte duplo metálico galvanizado para placas - 4,00 x 3,00 m - fornecimento e implantação",
+    "unit": "un",
+    "price": 6149.05
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|347",
+    "name": "Semipórtico duplo metálico com vão de 2 x 8,3 m, vento de 35 m/s e área de exposição de até 2 x 12,45 m² - fornecimento e implantação - areia e brita comerciais",
+    "unit": "un",
+    "price": 85097.43
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|348",
+    "name": "Fornecimento e implantação de placa em alumínio composto, espessura de 3,0 mm, modulada, aérea - película retrorrefletiva tipo X + SI (Sinal Impresso Digital c/ Overlay)",
+    "unit": "m²",
+    "price": 2025.02
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|349",
+    "name": "Remoção de placa de sinalização",
+    "unit": "m²",
+    "price": 24.79
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|350",
+    "name": "Capina manual",
+    "unit": "m²",
+    "price": 0.82
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|351",
+    "name": "Recomposição de placa de sinalização",
+    "unit": "m²",
+    "price": 40.39
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|352",
+    "name": "Suporte polimérico ecológico maciço colapsível quadrado de 10 cm para placa de sinalização - fornecimento e implantação",
+    "unit": "un",
+    "price": 2016.06
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|353",
+    "name": "Fornecimento e implantação de suporte polimérico ecológico maciço quadrado de 8 cm para placa de sinalização",
+    "unit": "un",
+    "price": 136.98
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|354",
+    "name": "Fornecimento e implantação de placa em alumínio composto, espessura de 3,0 mm. - película retrorrefletiva tipo III + SI (Sinal Impresso Digital c/  Overlay)",
+    "unit": "m²",
+    "price": 1527.45
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|355",
+    "name": "Fornecimento e implantação de placa em aço - película III + SI (Sinal Impresso Digital c/ Overlay)",
+    "unit": "m²",
+    "price": 727.99
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|357",
+    "name": "MANUTENÇÃO DISPOSITIVOS DE SEGURANÇA",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|358",
+    "name": "Remoção de defensa metálica",
+    "unit": "m",
+    "price": 26.46
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|359",
+    "name": "Ancoragem de defensa semimaleável simples - fornecimento e implantação",
+    "unit": "m",
+    "price": 655.12
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|360",
+    "name": "Terminal de ancoragem de defensa metálica em barreira New Jersey - fornec. e implantação",
+    "unit": "un",
+    "price": 653.33
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|361",
+    "name": "Módulo de transição de defensa metálica para barreira rígida - fornecimento e implantação",
+    "unit": "un",
+    "price": 8969.67
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|362",
+    "name": "Terminal absorvedor de energia, certificado segundo ABNT NBR 15.486:2016, especif. conf. NCHRP 350 nível de ensaio 3 (100 km/h) ou EN 1317 nível de ensaio 3 (100 km/h) - Fornec. e inst.",
+    "unit": "un",
+    "price": 16482.58
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|363",
+    "name": "Terminal absorvedor de energia, certificado segundo a ABNT NBR 15.486:2016, especif. conf. NCHRP 350 nível de ensaio 2 (70 km/h) ou EN 1317 nível de ensaio 2 (80 km/h) – forn. e inst.",
+    "unit": "un",
+    "price": 13789.33
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|364",
+    "name": "Dispositivo de contenção longitudinal, certificado segundo a ABNT NBR 15486:2016, tipo (H1 A W2) - Defensa Metálica - Fornecimento e Implantação",
+    "unit": "m",
+    "price": 432.51
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|365",
+    "name": "Fornecimento e colocação de dispositivo Refletivo para defensas em tangente",
+    "unit": "un",
+    "price": 79.97
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|366",
+    "name": "Fornecimento e colocação de Painel de Delineamento Refletivo para defensas em curvas",
+    "unit": "un",
+    "price": 253.54
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|368",
+    "name": "OPERACIONAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|369",
+    "name": "Operação de sinalização por bandeirola de tecido ou com placa metálica",
+    "unit": "h",
+    "price": 24.47
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|370",
+    "name": "Barreira plástica monobloco p/ canalização de trânsito 101 x 50 x 55 cm - utilização de 10 vezes",
+    "unit": "und.",
+    "price": 16.63
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|371",
+    "name": "Cone plástico para canalização de trânsito 75 cm (NBR 15071) flexível - 2 faixas refletivas tipo III (NBR 14644) - utilização de 150 ciclos - fornecimento, implantação e retirada",
+    "unit": "un",
+    "price": 26.27
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|372",
+    "name": "Placa de Regulamentação em Aço - Película retrorrefletiva tipo III + III - montada em suporte metálico móvel - D = 0,80 m",
+    "unit": "und",
+    "price": 745.97
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|373",
+    "name": "Placa de Advertência em Aço - Película retrorrefletiva tipo III + III - montada em suporte metálico móvel - Lado 0,80 m",
+    "unit": "und",
+    "price": 835.09
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|374",
+    "name": "Placa de Advertência em Aço - Película retrorrefletiva tipo III + III - montada em suporte metálico móvel - L= 1,25 x 0,40 m",
+    "unit": "und",
+    "price": 744.26
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|375",
+    "name": "Placa de Advertência em Aço - Película retrorrefletiva tipo III + III - montada em suporte metálico móvel - L= 1,20 x 0,80 m",
+    "unit": "und",
+    "price": 1042.71
+  },
+  {
+    "contract": "2463",
+    "contractKey": "2463 - DNIT MS",
+    "itemId": "2463|376",
+    "name": "Placa de Advertência em Aço - Película retrorrefletiva tipo III + III - montada em suporte metálico móvel - L= 1,80 x 1,00 m",
+    "unit": "und",
+    "price": 1587.8
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|377",
+    "name": "CANTEIRO DE OBRAS",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|378",
+    "name": "Instalação de Canteiro Tipo I (1,500%)",
+    "unit": "global",
+    "price": 311219.93
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|379",
+    "name": "Oper. e Manutenção de Canteiro Tipo I (0,875%)",
+    "unit": "global",
+    "price": 181544.96
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|380",
+    "name": "Desmobilização de Canteiro Tipo I (0,125%)",
+    "unit": "global",
+    "price": 25934.99
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|382",
+    "name": "SINALIZAÇÃO",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|383",
+    "name": "Equipe para Serviços de Conservação",
+    "unit": "equip/dia",
+    "price": 2297.71
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|384",
+    "name": "Suporte Madeira Tratada 0,10 x 0,10 m",
+    "unit": "m",
+    "price": 106.43
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|385",
+    "name": "Suporte de Perfil Metálico Galvanizado",
+    "unit": "kg",
+    "price": 34.06
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|386",
+    "name": "Substituição de Defensa Semi-Maleável",
+    "unit": "m",
+    "price": 107.28
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|387",
+    "name": "Forn. Transp. Inst. Defensa Metálica H1AW4 Simples (Preço 2° TAM)",
+    "unit": "m",
+    "price": 343.71
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|388",
+    "name": "Fornecimento e Transporte Inst.Term. Absorv. Energia 70/80 Km/h Simples.",
+    "unit": "conjunto",
+    "price": 28425.69
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|389",
+    "name": "Fornecimento e Transporte Inst.Term. Absorv. Energia 100 Km/h Simples.",
+    "unit": "conjunto",
+    "price": 34430.88
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|390",
+    "name": "Tacha Refletiva Monodirecional Tipo III ou IV ABNT (Vidro ou Prismática)",
+    "unit": "un",
+    "price": 52.35
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|391",
+    "name": "Tacha Refletiva Bidirecional Tipo III ou IV ABNT (Vidro ou Prismática)",
+    "unit": "un",
+    "price": 57.84
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|392",
+    "name": "Sinalização Horizontal Acrílica a Base de Agua",
+    "unit": "m²",
+    "price": 38.31
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|393",
+    "name": "Renov. Material Termoplástico Aspersão",
+    "unit": "m²",
+    "price": 84.4
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|394",
+    "name": "Renov. Material Termoplástico Extrusão",
+    "unit": "m²",
+    "price": 104.39
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|395",
+    "name": "Fornecimento e Aplicação de Material Termoplástico de Altorelevo",
+    "unit": "m²",
+    "price": 178.19
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|396",
+    "name": "Retirada de Placa de Solo em Suporte de Madeira ou Metálico",
+    "unit": "m²",
+    "price": 68.13
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|397",
+    "name": "Retirada de Placa Aérea",
+    "unit": "m²",
+    "price": 88.4
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|398",
+    "name": "Colocação de Placa em Suporte de Madeira ou Metálico - Solo",
+    "unit": "m²",
+    "price": 79.65
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|399",
+    "name": "Fornecimento e Transporte de Placa de Aço GT+GT",
+    "unit": "m²",
+    "price": 674.65
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|400",
+    "name": "Remoção de Tacha Refletiva",
+    "unit": "un",
+    "price": 6.67
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|401",
+    "name": "Sinalização Horizontal Acrílica Branca a Base de Epoxi Emulsionada em Agua",
+    "unit": "m²",
+    "price": 52.36
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|402",
+    "name": "Disp. Delimitador Balizador Cilíndrico C/ Película AI",
+    "unit": "un",
+    "price": 525.98
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|403",
+    "name": "Fornec. Instal. Delineador Termoplástico P/ Defensa Metálica Tipo III - Película AI",
+    "unit": "un",
+    "price": 33.83
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|404",
+    "name": "Fornec. Instal. Balizador P/ Barreira Rígida C/ Película GT+GT",
+    "unit": "un",
+    "price": 38.92
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|405",
+    "name": "Barreira Rígida de Concreto Armado Simples Baixa",
+    "unit": "m",
+    "price": 458.37
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|406",
+    "name": "Fornec. Instal. Conj. Transição de Defensa Metálica P/ Barreira de Concreto C/ Lâm Tripla",
+    "unit": "conjunto",
+    "price": 8749.11
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|407",
+    "name": "Sinalização Horizontal Acrílica Amarela a Base de Epóxi emulsionada em Agua",
+    "unit": "m²",
+    "price": 52.49
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|408",
+    "name": "Sinal. Horiz. Plast. Frio Base de Res. Metacrílica Reativas, Disp. Estrutura",
+    "unit": "m²",
+    "price": 178.38
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|409",
+    "name": "Suporte de Placa de Solo Ecológico e Colapsível 100x100mm",
+    "unit": "m",
+    "price": 390.08
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|410",
+    "name": "Confecção, Montagem e Instalação de Placa Institucional",
+    "unit": "m²",
+    "price": 305
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|411",
+    "name": "Manutenção de Placa Institucional",
+    "unit": "m² x mes",
+    "price": 52.53
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|413",
+    "name": "EQUIPAMENTOS",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|414",
+    "name": "Veículo C/ Capacidade P/4 Pessoas 1.600CC Cond. E",
+    "unit": "km",
+    "price": 0.84
+  },
+  {
+    "contract": "2465",
+    "contractKey": "2465 - DER SP",
+    "itemId": "2465|415",
+    "name": "Veículo C/ Capacidade P/4 Pessoas 1.600CC Cond. F",
+    "unit": "veic.mens",
+    "price": 3243.4
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|416",
+    "name": "SINALIZAÇÃO HORIZONTAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|417",
+    "name": "Acrílica – Automática",
+    "unit": "m²",
+    "price": 24.42
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|418",
+    "name": "Acrílica – Manual",
+    "unit": "m²",
+    "price": 30.28
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|419",
+    "name": "Termoplástico – Extrudado e= 3,00mm",
+    "unit": "m²",
+    "price": 61.489999999999995
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|420",
+    "name": "Plástico a frio base de resinas metacrílicas reativas – spray (Bicomponente)",
+    "unit": "m²",
+    "price": 94.42999999999999
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|421",
+    "name": "Termoplástico - Hot Spray e= 1,50mm",
+    "unit": "m²",
+    "price": 35.89
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|422",
+    "name": "Laminado Elastoplástico Retrorreﬂetivo e= 1,50mm",
+    "unit": "m²",
+    "price": 106.98
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|423",
+    "name": "Remoção Sinalização Horizontal",
+    "unit": "m²",
+    "price": 37.82
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|424",
+    "name": "Remoção de Tachas",
+    "unit": "un",
+    "price": 6.029999999999999
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|425",
+    "name": "Remoção de Tachões",
+    "unit": "un",
+    "price": 6.63
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|426",
+    "name": "Remoção de prisma e segregador de concreto",
+    "unit": "un",
+    "price": 17.02
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|427",
+    "name": "Tachas Monodirecionais/material e implantação",
+    "unit": "un",
+    "price": 13.57
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|428",
+    "name": "Tachas Bidirecionais/material e implantação",
+    "unit": "un",
+    "price": 14.64
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|429",
+    "name": "Tachões Monodirecionais/material e implantação",
+    "unit": "un",
+    "price": 34.18
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|430",
+    "name": "Tachões Bidirecionais/material e implantação",
+    "unit": "un",
+    "price": 35.78
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|431",
+    "name": "Prisma/material e implantação",
+    "unit": "un",
+    "price": 53.08
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|432",
+    "name": "Segregador/material e implantação",
+    "unit": "un",
+    "price": 60.44
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|433",
+    "name": "Fornecimento e implantação de cilindro delimitador Tipo II",
+    "unit": "un",
+    "price": 205.98
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|434",
+    "name": "Confecção de projeto “as built”",
+    "unit": "m",
+    "price": 0.51
+  },
+  {
+    "contract": "2468",
+    "contractKey": "2468 - DETRAN DF",
+    "itemId": "2468|435",
+    "name": "Lavagem de faixa de pedestre",
+    "unit": "m²",
+    "price": 4.359999999999999
+  },
+  {
+    "contract": "2470",
+    "contractKey": "2470 - RENOVIAS",
+    "itemId": "2470|436",
+    "name": "Sin. horizontal  - Padrão DER-SP (3.16) - Mecânica (provisória) (Diurno)",
+    "unit": "m²",
+    "price": 12.3
+  },
+  {
+    "contract": "2470",
+    "contractKey": "2470 - RENOVIAS",
+    "itemId": "2470|437",
+    "name": "Sin. horizontal  - Padrão DER-SP (3.16) - Mecânica (provisória) (Noturna)",
+    "unit": "m²",
+    "price": 16
+  },
+  {
+    "contract": "2470",
+    "contractKey": "2470 - RENOVIAS",
+    "itemId": "2470|438",
+    "name": "Sin. horizontal  - Padrão DER-SP (emulsionada em água) -   Mecânica (definitiva) (Diurno)",
+    "unit": "m²",
+    "price": 13.4
+  },
+  {
+    "contract": "2470",
+    "contractKey": "2470 - RENOVIAS",
+    "itemId": "2470|439",
+    "name": "Sin. horizontal  - Padrão DER-SP (emulsionada em água) -   Mecânica (definitiva) (Noturna)",
+    "unit": "m²",
+    "price": 17.4
+  },
+  {
+    "contract": "2470",
+    "contractKey": "2470 - RENOVIAS",
+    "itemId": "2470|440",
+    "name": "Sin. horizontal - Padrão DER-SP (3.16) - Manual (provisória) (Diurno)",
+    "unit": "m²",
+    "price": 12.3
+  },
+  {
+    "contract": "2470",
+    "contractKey": "2470 - RENOVIAS",
+    "itemId": "2470|441",
+    "name": "Sin. horizontal - Padrão DER-SP (3.16) - Manual (provisória) (Noturna)",
+    "unit": "m²",
+    "price": 16
+  },
+  {
+    "contract": "2470",
+    "contractKey": "2470 - RENOVIAS",
+    "itemId": "2470|442",
+    "name": "Sin. horizontal - Padrão DER-SP (emulsionada em água) -        Manual (definitiva) (Diurno)",
+    "unit": "m²",
+    "price": 18.3
+  },
+  {
+    "contract": "2470",
+    "contractKey": "2470 - RENOVIAS",
+    "itemId": "2470|443",
+    "name": "Sin. horizontal - Padrão DER-SP (emulsionada em água) -        Manual (definitiva) (Noturna)",
+    "unit": "m²",
+    "price": 23.7
+  },
+  {
+    "contract": "2470",
+    "contractKey": "2470 - RENOVIAS",
+    "itemId": "2470|444",
+    "name": "Apagamento de faixas (Diurno)",
+    "unit": "m²",
+    "price": 49.2
+  },
+  {
+    "contract": "2470",
+    "contractKey": "2470 - RENOVIAS",
+    "itemId": "2470|445",
+    "name": "Apagamento de faixas (Noturna)",
+    "unit": "m²",
+    "price": 63.9
+  },
+  {
+    "contract": "2470",
+    "contractKey": "2470 - RENOVIAS",
+    "itemId": "2470|446",
+    "name": "Sinalização horizontal - Extrudado (Diurno)",
+    "unit": "m²",
+    "price": 65.1
+  },
+  {
+    "contract": "2470",
+    "contractKey": "2470 - RENOVIAS",
+    "itemId": "2470|447",
+    "name": "Sinalização horizontal - Extrudado (Noturna)",
+    "unit": "m²",
+    "price": 84.7
+  },
+  {
+    "contract": "2470",
+    "contractKey": "2470 - RENOVIAS",
+    "itemId": "2470|448",
+    "name": "Sin. horizontal  - Implantação de tacha monodirecional tipo II (Diurno)",
+    "unit": "Unid.",
+    "price": 10.5
+  },
+  {
+    "contract": "2470",
+    "contractKey": "2470 - RENOVIAS",
+    "itemId": "2470|449",
+    "name": "Sin. horizontal  - Implantação de tacha monodirecional tipo II (Noturna)",
+    "unit": "Unid.",
+    "price": 13.6
+  },
+  {
+    "contract": "2470",
+    "contractKey": "2470 - RENOVIAS",
+    "itemId": "2470|450",
+    "name": "Sin. horizontal  - Implantação de tacha bidirecional tipo I (Diurno)",
+    "unit": "Unid.",
+    "price": 10.5
+  },
+  {
+    "contract": "2470",
+    "contractKey": "2470 - RENOVIAS",
+    "itemId": "2470|451",
+    "name": "Sin. horizontal  - Implantação de tacha bidirecional tipo I (Noturna)",
+    "unit": "Unid.",
+    "price": 13.6
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|452",
+    "name": "SINALIZAÇÃO HORIZONTAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|453",
+    "name": "Pintura acrílica a base dá agua mecânica - branco/amarelo",
+    "unit": "m²",
+    "price": 29.41
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|454",
+    "name": "Pintura acrílica a base dá agua mecânica - preto",
+    "unit": "m²",
+    "price": 28.18
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|455",
+    "name": "Pintura acrílica a base dá agua mecânica EPX - branco/amarelo",
+    "unit": "m²",
+    "price": 35.01
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|456",
+    "name": "Pintura acrílica a base dá agua manual - branco/amarelo",
+    "unit": "m²",
+    "price": 53.23
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|457",
+    "name": "Pintura acrílica a base dá agua manual EPX - branco/amarelo",
+    "unit": "m²",
+    "price": 62.29
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|458",
+    "name": "Pintura termoplástica manual - extrusão",
+    "unit": "m²",
+    "price": 103.02
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|459",
+    "name": "Pintura plástico a frio MMA 0,6 mm mecânica",
+    "unit": "m²",
+    "price": 138.95
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|460",
+    "name": "Pintura termoplástica mecânica - alto relevo",
+    "unit": "m²",
+    "price": 91.62
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|461",
+    "name": "Fornecimento e aplicação de tacos com recobrimento em MMA",
+    "unit": "m²",
+    "price": 205.02
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|462",
+    "name": "Pintura termoplástica mecânica de tacos alto relevo sem base",
+    "unit": "m²",
+    "price": 70.07
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|463",
+    "name": "Pintura plástico a frio mecânica de tacos sem base",
+    "unit": "m²",
+    "price": 181.62
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|464",
+    "name": "Pintura plástico a frio MMA mecânica - alto relevo multi pontos",
+    "unit": "m²",
+    "price": 191.84
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|465",
+    "name": "Forncimento e Implantação de tacha monodirecional tipo I (Corpo Resina)",
+    "unit": "unid",
+    "price": 19.6
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|466",
+    "name": "Forncimento e Implantação de tacha bidirecional tipo I (Corpo Resina)",
+    "unit": "unid",
+    "price": 20.96
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|467",
+    "name": "Forncimento e Implantação de tacha monodirecional tipo II (Corpo Plástico Injetado)",
+    "unit": "unid",
+    "price": 21.82
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|468",
+    "name": "Forncimento e Implantação de tacha bidirecional tipo II (Corpo Plástico Injetado)",
+    "unit": "unid",
+    "price": 23.36
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|469",
+    "name": "Forncimento e Implantação de tacha monodirecional tipo I (Corpo Metálico)",
+    "unit": "unid",
+    "price": 37.1
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|470",
+    "name": "Forncimento e Implantação de tacha bidirecional tipo I (Corpo Metálico)",
+    "unit": "unid",
+    "price": 41.39
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|471",
+    "name": "Forncimento e Implantação de tacha monodirecional tipo II (Corpo Metálico)",
+    "unit": "unid",
+    "price": 45.64
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|472",
+    "name": "Forncimento e Implantação de tacha bidirecional tipo II (Corpo Metálico)",
+    "unit": "unid",
+    "price": 41.39
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|473",
+    "name": "Fornecimento e Substituição de Lente Tacha Metálica tipo II",
+    "unit": "unid",
+    "price": 20
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|474",
+    "name": "Fornecimento e Substituição de Lente Tacha Metálica tipo III",
+    "unit": "unid",
+    "price": 20.99
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|475",
+    "name": "Forncimento e Implantação de tacha refletiva de vidro temperado",
+    "unit": "unid",
+    "price": 40
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|476",
+    "name": "Forncimento e Implantação de tachão monodirecional",
+    "unit": "unid",
+    "price": 56.5
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|477",
+    "name": "Forncimento e Implantação de tachão bidirecional",
+    "unit": "unid",
+    "price": 63.34
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|478",
+    "name": "Remoção de tacha ou tachão",
+    "unit": "unid",
+    "price": 7.53
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|479",
+    "name": "Remoção de demarcação por microfresagem",
+    "unit": "m²",
+    "price": 127.13
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|480",
+    "name": "Remoção de demarcação por hidrojateamento",
+    "unit": "m²",
+    "price": 140.06
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|482",
+    "name": "EQUIPES POR ADMINISTRAÇÃO",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|483",
+    "name": "Equipe de Pintura 1 - Diurno/Noturno - Segunda a Sexta",
+    "unit": "dia",
+    "price": 7542.59
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|484",
+    "name": "Equipe de Pintura 2 - Diurno/Noturno - Segunda a Sexta",
+    "unit": "dia",
+    "price": 2258.93
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|485",
+    "name": "Equipe de Pintura 1 - Diurno/Noturno - Sábado",
+    "unit": "dia",
+    "price": 10468.9
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|486",
+    "name": "Equipe de Pintura 2 - Diurno/Noturno - Sábado",
+    "unit": "dia",
+    "price": 3831.95
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|487",
+    "name": "Equipe de Pintura 1 - Diurno/Noturno - Domingo",
+    "unit": "dia",
+    "price": 10468.9
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|488",
+    "name": "Equipe de Pintura 2 - Diurno/Noturno - Domingo",
+    "unit": "dia",
+    "price": 3831.95
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|489",
+    "name": "Fornecimento de Tinta Base d´ agua",
+    "unit": "m²",
+    "price": 20.94
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|490",
+    "name": "Fornecimento de Tinta Base d´ agua EPX",
+    "unit": "m²",
+    "price": 26.48
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|491",
+    "name": "Fornecimento de Termoplástico Extrudado",
+    "unit": "m²",
+    "price": 79.3
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|492",
+    "name": "Formecimento de tacha metálica mono ou bi tipo II",
+    "unit": "unid",
+    "price": 32
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|493",
+    "name": "Formecimento e Implantação de tacha mono ou bidirecionais",
+    "unit": "unid",
+    "price": 23.36
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|494",
+    "name": "Formecimento e Implantação de tachão mono ou bidirecionais",
+    "unit": "unid",
+    "price": 49.69
+  },
+  {
+    "contract": "2473",
+    "contractKey": "2473 - PRVias",
+    "itemId": "2473|495",
+    "name": "Fornecimento de lente para tacha metálica",
+    "unit": "unid",
+    "price": 16
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|496",
+    "name": "SINALIZAÇÃO HORIZONTAL",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|497",
+    "name": "Fornecimento e aplicação de pintura mecânica - Tinta acrílica base água-Branca/Amarela",
+    "unit": "",
+    "price": 31.498638785003013
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|498",
+    "name": "Fornecimento e aplicação de pintura mecânica - Tinta acrílica base água-Preta",
+    "unit": "",
+    "price": 31.5009794456301
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|499",
+    "name": "Fornecimento e aplicação de pintura mecânica - Tinta acrílica base água com Epoxi- Branca/Amarela (EPX)",
+    "unit": "",
+    "price": 35.251925369473135
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|500",
+    "name": "Fornecimento e aplicação de pintura manual - Tinta acrílica base água-Branca/Amarela",
+    "unit": "",
+    "price": 62.35399324208523
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|501",
+    "name": "Fornecimento e aplicação de pintura manual - Tinta acrílica base água com Epoxi-Branca/Amarela (EPX)",
+    "unit": "",
+    "price": 65.05221154666138
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|502",
+    "name": "Fornecimento e aplicação de pintura manual - Tinta Termoplástica - processo de extrusão",
+    "unit": "",
+    "price": 119.85178738478947
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|503",
+    "name": "Fornecimento e aplicação de pintura mecânica - Tinta PMMA - spray 0,6mm",
+    "unit": "",
+    "price": 146.0020464082069
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|504",
+    "name": "Fornecimento e aplicação de pintura mecânica - Tinta Termoplástica - alto relevo",
+    "unit": "",
+    "price": 95.12792382559914
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|505",
+    "name": "Fornecimento e aplicação mecânica de tacos em termoplástico com recobrimento em PMMA bi",
+    "unit": "",
+    "price": 244.9243681635277
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|506",
+    "name": "For apl mec sin altorel taco termoplástico Tipo IV sem base e espaçamento entre tacos de 500 mm, profundidade de 40 mm e altura de 6,00 mm, conforme NBR 15543 (sem base) - sem recobrimento",
+    "unit": "",
+    "price": 70.3813884672802
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|507",
+    "name": "For apl mec sin altorel taco plástico a frio sem base. Espaçamento entre tacos de 500 mm, profundidade de 40 mm e altura de 6,00 mm - sem recobrimento",
+    "unit": "",
+    "price": 198.54512495212063
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|508",
+    "name": "Fornecimento e aplicação de pintura mecânica - Tinta PMMA - alto relevo multipontos",
+    "unit": "",
+    "price": 219.4564806366087
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|509",
+    "name": "Forn e impl de tachas monodirecionais - Corpo A (resina) - Refletivo Tipo II",
+    "unit": "",
+    "price": 20.840852146568235
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|510",
+    "name": "Forn e impl de tachas bidirecionais - Corpo A (resina) - Refletivo Tipo II",
+    "unit": "",
+    "price": 22.510043436578236
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|511",
+    "name": "Forn e impl de tachas monodirecionais - Corpo B (plástico injetado) - Refletivo Tipo II",
+    "unit": "",
+    "price": 25.780611078488718
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|512",
+    "name": "Forn e impl de tachas bidirecionais - Corpo B (plástico injetado) - Refletivo Tipo II",
+    "unit": "",
+    "price": 29.051178720399196
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|513",
+    "name": "Forn e impl de tachas monodirecionais - Corpo C (metálico) - Refletivo Tipo II",
+    "unit": "",
+    "price": 43.454380455989345
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|514",
+    "name": "Forn e impl de tachas bidirecionais -  Corpo C (metálico)  - Refletivo Tipo II",
+    "unit": "",
+    "price": 48.55000646530418
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|515",
+    "name": "Forn e impl de tachas monodirecionais - Corpo C (metálico) - Refletivo Tipo III",
+    "unit": "",
+    "price": 50.48585367197446
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|516",
+    "name": "Forn e impl de tachas bidirecionais -  Corpo C (metálico)  - Refletivo Tipo III",
+    "unit": "",
+    "price": 58.11017221877378
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|517",
+    "name": "Forn subst pelic reflet tachas metálicas - Tipo II",
+    "unit": "",
+    "price": 16
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|518",
+    "name": "Forn subst pelic reflet tachas metálicas - Tipo III",
+    "unit": "",
+    "price": 18
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|519",
+    "name": "For apl tacha refletiva vidro temperado",
+    "unit": "",
+    "price": 39.77864058586556
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|520",
+    "name": "Forn e impl de tachões monodirecionais",
+    "unit": "",
+    "price": 51.29103868539043
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|521",
+    "name": "Forn e impl de tachões bidirecionais",
+    "unit": "",
+    "price": 54.56160632730092
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|522",
+    "name": "Remoção de tachas ou tachões refletivos",
+    "unit": "",
+    "price": 7.881000449543561
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|523",
+    "name": "Remoção de demarcação por microfresagem",
+    "unit": "",
+    "price": 132.27291107453598
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|524",
+    "name": "Remoção de demarcação por hidrojateamento",
+    "unit": "",
+    "price": 166.44522699254054
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|526",
+    "name": "EQUIPES POR ADMINISTRAÇÃO",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|527",
+    "name": "Equipe por Administração Pintura 1 - Diurno/Noturno - Seg. à Sex.",
+    "unit": "",
+    "price": 8108.982012947921
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|528",
+    "name": "Equipe por Administração Pintura 2 - Diurno/Noturno - Seg. à Sex.",
+    "unit": "",
+    "price": 5382.560280835176
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|529",
+    "name": "Equipe por Administração Pintura 1 - Diurno/Noturno - Sábado.",
+    "unit": "",
+    "price": 10862.320708837411
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|530",
+    "name": "Equipe por Administração Pintura 2 - Diurno/Noturno - Sábado.",
+    "unit": "",
+    "price": 6787.097429345604
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|531",
+    "name": "Equipe por Administração Pintura 1 - Diurno/Noturno - Domingo",
+    "unit": "",
+    "price": 10862.320708837411
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|532",
+    "name": "Equipe por Administração Pintura 2 - Diurno/Noturno - Domingo",
+    "unit": "",
+    "price": 6787.097429345604
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|533",
+    "name": "Fornecimento de tinta a base d´agua",
+    "unit": "",
+    "price": 18.451476
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|534",
+    "name": "Fornecimento de tinta a base Epóxi emulsionada em agua",
+    "unit": "",
+    "price": 25.292735999999998
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|535",
+    "name": "Fornecimento de termoplástico extrudado",
+    "unit": "",
+    "price": 73.38081600000001
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|536",
+    "name": "Fornecimento de tacha metálica mono e bidirecional Tipo II",
+    "unit": "",
+    "price": 38.32434
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|537",
+    "name": "Forn e impl de tachas mono e bidirecionais",
+    "unit": "",
+    "price": 34.246963756664414
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|538",
+    "name": "Fornecimento de tachão mono e bidirecional Tipo II",
+    "unit": "",
+    "price": 43.956756000000006
+  },
+  {
+    "contract": "2475",
+    "contractKey": "2475 - VIASul",
+    "itemId": "2475|539",
+    "name": "Fornecimento de Lente Refletiva para tacha metálica Tipo II",
+    "unit": "",
+    "price": 16
+  },
+  {
+    "contract": "2476",
+    "contractKey": "2476 - SPVias",
+    "itemId": "2476|540",
+    "name": "Fornecimento e implantação de tachas monodirecionais",
+    "unit": "",
+    "price": 32.94
+  },
+  {
+    "contract": "2476",
+    "contractKey": "2476 - SPVias",
+    "itemId": "2476|541",
+    "name": "Balizador Cilíndrico - Fornecimento",
+    "unit": "",
+    "price": 350
+  },
+  {
+    "contract": "2476",
+    "contractKey": "2476 - SPVias",
+    "itemId": "2476|542",
+    "name": "Balizador Cilíndrico - Instalação",
+    "unit": "",
+    "price": 50
+  },
+  {
+    "contract": "2476",
+    "contractKey": "2476 - SPVias",
+    "itemId": "2476|543",
+    "name": "Fornecimento e aplicação mecânica de sinalização horizontal - termoplástico por extrusão - espessura de 3,0 mm",
+    "unit": "",
+    "price": 121.5
+  },
+  {
+    "contract": "2476",
+    "contractKey": "2476 - SPVias",
+    "itemId": "2476|544",
+    "name": "Fornecimento e implantação de tachas bidirecionais",
+    "unit": "",
+    "price": 36
+  },
+  {
+    "contract": "2476",
+    "contractKey": "2476 - SPVias",
+    "itemId": "2476|545",
+    "name": "Sinalização horizontal manual acrilica agua (DEFINITIVA)",
+    "unit": "",
+    "price": 45
+  },
+  {
+    "contract": "2476",
+    "contractKey": "2476 - SPVias",
+    "itemId": "2476|546",
+    "name": "Sinalização horizontal mecânica acrilica agua (DEFINITIVA)",
+    "unit": "",
+    "price": 33.5
+  },
+  {
+    "contract": "2476",
+    "contractKey": "2476 - SPVias",
+    "itemId": "2476|547",
+    "name": "Sinalização horizontal manual acrilica agua (PROVISÓRIA)",
+    "unit": "",
+    "price": 45
+  },
+  {
+    "contract": "2476",
+    "contractKey": "2476 - SPVias",
+    "itemId": "2476|548",
+    "name": "Sinalização horizontal mecanica acrilica agua (PROVISÓRIA)",
+    "unit": "",
+    "price": 33.5
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|549",
+    "name": "A - Veículos",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|551",
+    "name": "Caminhão com carroceria fixa, no toco, capacidade de 7,5T,inclusive motorista 19.004.0004-2",
+    "unit": "",
+    "price": 186.62
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|552",
+    "name": "Caminhão com carroceria fixa, no toco, capacidade de 7,5T,inclusive motorista 19.004.0004-4",
+    "unit": "",
+    "price": 59.44
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|553",
+    "name": "Camioneta tipo pick-up com cabine dupla e caçamba, motor diesel de 2,8 litros, direção hidráulica, tração nas 4 rodas, inclusive motorista e combustível 19.004.0412-0",
+    "unit": "",
+    "price": 14800.69
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|554",
+    "name": "Veículo de passeio,5 passageiros,4 portas, motor bicombustível (gasolina e álcool) de 1,6 litros, com ar-condicionado, direção hidráulica e vidros dianteiros elétricos, inclusive motori 19.004.0040-2\nVeículo de passeio,5 passageiros,4 portas, motor bicombustível (gasolina e álcool) de 1,6 litros, com ar-condicionado, direção hidráulica e vidros dianteiros elétricos, inclusive motori 19.004.0040-2",
+    "unit": "",
+    "price": 93.85
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|555",
+    "name": "Veículo de passeio,5 passageiros,4 portas, motor bicombustível (gasolina e álcool) de 1,6 litros, com ar condicionado, direção hidráulica e vidros dianteiros elétricos, inclusive motori 19.004.0040-3",
+    "unit": "",
+    "price": 37.69
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|556",
+    "name": "B - Pessoal",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|558",
+    "name": "Mão-de-obra de engenheiro ou arquiteto sênior, inclusive encargos sociais 05.105.0131-0",
+    "unit": "",
+    "price": 36388.03
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|559",
+    "name": "Mão-de-obra de encarregado de obra, inclusive encargos sociais 05.105.0127-0",
+    "unit": "",
+    "price": 6985.34
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|560",
+    "name": "Mão-de-obra de ajudante, inclusive encargos sociais 05.105.0115-0",
+    "unit": "",
+    "price": 3036.35
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|561",
+    "name": "Operador de trânsito, inclusive leis sociais 05.105.0511-9",
+    "unit": "",
+    "price": 28.22
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|562",
+    "name": "C - Sinalizaçãoa",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|564",
+    "name": "Tacha refletiva injetada em \"abs\", monodirecional, medindo 100x100x19,5mm, pino de aço para maior fixação no pavimento e seus refletores poderão conter:23 ou 24 esferas de vidro lapid 05.021.0090-0",
+    "unit": "",
+    "price": 13.42
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|565",
+    "name": "Tacha refletiva injetada em \"abs\", bidirecional, medindo 100x100x19,5mm, pino de aço para maior fixação no pavimento e seus refletores poderão conter:23 ou 24 esferas de vidro lapidad 05.021.0095-0",
+    "unit": "",
+    "price": 15.76
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|566",
+    "name": "Defensa metálica, modelo semi-maleável simples, galvanizada, constituída de guia deslizante, espaçador, calco, plaqueta, acessórios de aperto e poste com comprimento de 1,80m. Fornecimento 20.041.0002-0",
+    "unit": "",
+    "price": 468.74
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|567",
+    "name": "Defensa metálica, modelo semi-maleável simples, galvanizada, constituída de guia deslizante, espaçador, calco, plaqueta, acessórios de aperto e poste cravado por meio de compressão. O comp 20.040.0002-0",
+    "unit": "",
+    "price": 29.8035
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|568",
+    "name": "Sinalização horizontal com material termoplástico aplicado por processo extrusão alto relevo 05.020.0012-9",
+    "unit": "",
+    "price": 133.25
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|569",
+    "name": "Aplicação de tinta bicomponente (plástico a frio), com fornecimento dos materiais 05.020.0020-9",
+    "unit": "",
+    "price": 212.56
+  },
+  {
+    "contract": "2479",
+    "contractKey": "2479 - DER RJ (CONSERVA)",
+    "itemId": "2479|570",
+    "name": "Sinalização manual de faixas e figuras para pedestres, com tinta termoplástica a base de resinas naturais e/ou sintéticas, em vias urbanas, aplicado por extrusão, conforme ABNT NBR 129 05.020.0014-0",
+    "unit": "",
+    "price": 114.56
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|571",
+    "name": "Escavacao manual de vala em material de 1a categoria (areia, argila ou picarra), exclusive escoramento e esgotamento.",
+    "unit": "m³",
+    "price": 22.396
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|572",
+    "name": "Escavacao manual de vala a frio em material de 2a categoria (moledo ou rocha decomposta) ate 1,50m de profundidade, exclusive escoramento e esgotamento.",
+    "unit": "m³",
+    "price": 56.477
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|573",
+    "name": "Desmonte manual de bloco de material de 3a categoria (rocha viva), inclusive reducao a pedra-de-mao.",
+    "unit": "m³",
+    "price": 52.5821
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|574",
+    "name": "Reaterro de vala, compactado a maco, em camadas de 30cm de espessura maxima, com material de boa qualidade.",
+    "unit": "m³",
+    "price": 23.3698
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|575",
+    "name": "Reaterro de vala, com po-de-pedra, compactado manualmente, inclusive fornecimento do material.",
+    "unit": "m³",
+    "price": 93.4793
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|576",
+    "name": "Transporte de carga de qualquer natureza; exclusive as despesas de carga e descarga tanto de espera do caminhao como de servente ou equipamento auxiliar, em baixa velocidade (Vm=30Km/h), em Caminhao de Carroceria Fixa, a oleo diesel com capacidade util de 7,5t.",
+    "unit": "t/km",
+    "price": 9.737
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|577",
+    "name": "Carga manual e descarga mecanica de material a granel (agregados, pedra-de-mao, paralelos, terra e escombro), compreendendo os tempos para carga, descarga e manobras do Caminhao Basculante a oleo diesel, com capacidade util de 8t, empregando 4 serventes na carga.",
+    "unit": "t",
+    "price": 12.6586
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|578",
+    "name": "Arrancamento de meios-fios, de granito ou concreto retos ou curvos, inclusive afastamento lateral dentro do canteiro de servico.",
+    "unit": "m",
+    "price": 12.6586
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|579",
+    "name": "Remocao manual de passeio de pedra portuguesa, inclusive farofa ou colchao de assentamento com ate 5cm de espessura.",
+    "unit": "m²",
+    "price": 6.8162
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|580",
+    "name": "Remocao manual de pavimentacao tipo Blokret ou similar, inclusive farofa ou colchao de assentamento com ate 5cm de espessura.",
+    "unit": "m²",
+    "price": 4.8687
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|581",
+    "name": "Demolicao, com equipamento de ar comprimido, de passeio cimentado com espessura ate 10cm, inclusive afastamento lateral dentro do canteiro de servicos.",
+    "unit": "m²",
+    "price": 6.8162
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|582",
+    "name": "Demolicao, com equipamento de ar comprimido, de pisos ou pavimento de concreto simples, inclusive afastamento lateral dentro de canteiro de servicos.",
+    "unit": "m³",
+    "price": 87.6368
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|583",
+    "name": "Demolicao, com equipamento de ar comprimido, de pisos ou pavimento de concreto armado, inclusive afastamento lateral dentro de canteiro de servicos.",
+    "unit": "m³",
+    "price": 150.9301
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|584",
+    "name": "Demolicao, com equipamento de ar comprimido, de pavimentacao de concreto asfaltico, com 5cm de espessura, inclusive afastamento lateral dentro do canteiro de servicos.",
+    "unit": "m²",
+    "price": 11.6849
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|585",
+    "name": "Eletricista (inclusive encargos sociais).",
+    "unit": "h",
+    "price": 58.4245
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|586",
+    "name": "Chapa de aco de 3/4\", para passagem de veiculos sobre valas, compreendendo colocacao, uso e retirada, medida pela area da chapa em cada aplicacao, inclusive mobilizacao, transporte, carga e descarga e o travamento com grampos.",
+    "unit": "m²",
+    "price": 550.1647
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|587",
+    "name": "Colchao drenante com camada de 30cm de pedra britada no 3 e filtro de transicao de manta Bidim, tipo OP-30 ou similar.",
+    "unit": "m²",
+    "price": 24.3435
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|588",
+    "name": "Imprimacao de base de pavimentacao, conforme Caderno de Encargos - PCRJ.",
+    "unit": "m²",
+    "price": 5.8424
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|589",
+    "name": "Concreto betuminoso usinado a quente, para camada de rolamento, de acordo com as especificacoes da PCRJ; exclusive transporte da usina para a pista e espalhamento da mistura.",
+    "unit": "t",
+    "price": 225.9083
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|590",
+    "name": "Espalhamento manual e compactacao mecanica de concreto asfaltico usinado a quente, ou de pre-misturado, exclusive fornecimento de todos os materiais.",
+    "unit": "t",
+    "price": 3.8949
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|591",
+    "name": "Revestimento intertravado com pecas (blocos) de concreto com cimento cinza, cor natural, com resistencia a compressao de 35MPa, altamente vibro-prensados, pre-moldados UNI-STEIN (16 faces), holandes (retangular), raquete ou similar, com espessura de 8cm, com todos os materiais e equipamentos, inclus",
+    "unit": "m²",
+    "price": 54.5296
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|592",
+    "name": "Revestimento intertravado com pecas (blocos) de concreto com cimento cinza, cor natural, com resistencia a compressao de 35MPa, altamente vibro-prensados, pre-moldados UNI-STEIN (16 faces), holandes (retangular), raquete ou similar, com espessura de 10cm, com todos os materiais e equipamentos, inclu",
+    "unit": "m²",
+    "price": 60.372
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|593",
+    "name": "Reassentamento de paralelepipedos, com reaproveitamento deste, com limpeza de rejunto aderido, sobre colchao de po-de- pedra, areia ou material equivalente, incluindo fornecimento de todos os materiais,",
+    "unit": "m²",
+    "price": 33.1072
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|594",
+    "name": "Levantamento e reassentamento de meio-fio.",
+    "unit": "m",
+    "price": 37.0022
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|595",
+    "name": "Plantio de grama em placas.",
+    "unit": "m²",
+    "price": 15.5798
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|596",
+    "name": "Concreto simples dosado racionalmente para uma resistencia minima caracteristica a compressao de 11MPa, inclusive materiais, preparo, lancamento, colocacao e adensamento, exclusive transporte.",
+    "unit": "m³",
+    "price": 209.3547
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|597",
+    "name": "Piso cimento, com 1,5 cm esspessura, sobre base existente.",
+    "unit": "m²",
+    "price": 21.4223
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|598",
+    "name": "Piso cimento, com 1,5 cm esspessura, sobre base existente.",
+    "unit": "m²",
+    "price": 81.7944
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|599",
+    "name": "Recomposicao de pavimentacao de pedra portuguesa, assentada com farofa de cimento e saibro no traco 1:5, inclusive fornecimento do material para rejuntamento e exclusive a pedra.",
+    "unit": "m²",
+    "price": 60.372
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|600",
+    "name": "Piso de alerta em placas marmorizadas vibro-prensadas, Tecnogran ou similar, com acabamento rustico, na cor cinza, inclusive contrapiso com espessura de 3cm. Fornecimento e colocacao.",
+    "unit": "m²",
+    "price": 87.6368
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|601",
+    "name": "Linha de duto espiral flexivel em polietileno de alta densidade, tipo Kanalex ou similar, diametro de 50mm (2\" ), lancado diretamente ao solo com com arame-guia galvanizado revestido em PVC, inclusive emendas e tamponamento, exclusive excavacao e reaterro.",
+    "unit": "m",
+    "price": 19.4748
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|602",
+    "name": "Linha de duto espiral flexivel em polietileno de alta densidade, tipo Kanalex ou similar, diametro de 75mm (3\" ), lancado diretamente ao solo com com arame-guia galvanizado revestido em PVC, inclusive emendas e tamponamento, exclusive excavacao e reaterro.",
+    "unit": "m",
+    "price": 24.3435
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|603",
+    "name": "Repintura à base de primer e esmalte sintético.",
+    "unit": "m²",
+    "price": 12.6586
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|604",
+    "name": "Caminhao Carroceria fixa, capacidade de 3,5t, equipado com plataforma elevatoria pantografica hidraulica, com motorista operador e um ajudante, material de operacao e material de manutencao, com as seguintes especificacoes minimas: motor diesel de 85CV, plataforma com elevacao de ate 8,5m. Custo hora",
+    "unit": "h",
+    "price": 165.5363
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|605",
+    "name": "Cabo de cobre flexível, 750 V, seção de 2 x 4 mm2 ,  PVC / 70º C, classe 4. Fornecimento.",
+    "unit": "m",
+    "price": 12.6586
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|606",
+    "name": "Cabo de cobre flexível ,750 V, seção 2 x 10 mm2, PVC/70C. Fornecimento.",
+    "unit": "m",
+    "price": 29.2122
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|607",
+    "name": "Cabo de cobre, 750V, secao de 2x6mm2, PVC/ 70oC. Fornecimento.",
+    "unit": "m",
+    "price": 19.4748
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|608",
+    "name": "Cabo de cobre flexivel, 750V, secao de 2x1,5mm2, PVC/ 70oC. Fornecimento.",
+    "unit": "m",
+    "price": 4.8687
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|609",
+    "name": "Bloco semaforico principal com 3 (tres) modulos focais de 300mm de diametro a led, cobre-focos, anteparo, borrachas de vedacao e suportes de fixacao, conforme especificacao da CET RIO. Fornecimento.",
+    "unit": "unid",
+    "price": 3310.7262
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|610",
+    "name": "Bloco semaforico repetidor com 3 (tres) modulos focais de 200mm de diametro a led, cobre-focos, anteparo, borrachas de vedacao e suportes de fixacao, conforme especificacao da CET RIO. Fornecimento.",
+    "unit": "unid",
+    "price": 2336.9832
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|611",
+    "name": "Bloco semaforico para pedestre com 2 (dois) modulos focais de 200mm a led, compreendendo foco verde \"Siga\" (boneco) e foco vermelho \"Pare\" (mao espalmada) com borrachas de vedacao e suportes de fixacao, conforme especificacao da CET RIO. Fornecimento.",
+    "unit": "unid",
+    "price": 1947.486
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|612",
+    "name": "Botoeira para travessia de pedestres conforme especificacao da CET-RIO. Fornecimento.",
+    "unit": "unid",
+    "price": 170.405
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|613",
+    "name": "Controlador eletronico de trafego local, sem fio (wireless), incluindo placa de comunicacao wireless GSM/GPRS, com GPS, compativel com o Sistema CETRIO/CTA sem fio (wireless) - modulos VII, IX e XII, com 4 fases, modelo DP-40-8 da Dataprom ou similar. Fornecimento.",
+    "unit": "unid",
+    "price": 34081.005
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|614",
+    "name": "Controlador eletronico de trafego local, sem fio (wireless), incluindo placa de comunicacao wireless GSM/GPRS, com GPS, compativel com o Sistema CETRIO/CTA sem fio (wireless) - modulos VIII, X e XI, com 4 fases, modelo RBY da Telvent ou similar. Fornecimento.",
+    "unit": "unid",
+    "price": 56477.094
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|615",
+    "name": "Controlador eletronico de trafego local, sem fio (wireless), incluindo placa de comunicacao wireless GSM/GPRS, com GPS, compativel com o Sistema CETRIO/CTA sem fio (wireless) - modulos VII, IX e XII, com 8 fases, modelo DP-40-8 da Dataprom ou similar. Fornecimento.",
+    "unit": "unid",
+    "price": 45765.921
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|616",
+    "name": "Controlador eletronico de trafego local, sem fio (wireless), incluindo placa de comunicacao wireless GSM/GPRS, com GPS, compativel com o Sistema CETRIO/CTA sem fio (wireless) - modulos VIII, X e XI, com 8 fases, modelo RBY da Telvent ou similar. Fornecimento.",
+    "unit": "unid",
+    "price": 70109.496
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|617",
+    "name": "Controlador eletronico de trafego local, sem fio (wireless), incluindo placa de comunicacao wireless GSM/GPRS, com GPS, compativel com o Sistema CETRIO/CTA sem fio (wireless) - modulos VII, IX e XII, com 16 fases, modelo DP-40-16 da Dataprom ou similar. Fornecimento.",
+    "unit": "unid",
+    "price": 68162.01
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|618",
+    "name": "Controlador eletronico de trafego local, sem fio (wireless), incluindo placa de comunicacao wireless GSM/GPRS, com GPS, compativel com o Sistema CETRIO/CTA sem fio (wireless) - modulos VIII, X e XI, com 16 fases, modelo RBY da Telvent ou similar. Fornecimento.",
+    "unit": "unid",
+    "price": 97374.3
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|619",
+    "name": "Ponto de Video Deteccao Veicular para atuacao no Sistema Adaptativo de Controle de Trafego Antares, Dataprom ou similar, incluindo todo o hardware, camera, conectores, cabos e todas as sustentacoes e suportes necessarios a fixacao dos dispositivos. Custo por aproximacao semaforica de ate 4 faixas de",
+    "unit": "unid",
+    "price": 25804.1895
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|620",
+    "name": "Ponto de Video Deteccao Veicular para atuacao no Sistema Adaptativo de Controle de Trafego EcoTrafiX, Kapsch ou similar, incluindo todo o hardware, camera, conectores, cabos e todas as sustentacoes e suportes necessarios a fixacao dos dispositivos. Custo por aproximacao semaforica de ate 4 faixas de",
+    "unit": "unid",
+    "price": 30965.0274
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|621",
+    "name": "Cabo para alimentacao de semaforo, secao de 4x1,5mm2, conforme especificacao da CET-RIO. Fornecimento e instalacao.",
+    "unit": "m",
+    "price": 14.6061
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|622",
+    "name": "Cabo para alimentacao de semaforo, secao de 7x1,5mm2, conforme especificacao da CET-RIO. Fornecimento e instalacao.",
+    "unit": "m",
+    "price": 23.3698
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|623",
+    "name": "Servicos de instalacao de lacos indutivos permanentes, incluindo corte, limpeza do rasgo, fornecimento e colocacao de fio ate a caixa de passagem na calcada, teste de continuidade eletrica e fornecimento e aplicacao de selante para fixacao do fio e recomposicao do pavimento.",
+    "unit": "unid",
+    "price": 1168.4916
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|624",
+    "name": "Base de concreto armado para controlador de tráfego.",
+    "unit": "unid",
+    "price": 292.1229
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|625",
+    "name": "Fornecimento de cabo de comunicacao de cobre, CTP-APL-50, 0,50mm2, 10 pares.",
+    "unit": "m",
+    "price": 9.7374
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|626",
+    "name": "Fornecimento de cabo de comunicacao de cobre, 0,50mm2, CCE-APL-50, 3 pares.",
+    "unit": "m",
+    "price": 4.8687
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|627",
+    "name": "Caixa de passagem com tampa de ferro tipo leve 300L-400mm de altura, conforme especificacao CET-RIO. Fornecimento e assentamento.",
+    "unit": "unid",
+    "price": 486.8715
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|628",
+    "name": "Caixa de passagem com tampa articulada de ferro, com trava, tipo leve 600L-600mm de altura, conforme especificacao CET- RIO. Fornecimento e assentamento.",
+    "unit": "unid",
+    "price": 1704.0502
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|629",
+    "name": "Caixa de passagem com tampa articulada de ferro, com trava, tipo leve 600L-900mm de altura, conforme especificacao CET- RIO. Fornecimento e assentamento.",
+    "unit": "unid",
+    "price": 1898.7988
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|630",
+    "name": "Caixa de passagem com tampa de ferro tipo pesado 600P- 600mm de altura, conforme especificacao CET-RIO. Fornecimento e assentamento.",
+    "unit": "unid",
+    "price": 1660.2318
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|631",
+    "name": "Modulo focal a LED para bloco repetidor de 200mm na cor amarela. Fornecimento.",
+    "unit": "unid",
+    "price": 267.7793
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|632",
+    "name": "Modulo focal a LED para bloco repetidor de 200mm na cor verde. Fornecimento.",
+    "unit": "unid",
+    "price": 192.8011
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|633",
+    "name": "Modulo focal a LED para bloco repetidor de 200mm na cor vermelha. Fornecimento.",
+    "unit": "unid",
+    "price": 192.8011
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|634",
+    "name": "Modulo focal a LED para bloco principal de 300mm na cor amarela. Fornecimento.",
+    "unit": "unid",
+    "price": 408.972
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|635",
+    "name": "Modulo focal a LED para bloco principal de 300mm na cor verde. Fornecimento.",
+    "unit": "unid",
+    "price": 350.5474
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|636",
+    "name": "Modulo focal a LED para bloco principal de 300mm na cor vermelha. Fornecimento.",
+    "unit": "unid",
+    "price": 350.5474
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|637",
+    "name": "Modulo focal a LED para bloco para bloco de pedestre com formato boneco na cor verde. Fornecimento.",
+    "unit": "unid",
+    "price": 192.8011
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|638",
+    "name": "Modulo focal a LED para bloco para bloco de pedestre com formato mao espalmada na cor vermelha. Fornecimento.",
+    "unit": "unid",
+    "price": 210.3284
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|639",
+    "name": "Coluna de aco, conica continua tipo I para ate 4 (quatro) bracos projetados capazes de sustentar, cada um, semaforo e placa de 3m2 (tres metros quadrados); coluna galvanizada a fogo; altura util total de 5,00m (cinco metros); diametro na base igual a 187mm (cento e oitenta e sete milimetros); confor",
+    "unit": "unid",
+    "price": 4673.9664
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|640",
+    "name": "Braco projetado de aco para sustentacao de semaforo e placa ate 3m2 (tres metros quadrados), galvanizado a fogo; para fixacao em coluna cilindrica giratoria, projecao de 2,80m (dois metros e oitenta centimetros); diametro junto a flange de 123mm (cento e vinte e tres milimetros); conforme especifica",
+    "unit": "unid",
+    "price": 2044.8603
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|641",
+    "name": "Braco projetado de aco para sustentacao de semaforo e placa ate 3m2 (tres metros quadrados), galvanizado a fogo; para fixacao em coluna conico continua tipo I, projecao de 3,70m (tres metros e setenta centimetros); diametro junto a flange de 123mm (cento e vinte e tres milimetros); conforme especifi",
+    "unit": "unid",
+    "price": 2239.6089
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|642",
+    "name": "Braco projetado de aco para sustentacao de semaforo e placa ate 3m2 (tres metros quadrados), galvanizado a fogo; para fixacao em coluna conico continua tipo I, projecao de 4,70m (quatro metros e setenta centimetros); diametro junto a flange de 123mm (cento e vinte e tres milimetros); conforme especi",
+    "unit": "unid",
+    "price": 2434.3575
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|643",
+    "name": "Fornecimento de poste tipo S5, simples de 4\" de diâmetro, conforme especificação de CET-Rio.",
+    "unit": "unid",
+    "price": 2142.2346
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|644",
+    "name": "Assentamento de poste simples de aço, diâmetro maior que 4\", inclusive abertura de furo, fundação e recomposição do piso.",
+    "unit": "unid",
+    "price": 292.1229
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|645",
+    "name": "Retirada de poste simples de aço, diâmetro maior que 4\".",
+    "unit": "unid",
+    "price": 185.0111
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|646",
+    "name": "Assentamento de coluna de aco conica continua tipo I para ate 4 (quatro) bracos projetados capazes de sustentar, cada um, semaforo e placa de 3m2 (tres metros quadrados) fixada por chumbadores engastados em fundacao de concreto, exclusive fundacao, exclusive fornecimento da coluna.",
+    "unit": "unid",
+    "price": 204.486
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|647",
+    "name": "Montagem de braco projetado de aco em coluna de aco conica continua tipo I assentada, exclusive o fornecimento do braco.",
+    "unit": "unid",
+    "price": 53.5558
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|648",
+    "name": "Bloco de concreto armado medindo (0,60 x 0,60 x 1,00)m para uma coluna de aco conica continua para instalacao de ate 4 bracos projetados para sinalizacao.",
+    "unit": "unid",
+    "price": 1037.0362
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|649",
+    "name": "Locacao mensal de radio transmissor-receptor.",
+    "unit": "un.mês",
+    "price": 194.7486
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|650",
+    "name": "Placa de identificacao de obra publica, inclusive pintura, suporte de madeira e transporte. Fornecimento e colocacao.",
+    "unit": "m²",
+    "price": 649.4865
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|651",
+    "name": "Sinalizacao horizontal com massa termoplastica, aplicada por extrusao, em projetos ate 60m2, conforme especificacoes da CET-RIO.",
+    "unit": "m²",
+    "price": 111.9804
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|652",
+    "name": "Engenheiro ou arquiteto jr (inclusive encargos sociais).",
+    "unit": "h",
+    "price": 248.3044
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|653",
+    "name": "Secretaria (inclusive encargos sociais).",
+    "unit": "h",
+    "price": 58.4245
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|654",
+    "name": "Tecnico em eletronica ou eletrotecnica (inclusive encargos sociais).",
+    "unit": "h",
+    "price": 66.2145
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|655",
+    "name": "Fita isolante comum, de 19 mm x 20 m. Fornecimento.",
+    "unit": "rolo",
+    "price": 29.2122
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|656",
+    "name": "Fita isolante auto-fusão, de 19 mm x 10 m. Fornecimento.",
+    "unit": "rolo",
+    "price": 42.8446
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|657",
+    "name": "Dispositivo antifurto tipo cone para coluna S5, conforme especificacao CET-Rio. Fornecimento.",
+    "unit": "pç",
+    "price": 1411.9273
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|658",
+    "name": "Suporte basculante para bloco semafórico. Fornecimento.",
+    "unit": "pç",
+    "price": 185.0111
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|659",
+    "name": "Controlador eletrônico de tráfego local, com placa de comunicação wireless GSM e Ethernet, com GPS; compatível com o Protocolo UNE/AENOR Nº 135401-4 IN Tipo M; para instalação em qualquer local do município; com 4 fases. Fornecimento. (desonerado)",
+    "unit": "unid",
+    "price": 46739.664
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|660",
+    "name": "Controlador eletrônico de tráfego local, com placa de comunicação wireless GSM e Ethernet, com GPS; compatível com o Protocolo UNE/AENOR Nº 135401-4 IN Tipo M; para instalação em qualquer local do município; com 8 fases. Fornecimento. (desonerado)",
+    "unit": "unid",
+    "price": 64267.038
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|661",
+    "name": "Controlador eletrônico de tráfego local, com placa de comunicação wireless GSM e Ethernet, com GPS; compatível com o Protocolo UNE/AENOR Nº 135401-4 IN Tipo M; para instalação em qualquer local do município; com 16 fases. Fornecimento. (desonerado)",
+    "unit": "unid",
+    "price": 77105.8394
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|662",
+    "name": "Suporte de fixação basculante para braço projetado de coluna de aço cônica contínua tipo 1. Fornecimento. (desonerado)",
+    "unit": "pç",
+    "price": 122.6916
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|663",
+    "name": "Suporte de fixação simples para coluna de aço cônica contínua tipo 1. Fornecimento. (desonerado)",
+    "unit": "pç",
+    "price": 165.5363
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|664",
+    "name": "Cobre-Foco para uso em lente de 300 mm de diâmetro. Fornecimento. (desonerado)",
+    "unit": "pç",
+    "price": 49.6608
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|665",
+    "name": "Cobre-Foco para uso em lente de 200 mm de diâmetro. Fornecimento. (desonerado)",
+    "unit": "pç",
+    "price": 44.7921
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|666",
+    "name": "Cobre-Foco para uso em lente de 200 mm quadrada. Fornecimento. (desonerado)",
+    "unit": "pç",
+    "price": 49.6608
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|667",
+    "name": "Anteparo Solar para uso em bloco principal. Fornecimento. (desonerado)",
+    "unit": "pç",
+    "price": 340.81
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|668",
+    "name": "Anteparo Solar para uso em bloco repetidor. Fornecimento. (desonerado)",
+    "unit": "pç",
+    "price": 340.81
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|669",
+    "name": "Botão de comando tipo cogumelo para uso em botoeira. Fornecimento. (desonerado)",
+    "unit": "pç",
+    "price": 40.8972
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|670",
+    "name": "Led de Alto brilho verde do tipo Through Hole com 5 mm de diâmetro e luminância de 4.200 mcd. Comprimento de onda na faixa de 490 a 510 nm. O led, feito do composto InGAP, tem um ângulo de iluminação de 20° a 30° . Potência de 100 mW. Fornecimento. (desonerado)",
+    "unit": "pç",
+    "price": 4.8687
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|671",
+    "name": "Led de Alto brilho amarelo do tipo Through Hole com 5 mm de diâmetro e luminância de 4.200 mcd. Comprimento de onda na faixa de 585 a 605 nm. O led, feito do composto AlInP, tem um ângulo de iluminação de 20° a 30° . Potência de 100 mW. Fornecimento. (desonerado)",
+    "unit": "pç",
+    "price": 4.8687
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|672",
+    "name": "Led de Alto brilho verm. do tipo Through Hole com 5 mm de diâmetro e luminância de 3.000 mcd. Comprimento de onda na faixa de 620 a 680 nm. O led, feito do composto AlInP, tem um ângulo de iluminação de 20° a 30°. Potência de 100 mW. Fornecimento. (desonerado)",
+    "unit": "pç",
+    "price": 4.8687
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|673",
+    "name": "Cabo elétrico para sinalização semafórica, bimetálico de aço e cobre, PP, seção de 2x1,5mm2, 53 IACS, conforme especificação da CET-Rio. Fornecimento. (desonerado)",
+    "unit": "m",
+    "price": 12.6586
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|674",
+    "name": "Cabo elétrico para sinalização semafórica, bimetálico de aço e cobre, PP, seção de 4x1,5mm2, 53 IACS, conforme especificação da CET-Rio. Fornecimento. (desonerado)",
+    "unit": "m",
+    "price": 28.2385
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|675",
+    "name": "Cabo elétrico para sinalização semafórica, bimetálico de aço e cobre, PP, seção de 7x1,5mm2, 53 IACS, conforme especificação da CET-Rio. Fornecimento. (desonerado)",
+    "unit": "m",
+    "price": 43.8184
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|676",
+    "name": "Cabo elétrico para sinalização semafórica, bimetálico de aço e cobre, PP, seção de 2x6mm2,   53 IACS, conforme especificação da CET-Rio. Fornecimento. (desonerado)",
+    "unit": "m",
+    "price": 46.7396
+  },
+  {
+    "contract": "2480",
+    "contractKey": "2480 - CET RIO",
+    "itemId": "2480|677",
+    "name": "Tampa de caixa de passagem antifurto, sem valor de revenda, com abertura em \"T\", superfície antiderrapante resistente à corrosão, 600L, conforme especificação da CET-Rio.  Fornecimento. (desonerado)",
+    "unit": "unid",
+    "price": 1538.5139
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|678",
+    "name": "SINALIZAÇÃO",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|680",
+    "name": "Placa de sinalização de rodovias, em chapa de aço nº16, tratada quimicamente, inclusive pintura com metal primer nas duas faces e esmalte sintético preto no verso. Aplicação de pelicula 05.015.0065-0 (aérea)",
+    "unit": "",
+    "price": 490
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|681",
+    "name": "Coluna de aço, cônica contínua tipo I para até 4 (quatro) braços projetados capazes de sustentar, cada um, semáforo e placa de 3m2 (três metros quadrados); coluna galvanizada a fogo; altura útil total de 5,00m (cinco metros); diâmetro na base igual a 187mm (cento e oitenta e sete milímetros); confor",
+    "unit": "",
+    "price": 5000
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|682",
+    "name": "Braço projetado de aço para sustentação de semáforo e placa até 3m2 (três metros quadrados), galvanizado a fogo; para fixação em coluna cilíndrica giratória, projeção de 2,80m (dois metros e oitenta centímetros); diâmetro junto a flange de 123mm (cento e vinte e três milímetros); conforme especifica",
+    "unit": "",
+    "price": 3000
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|683",
+    "name": "Assentamento de coluna de aço cônica contínua tipo I para até 4 (quatro) braços projetados capazes de sustentar, cada um, semáforo e placa de 3m2 (três metros quadrados) fixada por chumbadores engastados em fundação de concreto, exclusive fundação, exclusive fornecimento da coluna.",
+    "unit": "",
+    "price": 150
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|684",
+    "name": "Montagem de braço projetado de aço em coluna de aço cônica continua tipo I assentada, exclusive o fornecimento do braço.",
+    "unit": "",
+    "price": 50
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|685",
+    "name": "SEMÁFORO",
+    "unit": "",
+    "price": 0
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|687",
+    "name": "Bloco semafórico repetidor com 3 (três) módulos focais de 200mm de diâmetro a led, cobre-focos, anteparo, borrachas de vedação e suportes de fixação, conforme especificação da Cet-Rio. fornecimento.",
+    "unit": "",
+    "price": 2500
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|688",
+    "name": "Bloco semafórico para pedestre com 2 (dois) módulos focais de 200mm a led, compreendendo foco verde \"siga\" (boneco) e foco vermelho \"pare\" (mão espalmada) com borrachas de vedação e suportes de fixação, conforme especificação da Cet-Rio. fornecimento.",
+    "unit": "",
+    "price": 1500
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|689",
+    "name": "Coluna de aço, cônica contínua tipo I para até 4 (quatro) braços projetados capazes de sustentar, cada um, semáforo e placa de 3m2 (três metros quadrados); coluna galvanizada a fogo; altura útil total de 5,00m (cinco metros); diâmetro na base igual a 187mm (cento e oitenta e sete milímetros); confor",
+    "unit": "",
+    "price": 5000
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|690",
+    "name": "Poste tipo S5, simples, de 4\" de diâmetro. conforme especificação da Cet-Rio. fornecimento.",
+    "unit": "",
+    "price": 2200
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|691",
+    "name": "Braço projetado de aço para sustentação de semáforo e placa até 3m2 (três metros quadrados), galvanizado a fogo; para fixação em coluna cilíndrica giratória, projeção de 2,80m (dois metros e oitenta centímetros); diâmetro junto a flange de 123mm (cento e vinte e três milímetros); conforme especifica",
+    "unit": "",
+    "price": 2000
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|692",
+    "name": "Braço projetado de aço para sustentação de semáforo e placa até 3m2 (três metros quadrados), galvanizado a fogo; para fixação em coluna cônico contínua tipo I, projeção de 3,70m (três metros e setenta centímetros); diâmetro junto a flange de 123mm (cento e vinte e três milímetros); conforme especifica",
+    "unit": "",
+    "price": 2300
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|693",
+    "name": "Braço projetado de aço para sustentação de semáforo e placa até 3m2 (três metros quadrados), galvanizado a fogo; para fixação em coluna cônico contínua tipo I, projeção de 4,70m (quatro metros e setenta centímetros); diâmetro junto a flange de 123mm (cento e vinte e três milímetros); conforme especifica",
+    "unit": "",
+    "price": 3000
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|694",
+    "name": "Caixa de passagem com tampa de ferro tipo leve 300l-400mm de altura, conforme especificação Cet-Rio. fornecimento e assentamento.",
+    "unit": "",
+    "price": 340
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|695",
+    "name": "Caixa de passagem com tampa articulada de ferro, com trava, tipo leve 600l-600mm de altura, conforme especificação Cet-Rio. fornecimento e assentamento.",
+    "unit": "",
+    "price": 1150
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|696",
+    "name": "Caixa de passagem com tampa articulada de ferro, com trava, tipo leve 600l-900mm de altura, conforme especificação Cet-Rio. fornecimento e assentamento.",
+    "unit": "",
+    "price": 1280
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|697",
+    "name": "Linha de duto espiral flexível em polietileno de alta densidade, tipo Kanalex ou similar, diâmetro de 50mm (2\" ), lançado diretamente ao solo com arame-guia galvanizado revestido em pvc, inclusive emendas e tamponamento, exclusive escavação e reaterro.",
+    "unit": "",
+    "price": 11
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|698",
+    "name": "Linha de duto espiral flexível em polietileno de alta densidade, tipo Kanalex ou similar, diâmetro de 75mm (3\" ), lançado diretamente ao solo com arame-guia galvanizado revestido em pvc, inclusive emendas e tamponamento, exclusive escavação e reaterro.",
+    "unit": "",
+    "price": 15
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|699",
+    "name": "Linha dupla de duto espiral flexível em polietileno de alta densidade, tipo Kanalex ou similar, diâmetro de 75mm (3\" ), lançado diretamente ao solo com arame-guia galvanizado revestido em pvc, inclusive emendas e tamponamento, exclusive escavação e reaterro.",
+    "unit": "",
+    "price": 25
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|700",
+    "name": "Instalação e teste de funcionamento de blocos semafóricos.",
+    "unit": "",
+    "price": 150
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|701",
+    "name": "Instalação e teste de funcionamento de botoeira.",
+    "unit": "",
+    "price": 15
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|702",
+    "name": "Retirada de bloco semafórico.",
+    "unit": "",
+    "price": 85
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|703",
+    "name": "Cabo para alimentação de semáforo, seção de 4x1,5mm2, conforme especificação da Cet-Rio. fornecimento e instalação.",
+    "unit": "",
+    "price": 13
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|704",
+    "name": "Cabo para alimentação de semáforo, seção de 7x1,5mm2, conforme especificação da Cet-RIo. fornecimento e instalação.",
+    "unit": "",
+    "price": 20
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|705",
+    "name": "Cabo de cobre flexível, 750v, seção de 2x1,5mm2, pvc/ 70oc. fornecimento.",
+    "unit": "",
+    "price": 10
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|706",
+    "name": "Cabo de cobre flexível, 750v, seção de 2x10mm2, pvc/ 70oc. fornecimento.",
+    "unit": "",
+    "price": 35
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|707",
+    "name": "Assentamento de coluna de aço cônica contínua tipo i para ate 4 (quatro) braços projetados capazes de sustentar, cada um, semáforo e placa de 3m2 (três metros quadrados) fixada por chumbadores engastados em fundação de concreto, exclusive fundação, exclusive fornecimento da coluna.",
+    "unit": "",
+    "price": 150
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|708",
+    "name": "Montagem de braço projetado de aço em coluna de aço cônica continua tipo I assentada, exclusive o fornecimento do branco.",
+    "unit": "",
+    "price": 50
+  },
+  {
+    "contract": "2481",
+    "contractKey": "2481 - CONSÓRCIO PKC",
+    "itemId": "2481|709",
+    "name": "Temporizador semafórico de contagem numérica regressiva",
+    "unit": "",
+    "price": 4400
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|710",
+    "name": "Pintura de faixa com termoplástico por aspersão - espessura de 1,5 mm - faixas de eixo brancas contínuas",
+    "unit": "",
+    "price": 69
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|711",
+    "name": "Pintura de faixa com termoplástico por aspersão - espessura de 1,5 mm - faixas de eixo brancas tracejadas",
+    "unit": "",
+    "price": 69
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|712",
+    "name": "Pintura de faixa com termoplástico por aspersão - espessura de 1,5 mm - faixas de eixo amarelas contínuas",
+    "unit": "",
+    "price": 69
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|713",
+    "name": "Pintura de faixa com termoplástico por aspersão - espessura de 1,5 mm - faixas de eixo amarelas tracejadas",
+    "unit": "",
+    "price": 69
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|714",
+    "name": "Pintura de faixa com termoplástico por aspersão - espessura de 1,5 mm - faixas de bordo brancas contínuas",
+    "unit": "",
+    "price": 69
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|715",
+    "name": "Pintura de faixa com termoplástico por aspersão - espessura de 1,5 mm - faixas de bordo amarela contínua (bordo ciclofaixa)",
+    "unit": "",
+    "price": 69
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|716",
+    "name": "Pintura de faixa com termoplástico por aspersão - espessura de 1,5 mm - faixas de bordo vermelha contínua (bordo ciclofaixa)",
+    "unit": "",
+    "price": 69
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|717",
+    "name": "Pintura de faixa com termoplástico em alto relevo tipo I por extrusão - relevo duplo com base - Legendas e Símbolos",
+    "unit": "",
+    "price": 115
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|718",
+    "name": "Pintura de faixa com termoplástico em alto relevo tipo I por extrusão - relevo duplo com base - Linha de retenção branca (LRE)",
+    "unit": "",
+    "price": 115
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|719",
+    "name": "Pintura de faixa com termoplástico em alto relevo tipo I por extrusão - relevo duplo com base - Linha de Dê a Preferência (LDP)",
+    "unit": "",
+    "price": 115
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|720",
+    "name": "Pintura de faixa com termoplástico em alto relevo tipo I por extrusão - relevo duplo com base - Vermelha para travessia de ciclofaixa, Largura 3,0m",
+    "unit": "",
+    "price": 115
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|721",
+    "name": "Pintura de faixa com termoplástico em alto relevo tipo I por extrusão - relevo duplo com base - Vermelha para faixa compartilhada, Largura 4,0m",
+    "unit": "",
+    "price": 115
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|722",
+    "name": "Pintura de faixa com termoplástico em alto relevo tipo I por extrusão - relevo duplo com base - Faixa de pedestres branca - Largura 0,40m",
+    "unit": "",
+    "price": 115
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|723",
+    "name": "Pintura de setas (brancas) com termoplástico por extrusão - espessura de 3,0 mm",
+    "unit": "",
+    "price": 88
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|724",
+    "name": "Pintura de zebrados (amarelo) com termoplástico por extrusão - espessura de 3,0 mm",
+    "unit": "",
+    "price": 88
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|725",
+    "name": "Tacha refletiva em resina sintética - bidirecional tipo IV - fornecimento e colocação (Branca)",
+    "unit": "",
+    "price": 36.75
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|726",
+    "name": "Tacha refletiva em resina sintética - bidirecional tipo IV - fornecimento e colocação (Amarela)",
+    "unit": "",
+    "price": 36.75
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|727",
+    "name": "Tachão refletivo em resina sintética - bidirecional - fornecimento e colocação",
+    "unit": "",
+    "price": 88
+  },
+  {
+    "contract": "2483",
+    "contractKey": "2483 - DGB",
+    "itemId": "2483|728",
+    "name": "Segregador amarelo de concreto com refletivo",
+    "unit": "",
+    "price": 108
+  }
+]
