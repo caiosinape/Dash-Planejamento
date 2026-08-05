@@ -527,6 +527,54 @@
         grid-template-columns: 1.55fr 1fr;
         gap: 11px;
       }
+      .finance-forecast-panel {
+        margin-top: 11px;
+      }
+      .forecast-table-wrap {
+        overflow-x: auto;
+      }
+      .forecast-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        min-width: 980px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .forecast-table th,
+      .forecast-table td {
+        min-width: 86px;
+        text-align: center;
+        padding: 18px 10px;
+        border-right: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+      .forecast-table th {
+        background: #f1f6fa;
+        color: var(--petrol);
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+      }
+      .forecast-table td {
+        background: #fff;
+        color: var(--petrol);
+        font-size: 11px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+      .forecast-table tr:last-child td {
+        border-bottom: 0;
+      }
+      .forecast-table th:last-child,
+      .forecast-table td:last-child {
+        border-right: 0;
+      }
+      .forecast-table .total-col {
+        background: #eef7fe;
+        border-left: 2px solid #2aa0f5;
+      }
       .chart {
         height: 220px;
         display: flex;
@@ -1477,6 +1525,11 @@
       @media (max-width: 1050px) {
         .cards {
           grid-template-columns: 1fr 1fr;
+        }
+        .forecast-table th,
+        .forecast-table td {
+          min-width: 72px;
+          padding: 14px 8px;
         }
         .chart-grid,
         .executive-lower {
@@ -2709,6 +2762,29 @@
             </div>
           </article>
         </div>
+        <article class="panel finance-forecast-panel">
+          <div class="panel-inner">
+            <div class="panel-head">
+              <div>
+                <div class="kicker">Previsão financeira</div>
+                <h3>Valores planejados por mês</h3>
+              </div>
+              <span class="hint" id="forecastTableHint"
+                >Valores planejados do recorte selecionado</span
+              >
+            </div>
+            <div class="forecast-table-wrap">
+              <table class="forecast-table" aria-label="Valores planejados por mês">
+                <thead>
+                  <tr id="forecastHead"></tr>
+                </thead>
+                <tbody>
+                  <tr id="forecastRow"></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </article>
         <div class="executive-lower">
           <article class="panel">
             <div class="panel-inner">
@@ -20101,7 +20177,8 @@
                   contractual: 587.2567646740121,
                   base: 20.85,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 23.9775, 21.8925, 21.8925, 21.8925, 19.8075, 22.935,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 7.85, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20117,12 +20194,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20133,7 +20211,8 @@
                   contractual: 587.1109589722805,
                   base: 21.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 24.150000000000002, 22.05, 22.05, 22.05, 19.95, 23.1,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 7.85, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20149,12 +20228,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20165,7 +20245,8 @@
                   contractual: 588.082996983824,
                   base: 20.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 23.0, 21.0, 21.0, 21.0, 19.0, 22.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 7.85, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20181,12 +20262,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20197,7 +20279,8 @@
                   contractual: 789.7808843791026,
                   base: 27.1,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 31.165, 28.455, 28.455, 28.455, 25.745, 29.81,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 9.45, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20213,12 +20296,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20229,7 +20313,8 @@
                   contractual: 117.49023445526414,
                   base: 4.13,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.749499999999999, 4.3365, 4.3365, 4.3365, 3.9234999999999998, 4.543,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 6.13, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20245,12 +20330,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20261,7 +20347,8 @@
                   contractual: 5540.616665798011,
                   base: 2500.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2875.0, 2625.0, 2625.0, 2625.0, 2375.0, 2750.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20276,12 +20363,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20292,7 +20380,8 @@
                   contractual: 1929.495452913869,
                   base: 65.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 74.75, 68.25, 68.25, 68.25, 61.75, 71.5,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20307,12 +20396,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20323,7 +20413,8 @@
                   contractual: 860.2536402160069,
                   base: 30.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 34.5, 31.5, 31.5, 31.5, 28.5, 33.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20338,12 +20429,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20354,7 +20446,8 @@
                   contractual: 58.808299698382406,
                   base: 2.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.3000000000000003, 2.1, 2.1, 2.1, 1.9000000000000001, 2.2,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 40.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20370,12 +20463,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20386,7 +20480,8 @@
                   contractual: 58.8082996983824,
                   base: 2.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.3000000000000003, 2.1, 2.1, 2.1, 1.9000000000000001, 2.2,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20401,12 +20496,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20417,7 +20513,8 @@
                   contractual: 587.1109589722805,
                   base: 21.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 24.150000000000002, 22.05, 22.05, 22.05, 19.95, 23.1,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 29.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20433,12 +20530,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20449,7 +20547,8 @@
                   contractual: 58.8082996983824,
                   base: 2.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.3000000000000003, 2.1, 2.1, 2.1, 1.9000000000000001, 2.2,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 9.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20465,12 +20564,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20481,7 +20581,8 @@
                   contractual: 235.2331987935296,
                   base: 8.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 9.200000000000001, 8.4, 8.4, 8.4, 7.6000000000000005, 8.8,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 1.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20497,12 +20598,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20513,7 +20615,8 @@
                   contractual: 588.0829969838242,
                   base: 20.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 23.0, 21.0, 21.0, 21.0, 19.0, 22.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20528,12 +20631,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20544,7 +20648,8 @@
                   contractual: 61795.56691545791,
                   base: 1946.8,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2238.82, 2044.14, 2044.14, 2044.14, 1849.46, 2141.48,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 1965.8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20561,12 +20666,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20577,7 +20683,8 @@
                   contractual: 476.2986256563203,
                   base: 10.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 11.5, 10.5, 10.5, 10.5, 9.5, 11.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20592,12 +20699,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20608,7 +20716,8 @@
                   contractual: 117.6165993967648,
                   base: 4.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.6000000000000005, 4.2, 4.2, 4.2, 3.8000000000000003, 4.4,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20623,12 +20732,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20639,7 +20749,8 @@
                   contractual: 588.0829969838239,
                   base: 20.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 23.0, 21.0, 21.0, 21.0, 19.0, 22.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 2.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20655,12 +20766,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20671,7 +20783,8 @@
                   contractual: 236.20523680507313,
                   base: 7.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 8.049999999999999, 7.35, 7.35, 7.35, 6.6499999999999995, 7.699999999999999,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20687,12 +20800,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20703,7 +20817,8 @@
                   contractual: 236.20523680507313,
                   base: 7.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 8.049999999999999, 7.35, 7.35, 7.35, 6.6499999999999995, 7.699999999999999,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20719,12 +20834,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20735,7 +20851,8 @@
                   contractual: 58.808299698382406,
                   base: 2.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.3000000000000003, 2.1, 2.1, 2.1, 1.9000000000000001, 2.2,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20750,12 +20867,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20766,7 +20884,8 @@
                   contractual: 58.8082996983824,
                   base: 2.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.3000000000000003, 2.1, 2.1, 2.1, 1.9000000000000001, 2.2,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20781,12 +20900,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20797,7 +20917,8 @@
                   contractual: 58.808299698382406,
                   base: 2.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.3000000000000003, 2.1, 2.1, 2.1, 1.9000000000000001, 2.2,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20812,12 +20933,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20828,7 +20950,8 @@
                   contractual: 117.6165993967648,
                   base: 4.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.6000000000000005, 4.2, 4.2, 4.2, 3.8000000000000003, 4.4,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20843,12 +20966,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20859,7 +20983,8 @@
                   contractual: 235.23319879352962,
                   base: 8.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 9.200000000000001, 8.4, 8.4, 8.4, 7.6000000000000005, 8.8,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20874,12 +20999,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20890,7 +21016,8 @@
                   contractual: 268.8657139929351,
                   base: 8.4,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 9.66, 8.82, 8.82, 8.82, 7.98, 9.24,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 5.4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20906,12 +21033,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20922,7 +21050,8 @@
                   contractual: 1758.416762882211,
                   base: 51.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 58.65, 53.55, 53.55, 53.55, 48.449999999999996, 56.099999999999994,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 29.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20938,12 +21067,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20954,7 +21084,8 @@
                   contractual: 176.4248990951472,
                   base: 6.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6.8999999999999995, 6.3, 6.3, 6.3, 5.7, 6.6,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -20969,12 +21100,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -20985,7 +21117,8 @@
                   contractual: 23.328912277044257,
                   base: 1.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.1500000000000001, 1.05, 1.05, 1.05, 0.9500000000000001, 1.1,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21000,12 +21133,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21016,7 +21150,8 @@
                   contractual: 159.4142338931358,
                   base: 6.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6.8999999999999995, 6.3, 6.3, 6.3, 5.7, 6.6,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21031,12 +21166,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21047,7 +21183,8 @@
                   contractual: 8223.4415776581,
                   base: 290.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 333.5, 304.5, 304.5, 304.5, 275.5, 319.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21062,12 +21199,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21078,7 +21216,8 @@
                   contractual: 1176.165993967648,
                   base: 40.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 46.0, 42.0, 42.0, 42.0, 38.0, 44.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 211.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21095,12 +21234,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21111,7 +21251,8 @@
                   contractual: 9428.768711972054,
                   base: 300.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 345.0, 315.0, 315.0, 315.0, 285.0, 330.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21126,12 +21267,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21142,7 +21284,8 @@
                   contractual: 59430.40402577026,
                   base: 1860.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2139.0, 1953.0, 1953.0, 1953.0, 1767.0, 2046.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 1879.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21159,12 +21302,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21175,7 +21319,8 @@
                   contractual: 3547.9387421338142,
                   base: 100.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 115.0, 105.0, 105.0, 105.0, 95.0, 110.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21190,12 +21335,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21206,7 +21352,8 @@
                   contractual: 1773.9693710669073,
                   base: 50.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 57.5, 52.5, 52.5, 52.5, 47.5, 55.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21221,12 +21368,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21237,7 +21385,8 @@
                   contractual: 2940.4149849191203,
                   base: 100.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 115.0, 105.0, 105.0, 105.0, 95.0, 110.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 648.0, 868.0, 710.0, 0.0, 0.0, 0.0, 0.0,
@@ -21254,12 +21403,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21270,7 +21420,8 @@
                   contractual: 2352.331987935296,
                   base: 80.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 92.0, 84.0, 84.0, 84.0, 76.0, 88.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 427.0, 143.0, 71.0, 0.0, 0.0, 0.0, 0.0,
@@ -21287,12 +21438,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21303,7 +21455,8 @@
                   contractual: 473.38251162168973,
                   base: 13.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 14.950000000000001, 13.65, 13.65, 13.65, 12.35, 14.3,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 12.0, 3.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21319,12 +21472,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21335,7 +21489,8 @@
                   contractual: 1077.0181167902101,
                   base: 17.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 19.55, 17.849999999999998, 17.849999999999998, 17.849999999999998, 16.15, 18.7,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 15.0, 11.0, 13.0, 0.0, 0.0, 0.0, 0.0,
@@ -21352,12 +21507,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21368,7 +21524,8 @@
                   contractual: 835.9526899274193,
                   base: 15.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 17.25, 15.75, 15.75, 15.75, 14.25, 16.5,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 6.0, 9.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21384,12 +21541,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21400,7 +21558,8 @@
                   contractual: 235.2331987935296,
                   base: 8.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 9.200000000000001, 8.4, 8.4, 8.4, 7.6000000000000005, 8.8,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 16.0, 17.0, 13.0, 0.0, 0.0, 0.0, 0.0,
@@ -21417,12 +21576,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21434,6 +21594,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21448,12 +21609,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21465,6 +21627,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21479,12 +21642,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21495,7 +21659,8 @@
                   contractual: 2.916114034630532,
                   base: 1.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.1500000000000001, 1.05, 1.05, 1.05, 0.9500000000000001, 1.1,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21510,12 +21675,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21527,6 +21693,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21541,12 +21708,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21558,6 +21726,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21572,12 +21741,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21589,6 +21759,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21603,12 +21774,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21620,6 +21792,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21634,12 +21807,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21651,6 +21825,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21665,12 +21840,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21681,7 +21857,8 @@
                   contractual: 37617.87104673387,
                   base: 1300.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1495.0, 1365.0, 1365.0, 1365.0, 1235.0, 1430.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 2812.0, 3372.0, 2938.0, 0.0, 0.0, 0.0,
@@ -21698,12 +21875,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21714,7 +21892,8 @@
                   contractual: 65758.37148091852,
                   base: 2350.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2702.5, 2467.5, 2467.5, 2467.5, 2232.5, 2585.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 5459.0, 5917.0, 5989.0, 0.0, 0.0, 0.0,
@@ -21731,12 +21910,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21748,6 +21928,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21762,12 +21943,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21779,6 +21961,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21793,12 +21976,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21809,7 +21993,8 @@
                   contractual: 2362.0523680507313,
                   base: 70.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 80.5, 73.5, 73.5, 73.5, 66.5, 77.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21824,12 +22009,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21840,7 +22026,8 @@
                   contractual: 9428.768711972056,
                   base: 300.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 345.0, 315.0, 315.0, 315.0, 285.0, 330.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21855,12 +22042,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21871,7 +22059,8 @@
                   contractual: 116.64456138522128,
                   base: 5.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 5.75, 5.25, 5.25, 5.25, 4.75, 5.5,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21886,12 +22075,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21902,7 +22092,8 @@
                   contractual: 752.3574209346774,
                   base: 26.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 29.900000000000002, 27.3, 27.3, 27.3, 24.7, 28.6,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 94.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21918,12 +22109,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21934,7 +22126,8 @@
                   contractual: 376.1787104673387,
                   base: 13.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 14.950000000000001, 13.65, 13.65, 13.65, 12.35, 14.3,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21949,12 +22142,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21966,6 +22160,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -21980,12 +22175,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -21996,7 +22192,8 @@
                   contractual: 587.1109589722805,
                   base: 21.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 24.150000000000002, 22.05, 22.05, 22.05, 19.95, 23.1,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 2.0, 3.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22012,12 +22209,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22028,7 +22226,8 @@
                   contractual: 587.1109589722805,
                   base: 21.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 24.150000000000002, 22.05, 22.05, 22.05, 19.95, 23.1,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 25.0, 2.0, 20.0, 0.0, 0.0, 0.0, 0.0,
@@ -22045,12 +22244,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22061,7 +22261,8 @@
                   contractual: 587.1109589722805,
                   base: 21.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 24.150000000000002, 22.05, 22.05, 22.05, 19.95, 23.1,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 6.0, 7.0, 6.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22077,12 +22278,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22093,7 +22295,8 @@
                   contractual: 469.4943595755157,
                   base: 17.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 19.55, 17.849999999999998, 17.849999999999998, 17.849999999999998, 16.15, 18.7,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 3.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22109,12 +22312,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22125,7 +22329,8 @@
                   contractual: 469.4943595755157,
                   base: 17.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 19.55, 17.849999999999998, 17.849999999999998, 17.849999999999998, 16.15, 18.7,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 6.0, 2.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22141,12 +22346,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22157,7 +22363,8 @@
                   contractual: 469.4943595755157,
                   base: 17.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 19.55, 17.849999999999998, 17.849999999999998, 17.849999999999998, 16.15, 18.7,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 2.0, 3.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22173,12 +22380,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22189,7 +22397,8 @@
                   contractual: 469.4943595755157,
                   base: 17.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 19.55, 17.849999999999998, 17.849999999999998, 17.849999999999998, 16.15, 18.7,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 5.0, 0.0, 4.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22205,12 +22414,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22221,7 +22431,8 @@
                   contractual: 469.4943595755158,
                   base: 17.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 19.55, 17.849999999999998, 17.849999999999998, 17.849999999999998, 16.15, 18.7,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 4.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22237,12 +22448,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22253,7 +22465,8 @@
                   contractual: 723.1962805883721,
                   base: 6.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6.8999999999999995, 6.3, 6.3, 6.3, 5.7, 6.6,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22269,12 +22482,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22286,6 +22500,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22300,12 +22515,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22317,6 +22533,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 3.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22332,12 +22549,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22348,7 +22566,8 @@
                   contractual: 358.68202625955547,
                   base: 6.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6.8999999999999995, 6.3, 6.3, 6.3, 5.7, 6.6,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 1.0, 2.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22364,12 +22583,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22380,7 +22600,8 @@
                   contractual: 476.2986256563203,
                   base: 10.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 11.5, 10.5, 10.5, 10.5, 9.5, 11.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22396,12 +22617,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22412,7 +22634,8 @@
                   contractual: 472.4104736101463,
                   base: 14.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 16.099999999999998, 14.7, 14.7, 14.7, 13.299999999999999, 15.399999999999999,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 14.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22428,12 +22651,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22444,7 +22668,8 @@
                   contractual: 476.29862565632027,
                   base: 10.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 11.5, 10.5, 10.5, 10.5, 9.5, 11.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22459,12 +22684,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22475,7 +22701,8 @@
                   contractual: 723.196280588372,
                   base: 6.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6.8999999999999995, 6.3, 6.3, 6.3, 5.7, 6.6,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 3.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22491,12 +22718,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22507,7 +22735,8 @@
                   contractual: 723.1962805883721,
                   base: 6.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6.8999999999999995, 6.3, 6.3, 6.3, 5.7, 6.6,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 3.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22523,12 +22752,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22539,7 +22769,8 @@
                   contractual: 723.196280588372,
                   base: 6.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6.8999999999999995, 6.3, 6.3, 6.3, 5.7, 6.6,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 3.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22555,12 +22786,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22571,7 +22803,8 @@
                   contractual: 140.94551167380905,
                   base: 5.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 5.75, 5.25, 5.25, 5.25, 4.75, 5.5,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22587,12 +22820,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22604,6 +22838,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22618,12 +22853,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22635,6 +22871,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22649,12 +22886,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22666,6 +22904,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22680,12 +22919,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22696,7 +22936,8 @@
                   contractual: 5496.874955278554,
                   base: 195.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 224.25, 204.75, 204.75, 204.75, 185.25, 214.5,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 195.0, 195.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22713,12 +22954,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22729,7 +22971,8 @@
                   contractual: 5496.874955278554,
                   base: 195.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 224.25, 204.75, 204.75, 204.75, 185.25, 214.5,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 195.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22746,12 +22989,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22762,7 +23006,8 @@
                   contractual: 178.854994124006,
                   base: 6.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6.8999999999999995, 6.3, 6.3, 6.3, 5.7, 6.6,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 21.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22778,12 +23023,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22794,7 +23040,8 @@
                   contractual: 117.61659939676481,
                   base: 4.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.6000000000000005, 4.2, 4.2, 4.2, 3.8000000000000003, 4.4,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 19.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22810,12 +23057,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22826,7 +23074,8 @@
                   contractual: 118.58863740830833,
                   base: 3.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.4499999999999997, 3.15, 3.15, 3.15, 2.85, 3.3,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 3.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22842,12 +23091,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22858,7 +23108,8 @@
                   contractual: 281.8910233476181,
                   base: 10.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 11.5, 10.5, 10.5, 10.5, 9.5, 11.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 8.0, 2.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22874,12 +23125,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22890,7 +23142,8 @@
                   contractual: 18.468722219326704,
                   base: 1.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.1500000000000001, 1.05, 1.05, 1.05, 0.9500000000000001, 1.1,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22905,12 +23158,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22921,7 +23175,8 @@
                   contractual: 36.937444438653415,
                   base: 1.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.1500000000000001, 1.05, 1.05, 1.05, 0.9500000000000001, 1.1,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22936,12 +23191,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22953,6 +23209,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22967,12 +23224,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -22983,7 +23241,8 @@
                   contractual: 194.40760230870217,
                   base: 8.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 9.200000000000001, 8.4, 8.4, 8.4, 7.6000000000000005, 8.8,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -22999,12 +23258,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -23015,7 +23275,8 @@
                   contractual: 1166.445613852213,
                   base: 33.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 37.949999999999996, 34.65, 34.65, 34.65, 31.349999999999998, 36.3,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 23.0, 33.0, 27.0, 0.0, 0.0, 0.0, 0.0,
@@ -23032,12 +23293,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -23048,7 +23310,8 @@
                   contractual: 729.028508657633,
                   base: 23.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 26.45, 24.15, 24.15, 24.15, 21.849999999999998, 25.299999999999997,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 3.0, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -23064,12 +23327,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -23080,7 +23344,8 @@
                   contractual: 1701.0665202011442,
                   base: 55.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 63.25, 57.75, 57.75, 57.75, 52.25, 60.5,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 7.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -23096,12 +23361,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -23112,7 +23378,8 @@
                   contractual: 1458.057017315266,
                   base: 50.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 57.5, 52.5, 52.5, 52.5, 47.5, 55.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 3.0, 0.0, 3.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -23128,12 +23395,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -23144,7 +23412,8 @@
                   contractual: 72.9028508657633,
                   base: 2.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.3000000000000003, 2.1, 2.1, 2.1, 1.9000000000000001, 2.2,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -23159,12 +23428,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -23175,7 +23445,8 @@
                   contractual: 97.20380115435107,
                   base: 2.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.3000000000000003, 2.1, 2.1, 2.1, 1.9000000000000001, 2.2,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -23190,12 +23461,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -23206,7 +23478,8 @@
                   contractual: 972.0380115435107,
                   base: 15.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 17.25, 15.75, 15.75, 15.75, 14.25, 16.5,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 4.0, 3.0, 8.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -23222,12 +23495,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -23239,6 +23513,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -23253,12 +23528,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -23270,6 +23546,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -23284,12 +23561,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -23301,6 +23579,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -23315,12 +23594,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -23331,7 +23611,8 @@
                   contractual: 6318.24707503282,
                   base: 1400.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1610.0, 1470.0, 1470.0, 1470.0, 1330.0, 1540.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -23346,12 +23627,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -23362,7 +23644,8 @@
                   contractual: 49087.9195829473,
                   base: 2500.0,
                   plan: [
-                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2875.0, 2625.0, 2625.0, 2625.0, 2375.0, 2750.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -23377,12 +23660,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -23394,6 +23678,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -23408,12 +23693,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -23425,6 +23711,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -23439,12 +23726,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
                 {
@@ -23456,6 +23744,7 @@
                   base: 0.0,
                   plan: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                  
                   ],
                   exec: [
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -23470,12 +23759,13 @@
                     "Sem serviços",
                     "Sem serviços",
                     "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
-                    "Sem serviços",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                    "OS vinculada as solicitações mensais do cliente, em atendimentos rotineiros e emergenciais",
+                  
                   ],
                 },
               ],
@@ -61858,6 +62148,48 @@
                   ? "Janela disponível completa"
                   : "Revisar próximas frentes") +
                 "</div></article>";
+            })(),
+            (function () {
+              var plannedMonths = r.map(function (e, t) {
+                  return Z(t);
+                }),
+                plannedTotal = plannedMonths.reduce(function (sum, value) {
+                  return sum + value;
+                }, 0),
+                headLabels = r.concat(["TOTAL"]),
+                headEl = document.getElementById("forecastHead"),
+                rowEl = document.getElementById("forecastRow"),
+                hintEl = document.getElementById("forecastTableHint");
+              headEl &&
+                (headEl.innerHTML = headLabels
+                  .map(function (label, index) {
+                    return (
+                      '<th class="' +
+                      (index === headLabels.length - 1 ? "total-col" : "") +
+                      '">' +
+                      label +
+                      "</th>"
+                    );
+                  })
+                  .join(""));
+              rowEl &&
+                (rowEl.innerHTML = plannedMonths
+                  .concat([plannedTotal])
+                  .map(function (value, index) {
+                    var content = value > 0 ? de(value) : "&mdash;";
+                    return (
+                      '<td class="' +
+                      (index === plannedMonths.length ? "total-col" : "") +
+                      '">' +
+                      content +
+                      "</td>"
+                    );
+                  })
+                  .join(""));
+              hintEl &&
+                (hintEl.textContent =
+                  "Valores planejados do recorte selecionado · Total " +
+                  de(plannedTotal));
             })(),
             (e = r.map(function (e, t) {
               return Z(t);
