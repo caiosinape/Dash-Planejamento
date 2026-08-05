@@ -2251,12 +2251,43 @@
         color: var(--petrol);
         font-size: 8px;
       }
-      .weekly-plan-cell span {
+      .weekly-plan-values {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        margin-top: 5px;
+      }
+      .weekly-plan-metric {
+        min-width: 0;
+        border-radius: 5px;
+        padding: 5px 6px;
+      }
+      .weekly-plan-metric.plan {
+        background: #eef7fb;
+      }
+      .weekly-plan-metric.exec {
+        background: #edf8f4;
+      }
+      .weekly-plan-metric small {
         display: block;
-        color: #176d59;
-        font-size: 11px;
+        margin: 0;
+        font-size: 6px;
         font-weight: 900;
-        margin-top: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .weekly-plan-metric span {
+        display: block;
+        font-size: 10px;
+        font-weight: 900;
+        margin-top: 2px;
+        white-space: nowrap;
+      }
+      .weekly-plan-metric.plan span {
+        color: #075a75;
+      }
+      .weekly-plan-metric.exec span {
+        color: #176d59;
       }
       .weekly-plan-cell small {
         display: block;
@@ -2753,13 +2784,13 @@
           <div class="panel-inner">
             <div class="panel-head">
               <div>
-                <div class="kicker">Resumo semanal do planejamento</div>
+                <div class="kicker">Resumo semanal do planejamento e execução</div>
                 <h3 id="weeklyPlanningTitle">
-                  Ordens de Serviço e quantidades por semana
+                  Planejado e executado por semana
                 </h3>
               </div>
               <span class="hint"
-                >Distribuição do mês atual informada pelo usuário Davi</span
+                >Planejado informado pelo usuário · executado da base atualizada</span
               >
             </div>
             <div class="weekly-plan-summary" id="weeklyPlanningRows"></div>
@@ -61014,6 +61045,15 @@
             return a + Number(r.quantity || 0);
           }, 0);
         }
+        function weeklyExecutedQuantity(e, t, week) {
+          var bounds = periodBounds(t, H(e));
+          return itemExecutedRows(e, t).reduce(function (total, row) {
+            var day = Math.floor((rowDate(row) - bounds.start) / 864e5) + 1;
+            return day >= week.start && day <= week.end
+              ? total + Number(row.quantity || 0)
+              : total;
+          }, 0);
+        }
         function weeklyValues(e, t) {
           if (t <= 6 || J(t, e)) {
             var n = te(t, H(e)),
@@ -62311,14 +62351,14 @@
                       );
                     });
               ((document.getElementById("weeklyPlanningTitle").textContent =
-                "Ordens de Serviço e quantidades por semana · " +
+                "Planejado e executado por semana · " +
                 o[e] +
                 "/2026"),
                 (document.getElementById("weeklyPlanningRows").innerHTML =
                   t.length
                     ? t
                         .map(function (t) {
-                          var n = weeklyValues(t, e),
+                          var n = _(t, e),
                             monthly = Number(t.plan[e] || 0),
                             auto = e <= 6 || J(e, t),
                             a = Object.keys(n).some(function (e) {
@@ -62330,29 +62370,33 @@
                             D(t.name) +
                             "</strong><small>" +
                             (L === C ? "Contrato " + D(H(t)) + " · " : "") +
-                            (auto
-                              ? "Executado do período distribuído igualmente entre as semanas: " +
-                                P.format(W(t, e)) +
-                                " " +
-                                D(t.unit)
-                              : "Planejado mensal: " +
-                                P.format(monthly) +
-                                " " +
-                                D(t.unit)) +
+                            "Planejado mensal: " +
+                            P.format(monthly) +
+                            " " +
+                            D(t.unit) +
+                            " · Executado no período: " +
+                            P.format(W(t, e)) +
+                            " " +
+                            D(t.unit) +
                             '</small><div class="weekly-plan-grid">' +
                             te(e, H(t))
-                              .map(function (e) {
-                                var a = n[e.week] || {};
+                              .map(function (week) {
+                                var a = n[week.week] || {},
+                                  executed = weeklyExecutedQuantity(t, e, week);
                                 return (
                                   '<div class="weekly-plan-cell"><b>Semana ' +
-                                  e.week +
+                                  week.week +
                                   " · " +
-                                  e.label +
-                                  "</b><span>" +
+                                  week.label +
+                                  '</b><div class="weekly-plan-values"><div class="weekly-plan-metric plan"><small>Planejado</small><span>' +
                                   P.format(Number(a.quantity) || 0) +
                                   " " +
                                   D(t.unit) +
-                                  "</span><small>" +
+                                  '</span></div><div class="weekly-plan-metric exec"><small>Executado semanal</small><span>' +
+                                  P.format(executed) +
+                                  " " +
+                                  D(t.unit) +
+                                  "</span></div></div><small>" +
                                   D(a.order || "Sem local/OS informado") +
                                   "</small></div>"
                                 );
@@ -62366,7 +62410,7 @@
                                 e +
                                 '">Planejar semanas</button>'
                               : auto
-                                ? '<small class="lock-note">Distribuição automática com base no executado do período contratual.</small>'
+                                ? '<small class="lock-note">Período fechado; planejamento semanal preservado para comparação.</small>'
                                 : isDavi && monthly <= 0
                                   ? '<small class="lock-note">Aguardando o planejamento mensal ser informado por Caio, Lucas ou Jaqueline.</small>'
                                   : "") +
