@@ -3156,6 +3156,7 @@
           CB = {},
           PL = {},
           B = [],
+          COMMERCIAL_LIVE = {"2463":{"saldo":16530655.38,"termino":"2028-07-10","source":"json-upload-2026-08-05"},"2453":{"saldo":0,"termino":"2026-11-23","source":"json-upload-2026-08-05"},"2465":{"saldo":13088295.82,"termino":"2027-03-15","source":"json-upload-2026-08-05"},"6109":{"saldo":12248506.95,"termino":"2027-09-06","source":"json-upload-2026-08-05"},"2483":{"saldo":4844.83,"termino":"2026-07-01","source":"json-upload-2026-08-05"},"2482":{"saldo":511702.2,"termino":"2026-11-01","source":"json-upload-2026-08-05"},"2481":{"saldo":604935.5,"termino":"2026-07-19","source":"json-upload-2026-08-05"},"2480":{"saldo":48484377.52,"termino":"2028-11-01","source":"json-upload-2026-08-05"},"2479":{"saldo":25540510.85,"termino":"2027-03-22","source":"json-upload-2026-08-05"},"2478":{"saldo":925155.07,"termino":"2026-08-01","source":"json-upload-2026-08-05"},"2476":{"saldo":14284361.87,"termino":"2027-11-06","source":"json-upload-2026-08-05"},"2475":{"saldo":26521054.7,"termino":"2031-01-06","source":"json-upload-2026-08-05"},"2473":{"saldo":3088903.15,"termino":"2028-07-07","source":"json-upload-2026-08-05"},"2470":{"saldo":1119040.37,"termino":"2026-10-01","source":"json-upload-2026-08-05"},"2468":{"saldo":9875967.97,"termino":"2026-08-15","source":"json-upload-2026-08-05"},"9478":{"saldo":11782500.0,"termino":"2028-12-16","source":"json-upload-2026-08-05"},"2459":{"saldo":27485298.02,"termino":"2027-01-01","source":"json-upload-2026-08-05"},"2456":{"saldo":2623075.89,"termino":"2026-12-20","source":"json-upload-2026-08-05"},"2460":{"saldo":27981249.26,"termino":"2027-07-19","source":"json-upload-2026-08-05"}},
           k = null;
         window.SINAPE_SB = SB;
         function S(e, t) {
@@ -61328,13 +61329,13 @@
           return x >= b.start && x <= b.end;
         }
         function itemExecutedRows(e, t) {
-          var code = H(e),
+          var code = String(H(e)),
             id = String(e.sourceId || e.name);
           return O.filter(function (r) {
             return (
-              String(r.contract) === String(code) &&
+              String(r.contract) === code &&
               String(r.itemId) === id &&
-              rowInPeriod(r, t, code)
+              operationalMonth(r) === t
             );
           });
         }
@@ -61392,7 +61393,7 @@
           var a = F(),
             b = periodBounds(e, a);
           return O.filter(function (r) {
-            if (!rowInPeriod(r, e, "Todos" === a ? r.contract : a)) return !1;
+            if (operationalMonth(r) !== e) return !1;
             if ("Todos" !== a && String(r.contract) !== String(a)) return !1;
             if (m && String(r.itemId) !== String(m)) return !1;
             if (t != null && n != null) {
@@ -61582,7 +61583,10 @@
             c = t.reduce(function (e, t) {
               return e + Number(t["Número de Equipes Necessárias"] || 0);
             }, 0),
-            f = L === C ? null : $e[String(F())],
+            f =
+              L === C
+                ? null
+                : COMMERCIAL_LIVE[String(F())] || $e[String(F())],
             l =
               L === C
                 ? "Selecione um contrato"
@@ -61599,8 +61603,9 @@
                   })(f && f.termino),
             s =
               L === C
-                ? Object.keys($e).reduce(function (e, t) {
-                    return e + $e[t].saldo;
+                ? Object.keys(Object.assign({}, $e, COMMERCIAL_LIVE)).reduce(function (e, t) {
+                    var row = COMMERCIAL_LIVE[t] || $e[t];
+                    return e + Number((row && row.saldo) || 0);
                   }, 0)
                 : f
                   ? f.saldo
@@ -61608,9 +61613,9 @@
           document.getElementById("referenceCards").innerHTML =
             '<article class="reference-card"><span>Saldo</span><strong>' +
             (null === s ? "—" : A.format(s)) +
-            '</strong><small>Saldo reajustado da participação SINAPE · Painel Geral de Contratos</small></article><article class="reference-card"><span>Término previsto</span><strong>' +
+            '</strong><small>Saldo reajustado da participação SINAPE · JSON 05/08/2026</small></article><article class="reference-card"><span>Término previsto</span><strong>' +
             D(l) +
-            '</strong><small>Vigência calculada no Painel Geral de Contratos</small></article><article class="reference-card"><span>Equipes existentes</span><strong>' +
+            '</strong><small>Vigência calculada pelo JSON 05/08/2026</small></article><article class="reference-card"><span>Equipes existentes</span><strong>' +
             (B.length ? P.format(d) : "—") +
             "</strong><small>" +
             o[e] +
@@ -62367,26 +62372,8 @@
               : '<div class="rdo-empty">Nenhum item com quantidade planejada para este filtro.</div>'),
             (function () {
               var e = V(),
-                cards = document.querySelectorAll("#cards .card strong"),
-                parseCardValue = function (v) {
-                  var s = String(v || "")
-                    .replace(/[^0-9,.-]/g, "")
-                    .replace(/\./g, "")
-                    .replace(",", ".");
-                  return Number(s) || 0;
-                },
-                t =
-                  cards.length > 0
-                    ? parseCardValue(cards[0].textContent)
-                    : c < 0
-                      ? X()
-                      : Z(e),
-                n =
-                  cards.length > 1
-                    ? parseCardValue(cards[1].textContent)
-                    : c < 0
-                      ? ee()
-                      : $(e),
+                t = c < 0 ? X() : Z(e),
+                n = c < 0 ? ee() : $(e),
                 a = t > 0 ? (n / t) * 100 : 0,
                 r = q.filter(function (e) {
                   var saldoBase = Number(e.contractual || 0);
@@ -63204,21 +63191,50 @@
         document.getElementById("accessGate").hidden = !1;
         document.getElementById("accessSession").hidden = !0;
         document.body.classList.add("access-pending");
+        function parseCommercialLive(html) {
+            var live = {};
+            function money(text) {
+              var value = String(text || "")
+                .replace(/R\$/gi, "")
+                .replace(/\s/g, "")
+                .replace(/\./g, "")
+                .replace(",", ".")
+                .replace(/[^0-9.-]/g, "");
+              var number = Number(value);
+              return Number.isFinite(number) ? number : null;
+            }
+            function isoDate(text) {
+              var match = String(text || "").match(/(\d{2})\/(\d{2})\/(\d{4})/);
+              return match ? match[3] + "-" + match[2] + "-" + match[1] : null;
+            }
+            var cardPattern = /Obra\s+(\d{4,5})[\s\S]{0,2500}?Saldo\s*R\$\s*([0-9.]+,[0-9]{2})[\s\S]{0,1200}?T[eé]rmino previsto:\s*(\d{2}\/\d{2}\/\d{4})/gi;
+            var match;
+            while ((match = cardPattern.exec(html))) {
+              live[String(Number(match[1]))] = {
+                saldo: money(match[2]),
+                termino: isoDate(match[3]),
+              };
+            }
+            return live;
+          }
         (setTimeout(function () {
           document.getElementById("accessEmail").focus();
         }, 0),
-          fetch("../index.html", { cache: "no-store" })
-            .then(function (e) {
-              return e.text();
+          fetch("../index.html?v=" + Date.now(), { cache: "no-store" })
+            .then(function (response) {
+              return response.text();
             })
-            .then(function (e) {
-              var t = e.match(
+            .then(function (html) {
+              var dataset = html.match(
                 /const data = (\[[\s\S]*?\]);\s*const progressByContract/,
               );
-              (t && (B = JSON.parse(t[1])), ue());
+              if (dataset) B = JSON.parse(dataset[1]);
+              ue();
+              return COMMERCIAL_LIVE;
             })
             .catch(function () {
               ue();
+              return COMMERCIAL_LIVE;
             }));
       })();
     </script>
