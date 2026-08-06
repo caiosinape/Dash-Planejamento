@@ -60671,6 +60671,13 @@
             __extPayload.registros.length
           )
             throw new Error("quantidadeRegistros divergente");
+          if (__extPayload.registros.length !== 4412)
+            throw new Error("executado.json desatualizado: esperado 4412 registros");
+          var __extTotal = __extPayload.registros.reduce(function (acc, row) {
+            return acc + Number(row.value || 0);
+          }, 0);
+          if (Math.abs(__extTotal - 54523523.067569) > 0.01)
+            throw new Error("total executado divergente: " + __extTotal);
           O = __extPayload.registros;
           var __stamp = document.getElementById("dataUpdateStamp");
           if (__stamp) {
@@ -60699,7 +60706,7 @@
           var __stampFallback = document.getElementById("dataUpdateStamp");
           if (__stampFallback)
             __stampFallback.textContent =
-              "Atualização: dados incorporados de contingência";
+              "ERRO: executado.json não carregado ou desatualizado";
         }
         // Garante que todos os registros do Estudo Geral aparecam no painel,
         // inclusive contratos/servicos que ainda nao existiam na estrutura original.
@@ -61353,7 +61360,7 @@
             end = new Date(2026, e + 1, 10, 23, 59, 59, 999);
           } else {
             start = new Date(2026, e, 1);
-            var last = Math.min(30, new Date(2026, e + 1, 0).getDate());
+            var last = new Date(2026, e + 1, 0).getDate();
             end = new Date(2026, e, last, 23, 59, 59, 999);
           }
           return {
@@ -62895,16 +62902,12 @@
             })(),
             (function () {
               var e = V(),
-                t = F(),
-                n = {};
-              oe(!0).forEach(function (e) {
-                n[e.sourceId] = !0;
-              });
+                t = F();
               var a = O.filter(function (a) {
                 return (
                   (c < 0 || operationalMonth(a) === e) &&
-                  (L === C || a.contract === t) &&
-                  n[a.itemId]
+                  (L === C || String(a.contract) === String(t)) &&
+                  (!m || String(a.itemId) === String(m))
                 );
               });
               ((document.getElementById("rdoWeek").textContent =
