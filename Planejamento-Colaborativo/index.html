@@ -3156,7 +3156,7 @@
           CB = {},
           PL = {},
           B = [],
-          COMMERCIAL_LIVE = {"2463":{"saldo":16530655.38,"termino":"2028-07-10","source":"json-upload-2026-08-05"},"2453":{"saldo":0,"termino":"2026-11-23","source":"json-upload-2026-08-05"},"2465":{"saldo":13088295.82,"termino":"2027-03-15","source":"json-upload-2026-08-05"},"6109":{"saldo":12248506.95,"termino":"2027-09-06","source":"json-upload-2026-08-05"},"2483":{"saldo":4844.83,"termino":"2026-07-01","source":"json-upload-2026-08-05"},"2482":{"saldo":511702.2,"termino":"2026-11-01","source":"json-upload-2026-08-05"},"2481":{"saldo":604935.5,"termino":"2026-07-19","source":"json-upload-2026-08-05"},"2480":{"saldo":48484377.52,"termino":"2028-11-01","source":"json-upload-2026-08-05"},"2479":{"saldo":25540510.85,"termino":"2027-03-22","source":"json-upload-2026-08-05"},"2478":{"saldo":925155.07,"termino":"2026-08-01","source":"json-upload-2026-08-05"},"2476":{"saldo":14284361.87,"termino":"2027-11-06","source":"json-upload-2026-08-05"},"2475":{"saldo":26521054.7,"termino":"2031-01-06","source":"json-upload-2026-08-05"},"2473":{"saldo":3088903.15,"termino":"2028-07-07","source":"json-upload-2026-08-05"},"2470":{"saldo":1119040.37,"termino":"2026-10-01","source":"json-upload-2026-08-05"},"2468":{"saldo":9875967.97,"termino":"2026-08-15","source":"json-upload-2026-08-05"},"9478":{"saldo":11782500.0,"termino":"2028-12-16","source":"json-upload-2026-08-05"},"2459":{"saldo":27485298.02,"termino":"2027-01-01","source":"json-upload-2026-08-05"},"2456":{"saldo":2623075.89,"termino":"2026-12-20","source":"json-upload-2026-08-05"},"2460":{"saldo":27981249.26,"termino":"2027-07-19","source":"json-upload-2026-08-05"}},
+          COMMERCIAL_LIVE = {"2463":{"saldo":14530655.38,"termino":"2028-07-10","source":"json-upload-2026-08-06"},"2453":{"saldo":0,"termino":"2026-11-23","source":"json-upload-2026-08-06"},"2465":{"saldo":13088295.82,"termino":"2027-03-15","source":"json-upload-2026-08-06"},"6109":{"saldo":12248506.95,"termino":"2027-09-06","source":"json-upload-2026-08-06"},"2483":{"saldo":4844.83,"termino":"2026-07-01","source":"json-upload-2026-08-06"},"2482":{"saldo":511702.2,"termino":"2026-11-01","source":"json-upload-2026-08-06"},"2481":{"saldo":604935.5,"termino":"2026-07-19","source":"json-upload-2026-08-06"},"2480":{"saldo":48484377.52,"termino":"2028-11-01","source":"json-upload-2026-08-06"},"2479":{"saldo":25540510.85,"termino":"2027-03-22","source":"json-upload-2026-08-06"},"2478":{"saldo":925155.07,"termino":"2026-08-01","source":"json-upload-2026-08-06"},"2476":{"saldo":14284361.87,"termino":"2027-11-06","source":"json-upload-2026-08-06"},"2475":{"saldo":26521054.7,"termino":"2031-01-06","source":"json-upload-2026-08-06"},"2473":{"saldo":3088903.15,"termino":"2028-07-07","source":"json-upload-2026-08-06"},"2470":{"saldo":1119040.37,"termino":"2026-10-01","source":"json-upload-2026-08-06"},"2468":{"saldo":9875967.97,"termino":"2026-08-15","source":"json-upload-2026-08-06"},"9478":{"saldo":11782500.0,"termino":"2028-12-16","source":"json-upload-2026-08-06"},"2459":{"saldo":23821505.48,"termino":"2027-01-01","source":"json-upload-2026-08-06"},"2456":{"saldo":2623075.89,"termino":"2026-12-20","source":"json-upload-2026-08-06"},"2460":{"saldo":27981249.26,"termino":"2027-07-19","source":"json-upload-2026-08-06"}}
           k = null;
         window.SINAPE_SB = SB;
         function S(e, t) {
@@ -60652,7 +60652,7 @@
         });
         var L = C,
           q = T(L),
-          O = __SINAPE_DATA__.rdoData;
+          O = [];
         try {
           var __extResponse = await fetch("executado.json?v=" + Date.now(), {
             cache: "no-store",
@@ -60667,11 +60667,47 @@
           )
             throw new Error("JSON sem registros válidos");
           if (
+            Number.isFinite(Number(__extPayload.quantidadeRegistros)) &&
             Number(__extPayload.quantidadeRegistros) !==
-            __extPayload.registros.length
+              __extPayload.registros.length
           )
-            throw new Error("quantidadeRegistros divergente");
-          O = __extPayload.registros;
+            console.warn(
+              "quantidadeRegistros divergente; usando o tamanho real do array:",
+              __extPayload.registros.length,
+            );
+          O = __extPayload.registros
+            .map(function (row) {
+              var normalized = Object.assign({}, row);
+              normalized.contract = String(row.contract || "").trim();
+              normalized.itemId = String(row.itemId || "").trim();
+              normalized.quantity = Number(row.quantity || 0);
+              normalized.value = Number(row.value || 0);
+              if (row.date) {
+                var parts = String(row.date).slice(0, 10).split("-");
+                if (parts.length === 3) {
+                  var derivedMonth = Number(parts[1]) - 1;
+                  if (derivedMonth >= 0 && derivedMonth <= 11)
+                    normalized.month = derivedMonth;
+                }
+              }
+              normalized.month = Number(normalized.month);
+              return normalized;
+            })
+            .filter(function (row) {
+              return (
+                row.contract &&
+                row.itemId &&
+                Number.isFinite(row.month) &&
+                row.month >= 0 &&
+                row.month <= 11 &&
+                Number.isFinite(row.quantity) &&
+                Number.isFinite(row.value)
+              );
+            });
+          if (!O.length) throw new Error("Nenhum registro executado utilizável");
+          var __extTotal = O.reduce(function (acc, row) {
+            return acc + row.value;
+          }, 0);
           var __stamp = document.getElementById("dataUpdateStamp");
           if (__stamp) {
             var __dt = new Date(
@@ -60693,14 +60729,56 @@
           console.info("Executado externo carregado:", O.length, "registros");
         } catch (__extError) {
           console.error(
-            "Falha ao carregar executado.json; usando dados incorporados do Index22.",
+            "Falha ao carregar executado.json; dados executados externos indisponiveis.",
             __extError,
           );
           var __stampFallback = document.getElementById("dataUpdateStamp");
           if (__stampFallback)
             __stampFallback.textContent =
-              "Atualização: dados incorporados de contingência";
+              "ERRO: executado.json não carregado ou desatualizado";
         }
+        // Garante que todos os registros do Estudo Geral aparecam no painel,
+        // inclusive contratos/servicos que ainda nao existiam na estrutura original.
+        (function () {
+          var contractKeyByCode = {};
+          Object.keys(j).forEach(function (ck) {
+            contractKeyByCode[String(ck).split(" - ")[0]] = ck;
+          });
+          var knownItems = {};
+          Object.keys(j).forEach(function (ck) {
+            (j[ck] || []).forEach(function (item) {
+              knownItems[String(item.sourceId || "")] = true;
+            });
+          });
+          O.forEach(function (r) {
+            var contract = String(r.contract || "");
+            var itemId = String(r.itemId || "");
+            if (!contract || !itemId || knownItems[itemId]) return;
+            var ck = contractKeyByCode[contract];
+            if (!ck) {
+              ck = contract + " - EXECUTADO";
+              j[ck] = [];
+              contractKeyByCode[contract] = ck;
+            }
+            var qty = Number(r.quantity || 0);
+            var value = Number(r.value || 0);
+            var inferredPrice = qty ? value / qty : 0;
+            j[ck].push({
+              sourceId: itemId,
+              name: String(r.service || "Servico executado sem cadastro"),
+              unit: String(r.unit || ""),
+              price: Number.isFinite(inferredPrice) ? inferredPrice : 0,
+              contractual: 0,
+              base: 0,
+              plan: Array(12).fill(0),
+              exec: Array(12).fill(0),
+              execValue: Array(12).fill(0),
+              orders: Array(12).fill("Sem servicos"),
+            });
+            knownItems[itemId] = true;
+          });
+          q = T(L);
+        })();
         (function () {
           function mesOperacional(r) {
             var dt = new Date(String(r.date) + "T12:00:00"),
@@ -61311,7 +61389,7 @@
             end = new Date(2026, e + 1, 10, 23, 59, 59, 999);
           } else {
             start = new Date(2026, e, 1);
-            var last = Math.min(30, new Date(2026, e + 1, 0).getDate());
+            var last = new Date(2026, e + 1, 0).getDate();
             end = new Date(2026, e, last, 23, 59, 59, 999);
           }
           return {
@@ -62853,16 +62931,12 @@
             })(),
             (function () {
               var e = V(),
-                t = F(),
-                n = {};
-              oe(!0).forEach(function (e) {
-                n[e.sourceId] = !0;
-              });
+                t = F();
               var a = O.filter(function (a) {
                 return (
                   (c < 0 || operationalMonth(a) === e) &&
-                  (L === C || a.contract === t) &&
-                  n[a.itemId]
+                  (L === C || String(a.contract) === String(t)) &&
+                  (!m || String(a.itemId) === String(m))
                 );
               });
               ((document.getElementById("rdoWeek").textContent =
