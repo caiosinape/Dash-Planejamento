@@ -28,10 +28,16 @@ jobs:
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Preparar arquivos do painel
-        uses: actions/upload-pages-artifact@v3
+      - name: Preparar estrutura preservando o endereco atual
+        run: |
+          mkdir -p _site/Planejamento-Colaborativo
+          cp -R Planejamento-Colaborativo/. _site/Planejamento-Colaborativo/
+          touch _site/.nojekyll
+
+      - name: Enviar arquivos para publicacao
+        uses: actions/upload-pages-artifact@v4
         with:
-          path: ./Planejamento-Colaborativo
+          path: ./_site
 
   deploy:
     environment:
