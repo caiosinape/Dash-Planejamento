@@ -1,0 +1,1 @@
+Decodificar a estrutura compactada c/m, validar exatamente 15 contratos e 650 itens, conferir os totais mensais de janeiro a junho e não alterar o HTML.

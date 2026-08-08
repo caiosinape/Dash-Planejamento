@@ -1,0 +1,1238 @@
+{
+  "status": "diagnostic-only",
+  "htmlModified": false,
+  "packedLength": 41840,
+  "decodedLength": 192321,
+  "decodedSha256": "d996f00f6183c5fecf3dabc71067569ec11287153b12ec4b5d3e4306e4029abd",
+  "parts": [
+    {
+      "index": 0,
+      "length": 5230,
+      "sha256": "f027c0e1b4de26e2768437a577fbd2a8a70d08421a214855c17d935bb516cb93"
+    },
+    {
+      "index": 1,
+      "length": 5230,
+      "sha256": "b26c1cbede4210e29920db3c3997bbfa3ad50e5bf11ffa23047547ae700ca9fe"
+    },
+    {
+      "index": 2,
+      "length": 5230,
+      "sha256": "a7231c8ffbbf36a6c17a2f122a5e412bf5be89cee3ed76ffa8880346e1b6c66f"
+    },
+    {
+      "index": 3,
+      "length": 5230,
+      "sha256": "c0092cf8f1cebda577603f12e2d8996ec8b1eb482e7a1cc4d35c9d6e21987296"
+    },
+    {
+      "index": 4,
+      "length": 5230,
+      "sha256": "09d6c4f98e520e00eb8f54870e8231869f2fa6d4b7ed119a8ec669abca9cfca1"
+    },
+    {
+      "index": 5,
+      "length": 5230,
+      "sha256": "45decd2886737432c5c8bf1dbb10f81fac39376694b27e33b4853c95792ce2a8"
+    },
+    {
+      "index": 6,
+      "length": 5230,
+      "sha256": "66166189b60faaae86d2db6ef2516c76e8a2cf8f7c2a64257a2a7fe50cd60430"
+    },
+    {
+      "index": 7,
+      "length": 5230,
+      "sha256": "e31f22cf02e5122386eb3245f94d1776f835de5488f4e134b6a7a6c116a6db01"
+    }
+  ],
+  "topLevel": {
+    "type": "dict",
+    "length": 2,
+    "keys": [
+      "c",
+      "m"
+    ],
+    "values": {
+      "c": {
+        "type": "dict",
+        "length": 15,
+        "keys": [
+          "2453 - DER PR",
+          "2456 - DETRAN CE",
+          "2459 - DNIT RJ",
+          "2460 - AGESUL",
+          "2463 - DNIT MS",
+          "2465 - DER SP",
+          "2468 - DETRAN DF",
+          "2470 - RENOVIAS",
+          "2473 - PRVias",
+          "2475 - VIASul",
+          "2476 - SPVias",
+          "2479 - DER RJ (CONSERVA)",
+          "2480 - CET RIO",
+          "2481 - CONSÓRCIO PKC",
+          "2483 - DGB"
+        ],
+        "values": {
+          "2453 - DER PR": {
+            "type": "list",
+            "length": 49,
+            "sample": [
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              }
+            ]
+          },
+          "2456 - DETRAN CE": {
+            "type": "list",
+            "length": 16,
+            "sample": [
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              }
+            ]
+          },
+          "2459 - DNIT RJ": {
+            "type": "list",
+            "length": 116,
+            "sample": [
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              }
+            ]
+          },
+          "2460 - AGESUL": {
+            "type": "list",
+            "length": 65,
+            "sample": [
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              }
+            ]
+          },
+          "2463 - DNIT MS": {
+            "type": "list",
+            "length": 74,
+            "sample": [
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              }
+            ]
+          },
+          "2465 - DER SP": {
+            "type": "list",
+            "length": 34,
+            "sample": [
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              }
+            ]
+          },
+          "2468 - DETRAN DF": {
+            "type": "list",
+            "length": 19,
+            "sample": [
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              }
+            ]
+          },
+          "2470 - RENOVIAS": {
+            "type": "list",
+            "length": 16,
+            "sample": [
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              },
+              {
+                "type": "list"
+              }
+            ]
+          }
+        }
+      },
+      "m": {
+        "type": "dict",
+        "length": 5,
+        "keys": [
+          "source",
+          "sheet",
+          "contracts",
+          "items",
+          "externalExecutedSource"
+        ],
+        "values": {
+          "source": {
+            "type": "str",
+            "length": 56,
+            "sample": "Modelo Cronograma Base de Dados  v2.xlsx (upload direto)"
+          },
+          "sheet": {
+            "type": "str",
+            "length": 9,
+            "sample": "Planilha1"
+          },
+          "contracts": {
+            "type": "int",
+            "value": 15
+          },
+          "items": {
+            "type": "int",
+            "value": 650
+          },
+          "externalExecutedSource": {
+            "type": "bool",
+            "value": false
+          }
+        }
+      }
+    }
+  },
+  "inference": {
+    "format": "compact-column-matrix",
+    "columnsType": "dict",
+    "matrixType": "dict",
+    "columnsLength": 15,
+    "matrixLength": 5,
+    "columnsPreview": {
+      "type": "dict",
+      "length": 15,
+      "keys": [
+        "2453 - DER PR",
+        "2456 - DETRAN CE",
+        "2459 - DNIT RJ",
+        "2460 - AGESUL",
+        "2463 - DNIT MS",
+        "2465 - DER SP",
+        "2468 - DETRAN DF",
+        "2470 - RENOVIAS",
+        "2473 - PRVias",
+        "2475 - VIASul",
+        "2476 - SPVias",
+        "2479 - DER RJ (CONSERVA)",
+        "2480 - CET RIO",
+        "2481 - CONSÓRCIO PKC",
+        "2483 - DGB"
+      ],
+      "values": {
+        "2453 - DER PR": {
+          "type": "list",
+          "length": 49,
+          "sample": [
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            }
+          ]
+        },
+        "2456 - DETRAN CE": {
+          "type": "list",
+          "length": 16,
+          "sample": [
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            }
+          ]
+        },
+        "2459 - DNIT RJ": {
+          "type": "list",
+          "length": 116,
+          "sample": [
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            }
+          ]
+        },
+        "2460 - AGESUL": {
+          "type": "list",
+          "length": 65,
+          "sample": [
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            }
+          ]
+        },
+        "2463 - DNIT MS": {
+          "type": "list",
+          "length": 74,
+          "sample": [
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            }
+          ]
+        },
+        "2465 - DER SP": {
+          "type": "list",
+          "length": 34,
+          "sample": [
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            }
+          ]
+        },
+        "2468 - DETRAN DF": {
+          "type": "list",
+          "length": 19,
+          "sample": [
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            }
+          ]
+        },
+        "2470 - RENOVIAS": {
+          "type": "list",
+          "length": 16,
+          "sample": [
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "length": 10,
+              "sample": [
+                {
+                  "type": "str"
+                },
+                {
+                  "type": "int"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                },
+                {
+                  "type": "float"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "firstMatrixRows": {
+      "type": "dict",
+      "length": 5,
+      "keys": [
+        "source",
+        "sheet",
+        "contracts",
+        "items",
+        "externalExecutedSource"
+      ],
+      "values": {
+        "source": {
+          "type": "str",
+          "length": 56,
+          "sample": "Modelo Cronograma Base de Dados  v2.xlsx (upload direto)"
+        },
+        "sheet": {
+          "type": "str",
+          "length": 9,
+          "sample": "Planilha1"
+        },
+        "contracts": {
+          "type": "int",
+          "value": 15
+        },
+        "items": {
+          "type": "int",
+          "value": 650
+        },
+        "externalExecutedSource": {
+          "type": "bool",
+          "value": false
+        }
+      }
+    }
+  }
+}
